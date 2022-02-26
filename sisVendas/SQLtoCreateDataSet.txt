@@ -1,0 +1,101 @@
+# ---------------------------------------------------------------------- #
+# Add table "Cliente"                                                    #
+# ---------------------------------------------------------------------- #
+CREATE TABLE "Client"(
+
+	"cli_id" INTEGER IDENTITY,
+	"cli_name" VARCHAR(50) DEFAULT 'Sem nome',
+	"cli_fantasy_name" VARCHAR(50),
+	"cli_cpf_cnpj" VARCHAR(19),
+	"cli_zip_code" VARCHAR(10),
+	"cli_addres" VARCHAR(50),
+	"cli_district" VARCHAR(50),
+	"cli_city" VARCHAR(30),
+	"cli_telephone" VARCHAR(15),
+	"cli_rg_ie" VARCHAR(19),
+	"cli_uf" VARCHAR(3),
+	"cli_birth_at" DATETIME,
+	"cli_created_at" DATETIME DEFAULT GETDATE(),
+	"cli_sex" CHAR(2),
+	"cli_balance" NUMERIC(15,2) DEFAULT 0,
+	"cli_email" VARCHAR(100),
+
+
+	
+	CONSTRAINT "PK_CPF_CLIENTE" PRIMARY KEY ("cli_cpf_cnpj")
+);
+
+
+
+INSERT INTO Client (cli_name,cli_fantasy_name,cli_cpf_cnpj,cli_zip_code,cli_addres,cli_district,
+cli_city,cli_telephone,cli_rg_ie,cli_uf,cli_birth_at,cli_sex,cli_balance,cli_email)
+values ('Nome','Fantasy Name','387.133.768-45','19470000','Rua Manaus 8-31','Cli District',
+'cli_city','cli_telephone','cli_rg_ie','cl','10-10-2021','M',500,'email@email')
+	
+
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------- #
+# Add table "Fornecedor        "                                         #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE "Fornecedor"(
+
+	"for_cod" INTEGER IDENTITY,
+	"for_nome" VARCHAR(50),
+	"for_cpf" VARCHAR(15),
+	"for_cep" VARCHAR(10),
+	"for_end" VARCHAR(50),
+	"for_bairro" VARCHAR(50),
+	"for_cidade" VARCHAR(30),
+	"for_estado" VARCHAR(3),
+	"for_dtcadastro" DATETIME,
+	"for_complemento" VARCHAR(149),
+	"for_telefone" VARCHAR(15),
+	
+	CONSTRAINT "PK_CPF_FORNECEDOR" PRIMARY KEY ("for_cpf")
+);
+
+insert into Fornecedor (for_nome,for_cpf, for_cep,for_end,for_bairro,for_cidade,for_estado,for_dtcadastro,for_complemento,for_telefone)
+values ('fornecedor um', '38713376845', '19470000', 'rua da minha casa 10-10', 'centro', 'Epitácio', 'SP', '10-10-2021', 'Sem complemento', '998090741');
+insert into Fornecedor (for_nome,for_cpf, for_cep,for_end,for_bairro,for_cidade,for_estado,for_dtcadastro,for_complemento,for_telefone)
+values ('fornecedor dois', '4871337683245', '19470000', 'rua da minha casa 10-10', 'centro', 'Epitácio', 'SP', '10-10-2021', 'Sem complemento', '998090741');
+insert into Fornecedor (for_nome,for_cpf, for_cep,for_end,for_bairro,for_cidade,for_estado,for_dtcadastro,for_complemento,for_telefone)
+values ('fornecedor tres', '5871337632845', '19470000', 'rua da minha casa 10-10', 'centro', 'Epitácio', 'SP', '10-10-2021', 'Sem complemento', '998090741');
+insert into Fornecedor (for_nome,for_cpf, for_cep,for_end,for_bairro,for_cidade,for_estado,for_dtcadastro,for_complemento,for_telefone)
+values ('fornecedor quatro', '6871337326845', '19470000', 'rua da minha casa 10-10', 'centro', 'Epitácio', 'SP', '10-10-2021', 'Sem complemento', '998090741');
+
+# ---------------------------------------------------------------------- #
+# Add table "Funcionário"                                                    #
+# ---------------------------------------------------------------------- #
+
+
+CREATE TABLE "Funcionario"(
+
+	"func_cod" INTEGER IDENTITY,
+	"func_nome" VARCHAR(50),
+	"func_cpf" VARCHAR(15),
+	"func_cep" VARCHAR(10),
+	"func_end" VARCHAR(50),
+	"func_bairro" VARCHAR(50),
+	"func_cidade" VARCHAR(30),
+	"func_estado" VARCHAR(3),
+	"func_dtnascimento" DATETIME,
+	"func_dtcadastro" DATETIME,
+	"func_dtadmissao" DATETIME,
+	"func_dtdemissao" DATETIME,
+	"func_complemento" VARCHAR(149),
+	"func_telefone" VARCHAR(15),
+	"func_sexo" CHAR(2),
+	"func_salario" NUMERIC(15,2)
+	
+	CONSTRAINT "PK_CPF_FUNCIONARIO" PRIMARY KEY ("func_cpf")
+);
+INSERT INTO Funcionario(func_nome,func_cpf,func_cep,func_end,func_bairro,func_cidade,func_estado,func_dtnascimento,func_dtcadastro,func_dtadmissao,func_dtdemissao,func_complemento,func_telefone,func_sexo,func_salario)
+VALUES ('Funcionario Quatro','38713376845','19470000','Rua manaus 8-31','Centro','Presidente Epitácio','SP','01-11-1995 00:00:00', '07-07-2021 10:43:20', '07-07-2021 10:43:20', '07-07-2021 10:43:20','Sem complemento','18998090748','M',1500.0)
+INSERT INTO Funcionario(func_nome,func_cpf,func_cep,func_end,func_bairro,func_cidade,func_estado,func_dtnascimento,func_dtcadastro,func_dtadmissao,func_dtdemissao,func_complemento,func_telefone,func_sexo,func_salario)
+VALUES ('Funcionario Um','48713376845','19470000','Rua manaus 8-31','Centro','Presidente Epitácio','SP','01-11-1995 00:00:00', '07-07-2021 10:43:20', '07-07-2021 10:43:20', '07-07-2021 10:43:20','Sem complemento','18998090748','M',1500.0)
+INSERT INTO Funcionario(func_nome,func_cpf,func_cep,func_end,func_bairro,func_cidade,func_estado,func_dtnascimento,func_dtcadastro,func_dtadmissao,func_dtdemissao,func_complemento,func_telefone,func_sexo,func_salario)
+VALUES ('Funcionario tres','46713376845','19470000','Rua manaus 8-31','Centro','Presidente Epitácio','SP','01-11-1995 00:00:00', '07-07-2021 10:43:20', '07-07-2021 10:43:20', '07-07-2021 10:43:20','Sem complemento','18998090748','M',1500.0)
