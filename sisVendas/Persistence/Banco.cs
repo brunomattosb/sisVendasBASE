@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace sisVendas.Persistence
 {
@@ -27,6 +28,7 @@ namespace sisVendas.Persistence
             catch (Exception e)
             {
                 Console.Out.WriteLine("Erro conexão" + e.Message);
+                MessageBox.Show("Erro conexão" + e.Message, "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return resultado;
         }
@@ -81,6 +83,7 @@ namespace sisVendas.Persistence
             catch (Exception e)
             {
                 Console.Out.WriteLine("Erro execute query" + e.Message);
+                MessageBox.Show("Erro execute nonquery" + e.Message, "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
         }
@@ -92,13 +95,23 @@ namespace sisVendas.Persistence
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Transaction = trans;
                 for (int i = 0; i < parametros.Length; i += 2)
-                    cmd.Parameters.AddWithValue(parametros[i].ToString(), parametros[i + 1]);
+                {
+                    if(parametros[i+1] == null)
+                    {
+                        cmd.Parameters.AddWithValue(parametros[i].ToString(), "");
+                        MessageBox.Show(parametros[i].ToString());
+                    }
+                    else
+                        cmd.Parameters.AddWithValue(parametros[i].ToString(), parametros[i + 1]);
+                }
                 cmd.ExecuteNonQuery();
                 return true;
             }
             catch (Exception e)
             {
                 Console.Out.WriteLine("Erro execute nonquery" + e.Message);
+                MessageBox.Show("Erro execute nonquery" + e.Message, "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
 
                 return false;
             }

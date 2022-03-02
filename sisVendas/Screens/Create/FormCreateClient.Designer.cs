@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.gbCod = new System.Windows.Forms.GroupBox();
+            this.lblSaldo = new System.Windows.Forms.Label();
+            this.tbSaldo = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
@@ -63,33 +65,30 @@
             this.lblFantasyName = new System.Windows.Forms.Label();
             this.lblCpf = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.dgv_funcionario = new System.Windows.Forms.DataGridView();
-            this.func_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_cod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_cep = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_end = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_bairro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_cidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_dtnascimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_dtcadastro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_pais = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_complemento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_telefone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_sexo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_salario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_dtadmissao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_dtdemissao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgv_client = new System.Windows.Forms.DataGridView();
             this.lblCliente = new System.Windows.Forms.Label();
             this.GbpPesquisa = new System.Windows.Forms.GroupBox();
             this.tbSearch = new System.Windows.Forms.TextBox();
-            this.lblSaldo = new System.Windows.Forms.Label();
-            this.tbSaldo = new System.Windows.Forms.TextBox();
+            this.cli_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_rg_ie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_fantasy_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_zip_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_addres = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_district = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_city = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_uf = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_birth_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_telephone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_cpf_cnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_sex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_created_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbCod.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_funcionario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_client)).BeginInit();
             this.GbpPesquisa.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -133,6 +132,25 @@
             this.gbCod.TabIndex = 1;
             this.gbCod.TabStop = false;
             // 
+            // lblSaldo
+            // 
+            this.lblSaldo.AutoSize = true;
+            this.lblSaldo.Location = new System.Drawing.Point(550, 181);
+            this.lblSaldo.Name = "lblSaldo";
+            this.lblSaldo.Size = new System.Drawing.Size(37, 13);
+            this.lblSaldo.TabIndex = 43;
+            this.lblSaldo.Text = "Saldo:";
+            // 
+            // tbSaldo
+            // 
+            this.tbSaldo.Enabled = false;
+            this.tbSaldo.Location = new System.Drawing.Point(553, 194);
+            this.tbSaldo.MaxLength = 10;
+            this.tbSaldo.Name = "tbSaldo";
+            this.tbSaldo.Size = new System.Drawing.Size(111, 20);
+            this.tbSaldo.TabIndex = 42;
+            this.tbSaldo.Text = "0,00";
+            // 
             // tbName
             // 
             this.tbName.Location = new System.Drawing.Point(37, 73);
@@ -175,15 +193,16 @@
             this.mtbRgIe.Size = new System.Drawing.Size(112, 20);
             this.mtbRgIe.TabIndex = 2;
             this.mtbRgIe.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbRgIe.Click += new System.EventHandler(this.mtbRgIe_Click);
             // 
             // lblRg
             // 
             this.lblRg.AutoSize = true;
             this.lblRg.Location = new System.Drawing.Point(231, 17);
             this.lblRg.Name = "lblRg";
-            this.lblRg.Size = new System.Drawing.Size(41, 13);
+            this.lblRg.Size = new System.Drawing.Size(26, 13);
             this.lblRg.TabIndex = 36;
-            this.lblRg.Text = "RG/IE:";
+            this.lblRg.Text = "RG:";
             // 
             // tableLayoutPanel1
             // 
@@ -238,6 +257,7 @@
             // 
             // btnRemove
             // 
+            this.btnRemove.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDownGrid;
             this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnRemove.Location = new System.Drawing.Point(346, 3);
             this.btnRemove.Name = "btnRemove";
@@ -256,6 +276,7 @@
             this.mtbDtNasc.TabIndex = 11;
             this.mtbDtNasc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mtbDtNasc.ValidatingType = typeof(System.DateTime);
+            this.mtbDtNasc.Click += new System.EventHandler(this.mtbDtNasc_Click);
             // 
             // mtbTelephone
             // 
@@ -265,6 +286,7 @@
             this.mtbTelephone.Size = new System.Drawing.Size(112, 20);
             this.mtbTelephone.TabIndex = 12;
             this.mtbTelephone.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbTelephone.Click += new System.EventHandler(this.mtbTelephone_Click);
             // 
             // lblCod
             // 
@@ -288,11 +310,15 @@
             // mtbCpf
             // 
             this.mtbCpf.Location = new System.Drawing.Point(116, 33);
-            this.mtbCpf.Mask = "000,000,000-00";
+            this.mtbCpf.Mask = "999.999.999-99";
             this.mtbCpf.Name = "mtbCpf";
             this.mtbCpf.Size = new System.Drawing.Size(112, 20);
             this.mtbCpf.TabIndex = 1;
             this.mtbCpf.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbCpf.Click += new System.EventHandler(this.mtbCpf_Click);
+            this.mtbCpf.TextChanged += new System.EventHandler(this.mtbCpf_TextChanged);
+            this.mtbCpf.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtbCpf_KeyPress);
+            this.mtbCpf.Leave += new System.EventHandler(this.mtbCpf_Leave);
             // 
             // mtbCep
             // 
@@ -302,6 +328,7 @@
             this.mtbCep.Size = new System.Drawing.Size(112, 20);
             this.mtbCep.TabIndex = 9;
             this.mtbCep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbCep.Click += new System.EventHandler(this.mtbCep_Click);
             // 
             // tbCod
             // 
@@ -358,35 +385,36 @@
             this.cbbEstado.Items.AddRange(new object[] {
             "AC",
             "AL",
-            "AP",
             "AM",
+            "AP",
             "BA",
             "CE",
             "DF",
             "ES",
             "GO",
             "MA",
-            "MT",
-            "MS",
             "MG",
+            "MS",
+            "MT",
             "PA",
             "PB",
-            "PR",
             "PE",
             "PI",
+            "PR",
             "RJ",
             "RN",
-            "RS",
             "RO",
             "RR",
+            "RS",
             "SC",
-            "SP",
             "SE",
+            "SP",
             "TO"});
             this.cbbEstado.Location = new System.Drawing.Point(470, 150);
             this.cbbEstado.MaxLength = 2;
             this.cbbEstado.Name = "cbbEstado";
             this.cbbEstado.Size = new System.Drawing.Size(77, 21);
+            this.cbbEstado.Sorted = true;
             this.cbbEstado.TabIndex = 10;
             // 
             // lblBairro
@@ -451,6 +479,7 @@
             // 
             // tbFantasyName
             // 
+            this.tbFantasyName.Enabled = false;
             this.tbFantasyName.Location = new System.Drawing.Point(352, 73);
             this.tbFantasyName.MaxLength = 49;
             this.tbFantasyName.Name = "tbFantasyName";
@@ -471,9 +500,9 @@
             this.lblCpf.AutoSize = true;
             this.lblCpf.Location = new System.Drawing.Point(114, 19);
             this.lblCpf.Name = "lblCpf";
-            this.lblCpf.Size = new System.Drawing.Size(66, 13);
+            this.lblCpf.Size = new System.Drawing.Size(34, 13);
             this.lblCpf.TabIndex = 2;
-            this.lblCpf.Text = "*CPF/CNPJ:";
+            this.lblCpf.Text = "*CPF:";
             // 
             // tableLayoutPanel2
             // 
@@ -482,7 +511,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.dgv_funcionario, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.dgv_client, 0, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(33, 424);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
@@ -490,180 +519,37 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(705, 222);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
-            // dgv_funcionario
+            // dgv_client
             // 
-            this.dgv_funcionario.AllowUserToAddRows = false;
-            this.dgv_funcionario.AllowUserToDeleteRows = false;
-            this.dgv_funcionario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgv_funcionario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_funcionario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.func_nome,
-            this.func_cod,
-            this.func_cep,
-            this.func_end,
-            this.func_bairro,
-            this.func_cidade,
-            this.func_estado,
-            this.func_dtnascimento,
-            this.func_dtcadastro,
-            this.func_pais,
-            this.func_complemento,
-            this.func_telefone,
-            this.func_sexo,
-            this.func_cpf,
-            this.func_salario,
-            this.func_dtadmissao,
-            this.func_dtdemissao});
-            this.dgv_funcionario.Location = new System.Drawing.Point(3, 3);
-            this.dgv_funcionario.MultiSelect = false;
-            this.dgv_funcionario.Name = "dgv_funcionario";
-            this.dgv_funcionario.ReadOnly = true;
-            this.dgv_funcionario.RowHeadersVisible = false;
-            this.dgv_funcionario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_funcionario.Size = new System.Drawing.Size(699, 216);
-            this.dgv_funcionario.TabIndex = 0;
-            // 
-            // func_nome
-            // 
-            this.func_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.func_nome.DataPropertyName = "func_nome";
-            this.func_nome.HeaderText = "Nome";
-            this.func_nome.Name = "func_nome";
-            this.func_nome.ReadOnly = true;
-            // 
-            // func_cod
-            // 
-            this.func_cod.DataPropertyName = "func_cod";
-            this.func_cod.HeaderText = "Código";
-            this.func_cod.Name = "func_cod";
-            this.func_cod.ReadOnly = true;
-            this.func_cod.Visible = false;
-            // 
-            // func_cep
-            // 
-            this.func_cep.DataPropertyName = "func_cep";
-            this.func_cep.HeaderText = "CEP";
-            this.func_cep.Name = "func_cep";
-            this.func_cep.ReadOnly = true;
-            this.func_cep.Visible = false;
-            // 
-            // func_end
-            // 
-            this.func_end.DataPropertyName = "func_end";
-            this.func_end.HeaderText = "Endereço";
-            this.func_end.Name = "func_end";
-            this.func_end.ReadOnly = true;
-            this.func_end.Visible = false;
-            // 
-            // func_bairro
-            // 
-            this.func_bairro.DataPropertyName = "func_bairro";
-            this.func_bairro.HeaderText = "Bairro";
-            this.func_bairro.Name = "func_bairro";
-            this.func_bairro.ReadOnly = true;
-            this.func_bairro.Visible = false;
-            // 
-            // func_cidade
-            // 
-            this.func_cidade.DataPropertyName = "func_cidade";
-            this.func_cidade.HeaderText = "Cidade";
-            this.func_cidade.Name = "func_cidade";
-            this.func_cidade.ReadOnly = true;
-            this.func_cidade.Visible = false;
-            // 
-            // func_estado
-            // 
-            this.func_estado.DataPropertyName = "func_estado";
-            this.func_estado.HeaderText = "Estado";
-            this.func_estado.Name = "func_estado";
-            this.func_estado.ReadOnly = true;
-            this.func_estado.Visible = false;
-            // 
-            // func_dtnascimento
-            // 
-            this.func_dtnascimento.DataPropertyName = "func_dtnascimento";
-            this.func_dtnascimento.HeaderText = "Nascimento";
-            this.func_dtnascimento.Name = "func_dtnascimento";
-            this.func_dtnascimento.ReadOnly = true;
-            this.func_dtnascimento.Visible = false;
-            // 
-            // func_dtcadastro
-            // 
-            this.func_dtcadastro.DataPropertyName = "func_dtcadastro";
-            this.func_dtcadastro.HeaderText = "Cadastro";
-            this.func_dtcadastro.Name = "func_dtcadastro";
-            this.func_dtcadastro.ReadOnly = true;
-            this.func_dtcadastro.Visible = false;
-            // 
-            // func_pais
-            // 
-            this.func_pais.DataPropertyName = "func_pais";
-            this.func_pais.HeaderText = "Pais";
-            this.func_pais.Name = "func_pais";
-            this.func_pais.ReadOnly = true;
-            this.func_pais.Visible = false;
-            // 
-            // func_complemento
-            // 
-            this.func_complemento.DataPropertyName = "func_complemento";
-            this.func_complemento.HeaderText = "Complemento";
-            this.func_complemento.Name = "func_complemento";
-            this.func_complemento.ReadOnly = true;
-            this.func_complemento.Visible = false;
-            // 
-            // func_telefone
-            // 
-            this.func_telefone.DataPropertyName = "func_telefone";
-            this.func_telefone.DividerWidth = 2;
-            this.func_telefone.HeaderText = "Telefone";
-            this.func_telefone.Name = "func_telefone";
-            this.func_telefone.ReadOnly = true;
-            this.func_telefone.Visible = false;
-            // 
-            // func_sexo
-            // 
-            this.func_sexo.DataPropertyName = "func_sexo";
-            this.func_sexo.HeaderText = "Sexo";
-            this.func_sexo.Name = "func_sexo";
-            this.func_sexo.ReadOnly = true;
-            this.func_sexo.Visible = false;
-            // 
-            // func_cpf
-            // 
-            this.func_cpf.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.func_cpf.DataPropertyName = "func_cpf";
-            this.func_cpf.HeaderText = "CPF/CNPJ";
-            this.func_cpf.MinimumWidth = 200;
-            this.func_cpf.Name = "func_cpf";
-            this.func_cpf.ReadOnly = true;
-            this.func_cpf.Width = 200;
-            // 
-            // func_salario
-            // 
-            this.func_salario.DataPropertyName = "func_salario";
-            this.func_salario.HeaderText = "Salario";
-            this.func_salario.Name = "func_salario";
-            this.func_salario.ReadOnly = true;
-            this.func_salario.Visible = false;
-            // 
-            // func_dtadmissao
-            // 
-            this.func_dtadmissao.DataPropertyName = "func_dtadmissao";
-            this.func_dtadmissao.HeaderText = "Admissao";
-            this.func_dtadmissao.MinimumWidth = 100;
-            this.func_dtadmissao.Name = "func_dtadmissao";
-            this.func_dtadmissao.ReadOnly = true;
-            this.func_dtadmissao.Visible = false;
-            // 
-            // func_dtdemissao
-            // 
-            this.func_dtdemissao.DataPropertyName = "func_dtdemissao";
-            this.func_dtdemissao.HeaderText = "demissao";
-            this.func_dtdemissao.Name = "func_dtdemissao";
-            this.func_dtdemissao.ReadOnly = true;
-            this.func_dtdemissao.Visible = false;
+            this.dgv_client.AllowUserToAddRows = false;
+            this.dgv_client.AllowUserToDeleteRows = false;
+            this.dgv_client.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_client.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.cli_name,
+            this.cli_rg_ie,
+            this.cli_email,
+            this.cli_fantasy_name,
+            this.cli_id,
+            this.cli_zip_code,
+            this.cli_addres,
+            this.cli_district,
+            this.cli_city,
+            this.cli_uf,
+            this.cli_birth_at,
+            this.cli_telephone,
+            this.cli_cpf_cnpj,
+            this.cli_sex,
+            this.cli_balance,
+            this.cli_created_at});
+            this.dgv_client.Location = new System.Drawing.Point(3, 3);
+            this.dgv_client.MultiSelect = false;
+            this.dgv_client.Name = "dgv_client";
+            this.dgv_client.ReadOnly = true;
+            this.dgv_client.RowHeadersVisible = false;
+            this.dgv_client.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_client.Size = new System.Drawing.Size(699, 216);
+            this.dgv_client.TabIndex = 0;
+            this.dgv_client.DoubleClick += new System.EventHandler(this.dgv_client_DoubleClick);
             // 
             // lblCliente
             // 
@@ -696,23 +582,141 @@
             this.tbSearch.Size = new System.Drawing.Size(322, 20);
             this.tbSearch.TabIndex = 0;
             // 
-            // lblSaldo
+            // cli_name
             // 
-            this.lblSaldo.AutoSize = true;
-            this.lblSaldo.Location = new System.Drawing.Point(550, 181);
-            this.lblSaldo.Name = "lblSaldo";
-            this.lblSaldo.Size = new System.Drawing.Size(37, 13);
-            this.lblSaldo.TabIndex = 43;
-            this.lblSaldo.Text = "Saldo:";
+            this.cli_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cli_name.DataPropertyName = "cli_name";
+            this.cli_name.HeaderText = "Nome";
+            this.cli_name.MinimumWidth = 320;
+            this.cli_name.Name = "cli_name";
+            this.cli_name.ReadOnly = true;
+            this.cli_name.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // tbSaldo
+            // cli_rg_ie
             // 
-            this.tbSaldo.Location = new System.Drawing.Point(553, 194);
-            this.tbSaldo.MaxLength = 10;
-            this.tbSaldo.Name = "tbSaldo";
-            this.tbSaldo.Size = new System.Drawing.Size(111, 20);
-            this.tbSaldo.TabIndex = 42;
-            this.tbSaldo.Text = "0,00";
+            this.cli_rg_ie.DataPropertyName = "cli_rg_ie";
+            this.cli_rg_ie.HeaderText = "RG/IE";
+            this.cli_rg_ie.Name = "cli_rg_ie";
+            this.cli_rg_ie.ReadOnly = true;
+            this.cli_rg_ie.Visible = false;
+            // 
+            // cli_email
+            // 
+            this.cli_email.DataPropertyName = "cli_email";
+            this.cli_email.HeaderText = "Email";
+            this.cli_email.Name = "cli_email";
+            this.cli_email.ReadOnly = true;
+            this.cli_email.Visible = false;
+            // 
+            // cli_fantasy_name
+            // 
+            this.cli_fantasy_name.DataPropertyName = "cli_fantasy_name";
+            this.cli_fantasy_name.HeaderText = "Nome Fantasia";
+            this.cli_fantasy_name.Name = "cli_fantasy_name";
+            this.cli_fantasy_name.ReadOnly = true;
+            this.cli_fantasy_name.Visible = false;
+            // 
+            // cli_id
+            // 
+            this.cli_id.DataPropertyName = "cli_id";
+            this.cli_id.HeaderText = "Código";
+            this.cli_id.Name = "cli_id";
+            this.cli_id.ReadOnly = true;
+            this.cli_id.Visible = false;
+            // 
+            // cli_zip_code
+            // 
+            this.cli_zip_code.DataPropertyName = "cli_zip_code";
+            this.cli_zip_code.HeaderText = "CEP";
+            this.cli_zip_code.Name = "cli_zip_code";
+            this.cli_zip_code.ReadOnly = true;
+            this.cli_zip_code.Visible = false;
+            // 
+            // cli_addres
+            // 
+            this.cli_addres.DataPropertyName = "cli_addres";
+            this.cli_addres.HeaderText = "Endereço";
+            this.cli_addres.Name = "cli_addres";
+            this.cli_addres.ReadOnly = true;
+            this.cli_addres.Visible = false;
+            // 
+            // cli_district
+            // 
+            this.cli_district.DataPropertyName = "cli_district";
+            this.cli_district.HeaderText = "Bairro";
+            this.cli_district.Name = "cli_district";
+            this.cli_district.ReadOnly = true;
+            this.cli_district.Visible = false;
+            // 
+            // cli_city
+            // 
+            this.cli_city.DataPropertyName = "cli_city";
+            this.cli_city.HeaderText = "Cidade";
+            this.cli_city.Name = "cli_city";
+            this.cli_city.ReadOnly = true;
+            this.cli_city.Visible = false;
+            // 
+            // cli_uf
+            // 
+            this.cli_uf.DataPropertyName = "cli_uf";
+            this.cli_uf.HeaderText = "Estado";
+            this.cli_uf.Name = "cli_uf";
+            this.cli_uf.ReadOnly = true;
+            this.cli_uf.Visible = false;
+            // 
+            // cli_birth_at
+            // 
+            this.cli_birth_at.DataPropertyName = "cli_birth_at";
+            this.cli_birth_at.HeaderText = "Nascimento";
+            this.cli_birth_at.Name = "cli_birth_at";
+            this.cli_birth_at.ReadOnly = true;
+            this.cli_birth_at.Visible = false;
+            // 
+            // cli_telephone
+            // 
+            this.cli_telephone.DataPropertyName = "cli_telephone";
+            this.cli_telephone.DividerWidth = 2;
+            this.cli_telephone.HeaderText = "Telefone";
+            this.cli_telephone.Name = "cli_telephone";
+            this.cli_telephone.ReadOnly = true;
+            this.cli_telephone.Visible = false;
+            // 
+            // cli_cpf_cnpj
+            // 
+            this.cli_cpf_cnpj.DataPropertyName = "cli_cpf_cnpj";
+            this.cli_cpf_cnpj.HeaderText = "CPF/CNPJ";
+            this.cli_cpf_cnpj.MinimumWidth = 200;
+            this.cli_cpf_cnpj.Name = "cli_cpf_cnpj";
+            this.cli_cpf_cnpj.ReadOnly = true;
+            this.cli_cpf_cnpj.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.cli_cpf_cnpj.Width = 200;
+            // 
+            // cli_sex
+            // 
+            this.cli_sex.DataPropertyName = "cli_sex";
+            this.cli_sex.HeaderText = "Sexo";
+            this.cli_sex.Name = "cli_sex";
+            this.cli_sex.ReadOnly = true;
+            this.cli_sex.Visible = false;
+            // 
+            // cli_balance
+            // 
+            this.cli_balance.DataPropertyName = "cli_balance";
+            this.cli_balance.HeaderText = "Saldo";
+            this.cli_balance.MinimumWidth = 75;
+            this.cli_balance.Name = "cli_balance";
+            this.cli_balance.ReadOnly = true;
+            this.cli_balance.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.cli_balance.Width = 75;
+            // 
+            // cli_created_at
+            // 
+            this.cli_created_at.DataPropertyName = "cli_created_at";
+            this.cli_created_at.HeaderText = "Cadastro";
+            this.cli_created_at.MinimumWidth = 100;
+            this.cli_created_at.Name = "cli_created_at";
+            this.cli_created_at.ReadOnly = true;
+            this.cli_created_at.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // FormCreateClient
             // 
@@ -729,7 +733,7 @@
             this.gbCod.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_funcionario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_client)).EndInit();
             this.GbpPesquisa.ResumeLayout(false);
             this.GbpPesquisa.PerformLayout();
             this.ResumeLayout(false);
@@ -769,32 +773,31 @@
         private System.Windows.Forms.Label lblFantasyName;
         private System.Windows.Forms.Label lblCpf;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.DataGridView dgv_funcionario;
+        private System.Windows.Forms.DataGridView dgv_client;
         private System.Windows.Forms.Label lblCliente;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.TextBox tbEmail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_nome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_cod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_cep;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_end;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_bairro;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_cidade;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_dtnascimento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_dtcadastro;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_pais;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_complemento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_telefone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_sexo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_cpf;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_salario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_dtadmissao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_dtdemissao;
         private System.Windows.Forms.GroupBox GbpPesquisa;
         private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.Label lblSaldo;
         private System.Windows.Forms.TextBox tbSaldo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_rg_ie;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_fantasy_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_zip_code;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_addres;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_district;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_city;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_uf;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_birth_at;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_telephone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_cpf_cnpj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_sex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_balance;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_created_at;
     }
 }

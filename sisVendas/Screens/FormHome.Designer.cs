@@ -32,7 +32,6 @@
             this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnFuncionario = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnClient = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuBtnUser = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnProvider = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnProduct = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnProductCategory = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +59,6 @@
             this.cadastrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuBtnFuncionario,
             this.menuBtnClient,
-            this.menuBtnUser,
             this.menuBtnProvider,
             this.menuBtnProduct,
             this.menuBtnProductCategory,
@@ -84,13 +82,6 @@
             this.menuBtnClient.Size = new System.Drawing.Size(180, 22);
             this.menuBtnClient.Text = "Cliente";
             this.menuBtnClient.Click += new System.EventHandler(this.menuBtnClient_Click);
-            // 
-            // menuBtnUser
-            // 
-            this.menuBtnUser.Name = "menuBtnUser";
-            this.menuBtnUser.Size = new System.Drawing.Size(180, 22);
-            this.menuBtnUser.Text = "Usuário";
-            this.menuBtnUser.Click += new System.EventHandler(this.menuBtnUser_Click);
             // 
             // menuBtnProvider
             // 
@@ -162,7 +153,6 @@
         private System.Windows.Forms.ToolStripMenuItem cadastrosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuBtnFuncionario;
         private System.Windows.Forms.ToolStripMenuItem menuBtnClient;
-        private System.Windows.Forms.ToolStripMenuItem menuBtnUser;
         private System.Windows.Forms.ToolStripMenuItem menuBtnProvider;
         private System.Windows.Forms.ToolStripMenuItem menuBtnProduct;
         private System.Windows.Forms.ToolStripMenuItem menuBtnProductCategory;

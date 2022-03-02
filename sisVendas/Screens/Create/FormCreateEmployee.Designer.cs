@@ -29,43 +29,43 @@
         private void InitializeComponent()
         {
             this.GbpPesquisa = new System.Windows.Forms.GroupBox();
-            this.tbPesquisa = new System.Windows.Forms.TextBox();
+            this.tbSearch = new System.Windows.Forms.TextBox();
             this.gbCad = new System.Windows.Forms.GroupBox();
             this.lblEmail = new System.Windows.Forms.Label();
             this.tbEmail = new System.Windows.Forms.TextBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.mtbRg = new System.Windows.Forms.MaskedTextBox();
             this.lblRg = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnNovo = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.btnExcluir = new System.Windows.Forms.Button();
+            this.btnNew = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.mtbDtNasc = new System.Windows.Forms.MaskedTextBox();
-            this.mtbTelefone = new System.Windows.Forms.MaskedTextBox();
+            this.mtbTelephone = new System.Windows.Forms.MaskedTextBox();
             this.lblCod = new System.Windows.Forms.Label();
             this.lblTelefone = new System.Windows.Forms.Label();
             this.mtbCpf = new System.Windows.Forms.MaskedTextBox();
             this.mtbCep = new System.Windows.Forms.MaskedTextBox();
             this.lblSalario = new System.Windows.Forms.Label();
-            this.tbSaldo = new System.Windows.Forms.TextBox();
-            this.tbCod = new System.Windows.Forms.TextBox();
+            this.tbBaseSalary = new System.Windows.Forms.TextBox();
+            this.tbId = new System.Windows.Forms.TextBox();
             this.lblSexo = new System.Windows.Forms.Label();
-            this.cbbSexo = new System.Windows.Forms.ComboBox();
+            this.cbbSex = new System.Windows.Forms.ComboBox();
             this.lblNascimento = new System.Windows.Forms.Label();
             this.lblEstado = new System.Windows.Forms.Label();
-            this.cbbEstado = new System.Windows.Forms.ComboBox();
+            this.cbbUF = new System.Windows.Forms.ComboBox();
             this.lblBairro = new System.Windows.Forms.Label();
-            this.tbBairro = new System.Windows.Forms.TextBox();
-            this.tbCidade = new System.Windows.Forms.TextBox();
+            this.tbDistrict = new System.Windows.Forms.TextBox();
+            this.tbCity = new System.Windows.Forms.TextBox();
             this.lblCidade = new System.Windows.Forms.Label();
-            this.tbEnd = new System.Windows.Forms.TextBox();
+            this.tbAddres = new System.Windows.Forms.TextBox();
             this.lblEnd = new System.Windows.Forms.Label();
             this.lblCep = new System.Windows.Forms.Label();
-            this.tbNome = new System.Windows.Forms.TextBox();
-            this.lblNome = new System.Windows.Forms.Label();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.lblName = new System.Windows.Forms.Label();
             this.lblCpf = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.dgv_funcionario = new System.Windows.Forms.DataGridView();
+            this.dgv_employee = new System.Windows.Forms.DataGridView();
             this.func_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.func_cod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.func_cep = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -87,71 +87,81 @@
             this.mtbDemissao = new System.Windows.Forms.MaskedTextBox();
             this.lblAdmissao = new System.Windows.Forms.Label();
             this.lblDemissao = new System.Windows.Forms.Label();
-            this.mtbAdmissao = new System.Windows.Forms.MaskedTextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.mtbAdmission = new System.Windows.Forms.MaskedTextBox();
+            this.gbAdmission = new System.Windows.Forms.GroupBox();
+            this.gbAccess = new System.Windows.Forms.GroupBox();
+            this.cbAccces = new System.Windows.Forms.CheckBox();
+            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.tbUsername = new System.Windows.Forms.TextBox();
+            this.lblUser = new System.Windows.Forms.Label();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.lblLicenca = new System.Windows.Forms.Label();
+            this.cbbResignation = new System.Windows.Forms.ComboBox();
             this.GbpPesquisa.SuspendLayout();
             this.gbCad.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_funcionario)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_employee)).BeginInit();
+            this.gbAdmission.SuspendLayout();
+            this.gbAccess.SuspendLayout();
             this.SuspendLayout();
             // 
             // GbpPesquisa
             // 
             this.GbpPesquisa.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.GbpPesquisa.Controls.Add(this.tbPesquisa);
+            this.GbpPesquisa.Controls.Add(this.tbSearch);
             this.GbpPesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GbpPesquisa.Location = new System.Drawing.Point(34, 364);
+            this.GbpPesquisa.Location = new System.Drawing.Point(30, 436);
             this.GbpPesquisa.Name = "GbpPesquisa";
             this.GbpPesquisa.Size = new System.Drawing.Size(336, 57);
-            this.GbpPesquisa.TabIndex = 1;
+            this.GbpPesquisa.TabIndex = 2;
             this.GbpPesquisa.TabStop = false;
             this.GbpPesquisa.Text = "Pesquisar:";
             // 
-            // tbPesquisa
+            // tbSearch
             // 
-            this.tbPesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbPesquisa.Location = new System.Drawing.Point(6, 22);
-            this.tbPesquisa.Name = "tbPesquisa";
-            this.tbPesquisa.Size = new System.Drawing.Size(322, 20);
-            this.tbPesquisa.TabIndex = 0;
+            this.tbSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSearch.Location = new System.Drawing.Point(6, 22);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(322, 20);
+            this.tbSearch.TabIndex = 0;
             // 
             // gbCad
             // 
             this.gbCad.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gbCad.Controls.Add(this.gbAdmission);
+            this.gbCad.Controls.Add(this.gbAccess);
             this.gbCad.Controls.Add(this.lblEmail);
             this.gbCad.Controls.Add(this.tbEmail);
-            this.gbCad.Controls.Add(this.maskedTextBox1);
+            this.gbCad.Controls.Add(this.mtbRg);
             this.gbCad.Controls.Add(this.lblRg);
-            this.gbCad.Controls.Add(this.tableLayoutPanel1);
             this.gbCad.Controls.Add(this.mtbDtNasc);
-            this.gbCad.Controls.Add(this.mtbTelefone);
+            this.gbCad.Controls.Add(this.mtbTelephone);
             this.gbCad.Controls.Add(this.lblCod);
             this.gbCad.Controls.Add(this.lblTelefone);
             this.gbCad.Controls.Add(this.mtbCpf);
             this.gbCad.Controls.Add(this.mtbCep);
             this.gbCad.Controls.Add(this.lblSalario);
-            this.gbCad.Controls.Add(this.tbSaldo);
-            this.gbCad.Controls.Add(this.tbCod);
+            this.gbCad.Controls.Add(this.tbBaseSalary);
+            this.gbCad.Controls.Add(this.tbId);
             this.gbCad.Controls.Add(this.lblSexo);
-            this.gbCad.Controls.Add(this.cbbSexo);
+            this.gbCad.Controls.Add(this.cbbSex);
             this.gbCad.Controls.Add(this.lblNascimento);
             this.gbCad.Controls.Add(this.lblEstado);
-            this.gbCad.Controls.Add(this.cbbEstado);
+            this.gbCad.Controls.Add(this.cbbUF);
             this.gbCad.Controls.Add(this.lblBairro);
-            this.gbCad.Controls.Add(this.tbBairro);
-            this.gbCad.Controls.Add(this.tbCidade);
+            this.gbCad.Controls.Add(this.tbDistrict);
+            this.gbCad.Controls.Add(this.tbCity);
             this.gbCad.Controls.Add(this.lblCidade);
-            this.gbCad.Controls.Add(this.tbEnd);
+            this.gbCad.Controls.Add(this.tbAddres);
             this.gbCad.Controls.Add(this.lblEnd);
             this.gbCad.Controls.Add(this.lblCep);
-            this.gbCad.Controls.Add(this.tbNome);
-            this.gbCad.Controls.Add(this.lblNome);
+            this.gbCad.Controls.Add(this.tbName);
+            this.gbCad.Controls.Add(this.lblName);
             this.gbCad.Controls.Add(this.lblCpf);
-            this.gbCad.Location = new System.Drawing.Point(33, 75);
+            this.gbCad.Location = new System.Drawing.Point(33, 55);
             this.gbCad.Name = "gbCad";
-            this.gbCad.Size = new System.Drawing.Size(694, 280);
+            this.gbCad.Size = new System.Drawing.Size(694, 325);
             this.gbCad.TabIndex = 0;
             this.gbCad.TabStop = false;
             // 
@@ -160,9 +170,9 @@
             this.lblEmail.AutoSize = true;
             this.lblEmail.Location = new System.Drawing.Point(159, 153);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(35, 13);
+            this.lblEmail.Size = new System.Drawing.Size(39, 13);
             this.lblEmail.TabIndex = 38;
-            this.lblEmail.Text = "Email:";
+            this.lblEmail.Text = "*Email:";
             // 
             // tbEmail
             // 
@@ -172,19 +182,20 @@
             this.tbEmail.Size = new System.Drawing.Size(385, 20);
             this.tbEmail.TabIndex = 13;
             // 
-            // maskedTextBox1
+            // mtbRg
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(234, 43);
-            this.maskedTextBox1.Mask = "000,000,000-00";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(112, 20);
-            this.maskedTextBox1.TabIndex = 3;
-            this.maskedTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbRg.Location = new System.Drawing.Point(234, 43);
+            this.mtbRg.Mask = "000,000,000-00";
+            this.mtbRg.Name = "mtbRg";
+            this.mtbRg.Size = new System.Drawing.Size(112, 20);
+            this.mtbRg.TabIndex = 3;
+            this.mtbRg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbRg.Click += new System.EventHandler(this.mtbRg_Click);
             // 
             // lblRg
             // 
             this.lblRg.AutoSize = true;
-            this.lblRg.Location = new System.Drawing.Point(231, 27);
+            this.lblRg.Location = new System.Drawing.Point(232, 27);
             this.lblRg.Name = "lblRg";
             this.lblRg.Size = new System.Drawing.Size(26, 13);
             this.lblRg.TabIndex = 36;
@@ -197,56 +208,60 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Controls.Add(this.btnNovo, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnCancelar, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnSalvar, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnExcluir, 2, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(37, 214);
+            this.tableLayoutPanel1.Controls.Add(this.btnNew, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnSave, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnRemove, 2, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(70, 388);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(627, 43);
-            this.tableLayoutPanel1.TabIndex = 14;
+            this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // btnNovo
+            // btnNew
             // 
-            this.btnNovo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnNovo.Location = new System.Drawing.Point(34, 3);
-            this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(88, 37);
-            this.btnNovo.TabIndex = 1;
-            this.btnNovo.Text = "Novo";
-            this.btnNovo.UseVisualStyleBackColor = true;
+            this.btnNew.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnNew.Location = new System.Drawing.Point(34, 3);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(88, 37);
+            this.btnNew.TabIndex = 1;
+            this.btnNew.Text = "Novo";
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNovo_Click);
             // 
-            // btnCancelar
+            // btnCancel
             // 
-            this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCancelar.Location = new System.Drawing.Point(190, 3);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(88, 37);
-            this.btnCancelar.TabIndex = 2;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnCancel.Location = new System.Drawing.Point(190, 3);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(88, 37);
+            this.btnCancel.TabIndex = 2;
+            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // btnSalvar
+            // btnSave
             // 
-            this.btnSalvar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSalvar.Location = new System.Drawing.Point(503, 3);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(88, 37);
-            this.btnSalvar.TabIndex = 0;
-            this.btnSalvar.Text = "Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnSave.Location = new System.Drawing.Point(503, 3);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(88, 37);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.Text = "Salvar";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
-            // btnExcluir
+            // btnRemove
             // 
-            this.btnExcluir.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnExcluir.Location = new System.Drawing.Point(346, 3);
-            this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(88, 37);
-            this.btnExcluir.TabIndex = 3;
-            this.btnExcluir.Text = "Excluir";
-            this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnRemove.Location = new System.Drawing.Point(346, 3);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(88, 37);
+            this.btnRemove.TabIndex = 3;
+            this.btnRemove.Text = "Excluir";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
             // mtbDtNasc
             // 
@@ -257,15 +272,17 @@
             this.mtbDtNasc.TabIndex = 11;
             this.mtbDtNasc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mtbDtNasc.ValidatingType = typeof(System.DateTime);
+            this.mtbDtNasc.Click += new System.EventHandler(this.mtbDtNasc_Click);
             // 
-            // mtbTelefone
+            // mtbTelephone
             // 
-            this.mtbTelefone.Location = new System.Drawing.Point(37, 168);
-            this.mtbTelefone.Mask = "(00)00000-0000";
-            this.mtbTelefone.Name = "mtbTelefone";
-            this.mtbTelefone.Size = new System.Drawing.Size(112, 20);
-            this.mtbTelefone.TabIndex = 12;
-            this.mtbTelefone.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbTelephone.Location = new System.Drawing.Point(37, 168);
+            this.mtbTelephone.Mask = "(00)00000-0000";
+            this.mtbTelephone.Name = "mtbTelephone";
+            this.mtbTelephone.Size = new System.Drawing.Size(112, 20);
+            this.mtbTelephone.TabIndex = 12;
+            this.mtbTelephone.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbTelephone.Click += new System.EventHandler(this.mtbTelephone_Click);
             // 
             // lblCod
             // 
@@ -282,9 +299,9 @@
             this.lblTelefone.AutoSize = true;
             this.lblTelefone.Location = new System.Drawing.Point(35, 154);
             this.lblTelefone.Name = "lblTelefone";
-            this.lblTelefone.Size = new System.Drawing.Size(55, 13);
+            this.lblTelefone.Size = new System.Drawing.Size(59, 13);
             this.lblTelefone.TabIndex = 33;
-            this.lblTelefone.Text = "Telefone: ";
+            this.lblTelefone.Text = "*Telefone: ";
             // 
             // mtbCpf
             // 
@@ -294,6 +311,8 @@
             this.mtbCpf.Size = new System.Drawing.Size(112, 20);
             this.mtbCpf.TabIndex = 2;
             this.mtbCpf.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbCpf.Click += new System.EventHandler(this.mtbCpf_Click);
+            this.mtbCpf.Leave += new System.EventHandler(this.mtbCpf_Leave);
             // 
             // mtbCep
             // 
@@ -303,32 +322,34 @@
             this.mtbCep.Size = new System.Drawing.Size(112, 20);
             this.mtbCep.TabIndex = 9;
             this.mtbCep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbCep.Click += new System.EventHandler(this.mtbCep_Click);
             // 
             // lblSalario
             // 
             this.lblSalario.AutoSize = true;
             this.lblSalario.Location = new System.Drawing.Point(550, 156);
             this.lblSalario.Name = "lblSalario";
-            this.lblSalario.Size = new System.Drawing.Size(69, 13);
+            this.lblSalario.Size = new System.Drawing.Size(73, 13);
             this.lblSalario.TabIndex = 29;
-            this.lblSalario.Text = "Salário Base:";
+            this.lblSalario.Text = "*Salário Base:";
             // 
-            // tbSaldo
+            // tbBaseSalary
             // 
-            this.tbSaldo.Location = new System.Drawing.Point(553, 169);
-            this.tbSaldo.MaxLength = 10;
-            this.tbSaldo.Name = "tbSaldo";
-            this.tbSaldo.Size = new System.Drawing.Size(111, 20);
-            this.tbSaldo.TabIndex = 13;
-            this.tbSaldo.Text = "0,00";
+            this.tbBaseSalary.Location = new System.Drawing.Point(553, 169);
+            this.tbBaseSalary.MaxLength = 10;
+            this.tbBaseSalary.Name = "tbBaseSalary";
+            this.tbBaseSalary.Size = new System.Drawing.Size(111, 20);
+            this.tbBaseSalary.TabIndex = 14;
+            this.tbBaseSalary.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbBaseSalary_KeyPress);
+            this.tbBaseSalary.Leave += new System.EventHandler(this.tbBaseSalary_Leave);
             // 
-            // tbCod
+            // tbId
             // 
-            this.tbCod.Enabled = false;
-            this.tbCod.Location = new System.Drawing.Point(37, 43);
-            this.tbCod.Name = "tbCod";
-            this.tbCod.Size = new System.Drawing.Size(73, 20);
-            this.tbCod.TabIndex = 1;
+            this.tbId.Enabled = false;
+            this.tbId.Location = new System.Drawing.Point(37, 43);
+            this.tbId.Name = "tbId";
+            this.tbId.Size = new System.Drawing.Size(73, 20);
+            this.tbId.TabIndex = 1;
             // 
             // lblSexo
             // 
@@ -339,26 +360,26 @@
             this.lblSexo.TabIndex = 26;
             this.lblSexo.Text = "*Sexo:";
             // 
-            // cbbSexo
+            // cbbSex
             // 
-            this.cbbSexo.FormattingEnabled = true;
-            this.cbbSexo.Items.AddRange(new object[] {
+            this.cbbSex.FormattingEnabled = true;
+            this.cbbSex.Items.AddRange(new object[] {
             "M",
             "F"});
-            this.cbbSexo.Location = new System.Drawing.Point(352, 89);
-            this.cbbSexo.MaxLength = 1;
-            this.cbbSexo.Name = "cbbSexo";
-            this.cbbSexo.Size = new System.Drawing.Size(112, 21);
-            this.cbbSexo.TabIndex = 6;
+            this.cbbSex.Location = new System.Drawing.Point(352, 89);
+            this.cbbSex.MaxLength = 1;
+            this.cbbSex.Name = "cbbSex";
+            this.cbbSex.Size = new System.Drawing.Size(112, 21);
+            this.cbbSex.TabIndex = 6;
             // 
             // lblNascimento
             // 
             this.lblNascimento.AutoSize = true;
             this.lblNascimento.Location = new System.Drawing.Point(550, 114);
             this.lblNascimento.Name = "lblNascimento";
-            this.lblNascimento.Size = new System.Drawing.Size(61, 13);
+            this.lblNascimento.Size = new System.Drawing.Size(65, 13);
             this.lblNascimento.TabIndex = 25;
-            this.lblNascimento.Text = "Data Nasc:";
+            this.lblNascimento.Text = "*Data Nasc:";
             // 
             // lblEstado
             // 
@@ -369,44 +390,45 @@
             this.lblEstado.TabIndex = 17;
             this.lblEstado.Text = "*UF:";
             // 
-            // cbbEstado
+            // cbbUF
             // 
-            this.cbbEstado.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbbEstado.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbbEstado.FormattingEnabled = true;
-            this.cbbEstado.Items.AddRange(new object[] {
+            this.cbbUF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbbUF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbbUF.FormattingEnabled = true;
+            this.cbbUF.Items.AddRange(new object[] {
             "AC",
             "AL",
-            "AP",
             "AM",
+            "AP",
             "BA",
             "CE",
             "DF",
             "ES",
             "GO",
             "MA",
-            "MT",
-            "MS",
             "MG",
+            "MS",
+            "MT",
             "PA",
             "PB",
-            "PR",
             "PE",
             "PI",
+            "PR",
             "RJ",
             "RN",
-            "RS",
             "RO",
             "RR",
+            "RS",
             "SC",
-            "SP",
             "SE",
+            "SP",
             "TO"});
-            this.cbbEstado.Location = new System.Drawing.Point(470, 128);
-            this.cbbEstado.MaxLength = 2;
-            this.cbbEstado.Name = "cbbEstado";
-            this.cbbEstado.Size = new System.Drawing.Size(77, 21);
-            this.cbbEstado.TabIndex = 10;
+            this.cbbUF.Location = new System.Drawing.Point(470, 128);
+            this.cbbUF.MaxLength = 2;
+            this.cbbUF.Name = "cbbUF";
+            this.cbbUF.Size = new System.Drawing.Size(77, 21);
+            this.cbbUF.Sorted = true;
+            this.cbbUF.TabIndex = 10;
             // 
             // lblBairro
             // 
@@ -417,47 +439,47 @@
             this.lblBairro.TabIndex = 11;
             this.lblBairro.Text = "Bairro:";
             // 
-            // tbBairro
+            // tbDistrict
             // 
-            this.tbBairro.Location = new System.Drawing.Point(37, 129);
-            this.tbBairro.MaxLength = 20;
-            this.tbBairro.Name = "tbBairro";
-            this.tbBairro.Size = new System.Drawing.Size(309, 20);
-            this.tbBairro.TabIndex = 8;
+            this.tbDistrict.Location = new System.Drawing.Point(37, 129);
+            this.tbDistrict.MaxLength = 20;
+            this.tbDistrict.Name = "tbDistrict";
+            this.tbDistrict.Size = new System.Drawing.Size(309, 20);
+            this.tbDistrict.TabIndex = 8;
             // 
-            // tbCidade
+            // tbCity
             // 
-            this.tbCidade.Location = new System.Drawing.Point(470, 87);
-            this.tbCidade.MaxLength = 29;
-            this.tbCidade.Name = "tbCidade";
-            this.tbCidade.Size = new System.Drawing.Size(194, 20);
-            this.tbCidade.TabIndex = 7;
+            this.tbCity.Location = new System.Drawing.Point(470, 87);
+            this.tbCity.MaxLength = 29;
+            this.tbCity.Name = "tbCity";
+            this.tbCity.Size = new System.Drawing.Size(194, 20);
+            this.tbCity.TabIndex = 7;
             // 
             // lblCidade
             // 
             this.lblCidade.AutoSize = true;
             this.lblCidade.Location = new System.Drawing.Point(467, 74);
             this.lblCidade.Name = "lblCidade";
-            this.lblCidade.Size = new System.Drawing.Size(40, 13);
+            this.lblCidade.Size = new System.Drawing.Size(44, 13);
             this.lblCidade.TabIndex = 15;
-            this.lblCidade.Text = "Cidade";
+            this.lblCidade.Text = "*Cidade";
             // 
-            // tbEnd
+            // tbAddres
             // 
-            this.tbEnd.Location = new System.Drawing.Point(37, 90);
-            this.tbEnd.MaxLength = 49;
-            this.tbEnd.Name = "tbEnd";
-            this.tbEnd.Size = new System.Drawing.Size(309, 20);
-            this.tbEnd.TabIndex = 5;
+            this.tbAddres.Location = new System.Drawing.Point(37, 90);
+            this.tbAddres.MaxLength = 49;
+            this.tbAddres.Name = "tbAddres";
+            this.tbAddres.Size = new System.Drawing.Size(309, 20);
+            this.tbAddres.TabIndex = 5;
             // 
             // lblEnd
             // 
             this.lblEnd.AutoSize = true;
             this.lblEnd.Location = new System.Drawing.Point(34, 74);
             this.lblEnd.Name = "lblEnd";
-            this.lblEnd.Size = new System.Drawing.Size(56, 13);
+            this.lblEnd.Size = new System.Drawing.Size(60, 13);
             this.lblEnd.TabIndex = 9;
-            this.lblEnd.Text = "Endereço:";
+            this.lblEnd.Text = "*Endereço:";
             // 
             // lblCep
             // 
@@ -468,22 +490,22 @@
             this.lblCep.TabIndex = 10;
             this.lblCep.Text = "CEP:";
             // 
-            // tbNome
+            // tbName
             // 
-            this.tbNome.Location = new System.Drawing.Point(352, 43);
-            this.tbNome.MaxLength = 49;
-            this.tbNome.Name = "tbNome";
-            this.tbNome.Size = new System.Drawing.Size(312, 20);
-            this.tbNome.TabIndex = 4;
+            this.tbName.Location = new System.Drawing.Point(352, 43);
+            this.tbName.MaxLength = 49;
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(312, 20);
+            this.tbName.TabIndex = 4;
             // 
-            // lblNome
+            // lblName
             // 
-            this.lblNome.AutoSize = true;
-            this.lblNome.Location = new System.Drawing.Point(349, 29);
-            this.lblNome.Name = "lblNome";
-            this.lblNome.Size = new System.Drawing.Size(42, 13);
-            this.lblNome.TabIndex = 1;
-            this.lblNome.Text = "*Nome:";
+            this.lblName.AutoSize = true;
+            this.lblName.Location = new System.Drawing.Point(349, 29);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(42, 13);
+            this.lblName.TabIndex = 1;
+            this.lblName.Text = "*Nome:";
             // 
             // lblCpf
             // 
@@ -501,23 +523,23 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.dgv_funcionario, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(27, 427);
+            this.tableLayoutPanel2.Controls.Add(this.dgv_employee, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(27, 497);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(705, 222);
-            this.tableLayoutPanel2.TabIndex = 2;
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(705, 242);
+            this.tableLayoutPanel2.TabIndex = 5;
             // 
-            // dgv_funcionario
+            // dgv_employee
             // 
-            this.dgv_funcionario.AllowUserToAddRows = false;
-            this.dgv_funcionario.AllowUserToDeleteRows = false;
-            this.dgv_funcionario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgv_employee.AllowUserToAddRows = false;
+            this.dgv_employee.AllowUserToDeleteRows = false;
+            this.dgv_employee.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgv_funcionario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_funcionario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgv_employee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_employee.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.func_nome,
             this.func_cod,
             this.func_cep,
@@ -535,14 +557,15 @@
             this.func_salario,
             this.func_dtadmissao,
             this.func_dtdemissao});
-            this.dgv_funcionario.Location = new System.Drawing.Point(3, 3);
-            this.dgv_funcionario.MultiSelect = false;
-            this.dgv_funcionario.Name = "dgv_funcionario";
-            this.dgv_funcionario.ReadOnly = true;
-            this.dgv_funcionario.RowHeadersVisible = false;
-            this.dgv_funcionario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_funcionario.Size = new System.Drawing.Size(699, 216);
-            this.dgv_funcionario.TabIndex = 0;
+            this.dgv_employee.Location = new System.Drawing.Point(3, 3);
+            this.dgv_employee.MultiSelect = false;
+            this.dgv_employee.Name = "dgv_employee";
+            this.dgv_employee.ReadOnly = true;
+            this.dgv_employee.RowHeadersVisible = false;
+            this.dgv_employee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_employee.Size = new System.Drawing.Size(699, 236);
+            this.dgv_employee.TabIndex = 4;
+            this.dgv_employee.DoubleClick += new System.EventHandler(this.dgv_employee_DoubleClick);
             // 
             // func_nome
             // 
@@ -688,7 +711,7 @@
             this.lblFuncionario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFuncionario.AutoSize = true;
             this.lblFuncionario.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFuncionario.Location = new System.Drawing.Point(27, 21);
+            this.lblFuncionario.Location = new System.Drawing.Point(27, 11);
             this.lblFuncionario.Name = "lblFuncionario";
             this.lblFuncionario.Size = new System.Drawing.Size(388, 42);
             this.lblFuncionario.TabIndex = 0;
@@ -710,7 +733,7 @@
             this.lblAdmissao.Location = new System.Drawing.Point(35, 15);
             this.lblAdmissao.Name = "lblAdmissao";
             this.lblAdmissao.Size = new System.Drawing.Size(59, 13);
-            this.lblAdmissao.TabIndex = 44;
+            this.lblAdmissao.TabIndex = 0;
             this.lblAdmissao.Text = "*Admissão:";
             // 
             // lblDemissao
@@ -722,40 +745,128 @@
             this.lblDemissao.TabIndex = 46;
             this.lblDemissao.Text = "Demissão:";
             // 
-            // mtbAdmissao
+            // mtbAdmission
             // 
-            this.mtbAdmissao.Location = new System.Drawing.Point(38, 31);
-            this.mtbAdmissao.Mask = "00/00/0000";
-            this.mtbAdmissao.Name = "mtbAdmissao";
-            this.mtbAdmissao.Size = new System.Drawing.Size(102, 20);
-            this.mtbAdmissao.TabIndex = 1;
-            this.mtbAdmissao.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.mtbAdmissao.ValidatingType = typeof(System.DateTime);
+            this.mtbAdmission.Location = new System.Drawing.Point(38, 31);
+            this.mtbAdmission.Mask = "00/00/0000";
+            this.mtbAdmission.Name = "mtbAdmission";
+            this.mtbAdmission.Size = new System.Drawing.Size(102, 20);
+            this.mtbAdmission.TabIndex = 1;
+            this.mtbAdmission.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbAdmission.ValidatingType = typeof(System.DateTime);
             // 
-            // groupBox2
+            // gbAdmission
             // 
-            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.groupBox2.Controls.Add(this.mtbDemissao);
-            this.groupBox2.Controls.Add(this.lblAdmissao);
-            this.groupBox2.Controls.Add(this.mtbAdmissao);
-            this.groupBox2.Controls.Add(this.lblDemissao);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(415, 361);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(312, 57);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
+            this.gbAdmission.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gbAdmission.Controls.Add(this.mtbDemissao);
+            this.gbAdmission.Controls.Add(this.lblAdmissao);
+            this.gbAdmission.Controls.Add(this.mtbAdmission);
+            this.gbAdmission.Controls.Add(this.lblDemissao);
+            this.gbAdmission.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbAdmission.Location = new System.Drawing.Point(367, 254);
+            this.gbAdmission.Name = "gbAdmission";
+            this.gbAdmission.Size = new System.Drawing.Size(312, 58);
+            this.gbAdmission.TabIndex = 3;
+            this.gbAdmission.TabStop = false;
+            // 
+            // gbAccess
+            // 
+            this.gbAccess.Controls.Add(this.cbAccces);
+            this.gbAccess.Controls.Add(this.tbPassword);
+            this.gbAccess.Controls.Add(this.tbUsername);
+            this.gbAccess.Controls.Add(this.lblUser);
+            this.gbAccess.Controls.Add(this.lblPassword);
+            this.gbAccess.Controls.Add(this.lblLicenca);
+            this.gbAccess.Controls.Add(this.cbbResignation);
+            this.gbAccess.Location = new System.Drawing.Point(6, 195);
+            this.gbAccess.Name = "gbAccess";
+            this.gbAccess.Size = new System.Drawing.Size(682, 58);
+            this.gbAccess.TabIndex = 2;
+            this.gbAccess.TabStop = false;
+            this.gbAccess.Text = "Acesso:";
+            // 
+            // cbAccces
+            // 
+            this.cbAccces.AutoSize = true;
+            this.cbAccces.Location = new System.Drawing.Point(10, 33);
+            this.cbAccces.Name = "cbAccces";
+            this.cbAccces.Size = new System.Drawing.Size(116, 17);
+            this.cbAccces.TabIndex = 0;
+            this.cbAccces.Text = "Acesso ao Sistema";
+            this.cbAccces.UseVisualStyleBackColor = true;
+            this.cbAccces.CheckedChanged += new System.EventHandler(this.cbAccces_CheckedChanged);
+            // 
+            // tbPassword
+            // 
+            this.tbPassword.Enabled = false;
+            this.tbPassword.Location = new System.Drawing.Point(300, 32);
+            this.tbPassword.MaxLength = 49;
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.Size = new System.Drawing.Size(162, 20);
+            this.tbPassword.TabIndex = 2;
+            // 
+            // tbUsername
+            // 
+            this.tbUsername.Enabled = false;
+            this.tbUsername.Location = new System.Drawing.Point(132, 32);
+            this.tbUsername.MaxLength = 49;
+            this.tbUsername.Name = "tbUsername";
+            this.tbUsername.Size = new System.Drawing.Size(162, 20);
+            this.tbUsername.TabIndex = 1;
+            // 
+            // lblUser
+            // 
+            this.lblUser.AutoSize = true;
+            this.lblUser.Location = new System.Drawing.Point(129, 14);
+            this.lblUser.Name = "lblUser";
+            this.lblUser.Size = new System.Drawing.Size(50, 13);
+            this.lblUser.TabIndex = 50;
+            this.lblUser.Text = "*Usuário:";
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new System.Drawing.Point(297, 16);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(45, 13);
+            this.lblPassword.TabIndex = 49;
+            this.lblPassword.Text = "*Senha:";
+            // 
+            // lblLicenca
+            // 
+            this.lblLicenca.AutoSize = true;
+            this.lblLicenca.Location = new System.Drawing.Point(468, 16);
+            this.lblLicenca.Name = "lblLicenca";
+            this.lblLicenca.Size = new System.Drawing.Size(52, 13);
+            this.lblLicenca.TabIndex = 47;
+            this.lblLicenca.Text = "*Licença:";
+            // 
+            // cbbResignation
+            // 
+            this.cbbResignation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbbResignation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbbResignation.Enabled = false;
+            this.cbbResignation.FormattingEnabled = true;
+            this.cbbResignation.Items.AddRange(new object[] {
+            "Acesso 1",
+            "Acesso 2",
+            "Acesso 3"});
+            this.cbbResignation.Location = new System.Drawing.Point(468, 32);
+            this.cbbResignation.MaxLength = 2;
+            this.cbbResignation.Name = "cbbResignation";
+            this.cbbResignation.Size = new System.Drawing.Size(164, 21);
+            this.cbbResignation.TabIndex = 3;
             // 
             // FormCreateEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 661);
-            this.Controls.Add(this.groupBox2);
+            this.ClientSize = new System.Drawing.Size(764, 751);
             this.Controls.Add(this.lblFuncionario);
-            this.Controls.Add(this.GbpPesquisa);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.gbCad);
             this.Controls.Add(this.tableLayoutPanel2);
+            this.Controls.Add(this.GbpPesquisa);
             this.Name = "FormCreateEmployee";
             this.GbpPesquisa.ResumeLayout(false);
             this.GbpPesquisa.PerformLayout();
@@ -763,9 +874,11 @@
             this.gbCad.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_funcionario)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_employee)).EndInit();
+            this.gbAdmission.ResumeLayout(false);
+            this.gbAdmission.PerformLayout();
+            this.gbAccess.ResumeLayout(false);
+            this.gbAccess.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -773,39 +886,39 @@
 
         #endregion
         private System.Windows.Forms.GroupBox GbpPesquisa;
-        private System.Windows.Forms.TextBox tbPesquisa;
+        private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.GroupBox gbCad;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button btnNovo;
-        private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.Button btnSalvar;
-        private System.Windows.Forms.Button btnExcluir;
+        private System.Windows.Forms.Button btnNew;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.MaskedTextBox mtbDtNasc;
-        private System.Windows.Forms.MaskedTextBox mtbTelefone;
+        private System.Windows.Forms.MaskedTextBox mtbTelephone;
         private System.Windows.Forms.Label lblCod;
         private System.Windows.Forms.Label lblTelefone;
         private System.Windows.Forms.MaskedTextBox mtbCpf;
         private System.Windows.Forms.MaskedTextBox mtbCep;
         private System.Windows.Forms.Label lblSalario;
-        private System.Windows.Forms.TextBox tbSaldo;
-        private System.Windows.Forms.TextBox tbCod;
+        private System.Windows.Forms.TextBox tbBaseSalary;
+        private System.Windows.Forms.TextBox tbId;
         private System.Windows.Forms.Label lblSexo;
-        private System.Windows.Forms.ComboBox cbbSexo;
+        private System.Windows.Forms.ComboBox cbbSex;
         private System.Windows.Forms.Label lblNascimento;
         private System.Windows.Forms.Label lblEstado;
-        private System.Windows.Forms.ComboBox cbbEstado;
+        private System.Windows.Forms.ComboBox cbbUF;
         private System.Windows.Forms.Label lblBairro;
-        private System.Windows.Forms.TextBox tbBairro;
-        private System.Windows.Forms.TextBox tbCidade;
+        private System.Windows.Forms.TextBox tbDistrict;
+        private System.Windows.Forms.TextBox tbCity;
         private System.Windows.Forms.Label lblCidade;
-        private System.Windows.Forms.TextBox tbEnd;
+        private System.Windows.Forms.TextBox tbAddres;
         private System.Windows.Forms.Label lblEnd;
         private System.Windows.Forms.Label lblCep;
-        private System.Windows.Forms.TextBox tbNome;
-        private System.Windows.Forms.Label lblNome;
+        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblCpf;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.DataGridView dgv_funcionario;
+        private System.Windows.Forms.DataGridView dgv_employee;
         private System.Windows.Forms.Label lblFuncionario;
         private System.Windows.Forms.DataGridViewTextBoxColumn func_nome;
         private System.Windows.Forms.DataGridViewTextBoxColumn func_cod;
@@ -824,14 +937,22 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn func_salario;
         private System.Windows.Forms.DataGridViewTextBoxColumn func_dtadmissao;
         private System.Windows.Forms.DataGridViewTextBoxColumn func_dtdemissao;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.MaskedTextBox mtbRg;
         private System.Windows.Forms.Label lblRg;
         private System.Windows.Forms.MaskedTextBox mtbDemissao;
         private System.Windows.Forms.Label lblAdmissao;
         private System.Windows.Forms.Label lblDemissao;
-        private System.Windows.Forms.MaskedTextBox mtbAdmissao;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.MaskedTextBox mtbAdmission;
+        private System.Windows.Forms.GroupBox gbAdmission;
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.TextBox tbEmail;
+        private System.Windows.Forms.GroupBox gbAccess;
+        private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.Label lblLicenca;
+        private System.Windows.Forms.ComboBox cbbResignation;
+        private System.Windows.Forms.CheckBox cbAccces;
+        private System.Windows.Forms.TextBox tbPassword;
+        private System.Windows.Forms.TextBox tbUsername;
+        private System.Windows.Forms.Label lblUser;
     }
 }

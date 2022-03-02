@@ -62,8 +62,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ctrlClient.cs" />
+    <Compile Include="Controllers\Functions.cs" />
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Notification\popupClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notification\popupClient.designer.cs">
+      <DependentUpon>popupClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\Banco.cs" />
+    <Compile Include="Persistence\ClientDB.cs" />
     <Compile Include="Screens\Create\FormCreateClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,12 +120,6 @@
     <Compile Include="Screens\Create\FormCreateProvider.Designer.cs">
       <DependentUpon>FormCreateProvider.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateUser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Screens\Create\FormCreateUser.Designer.cs">
-      <DependentUpon>FormCreateUser.cs</DependentUpon>
-    </Compile>
     <Compile Include="Screens\Parameterization\FormParameterization.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +134,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Notification\popupClient.resx">
+      <DependentUpon>popupClient.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Screens\Create\FormCreateClient.resx">
       <DependentUpon>FormCreateClient.cs</DependentUpon>
     </EmbeddedResource>
@@ -156,9 +161,6 @@
     <EmbeddedResource Include="Screens\Create\FormCreateProvider.resx">
       <DependentUpon>FormCreateProvider.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\Create\FormCreateUser.resx">
-      <DependentUpon>FormCreateUser.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Screens\FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
     </EmbeddedResource>
@@ -170,6 +172,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -186,8 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Database\" />
-    <Folder Include="Img\" />
-    <Folder Include="Notification\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -200,6 +201,13 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\cancelar.png" />
+    <Content Include="Resources\error.png" />
+    <Content Include="Resources\info.png" />
+    <Content Include="Resources\success.png" />
+    <Content Include="Resources\warning.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

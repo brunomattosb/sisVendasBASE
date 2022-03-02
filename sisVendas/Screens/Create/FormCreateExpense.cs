@@ -21,5 +21,10 @@ namespace sisVendas.Screens.Create
         {
 
         }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

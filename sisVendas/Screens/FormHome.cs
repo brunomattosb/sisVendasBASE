@@ -25,11 +25,6 @@ namespace sisVendas
             f.ShowDialog();
         }
 
-        private void menuBtnUser_Click(object sender, EventArgs e)
-        {
-            FormCreateUser f = new FormCreateUser();
-            f.ShowDialog();
-        }
 
         private void menuBtnClient_Click(object sender, EventArgs e)
         {
