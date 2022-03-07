@@ -1,4 +1,5 @@
 ﻿using sisVendas.Screens.Create;
+using sisVendas.Screens.Sale;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -71,6 +72,14 @@ namespace sisVendas
         private void menuBtnParameterization_Click(object sender, EventArgs e)
         {
             FormParameterization f = new FormParameterization();
+            f.ShowDialog();
+        }
+
+        private void menuBtnEfetuarVenda_Click(object sender, EventArgs e)
+        {
+            gbProduto f = new gbProduto();
+            f.WindowState = FormWindowState.Maximized;
+            f.FormBorderStyle = FormBorderStyle.None;
             f.ShowDialog();
         }
     }

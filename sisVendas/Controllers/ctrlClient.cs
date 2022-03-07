@@ -50,7 +50,7 @@ namespace sisVendas.Controllers
             }
             else
             {
-                result = cli.updateClient(CurrentClient);
+                result = cli.update(CurrentClient);
             }
             dataBase.Desconecta();
 
@@ -83,7 +83,7 @@ namespace sisVendas.Controllers
 
             dataBase.Conecta();
             ClientDB cliBDB= new ClientDB(dataBase);
-            foreach (Client cli in cliBDB.searthClient(filter))
+            foreach (Client cli in cliBDB.searth(filter))
             {
                 
                 DataRow line = dtClient.NewRow();
@@ -116,7 +116,7 @@ namespace sisVendas.Controllers
             bool res = true;
             dataBase.Conecta();
             ClientDB clidDB = new ClientDB(dataBase);
-            res = clidDB.removeClient(cod);
+            res = clidDB.remove(cod);
             dataBase.Desconecta();
             return res;
         }

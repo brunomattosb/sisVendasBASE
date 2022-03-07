@@ -1,28 +1,24 @@
 # ---------------------------------------------------------------------- #
 # Add table "Cliente"                                                    #
 # ---------------------------------------------------------------------- #
-CREATE TABLE "Client"(
-
-	"cli_id" INTEGER IDENTITY,
-	"cli_name" VARCHAR(50) DEFAULT 'Sem nome',
-	"cli_fantasy_name" VARCHAR(50),
-	"cli_cpf_cnpj" VARCHAR(19),
-	"cli_zip_code" VARCHAR(10),
-	"cli_addres" VARCHAR(50),
-	"cli_district" VARCHAR(50),
-	"cli_city" VARCHAR(30),
-	"cli_telephone" VARCHAR(15),
-	"cli_rg_ie" VARCHAR(19),
-	"cli_uf" VARCHAR(3),
-	"cli_birth_at" DATETIME NULLABLE,
-	"cli_created_at" DATETIME DEFAULT GETDATE(),
-	"cli_sex" CHAR(2),
-	"cli_balance" NUMERIC(15,2) DEFAULT 0,
-	"cli_email" VARCHAR(100),
-
-
-	
-	CONSTRAINT "PK_CPF_CLIENTE" PRIMARY KEY ("cli_cpf_cnpj")
+CREATE TABLE [dbo].[Client] (
+    [cli_id]           INT             IDENTITY (1, 1) NOT NULL,
+    [cli_name]         VARCHAR (50)    DEFAULT ('Sem nome') NULL,
+    [cli_fantasy_name] VARCHAR (50)    NULL,
+    [cli_cpf_cnpj]     VARCHAR (19)    NOT NULL,
+    [cli_zip_code]     VARCHAR (10)    NULL,
+    [cli_addres]       VARCHAR (50)    NULL,
+    [cli_district]     VARCHAR (50)    NULL,
+    [cli_city]         VARCHAR (30)    NULL,
+    [cli_telephone]    VARCHAR (15)    NULL,
+    [cli_rg_ie]        VARCHAR (19)    NULL,
+    [cli_uf]           VARCHAR (3)     NULL,
+    [cli_birth_at]     DATETIME        NULL,
+    [cli_created_at]   DATETIME        DEFAULT (getdate()) NULL,
+    [cli_sex]          CHAR (2)        NULL,
+    [cli_balance]      NUMERIC (15, 2) DEFAULT ((0)) NULL,
+    [cli_email]        VARCHAR (100)   NULL,
+    CONSTRAINT [PK_CPF_CLIENTE] PRIMARY KEY CLUSTERED ([cli_cpf_cnpj] ASC)
 );
 
 
@@ -33,76 +29,126 @@ values ('Nome','Fantasy Name','387.133.768-45','19470000','Rua Manaus 8-31','Cli
 'cli_city','cli_telephone','cli_rg_ie','cl','10-10-2021','M',500,'email@email')
 	
 # ---------------------------------------------------------------------- #
-# Add table "Funcionário"                                                    #
+# Add table "Funcionário"                                                #
 # ---------------------------------------------------------------------- #
 
-
-CREATE TABLE "Client"(
-
-	"emp_id" INTEGER IDENTITY,
-	"emp_cpf" VARCHAR(19),
-	"emp_rg_ie" VARCHAR(19),
-	"emp_name" VARCHAR(50) DEFAULT 'Sem nome',
-	"emp_addres" VARCHAR(50),
-	"emp_sex" CHAR(2),
-	"emp_city" VARCHAR(30),
-	"emp_district" VARCHAR(50),
-	"emp_zip_code" VARCHAR(10),
-	"emp_uf" VARCHAR(3),
-	"emp_birth_at" DATETIME NULLABLE,
-	"emp_telephone" VARCHAR(15),
-	"cli_email" VARCHAR(100),
-	"emp_base_salary" NUMERIC(15,2) DEFAULT 0,
-	"emp_username" VARCHAR(50),
-	"emp_password" VARCHAR(50),
-	"emp_licence" VARCHAR(50),
-	"emp_admission" DATETIME NULLABLE,
-	"emp_resignation" DATETIME NULLABLE,
-
-	"emp_created_at" DATETIME DEFAULT GETDATE(),
+CREATE TABLE [dbo].[Employee] (
+    [emp_id]           INT             IDENTITY (1, 1) NOT NULL,
+    [emp_name]         VARCHAR (50)    DEFAULT ('Sem nome') NULL,
+    [emp_cpf]          VARCHAR (19)    NOT NULL,
+    [emp_zip_code]     VARCHAR (10)    NULL,
+    [emp_addres]       VARCHAR (50)    NULL,
+    [emp_district]     VARCHAR (50)    NULL,
+    [emp_city]         VARCHAR (30)    NULL,
+    [emp_telephone]    VARCHAR (15)    NULL,
+    [emp_rg]           VARCHAR (19)    NULL,
+    [emp_uf]           VARCHAR (3)     NULL,
+    [emp_birth_at]     DATETIME        NULL,
+    [emp_created_at]   DATETIME        DEFAULT (getdate()) NULL,
+	[emp_sex]          CHAR (2)        NULL,
+    [emp_email]        VARCHAR (100)   NULL,
+	[emp_base_salary]	NUMERIC (15,2) DEFAULT 0 NULL,
+	[emp_username]      VARCHAR (50)   NULL,
+	[emp_password]      VARCHAR (50)   NULL,
+	[emp_licence]       VARCHAR (50)   NULL
+	[emp_admission]     DATETIME       NULL,
+	[emp_resignation]   DATETIME	   NULL,
 	
+    CONSTRAINT [PK_CPF_EMPLOYEE] PRIMARY KEY CLUSTERED ([emp_cpf] ASC)
+);
+# ---------------------------------------------------------------------- #
+# Add table "Provider"                                                   #
+# ---------------------------------------------------------------------- #
 
-	CONSTRAINT "PK_CPF_CLIENTE" PRIMARY KEY ("emp_cpf")
+CREATE TABLE [dbo].[Provider] (
+    
+	[prov_id]          INT             IDENTITY (1, 1) NOT NULL,
+	[prov_cpf_cnpj]    VARCHAR (19)    NOT NULL,
+	[prov_rg_ie]       VARCHAR (19)    NULL,
+    [prov_name]        VARCHAR (50)    DEFAULT ('Sem nome'),
+	[prov_fantazy_name]        VARCHAR (50)    NULL,
+	[prov_addres]       VARCHAR (50)    NULL,
+	[prov_city]         VARCHAR (30)    NULL,
+	[prov_district]     VARCHAR (50)    NULL,
+	[prov_zip_code]     VARCHAR (10)    NULL,
+	[prov_uf]           VARCHAR (3)     NULL,
+	[prov_telephone]    VARCHAR (15)    NULL,
+	[prov_email]        VARCHAR (100)   NULL,
+	[prov_created_at]   DATETIME        DEFAULT (getdate()) NULL,
+		
+	
+    CONSTRAINT [PK_CPF_PROVIDER] PRIMARY KEY CLUSTERED ([prov_cpf_cnpj] ASC)
 );
 
-INSERT INTO Funcionario(func_nome,func_cpf,func_cep,func_end,func_bairro,func_cidade,func_estado,func_dtnascimento,func_dtcadastro,func_dtadmissao,func_dtdemissao,func_complemento,func_telefone,func_sexo,func_salario)
-VALUES ('Funcionario Quatro','38713376845','19470000','Rua manaus 8-31','Centro','Presidente Epitácio','SP','01-11-1995 00:00:00', '07-07-2021 10:43:20', '07-07-2021 10:43:20', '07-07-2021 10:43:20','Sem complemento','18998090748','M',1500.0)
-INSERT INTO Funcionario(func_nome,func_cpf,func_cep,func_end,func_bairro,func_cidade,func_estado,func_dtnascimento,func_dtcadastro,func_dtadmissao,func_dtdemissao,func_complemento,func_telefone,func_sexo,func_salario)
-VALUES ('Funcionario Um','48713376845','19470000','Rua manaus 8-31','Centro','Presidente Epitácio','SP','01-11-1995 00:00:00', '07-07-2021 10:43:20', '07-07-2021 10:43:20', '07-07-2021 10:43:20','Sem complemento','18998090748','M',1500.0)
-INSERT INTO Funcionario(func_nome,func_cpf,func_cep,func_end,func_bairro,func_cidade,func_estado,func_dtnascimento,func_dtcadastro,func_dtadmissao,func_dtdemissao,func_complemento,func_telefone,func_sexo,func_salario)
-VALUES ('Funcionario tres','46713376845','19470000','Rua manaus 8-31','Centro','Presidente Epitácio','SP','01-11-1995 00:00:00', '07-07-2021 10:43:20', '07-07-2021 10:43:20', '07-07-2021 10:43:20','Sem complemento','18998090748','M',1500.0)
 
-
-
-----------------------------------------------------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------- #
-# Add table "Fornecedor        "                                         #
+# Add table "Despesa"                                                    #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE "Fornecedor"(
+CREATE TABLE [dbo].[Expense] (
+    [exp_id]           INT             IDENTITY (1, 1) NOT NULL,
+    [exp_name]         VARCHAR (50)    DEFAULT ('Sem nome') NULL,
+    [exp_description]  VARCHAR (200)   NULL,
+	[exp_value]        NUMERIC (15, 2) DEFAULT ((0)) NULL,
+	[exp_type]         INT             NOT NULL,
+    [exp_created_at]   DATETIME        DEFAULT (getdate()) NULL,
 
-	"for_cod" INTEGER IDENTITY,
-	"for_nome" VARCHAR(50),
-	"for_cpf" VARCHAR(15),
-	"for_cep" VARCHAR(10),
-	"for_end" VARCHAR(50),
-	"for_bairro" VARCHAR(50),
-	"for_cidade" VARCHAR(30),
-	"for_estado" VARCHAR(3),
-	"for_dtcadastro" DATETIME,
-	"for_complemento" VARCHAR(149),
-	"for_telefone" VARCHAR(15),
-	
-	CONSTRAINT "PK_CPF_FORNECEDOR" PRIMARY KEY ("for_cpf")
+    CONSTRAINT [PK_ID_EXPENSE] PRIMARY KEY CLUSTERED ([exp_id] ASC)
 );
 
-insert into Fornecedor (for_nome,for_cpf, for_cep,for_end,for_bairro,for_cidade,for_estado,for_dtcadastro,for_complemento,for_telefone)
-values ('fornecedor um', '38713376845', '19470000', 'rua da minha casa 10-10', 'centro', 'Epitácio', 'SP', '10-10-2021', 'Sem complemento', '998090741');
-insert into Fornecedor (for_nome,for_cpf, for_cep,for_end,for_bairro,for_cidade,for_estado,for_dtcadastro,for_complemento,for_telefone)
-values ('fornecedor dois', '4871337683245', '19470000', 'rua da minha casa 10-10', 'centro', 'Epitácio', 'SP', '10-10-2021', 'Sem complemento', '998090741');
-insert into Fornecedor (for_nome,for_cpf, for_cep,for_end,for_bairro,for_cidade,for_estado,for_dtcadastro,for_complemento,for_telefone)
-values ('fornecedor tres', '5871337632845', '19470000', 'rua da minha casa 10-10', 'centro', 'Epitácio', 'SP', '10-10-2021', 'Sem complemento', '998090741');
-insert into Fornecedor (for_nome,for_cpf, for_cep,for_end,for_bairro,for_cidade,for_estado,for_dtcadastro,for_complemento,for_telefone)
-values ('fornecedor quatro', '6871337326845', '19470000', 'rua da minha casa 10-10', 'centro', 'Epitácio', 'SP', '10-10-2021', 'Sem complemento', '998090741');
 
+# ---------------------------------------------------------------------- #
+# Add table "Despesa tipo"                                                    #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE [dbo].[ExpenseType] (
+    [expType_id]       INT             IDENTITY (1, 1) NOT NULL,
+    [expType_name]     VARCHAR (50)    DEFAULT ('Sem nome') NULL,
+    [expType_created_at]   DATETIME        DEFAULT (getdate()) NULL,
+
+    CONSTRAINT [PK_ID_EXPENSETYPE] PRIMARY KEY CLUSTERED ([expType_id] ASC)
+);
+
+# ---------------------------------------------------------------------- #
+# Add table "Produto"                                                    #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE [dbo].[Product] (
+    [prod_id]           INT             IDENTITY (1, 1) NOT NULL,
+    [prod_name]         VARCHAR (50)    DEFAULT ('Sem nome') NULL,
+    [prod_complement]   VARCHAR (200)   NOT NULL,
+	[prod_inventory]    INT             DEFAULT 0 NULL,
+	[prod_category]     INT             NOT NULL,
+	[prod_brand]        INT             NOT NULL,
+	[prod_value]    	NUMERIC (15,2)  DEFAULT 0 NULL,
+	[prod_created_at]   DATETIME         DEFAULT (getdate()) NULL,
+	
+    CONSTRAINT [PK_ID_PRODUCT] PRIMARY KEY CLUSTERED ([prod_id] ASC),
+	CONSTRAINT [FK_ID_PRODUCTBRAND] FOREIGN KEY (prod_brand) references ProductBrand(prodBrand_id),
+	CONSTRAINT [FK_ID_PRODUCTCATEGORY	] FOREIGN KEY ([prod_category]) references ProductCategory(prodCategory_id)
+	
+);
+
+# ---------------------------------------------------------------------- #
+# Add table "Produto marca"                                                    #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE [dbo].[ProductBrand] (
+    [prodBrand_id]       INT             IDENTITY (1, 1) NOT NULL,
+    [prodBrand_name]     VARCHAR (50)    DEFAULT ('Sem nome') NULL,
+    [prodBrand_created_at]   DATETIME        DEFAULT (getdate()) NULL,
+
+    CONSTRAINT [PK_ID_PRODUCTBRAND] PRIMARY KEY CLUSTERED ([ProdBrand_id] ASC)
+);
+# ---------------------------------------------------------------------- #
+# Add table "Produto Categoria"                                                    #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE [dbo].[ProductCategory] (
+    [prodCategory_id]       INT             IDENTITY (1, 1) NOT NULL,
+    [prodCategory_name]     VARCHAR (50)    DEFAULT ('Sem nome') NULL,
+    [prodCategory_created_at]   DATETIME        DEFAULT (getdate()) NULL,
+
+    CONSTRAINT [PK_ID_PRODUCTCATEGORY] PRIMARY KEY CLUSTERED ([prodCategory_id] ASC)
+);

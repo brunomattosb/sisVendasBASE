@@ -30,63 +30,57 @@
         {
             this.lblFornecedor = new System.Windows.Forms.Label();
             this.GbpPesquisa = new System.Windows.Forms.GroupBox();
-            this.tbPesquisa = new System.Windows.Forms.TextBox();
+            this.tbSearch = new System.Windows.Forms.TextBox();
             this.gbCad = new System.Windows.Forms.GroupBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.lblName = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
             this.tbEmail = new System.Windows.Forms.TextBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.mtbRgIe = new System.Windows.Forms.MaskedTextBox();
             this.lblRg = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnNovo = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnSalvar = new System.Windows.Forms.Button();
-            this.btnExcluir = new System.Windows.Forms.Button();
-            this.mtbTelefone = new System.Windows.Forms.MaskedTextBox();
-            this.lblCod = new System.Windows.Forms.Label();
+            this.btnNew = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.mtbTelephone = new System.Windows.Forms.MaskedTextBox();
+            this.lblId = new System.Windows.Forms.Label();
             this.lblTelefone = new System.Windows.Forms.Label();
             this.mtbCpf = new System.Windows.Forms.MaskedTextBox();
             this.mtbCep = new System.Windows.Forms.MaskedTextBox();
-            this.tbCod = new System.Windows.Forms.TextBox();
-            this.lblSexo = new System.Windows.Forms.Label();
-            this.cbbSexo = new System.Windows.Forms.ComboBox();
+            this.tbId = new System.Windows.Forms.TextBox();
             this.lblEstado = new System.Windows.Forms.Label();
-            this.cbbEstado = new System.Windows.Forms.ComboBox();
-            this.lblBairro = new System.Windows.Forms.Label();
-            this.tbBairro = new System.Windows.Forms.TextBox();
-            this.tbCidade = new System.Windows.Forms.TextBox();
+            this.cbbUF = new System.Windows.Forms.ComboBox();
+            this.lblDistrict = new System.Windows.Forms.Label();
+            this.tbDistrict = new System.Windows.Forms.TextBox();
+            this.tbCity = new System.Windows.Forms.TextBox();
             this.lblCidade = new System.Windows.Forms.Label();
-            this.tbEnd = new System.Windows.Forms.TextBox();
+            this.tbAddres = new System.Windows.Forms.TextBox();
             this.lblEnd = new System.Windows.Forms.Label();
             this.lblCep = new System.Windows.Forms.Label();
-            this.tbNome = new System.Windows.Forms.TextBox();
+            this.tbFantasyName = new System.Windows.Forms.TextBox();
             this.lblFantasyName = new System.Windows.Forms.Label();
             this.lblCpf = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.dgv_funcionario = new System.Windows.Forms.DataGridView();
-            this.func_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_cod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_cep = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_end = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_bairro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_cidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_dtnascimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_dtcadastro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_pais = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_complemento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_telefone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_sexo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_salario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_dtadmissao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_dtdemissao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgv_Provider = new System.Windows.Forms.DataGridView();
+            this.prov_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prov_fantazy_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prov_email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prov_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prov_zip_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prov_addres = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prov_district = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prov_city = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prov_uf = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prov_created_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prov_telephone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prov_cpf_cnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prov_rg_ie = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GbpPesquisa.SuspendLayout();
             this.gbCad.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_funcionario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Provider)).BeginInit();
             this.SuspendLayout();
             // 
             // lblFornecedor
@@ -103,7 +97,7 @@
             // GbpPesquisa
             // 
             this.GbpPesquisa.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.GbpPesquisa.Controls.Add(this.tbPesquisa);
+            this.GbpPesquisa.Controls.Add(this.tbSearch);
             this.GbpPesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GbpPesquisa.Location = new System.Drawing.Point(37, 354);
             this.GbpPesquisa.Name = "GbpPesquisa";
@@ -112,42 +106,40 @@
             this.GbpPesquisa.TabStop = false;
             this.GbpPesquisa.Text = "Pesquisar:";
             // 
-            // tbPesquisa
+            // tbSearch
             // 
-            this.tbPesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbPesquisa.Location = new System.Drawing.Point(9, 22);
-            this.tbPesquisa.Name = "tbPesquisa";
-            this.tbPesquisa.Size = new System.Drawing.Size(322, 20);
-            this.tbPesquisa.TabIndex = 0;
+            this.tbSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSearch.Location = new System.Drawing.Point(9, 22);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(322, 20);
+            this.tbSearch.TabIndex = 0;
             // 
             // gbCad
             // 
             this.gbCad.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.gbCad.Controls.Add(this.textBox3);
-            this.gbCad.Controls.Add(this.label1);
+            this.gbCad.Controls.Add(this.tbName);
+            this.gbCad.Controls.Add(this.lblName);
             this.gbCad.Controls.Add(this.lblEmail);
             this.gbCad.Controls.Add(this.tbEmail);
-            this.gbCad.Controls.Add(this.maskedTextBox1);
+            this.gbCad.Controls.Add(this.mtbRgIe);
             this.gbCad.Controls.Add(this.lblRg);
             this.gbCad.Controls.Add(this.tableLayoutPanel1);
-            this.gbCad.Controls.Add(this.mtbTelefone);
-            this.gbCad.Controls.Add(this.lblCod);
+            this.gbCad.Controls.Add(this.mtbTelephone);
+            this.gbCad.Controls.Add(this.lblId);
             this.gbCad.Controls.Add(this.lblTelefone);
             this.gbCad.Controls.Add(this.mtbCpf);
             this.gbCad.Controls.Add(this.mtbCep);
-            this.gbCad.Controls.Add(this.tbCod);
-            this.gbCad.Controls.Add(this.lblSexo);
-            this.gbCad.Controls.Add(this.cbbSexo);
+            this.gbCad.Controls.Add(this.tbId);
             this.gbCad.Controls.Add(this.lblEstado);
-            this.gbCad.Controls.Add(this.cbbEstado);
-            this.gbCad.Controls.Add(this.lblBairro);
-            this.gbCad.Controls.Add(this.tbBairro);
-            this.gbCad.Controls.Add(this.tbCidade);
+            this.gbCad.Controls.Add(this.cbbUF);
+            this.gbCad.Controls.Add(this.lblDistrict);
+            this.gbCad.Controls.Add(this.tbDistrict);
+            this.gbCad.Controls.Add(this.tbCity);
             this.gbCad.Controls.Add(this.lblCidade);
-            this.gbCad.Controls.Add(this.tbEnd);
+            this.gbCad.Controls.Add(this.tbAddres);
             this.gbCad.Controls.Add(this.lblEnd);
             this.gbCad.Controls.Add(this.lblCep);
-            this.gbCad.Controls.Add(this.tbNome);
+            this.gbCad.Controls.Add(this.tbFantasyName);
             this.gbCad.Controls.Add(this.lblFantasyName);
             this.gbCad.Controls.Add(this.lblCpf);
             this.gbCad.Location = new System.Drawing.Point(36, 69);
@@ -156,22 +148,22 @@
             this.gbCad.TabIndex = 6;
             this.gbCad.TabStop = false;
             // 
-            // textBox3
+            // tbName
             // 
-            this.textBox3.Location = new System.Drawing.Point(37, 73);
-            this.textBox3.MaxLength = 49;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(309, 20);
-            this.textBox3.TabIndex = 3;
+            this.tbName.Location = new System.Drawing.Point(37, 73);
+            this.tbName.MaxLength = 49;
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(309, 20);
+            this.tbName.TabIndex = 3;
             // 
-            // label1
+            // lblName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 57);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 13);
-            this.label1.TabIndex = 41;
-            this.label1.Text = "*Nome:";
+            this.lblName.AutoSize = true;
+            this.lblName.Location = new System.Drawing.Point(34, 57);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(42, 13);
+            this.lblName.TabIndex = 41;
+            this.lblName.Text = "*Nome:";
             // 
             // lblEmail
             // 
@@ -190,14 +182,15 @@
             this.tbEmail.Size = new System.Drawing.Size(309, 20);
             this.tbEmail.TabIndex = 13;
             // 
-            // maskedTextBox1
+            // mtbRgIe
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(234, 33);
-            this.maskedTextBox1.Mask = "000,000,000-00";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(112, 20);
-            this.maskedTextBox1.TabIndex = 2;
-            this.maskedTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbRgIe.Location = new System.Drawing.Point(234, 33);
+            this.mtbRgIe.Mask = "000,000,000-00";
+            this.mtbRgIe.Name = "mtbRgIe";
+            this.mtbRgIe.Size = new System.Drawing.Size(112, 20);
+            this.mtbRgIe.TabIndex = 2;
+            this.mtbRgIe.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbRgIe.Click += new System.EventHandler(this.mtbRgIe_Click);
             // 
             // lblRg
             // 
@@ -215,10 +208,10 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Controls.Add(this.btnNovo, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnCancelar, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnSalvar, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnExcluir, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnNew, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnSave, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnRemove, 2, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(37, 226);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
@@ -226,73 +219,77 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(627, 43);
             this.tableLayoutPanel1.TabIndex = 14;
             // 
-            // btnNovo
+            // btnNew
             // 
-            this.btnNovo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnNovo.Location = new System.Drawing.Point(34, 3);
-            this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(88, 37);
-            this.btnNovo.TabIndex = 1;
-            this.btnNovo.Text = "Novo";
-            this.btnNovo.UseVisualStyleBackColor = true;
+            this.btnNew.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnNew.Location = new System.Drawing.Point(34, 3);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(88, 37);
+            this.btnNew.TabIndex = 1;
+            this.btnNew.Text = "Novo";
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
-            // btnCancelar
+            // btnCancel
             // 
-            this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCancelar.Location = new System.Drawing.Point(190, 3);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(88, 37);
-            this.btnCancelar.TabIndex = 2;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnCancel.Location = new System.Drawing.Point(190, 3);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(88, 37);
+            this.btnCancel.TabIndex = 2;
+            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // btnSalvar
+            // btnSave
             // 
-            this.btnSalvar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSalvar.Location = new System.Drawing.Point(503, 3);
-            this.btnSalvar.Name = "btnSalvar";
-            this.btnSalvar.Size = new System.Drawing.Size(88, 37);
-            this.btnSalvar.TabIndex = 0;
-            this.btnSalvar.Text = "Salvar";
-            this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnSave.Location = new System.Drawing.Point(503, 3);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(88, 37);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.Text = "Salvar";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
-            // btnExcluir
+            // btnRemove
             // 
-            this.btnExcluir.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnExcluir.Location = new System.Drawing.Point(346, 3);
-            this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(88, 37);
-            this.btnExcluir.TabIndex = 3;
-            this.btnExcluir.Text = "Excluir";
-            this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnRemove.Location = new System.Drawing.Point(346, 3);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(88, 37);
+            this.btnRemove.TabIndex = 3;
+            this.btnRemove.Text = "Excluir";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
-            // mtbTelefone
+            // mtbTelephone
             // 
-            this.mtbTelefone.Location = new System.Drawing.Point(552, 150);
-            this.mtbTelefone.Mask = "(00)00000-0000";
-            this.mtbTelefone.Name = "mtbTelefone";
-            this.mtbTelefone.Size = new System.Drawing.Size(112, 20);
-            this.mtbTelefone.TabIndex = 12;
-            this.mtbTelefone.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbTelephone.Location = new System.Drawing.Point(552, 150);
+            this.mtbTelephone.Mask = "(00)00000-0000";
+            this.mtbTelephone.Name = "mtbTelephone";
+            this.mtbTelephone.Size = new System.Drawing.Size(112, 20);
+            this.mtbTelephone.TabIndex = 12;
+            this.mtbTelephone.Click += new System.EventHandler(this.mtbTelefone_Click);
             // 
-            // lblCod
+            // lblId
             // 
-            this.lblCod.AutoSize = true;
-            this.lblCod.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblCod.Location = new System.Drawing.Point(34, 17);
-            this.lblCod.Name = "lblCod";
-            this.lblCod.Size = new System.Drawing.Size(43, 13);
-            this.lblCod.TabIndex = 0;
-            this.lblCod.Text = "Código:";
+            this.lblId.AutoSize = true;
+            this.lblId.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblId.Location = new System.Drawing.Point(34, 17);
+            this.lblId.Name = "lblId";
+            this.lblId.Size = new System.Drawing.Size(43, 13);
+            this.lblId.TabIndex = 0;
+            this.lblId.Text = "Código:";
             // 
             // lblTelefone
             // 
             this.lblTelefone.AutoSize = true;
             this.lblTelefone.Location = new System.Drawing.Point(549, 134);
             this.lblTelefone.Name = "lblTelefone";
-            this.lblTelefone.Size = new System.Drawing.Size(55, 13);
+            this.lblTelefone.Size = new System.Drawing.Size(59, 13);
             this.lblTelefone.TabIndex = 33;
-            this.lblTelefone.Text = "Telefone: ";
+            this.lblTelefone.Text = "*Telefone: ";
             // 
             // mtbCpf
             // 
@@ -302,6 +299,10 @@
             this.mtbCpf.Size = new System.Drawing.Size(112, 20);
             this.mtbCpf.TabIndex = 1;
             this.mtbCpf.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbCpf.Click += new System.EventHandler(this.mtbCpf_Click);
+            this.mtbCpf.TextChanged += new System.EventHandler(this.mtbCpf_TextChanged);
+            this.mtbCpf.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtbCpf_KeyPress);
+            this.mtbCpf.Leave += new System.EventHandler(this.mtbCpf_Leave);
             // 
             // mtbCep
             // 
@@ -311,35 +312,15 @@
             this.mtbCep.Size = new System.Drawing.Size(112, 20);
             this.mtbCep.TabIndex = 9;
             this.mtbCep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbCep.Click += new System.EventHandler(this.mtbCep_Click);
             // 
-            // tbCod
+            // tbId
             // 
-            this.tbCod.Enabled = false;
-            this.tbCod.Location = new System.Drawing.Point(37, 33);
-            this.tbCod.Name = "tbCod";
-            this.tbCod.Size = new System.Drawing.Size(73, 20);
-            this.tbCod.TabIndex = 0;
-            // 
-            // lblSexo
-            // 
-            this.lblSexo.AutoSize = true;
-            this.lblSexo.Location = new System.Drawing.Point(349, 96);
-            this.lblSexo.Name = "lblSexo";
-            this.lblSexo.Size = new System.Drawing.Size(38, 13);
-            this.lblSexo.TabIndex = 26;
-            this.lblSexo.Text = "*Sexo:";
-            // 
-            // cbbSexo
-            // 
-            this.cbbSexo.FormattingEnabled = true;
-            this.cbbSexo.Items.AddRange(new object[] {
-            "M",
-            "F"});
-            this.cbbSexo.Location = new System.Drawing.Point(352, 111);
-            this.cbbSexo.MaxLength = 1;
-            this.cbbSexo.Name = "cbbSexo";
-            this.cbbSexo.Size = new System.Drawing.Size(112, 21);
-            this.cbbSexo.TabIndex = 6;
+            this.tbId.Enabled = false;
+            this.tbId.Location = new System.Drawing.Point(37, 33);
+            this.tbId.Name = "tbId";
+            this.tbId.Size = new System.Drawing.Size(73, 20);
+            this.tbId.TabIndex = 0;
             // 
             // lblEstado
             // 
@@ -350,86 +331,87 @@
             this.lblEstado.TabIndex = 17;
             this.lblEstado.Text = "*UF:";
             // 
-            // cbbEstado
+            // cbbUF
             // 
-            this.cbbEstado.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbbEstado.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbbEstado.FormattingEnabled = true;
-            this.cbbEstado.Items.AddRange(new object[] {
+            this.cbbUF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbbUF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbbUF.FormattingEnabled = true;
+            this.cbbUF.Items.AddRange(new object[] {
             "AC",
             "AL",
-            "AP",
             "AM",
+            "AP",
             "BA",
             "CE",
             "DF",
             "ES",
             "GO",
             "MA",
-            "MT",
-            "MS",
             "MG",
+            "MS",
+            "MT",
             "PA",
             "PB",
-            "PR",
             "PE",
             "PI",
+            "PR",
             "RJ",
             "RN",
-            "RS",
             "RO",
             "RR",
+            "RS",
             "SC",
-            "SP",
             "SE",
+            "SP",
             "TO"});
-            this.cbbEstado.Location = new System.Drawing.Point(470, 150);
-            this.cbbEstado.MaxLength = 2;
-            this.cbbEstado.Name = "cbbEstado";
-            this.cbbEstado.Size = new System.Drawing.Size(77, 21);
-            this.cbbEstado.TabIndex = 10;
+            this.cbbUF.Location = new System.Drawing.Point(470, 150);
+            this.cbbUF.MaxLength = 2;
+            this.cbbUF.Name = "cbbUF";
+            this.cbbUF.Size = new System.Drawing.Size(77, 21);
+            this.cbbUF.Sorted = true;
+            this.cbbUF.TabIndex = 10;
             // 
-            // lblBairro
+            // lblDistrict
             // 
-            this.lblBairro.AutoSize = true;
-            this.lblBairro.Location = new System.Drawing.Point(34, 135);
-            this.lblBairro.Name = "lblBairro";
-            this.lblBairro.Size = new System.Drawing.Size(37, 13);
-            this.lblBairro.TabIndex = 11;
-            this.lblBairro.Text = "Bairro:";
+            this.lblDistrict.AutoSize = true;
+            this.lblDistrict.Location = new System.Drawing.Point(34, 135);
+            this.lblDistrict.Name = "lblDistrict";
+            this.lblDistrict.Size = new System.Drawing.Size(37, 13);
+            this.lblDistrict.TabIndex = 11;
+            this.lblDistrict.Text = "Bairro:";
             // 
-            // tbBairro
+            // tbDistrict
             // 
-            this.tbBairro.Location = new System.Drawing.Point(37, 151);
-            this.tbBairro.MaxLength = 20;
-            this.tbBairro.Name = "tbBairro";
-            this.tbBairro.Size = new System.Drawing.Size(309, 20);
-            this.tbBairro.TabIndex = 8;
+            this.tbDistrict.Location = new System.Drawing.Point(37, 151);
+            this.tbDistrict.MaxLength = 20;
+            this.tbDistrict.Name = "tbDistrict";
+            this.tbDistrict.Size = new System.Drawing.Size(309, 20);
+            this.tbDistrict.TabIndex = 8;
             // 
-            // tbCidade
+            // tbCity
             // 
-            this.tbCidade.Location = new System.Drawing.Point(470, 109);
-            this.tbCidade.MaxLength = 29;
-            this.tbCidade.Name = "tbCidade";
-            this.tbCidade.Size = new System.Drawing.Size(194, 20);
-            this.tbCidade.TabIndex = 7;
+            this.tbCity.Location = new System.Drawing.Point(354, 109);
+            this.tbCity.MaxLength = 29;
+            this.tbCity.Name = "tbCity";
+            this.tbCity.Size = new System.Drawing.Size(310, 20);
+            this.tbCity.TabIndex = 7;
             // 
             // lblCidade
             // 
             this.lblCidade.AutoSize = true;
-            this.lblCidade.Location = new System.Drawing.Point(467, 96);
+            this.lblCidade.Location = new System.Drawing.Point(351, 96);
             this.lblCidade.Name = "lblCidade";
             this.lblCidade.Size = new System.Drawing.Size(40, 13);
             this.lblCidade.TabIndex = 15;
             this.lblCidade.Text = "Cidade";
             // 
-            // tbEnd
+            // tbAddres
             // 
-            this.tbEnd.Location = new System.Drawing.Point(37, 112);
-            this.tbEnd.MaxLength = 49;
-            this.tbEnd.Name = "tbEnd";
-            this.tbEnd.Size = new System.Drawing.Size(309, 20);
-            this.tbEnd.TabIndex = 5;
+            this.tbAddres.Location = new System.Drawing.Point(37, 112);
+            this.tbAddres.MaxLength = 49;
+            this.tbAddres.Name = "tbAddres";
+            this.tbAddres.Size = new System.Drawing.Size(309, 20);
+            this.tbAddres.TabIndex = 5;
             // 
             // lblEnd
             // 
@@ -449,13 +431,13 @@
             this.lblCep.TabIndex = 10;
             this.lblCep.Text = "CEP:";
             // 
-            // tbNome
+            // tbFantasyName
             // 
-            this.tbNome.Location = new System.Drawing.Point(352, 73);
-            this.tbNome.MaxLength = 49;
-            this.tbNome.Name = "tbNome";
-            this.tbNome.Size = new System.Drawing.Size(312, 20);
-            this.tbNome.TabIndex = 4;
+            this.tbFantasyName.Location = new System.Drawing.Point(352, 73);
+            this.tbFantasyName.MaxLength = 49;
+            this.tbFantasyName.Name = "tbFantasyName";
+            this.tbFantasyName.Size = new System.Drawing.Size(312, 20);
+            this.tbFantasyName.TabIndex = 4;
             // 
             // lblFantasyName
             // 
@@ -482,7 +464,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.dgv_funcionario, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.dgv_Provider, 0, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(30, 421);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
@@ -490,180 +472,144 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(705, 222);
             this.tableLayoutPanel2.TabIndex = 9;
             // 
-            // dgv_funcionario
+            // dgv_Provider
             // 
-            this.dgv_funcionario.AllowUserToAddRows = false;
-            this.dgv_funcionario.AllowUserToDeleteRows = false;
-            this.dgv_funcionario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgv_Provider.AllowUserToAddRows = false;
+            this.dgv_Provider.AllowUserToDeleteRows = false;
+            this.dgv_Provider.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgv_funcionario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_funcionario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.func_nome,
-            this.func_cod,
-            this.func_cep,
-            this.func_end,
-            this.func_bairro,
-            this.func_cidade,
-            this.func_estado,
-            this.func_dtnascimento,
-            this.func_dtcadastro,
-            this.func_pais,
-            this.func_complemento,
-            this.func_telefone,
-            this.func_sexo,
-            this.func_cpf,
-            this.func_salario,
-            this.func_dtadmissao,
-            this.func_dtdemissao});
-            this.dgv_funcionario.Location = new System.Drawing.Point(3, 3);
-            this.dgv_funcionario.MultiSelect = false;
-            this.dgv_funcionario.Name = "dgv_funcionario";
-            this.dgv_funcionario.ReadOnly = true;
-            this.dgv_funcionario.RowHeadersVisible = false;
-            this.dgv_funcionario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_funcionario.Size = new System.Drawing.Size(699, 216);
-            this.dgv_funcionario.TabIndex = 0;
+            this.dgv_Provider.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Provider.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.prov_name,
+            this.prov_fantazy_name,
+            this.prov_email,
+            this.prov_id,
+            this.prov_zip_code,
+            this.prov_addres,
+            this.prov_district,
+            this.prov_city,
+            this.prov_uf,
+            this.prov_created_at,
+            this.prov_telephone,
+            this.prov_cpf_cnpj,
+            this.prov_rg_ie});
+            this.dgv_Provider.Location = new System.Drawing.Point(3, 3);
+            this.dgv_Provider.MultiSelect = false;
+            this.dgv_Provider.Name = "dgv_Provider";
+            this.dgv_Provider.ReadOnly = true;
+            this.dgv_Provider.RowHeadersVisible = false;
+            this.dgv_Provider.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_Provider.Size = new System.Drawing.Size(699, 216);
+            this.dgv_Provider.TabIndex = 0;
+            this.dgv_Provider.DoubleClick += new System.EventHandler(this.dgv_Provider_DoubleClick);
             // 
-            // func_nome
+            // prov_name
             // 
-            this.func_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.func_nome.DataPropertyName = "func_nome";
-            this.func_nome.HeaderText = "Nome";
-            this.func_nome.Name = "func_nome";
-            this.func_nome.ReadOnly = true;
+            this.prov_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.prov_name.DataPropertyName = "prov_name";
+            this.prov_name.HeaderText = "Nome";
+            this.prov_name.Name = "prov_name";
+            this.prov_name.ReadOnly = true;
             // 
-            // func_cod
+            // prov_fantazy_name
             // 
-            this.func_cod.DataPropertyName = "func_cod";
-            this.func_cod.HeaderText = "Código";
-            this.func_cod.Name = "func_cod";
-            this.func_cod.ReadOnly = true;
-            this.func_cod.Visible = false;
+            this.prov_fantazy_name.DataPropertyName = "prov_fantazy_name";
+            this.prov_fantazy_name.HeaderText = "Fantazy Name";
+            this.prov_fantazy_name.Name = "prov_fantazy_name";
+            this.prov_fantazy_name.ReadOnly = true;
+            this.prov_fantazy_name.Visible = false;
             // 
-            // func_cep
+            // prov_email
             // 
-            this.func_cep.DataPropertyName = "func_cep";
-            this.func_cep.HeaderText = "CEP";
-            this.func_cep.Name = "func_cep";
-            this.func_cep.ReadOnly = true;
-            this.func_cep.Visible = false;
+            this.prov_email.DataPropertyName = "prov_email";
+            this.prov_email.HeaderText = "Email";
+            this.prov_email.Name = "prov_email";
+            this.prov_email.ReadOnly = true;
+            this.prov_email.Visible = false;
             // 
-            // func_end
+            // prov_id
             // 
-            this.func_end.DataPropertyName = "func_end";
-            this.func_end.HeaderText = "Endereço";
-            this.func_end.Name = "func_end";
-            this.func_end.ReadOnly = true;
-            this.func_end.Visible = false;
+            this.prov_id.DataPropertyName = "prov_id";
+            this.prov_id.HeaderText = "Código";
+            this.prov_id.Name = "prov_id";
+            this.prov_id.ReadOnly = true;
+            this.prov_id.Visible = false;
             // 
-            // func_bairro
+            // prov_zip_code
             // 
-            this.func_bairro.DataPropertyName = "func_bairro";
-            this.func_bairro.HeaderText = "Bairro";
-            this.func_bairro.Name = "func_bairro";
-            this.func_bairro.ReadOnly = true;
-            this.func_bairro.Visible = false;
+            this.prov_zip_code.DataPropertyName = "prov_zip_code";
+            this.prov_zip_code.HeaderText = "CEP";
+            this.prov_zip_code.Name = "prov_zip_code";
+            this.prov_zip_code.ReadOnly = true;
+            this.prov_zip_code.Visible = false;
             // 
-            // func_cidade
+            // prov_addres
             // 
-            this.func_cidade.DataPropertyName = "func_cidade";
-            this.func_cidade.HeaderText = "Cidade";
-            this.func_cidade.Name = "func_cidade";
-            this.func_cidade.ReadOnly = true;
-            this.func_cidade.Visible = false;
+            this.prov_addres.DataPropertyName = "prov_addres";
+            this.prov_addres.HeaderText = "Endereço";
+            this.prov_addres.Name = "prov_addres";
+            this.prov_addres.ReadOnly = true;
+            this.prov_addres.Visible = false;
             // 
-            // func_estado
+            // prov_district
             // 
-            this.func_estado.DataPropertyName = "func_estado";
-            this.func_estado.HeaderText = "Estado";
-            this.func_estado.Name = "func_estado";
-            this.func_estado.ReadOnly = true;
-            this.func_estado.Visible = false;
+            this.prov_district.DataPropertyName = "prov_district";
+            this.prov_district.HeaderText = "Bairro";
+            this.prov_district.Name = "prov_district";
+            this.prov_district.ReadOnly = true;
+            this.prov_district.Visible = false;
             // 
-            // func_dtnascimento
+            // prov_city
             // 
-            this.func_dtnascimento.DataPropertyName = "func_dtnascimento";
-            this.func_dtnascimento.HeaderText = "Nascimento";
-            this.func_dtnascimento.Name = "func_dtnascimento";
-            this.func_dtnascimento.ReadOnly = true;
-            this.func_dtnascimento.Visible = false;
+            this.prov_city.DataPropertyName = "prov_city";
+            this.prov_city.HeaderText = "Cidade";
+            this.prov_city.Name = "prov_city";
+            this.prov_city.ReadOnly = true;
+            this.prov_city.Visible = false;
             // 
-            // func_dtcadastro
+            // prov_uf
             // 
-            this.func_dtcadastro.DataPropertyName = "func_dtcadastro";
-            this.func_dtcadastro.HeaderText = "Cadastro";
-            this.func_dtcadastro.Name = "func_dtcadastro";
-            this.func_dtcadastro.ReadOnly = true;
-            this.func_dtcadastro.Visible = false;
+            this.prov_uf.DataPropertyName = "prov_uf";
+            this.prov_uf.HeaderText = "Estado";
+            this.prov_uf.Name = "prov_uf";
+            this.prov_uf.ReadOnly = true;
+            this.prov_uf.Visible = false;
             // 
-            // func_pais
+            // prov_created_at
             // 
-            this.func_pais.DataPropertyName = "func_pais";
-            this.func_pais.HeaderText = "Pais";
-            this.func_pais.Name = "func_pais";
-            this.func_pais.ReadOnly = true;
-            this.func_pais.Visible = false;
+            this.prov_created_at.DataPropertyName = "prov_created_at";
+            this.prov_created_at.HeaderText = "Cadastro";
+            this.prov_created_at.Name = "prov_created_at";
+            this.prov_created_at.ReadOnly = true;
+            this.prov_created_at.Visible = false;
             // 
-            // func_complemento
+            // prov_telephone
             // 
-            this.func_complemento.DataPropertyName = "func_complemento";
-            this.func_complemento.HeaderText = "Complemento";
-            this.func_complemento.Name = "func_complemento";
-            this.func_complemento.ReadOnly = true;
-            this.func_complemento.Visible = false;
+            this.prov_telephone.DataPropertyName = "prov_telephone";
+            this.prov_telephone.DividerWidth = 2;
+            this.prov_telephone.HeaderText = "Telefone";
+            this.prov_telephone.Name = "prov_telephone";
+            this.prov_telephone.ReadOnly = true;
+            this.prov_telephone.Visible = false;
             // 
-            // func_telefone
+            // prov_cpf_cnpj
             // 
-            this.func_telefone.DataPropertyName = "func_telefone";
-            this.func_telefone.DividerWidth = 2;
-            this.func_telefone.HeaderText = "Telefone";
-            this.func_telefone.Name = "func_telefone";
-            this.func_telefone.ReadOnly = true;
-            this.func_telefone.Visible = false;
+            this.prov_cpf_cnpj.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.prov_cpf_cnpj.DataPropertyName = "prov_cpf_cnpj";
+            this.prov_cpf_cnpj.HeaderText = "CPF/CNPJ";
+            this.prov_cpf_cnpj.MinimumWidth = 200;
+            this.prov_cpf_cnpj.Name = "prov_cpf_cnpj";
+            this.prov_cpf_cnpj.ReadOnly = true;
+            this.prov_cpf_cnpj.Width = 200;
             // 
-            // func_sexo
+            // prov_rg_ie
             // 
-            this.func_sexo.DataPropertyName = "func_sexo";
-            this.func_sexo.HeaderText = "Sexo";
-            this.func_sexo.Name = "func_sexo";
-            this.func_sexo.ReadOnly = true;
-            this.func_sexo.Visible = false;
-            // 
-            // func_cpf
-            // 
-            this.func_cpf.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.func_cpf.DataPropertyName = "func_cpf";
-            this.func_cpf.HeaderText = "CPF/CNPJ";
-            this.func_cpf.MinimumWidth = 200;
-            this.func_cpf.Name = "func_cpf";
-            this.func_cpf.ReadOnly = true;
-            this.func_cpf.Width = 200;
-            // 
-            // func_salario
-            // 
-            this.func_salario.DataPropertyName = "func_salario";
-            this.func_salario.HeaderText = "Salario";
-            this.func_salario.Name = "func_salario";
-            this.func_salario.ReadOnly = true;
-            this.func_salario.Visible = false;
-            // 
-            // func_dtadmissao
-            // 
-            this.func_dtadmissao.DataPropertyName = "func_dtadmissao";
-            this.func_dtadmissao.HeaderText = "Admissao";
-            this.func_dtadmissao.MinimumWidth = 100;
-            this.func_dtadmissao.Name = "func_dtadmissao";
-            this.func_dtadmissao.ReadOnly = true;
-            this.func_dtadmissao.Visible = false;
-            // 
-            // func_dtdemissao
-            // 
-            this.func_dtdemissao.DataPropertyName = "func_dtdemissao";
-            this.func_dtdemissao.HeaderText = "demissao";
-            this.func_dtdemissao.Name = "func_dtdemissao";
-            this.func_dtdemissao.ReadOnly = true;
-            this.func_dtdemissao.Visible = false;
+            this.prov_rg_ie.DataPropertyName = "prov_rg_ie";
+            this.prov_rg_ie.HeaderText = "RG";
+            this.prov_rg_ie.Name = "prov_rg_ie";
+            this.prov_rg_ie.ReadOnly = true;
+            this.prov_rg_ie.Visible = false;
             // 
             // FormCreateProvider
             // 
@@ -682,7 +628,7 @@
             this.gbCad.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_funcionario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Provider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -691,57 +637,51 @@
         #endregion
         private System.Windows.Forms.Label lblFornecedor;
         private System.Windows.Forms.GroupBox GbpPesquisa;
-        private System.Windows.Forms.TextBox tbPesquisa;
+        private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.GroupBox gbCad;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.TextBox tbEmail;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.MaskedTextBox mtbRgIe;
         private System.Windows.Forms.Label lblRg;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button btnNovo;
-        private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.Button btnSalvar;
-        private System.Windows.Forms.Button btnExcluir;
-        private System.Windows.Forms.MaskedTextBox mtbTelefone;
-        private System.Windows.Forms.Label lblCod;
+        private System.Windows.Forms.Button btnNew;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.MaskedTextBox mtbTelephone;
+        private System.Windows.Forms.Label lblId;
         private System.Windows.Forms.Label lblTelefone;
         private System.Windows.Forms.MaskedTextBox mtbCpf;
         private System.Windows.Forms.MaskedTextBox mtbCep;
-        private System.Windows.Forms.TextBox tbCod;
-        private System.Windows.Forms.Label lblSexo;
-        private System.Windows.Forms.ComboBox cbbSexo;
+        private System.Windows.Forms.TextBox tbId;
         private System.Windows.Forms.Label lblEstado;
-        private System.Windows.Forms.ComboBox cbbEstado;
-        private System.Windows.Forms.Label lblBairro;
-        private System.Windows.Forms.TextBox tbBairro;
-        private System.Windows.Forms.TextBox tbCidade;
+        private System.Windows.Forms.ComboBox cbbUF;
+        private System.Windows.Forms.Label lblDistrict;
+        private System.Windows.Forms.TextBox tbDistrict;
+        private System.Windows.Forms.TextBox tbCity;
         private System.Windows.Forms.Label lblCidade;
-        private System.Windows.Forms.TextBox tbEnd;
+        private System.Windows.Forms.TextBox tbAddres;
         private System.Windows.Forms.Label lblEnd;
         private System.Windows.Forms.Label lblCep;
-        private System.Windows.Forms.TextBox tbNome;
+        private System.Windows.Forms.TextBox tbFantasyName;
         private System.Windows.Forms.Label lblFantasyName;
         private System.Windows.Forms.Label lblCpf;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.DataGridView dgv_funcionario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_nome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_cod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_cep;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_end;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_bairro;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_cidade;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_dtnascimento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_dtcadastro;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_pais;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_complemento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_telefone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_sexo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_cpf;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_salario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_dtadmissao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_dtdemissao;
+        private System.Windows.Forms.DataGridView dgv_Provider;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prov_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prov_fantazy_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prov_email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prov_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prov_zip_code;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prov_addres;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prov_district;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prov_city;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prov_uf;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prov_created_at;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prov_telephone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prov_cpf_cnpj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prov_rg_ie;
     }
 }

@@ -66,9 +66,6 @@
             this.lblCpf = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.dgv_client = new System.Windows.Forms.DataGridView();
-            this.lblCliente = new System.Windows.Forms.Label();
-            this.GbpPesquisa = new System.Windows.Forms.GroupBox();
-            this.tbSearch = new System.Windows.Forms.TextBox();
             this.cli_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_rg_ie = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_email = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -85,6 +82,9 @@
             this.cli_sex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_created_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblCliente = new System.Windows.Forms.Label();
+            this.GbpPesquisa = new System.Windows.Forms.GroupBox();
+            this.tbSearch = new System.Windows.Forms.TextBox();
             this.gbCod.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -221,6 +221,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(627, 43);
             this.tableLayoutPanel1.TabIndex = 14;
+            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // btnNew
             // 
@@ -349,6 +350,7 @@
             // 
             // cbbSex
             // 
+            this.cbbSex.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbSex.FormattingEnabled = true;
             this.cbbSex.Items.AddRange(new object[] {
             "M",
@@ -381,6 +383,7 @@
             // 
             this.cbbEstado.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbbEstado.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbEstado.FormattingEnabled = true;
             this.cbbEstado.Items.AddRange(new object[] {
             "AC",
@@ -551,37 +554,6 @@
             this.dgv_client.TabIndex = 0;
             this.dgv_client.DoubleClick += new System.EventHandler(this.dgv_client_DoubleClick);
             // 
-            // lblCliente
-            // 
-            this.lblCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCliente.AutoSize = true;
-            this.lblCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCliente.Location = new System.Drawing.Point(33, 21);
-            this.lblCliente.Name = "lblCliente";
-            this.lblCliente.Size = new System.Drawing.Size(308, 42);
-            this.lblCliente.TabIndex = 0;
-            this.lblCliente.Text = "Cadastrar Cliente";
-            // 
-            // GbpPesquisa
-            // 
-            this.GbpPesquisa.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.GbpPesquisa.Controls.Add(this.tbSearch);
-            this.GbpPesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GbpPesquisa.Location = new System.Drawing.Point(40, 359);
-            this.GbpPesquisa.Name = "GbpPesquisa";
-            this.GbpPesquisa.Size = new System.Drawing.Size(360, 57);
-            this.GbpPesquisa.TabIndex = 6;
-            this.GbpPesquisa.TabStop = false;
-            this.GbpPesquisa.Text = "Pesquisar:";
-            // 
-            // tbSearch
-            // 
-            this.tbSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbSearch.Location = new System.Drawing.Point(20, 22);
-            this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(322, 20);
-            this.tbSearch.TabIndex = 0;
-            // 
             // cli_name
             // 
             this.cli_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -717,6 +689,37 @@
             this.cli_created_at.Name = "cli_created_at";
             this.cli_created_at.ReadOnly = true;
             this.cli_created_at.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // lblCliente
+            // 
+            this.lblCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCliente.AutoSize = true;
+            this.lblCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCliente.Location = new System.Drawing.Point(33, 21);
+            this.lblCliente.Name = "lblCliente";
+            this.lblCliente.Size = new System.Drawing.Size(308, 42);
+            this.lblCliente.TabIndex = 0;
+            this.lblCliente.Text = "Cadastrar Cliente";
+            // 
+            // GbpPesquisa
+            // 
+            this.GbpPesquisa.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.GbpPesquisa.Controls.Add(this.tbSearch);
+            this.GbpPesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GbpPesquisa.Location = new System.Drawing.Point(40, 359);
+            this.GbpPesquisa.Name = "GbpPesquisa";
+            this.GbpPesquisa.Size = new System.Drawing.Size(360, 57);
+            this.GbpPesquisa.TabIndex = 6;
+            this.GbpPesquisa.TabStop = false;
+            this.GbpPesquisa.Text = "Pesquisar:";
+            // 
+            // tbSearch
+            // 
+            this.tbSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSearch.Location = new System.Drawing.Point(20, 22);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(322, 20);
+            this.tbSearch.TabIndex = 0;
             // 
             // FormCreateClient
             // 

@@ -117,7 +117,6 @@ namespace sisVendas.Screens.Create
 
             cbbEstado.SelectedIndex = 25;
             cbbSex.SelectedIndex = 0;
-            mtbCpf.Focus();
         }
         
 
@@ -141,17 +140,23 @@ namespace sisVendas.Screens.Create
                 dateValue = DateTime.MaxValue;
             }
 
-            if(!(Function.replaceAll(mtbCpf.Text).Length > 0))//&& isValidCpf
+
+            int lenghtCpf = Function.replaceAll(mtbCpf.Text).Length;
+            if (isOk && lenghtCpf == 0)//&& isValidCpf
             {
-                Function.Alert("Erro!", "CPF incorreto.", popupClient.enmType.Error);
-                isOk = false;
-                
-            }
-            if (isOk && !(Function.isCpfValid(mtbCpf.Text)))//&& isValidCpf
-            {
-                Function.Alert("Erro!", "CPF incorreto.", popupClient.enmType.Error);
+                Function.Alert("Erro!", "CPF/CNPJ obrigatório.", popupClient.enmType.Error);
                 isOk = false;
             }
+            else
+            {
+                if(lenghtCpf==11)
+                if (!(Function.isCpfValid(mtbCpf.Text)))//&& isValidCpf
+                {
+                    Function.Alert("Erro!", "CPF incorreto.", popupClient.enmType.Error);
+                    isOk = false;
+                }
+            }
+            
 
             if (isOk)
             {
@@ -178,11 +183,12 @@ namespace sisVendas.Screens.Create
 
                     updateDgv("");
                     activeForm();
+                    mtbCpf.Focus();
                 }
             }
             else
             {
-                Function.Alert("Erro!", "Erro ao salvar cliente.", popupClient.enmType.Error);
+                //Function.Alert("Erro!", "Erro ao salvar cliente.", popupClient.enmType.Error);
             }
             
         }
@@ -190,8 +196,9 @@ namespace sisVendas.Screens.Create
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            
-            activeForm();            
+
+            activeForm();
+            mtbCpf.Focus();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -206,8 +213,9 @@ namespace sisVendas.Screens.Create
             {
                 if (MessageBox.Show("Deseja excluir o cliente selecionado ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    string cod = dgv_client.Rows[dgv_client.CurrentRow.Index].Cells[0].Value.ToString();
-                    
+                    string cod = tbCod.Text;
+
+
                     if (controlClient.removeClient(cod) == true)
                     {
                         updateDgv("");
@@ -308,8 +316,7 @@ namespace sisVendas.Screens.Create
 
         private void fillForm(DataGridViewCellCollection linha)
         {
-
-            //changeCpfCnpj(Function.replaceAll(linha[3].Value.ToString()).Count());
+            changeCpfCnpj(Function.replaceAll(linha[3].Value.ToString()).Count()-1);
 
             tbCod.Text = linha[0].Value.ToString();
             tbName.Text = linha[1].Value.ToString();
@@ -330,8 +337,11 @@ namespace sisVendas.Screens.Create
         
         private void dgv_client_DoubleClick(object sender, EventArgs e)
         {
+            
             if (dgv_client.SelectedRows.Count == 1)
             {
+                
+
                 activeForm();
                 DataGridViewCellCollection linha = dgv_client.Rows[dgv_client.CurrentRow.Index].Cells;
 
@@ -379,6 +389,11 @@ namespace sisVendas.Screens.Create
         private void mtbCpf_Leave(object sender, EventArgs e)
         {
             isExistsClient();
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+             
         }
     }
 }

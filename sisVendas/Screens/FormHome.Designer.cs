@@ -40,6 +40,9 @@
             this.menuBtnExpenseType = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnParameterization = new System.Windows.Forms.ToolStripMenuItem();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.vendaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBtnEfetuarVenda = new System.Windows.Forms.ToolStripMenuItem();
+            this.relatórioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +50,7 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cadastrosToolStripMenuItem,
+            this.vendaToolStripMenuItem,
             this.menuBtnParameterization});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -113,6 +117,7 @@
             // 
             // menuBtnExpense
             // 
+            this.menuBtnExpense.Enabled = false;
             this.menuBtnExpense.Name = "menuBtnExpense";
             this.menuBtnExpense.Size = new System.Drawing.Size(180, 22);
             this.menuBtnExpense.Text = "Despesa";
@@ -127,10 +132,34 @@
             // 
             // menuBtnParameterization
             // 
+            this.menuBtnParameterization.Enabled = false;
             this.menuBtnParameterization.Name = "menuBtnParameterization";
             this.menuBtnParameterization.Size = new System.Drawing.Size(100, 20);
             this.menuBtnParameterization.Text = "Parametrização";
             this.menuBtnParameterization.Click += new System.EventHandler(this.menuBtnParameterization_Click);
+            // 
+            // vendaToolStripMenuItem
+            // 
+            this.vendaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuBtnEfetuarVenda,
+            this.relatórioToolStripMenuItem});
+            this.vendaToolStripMenuItem.Name = "vendaToolStripMenuItem";
+            this.vendaToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.vendaToolStripMenuItem.Text = "Vendas";
+            // 
+            // menuBtnEfetuarVenda
+            // 
+            this.menuBtnEfetuarVenda.Name = "menuBtnEfetuarVenda";
+            this.menuBtnEfetuarVenda.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnEfetuarVenda.Text = "Efetuar Venda";
+            this.menuBtnEfetuarVenda.Click += new System.EventHandler(this.menuBtnEfetuarVenda_Click);
+            // 
+            // relatórioToolStripMenuItem
+            // 
+            this.relatórioToolStripMenuItem.Enabled = false;
+            this.relatórioToolStripMenuItem.Name = "relatórioToolStripMenuItem";
+            this.relatórioToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.relatórioToolStripMenuItem.Text = "Relatório";
             // 
             // FormHome
             // 
@@ -161,6 +190,9 @@
         private System.Windows.Forms.ToolStripMenuItem menuBtnExpenseType;
         private System.Windows.Forms.ToolStripMenuItem menuBtnParameterization;
         private System.Windows.Forms.FontDialog fontDialog1;
+        private System.Windows.Forms.ToolStripMenuItem vendaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuBtnEfetuarVenda;
+        private System.Windows.Forms.ToolStripMenuItem relatórioToolStripMenuItem;
     }
 }
 

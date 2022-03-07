@@ -26,5 +26,10 @@ namespace sisVendas.Screens.Create
         {
 
         }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

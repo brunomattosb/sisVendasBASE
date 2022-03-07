@@ -51,7 +51,7 @@ namespace sisVendas.Persistence
             }
             return (res);
         }
-        public List<object> searthClient(string filtro)
+        public List<object> searth(string filtro)
         {
             DataTable dt = new DataTable();
             List<object> clients = new List<object>();
@@ -93,7 +93,7 @@ namespace sisVendas.Persistence
             return (clients);
 
         }
-        public bool removeClient(string id)
+        public bool remove(string id)
         {
             bool res = false;
             string SQL = @"DELETE FROM Client WHERE cli_id = @id";
@@ -101,7 +101,7 @@ namespace sisVendas.Persistence
             return res;
         }
 
-        public bool updateClient(object Objeto)
+        public bool update(object Objeto)
         {
 
             bool res = false;

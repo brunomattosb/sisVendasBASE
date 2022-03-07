@@ -105,6 +105,7 @@ namespace sisVendas.Persistence
                         cmd.Parameters.AddWithValue(parametros[i].ToString(), parametros[i + 1]);
                 }
                 cmd.ExecuteNonQuery();
+
                 return true;
             }
             catch (Exception e)

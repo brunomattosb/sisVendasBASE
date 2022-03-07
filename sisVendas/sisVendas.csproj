@@ -62,8 +62,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ctrlClient.cs" />
+    <Compile Include="Controllers\ctrlEmployee.cs" />
+    <Compile Include="Controllers\ctrlExpensee.cs" />
+    <Compile Include="Controllers\ctrlExpenseType.cs" />
+    <Compile Include="Controllers\ctrlProduct.cs" />
+    <Compile Include="Controllers\ctrlProductBrand.cs" />
+    <Compile Include="Controllers\ctrlProductCategory.cs" />
+    <Compile Include="Controllers\ctrlProvider.cs" />
     <Compile Include="Controllers\Functions.cs" />
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Expense.cs" />
+    <Compile Include="Models\ExpenseType.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductBrand.cs" />
+    <Compile Include="Models\ProductCategory.cs" />
+    <Compile Include="Models\Provider.cs" />
     <Compile Include="Notification\popupClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +86,13 @@
     </Compile>
     <Compile Include="Persistence\Banco.cs" />
     <Compile Include="Persistence\ClientDB.cs" />
+    <Compile Include="Persistence\EmployeeDB.cs" />
+    <Compile Include="Persistence\ExpenseDB.cs" />
+    <Compile Include="Persistence\ExpenseTypeDB.cs" />
+    <Compile Include="Persistence\ProductBrandDB.cs" />
+    <Compile Include="Persistence\ProductCategoryDB.cs" />
+    <Compile Include="Persistence\ProductDB.cs" />
+    <Compile Include="Persistence\ProviderDB.cs" />
     <Compile Include="Screens\Create\FormCreateClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +155,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\Sale\FormSale.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Screens\Sale\FormSale.Designer.cs">
+      <DependentUpon>FormSale.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Notification\popupClient.resx">
       <DependentUpon>popupClient.cs</DependentUpon>
     </EmbeddedResource>
@@ -174,6 +201,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Screens\Sale\FormSale.resx">
+      <DependentUpon>FormSale.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
