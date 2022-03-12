@@ -1,5 +1,6 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Functions;
+using sisVendas.Models;
 using sisVendas.Notificacao;
 using System;
 using System.Collections.Generic;
@@ -28,8 +29,8 @@ namespace sisVendas.Screens.Create
 
             dtBrand = controlProdBrand.searthProductBrand("");
             dtCategory = controlProdCategory.searthProductCategory("");
-
             updateCbb(dtBrand, dtCategory);
+
             updateDgv("");
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -40,9 +41,9 @@ namespace sisVendas.Screens.Create
                     Close();
                     break;
                 case Keys.Control | Keys.Enter:
-                    // Verificar se existe para evitar erro de cadastrar CPF já existente.
-                    //if (!isExistsClient())
-                        //btnSave.PerformClick();
+                    //Verificar se existe para evitar erro de cadastrar CPF já existente.
+                    //if (!())
+                    //    btnSave.PerformClick();
                     break;
                 case Keys.Control | Keys.E:
                     btnCancel.PerformClick();
@@ -71,6 +72,7 @@ namespace sisVendas.Screens.Create
             cbbCategory.DisplayMember = "prodCategory_name";
             cbbCategory.ValueMember = "prodCategory_id";
             cbbCategory.SelectedIndex = -1;
+
         }
 
         public void cleanForm()
@@ -82,14 +84,18 @@ namespace sisVendas.Screens.Create
             cbbCategory.Text =
             mtbValue.Text =
             tbComplemento.Text = "";
+
             cbbCategory.SelectedIndex = -1;
             cbbBrand.SelectedIndex = -1;
+            cbbUn.SelectedIndex = -1;
         }
         public void neutralForm()
         {
+            
             cleanForm();
             resetColor();
-            tbName.Enabled = 
+            tbName.Enabled =
+            cbbUn.Enabled =
             tbInventory.Enabled = 
             cbbBrand.Enabled = 
             cbbCategory.Enabled = 
@@ -107,9 +113,11 @@ namespace sisVendas.Screens.Create
         }
         public void activeForm()
         {
+            
             cleanForm();
             resetColor();
             tbName.Enabled =
+            cbbUn.Enabled =
             tbInventory.Enabled =
             cbbBrand.Enabled =
             cbbCategory.Enabled =
@@ -135,29 +143,46 @@ namespace sisVendas.Screens.Create
             lblEstoque.ForeColor =
             lblComplemento.ForeColor =
             lblCod.ForeColor =
+            lblUn.ForeColor =
             lblCategoria.ForeColor = Color.Black;
-
+            
 
         }
         private void fillForm(DataGridViewCellCollection linha)
         {
 
+            //tbCod.Text = linha[0].Value.ToString();
+            //tbName.Text = linha[1].Value.ToString();
+            //tbComplemento.Text = linha[2].Value.ToString();
+            //cbbUn.Text = (linha[3].Value.ToString());
+
+            //tbInventory.Text = linha[3].Value.ToString();
+
+            //cbbCategory.SelectedIndex = Convert.ToInt32(linha[4].Value);
+            //cbbBrand.SelectedValue = Convert.ToInt32(linha[5].Value);
+
+            //
             tbCod.Text = linha[0].Value.ToString();
             tbName.Text = linha[1].Value.ToString();
             tbComplemento.Text = linha[2].Value.ToString();
-            tbInventory.Text = linha[3].Value.ToString();
+            cbbUn.Text = (linha[3].Value.ToString());
+            tbInventory.Text = linha[4].Value.ToString();
+            cbbCategory.SelectedValue = Convert.ToInt32(linha[5].Value);
+            cbbBrand.SelectedValue = Convert.ToInt32(linha[6].Value);
+            mtbValue.Text = "R$ "+linha[7].Value.ToString();
+            
 
-            cbbBrand.SelectedValue = Convert.ToInt32(linha[5].Value);
-            cbbCategory.SelectedValue = Convert.ToInt32(linha[4].Value);
+
+            //cbbSexo.SelectedIndex = cbbSexo.FindString(linha["pac_sexo"].ToString());
+            // --------------------------------------------------------------------
 
 
-            mtbValue.Text = linha[6].Value.ToString();
             resetColor();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            
+            resetColor();
             bool isOk = true;
 
             if(tbCod.Text.Count() == 0)
@@ -180,6 +205,11 @@ namespace sisVendas.Screens.Create
                 lblMarca.ForeColor = Color.Red;
                 isOk = false;
             }
+            if (cbbUn.SelectedIndex == -1)
+            {
+                lblUn.ForeColor = Color.Red;
+                isOk = false;
+            }
             if (cbbCategory.SelectedIndex == -1)
             {
                 lblCategoria.ForeColor = Color.Red;
@@ -191,19 +221,19 @@ namespace sisVendas.Screens.Create
                 isOk = false;
             }
 
-
+            
             if (isOk)
             {
                 if (controlProduct.SaveProduct(
 
                     tbCod.Text,
                     tbName.Text,
-                    tbComplemento.Text,
+                    tbComplemento.Text, 
                     Convert.ToInt32(tbInventory.Text),
                     Convert.ToInt32(cbbCategory.SelectedValue),
                     Convert.ToInt32(cbbBrand.SelectedValue),
-                    Convert.ToDouble(mtbValue.Text.Replace("R$", ""))
-
+                    Convert.ToDouble(mtbValue.Text.Replace("R$", "")),
+                    cbbUn.Text.ToString()
                     ))
                 {
 
@@ -216,6 +246,7 @@ namespace sisVendas.Screens.Create
             }
             else
             {
+                
                 //Function.Alert("Erro!", "Erro ao salvar Produto.", popupClient.enmType.Error);
             }
         }
@@ -264,6 +295,7 @@ namespace sisVendas.Screens.Create
             if (dgv_product.SelectedRows.Count == 1)
             {
                 activeForm();
+
                 DataGridViewCellCollection linha = dgv_product.Rows[dgv_product.CurrentRow.Index].Cells;
 
                 fillForm(linha);
@@ -299,9 +331,9 @@ namespace sisVendas.Screens.Create
                 Function.Alert("Erro!", "Valor incorreto", popupClient.enmType.Error);
             }
         }
-        private DataTable isExistsCod(string cod)
+        private Produto isExistsCod(string cod)
         {
-            DataTable dt = controlProduct.searthProductByCod(cod);
+            Produto dt = controlProduct.buscarProdutoPorCod(cod);
 
             return dt;
 
@@ -313,22 +345,22 @@ namespace sisVendas.Screens.Create
             
             if(cod.Count() != 0)
             {
-                DataTable dt = isExistsCod(cod);
+                Produto prod = isExistsCod(cod);
 
-                if (dt.Rows.Count > 0)
+                if (prod  != null)
                 {
                     if (MessageBox.Show("Deseja alterar o produto com o código inserido ?", "Código existente!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         resetColor();
-                        tbCod.Text = dt.Rows[0]["prod_id"].ToString();
-                        tbName.Text = dt.Rows[0]["prod_name"].ToString();
-                        tbComplemento.Text = dt.Rows[0]["prod_complement"].ToString();
-                        tbInventory.Text = dt.Rows[0]["prod_inventory"].ToString();
-                        cbbBrand.SelectedValue = dt.Rows[0]["prod_brand"].ToString();
-                        cbbCategory.SelectedValue = dt.Rows[0]["prod_category"].ToString();
-                        mtbValue.Text = dt.Rows[0]["prod_value"].ToString();
+                        tbCod.Text = prod.Id.ToString();
+                        tbName.Text = prod.Name;
+                        tbComplemento.Text = prod.Complement;
+                        tbInventory.Text = prod.Inventory.ToString();
+                        cbbBrand.SelectedValue = prod.Prod_brand;
+                        cbbCategory.SelectedValue = prod.Prod_category;
+                        cbbUn.SelectedValue = prod.Un;
+                        mtbValue.Text = prod.Value.ToString();
                         tbCod.Enabled = false;
-
                     }
                     else
                     {

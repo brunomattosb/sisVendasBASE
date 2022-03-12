@@ -53,7 +53,10 @@
             this.lblNome = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.dgv_product = new System.Windows.Forms.DataGridView();
+            this.cbbUn = new System.Windows.Forms.ComboBox();
+            this.lblUn = new System.Windows.Forms.Label();
             this.prod_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prod_un = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prod_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prod_created_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prod_complement = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -102,6 +105,8 @@
             // gbCad
             // 
             this.gbCad.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gbCad.Controls.Add(this.cbbUn);
+            this.gbCad.Controls.Add(this.lblUn);
             this.gbCad.Controls.Add(this.cbbCategory);
             this.gbCad.Controls.Add(this.tbComplemento);
             this.gbCad.Controls.Add(this.lblComplemento);
@@ -129,7 +134,7 @@
             this.cbbCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbCategory.FormattingEnabled = true;
-            this.cbbCategory.Location = new System.Drawing.Point(382, 90);
+            this.cbbCategory.Location = new System.Drawing.Point(272, 90);
             this.cbbCategory.MaxLength = 2;
             this.cbbCategory.Name = "cbbCategory";
             this.cbbCategory.Size = new System.Drawing.Size(199, 21);
@@ -156,7 +161,7 @@
             // lblMarca
             // 
             this.lblMarca.AutoSize = true;
-            this.lblMarca.Location = new System.Drawing.Point(69, 74);
+            this.lblMarca.Location = new System.Drawing.Point(64, 74);
             this.lblMarca.Name = "lblMarca";
             this.lblMarca.Size = new System.Drawing.Size(41, 13);
             this.lblMarca.TabIndex = 40;
@@ -188,7 +193,7 @@
             this.cbbBrand.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbbBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbBrand.FormattingEnabled = true;
-            this.cbbBrand.Location = new System.Drawing.Point(71, 90);
+            this.cbbBrand.Location = new System.Drawing.Point(67, 90);
             this.cbbBrand.MaxLength = 2;
             this.cbbBrand.Name = "cbbBrand";
             this.cbbBrand.Size = new System.Drawing.Size(199, 21);
@@ -269,15 +274,16 @@
             // tbCod
             // 
             this.tbCod.Location = new System.Drawing.Point(37, 43);
+            this.tbCod.MaxLength = 39;
             this.tbCod.Name = "tbCod";
-            this.tbCod.Size = new System.Drawing.Size(73, 20);
+            this.tbCod.Size = new System.Drawing.Size(119, 20);
             this.tbCod.TabIndex = 1;
             this.tbCod.Leave += new System.EventHandler(this.tbCod_Leave);
             // 
             // lblCategoria
             // 
             this.lblCategoria.AutoSize = true;
-            this.lblCategoria.Location = new System.Drawing.Point(379, 74);
+            this.lblCategoria.Location = new System.Drawing.Point(269, 74);
             this.lblCategoria.Name = "lblCategoria";
             this.lblCategoria.Size = new System.Drawing.Size(59, 13);
             this.lblCategoria.TabIndex = 17;
@@ -286,7 +292,7 @@
             // lblEstoque
             // 
             this.lblEstoque.AutoSize = true;
-            this.lblEstoque.Location = new System.Drawing.Point(537, 27);
+            this.lblEstoque.Location = new System.Drawing.Point(535, 27);
             this.lblEstoque.Name = "lblEstoque";
             this.lblEstoque.Size = new System.Drawing.Size(53, 13);
             this.lblEstoque.TabIndex = 11;
@@ -294,7 +300,7 @@
             // 
             // tbInventory
             // 
-            this.tbInventory.Location = new System.Drawing.Point(540, 43);
+            this.tbInventory.Location = new System.Drawing.Point(536, 43);
             this.tbInventory.MaxLength = 10;
             this.tbInventory.Name = "tbInventory";
             this.tbInventory.Size = new System.Drawing.Size(124, 20);
@@ -303,16 +309,16 @@
             // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(116, 43);
-            this.tbName.MaxLength = 49;
+            this.tbName.Location = new System.Drawing.Point(162, 43);
+            this.tbName.MaxLength = 39;
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(414, 20);
+            this.tbName.Size = new System.Drawing.Size(368, 20);
             this.tbName.TabIndex = 4;
             // 
             // lblNome
             // 
             this.lblNome.AutoSize = true;
-            this.lblNome.Location = new System.Drawing.Point(113, 29);
+            this.lblNome.Location = new System.Drawing.Point(159, 27);
             this.lblNome.Name = "lblNome";
             this.lblNome.Size = new System.Drawing.Size(42, 13);
             this.lblNome.TabIndex = 1;
@@ -343,6 +349,7 @@
             this.dgv_product.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_product.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.prod_id,
+            this.prod_un,
             this.prod_name,
             this.prod_created_at,
             this.prod_complement,
@@ -360,12 +367,49 @@
             this.dgv_product.TabIndex = 0;
             this.dgv_product.DoubleClick += new System.EventHandler(this.dgv_productCategory_DoubleClick);
             // 
+            // cbbUn
+            // 
+            this.cbbUn.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbbUn.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbbUn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbUn.FormattingEnabled = true;
+            this.cbbUn.Items.AddRange(new object[] {
+            "CX",
+            "FD",
+            "KG",
+            "MT",
+            "UN"});
+            this.cbbUn.Location = new System.Drawing.Point(477, 90);
+            this.cbbUn.MaxLength = 2;
+            this.cbbUn.Name = "cbbUn";
+            this.cbbUn.Size = new System.Drawing.Size(183, 21);
+            this.cbbUn.TabIndex = 45;
+            // 
+            // lblUn
+            // 
+            this.lblUn.AutoSize = true;
+            this.lblUn.Location = new System.Drawing.Point(474, 74);
+            this.lblUn.Name = "lblUn";
+            this.lblUn.Size = new System.Drawing.Size(51, 13);
+            this.lblUn.TabIndex = 44;
+            this.lblUn.Text = "*Unidade";
+            // 
             // prod_id
             // 
             this.prod_id.DataPropertyName = "prod_id";
             this.prod_id.HeaderText = "Código";
+            this.prod_id.MinimumWidth = 150;
             this.prod_id.Name = "prod_id";
             this.prod_id.ReadOnly = true;
+            this.prod_id.Width = 150;
+            // 
+            // prod_un
+            // 
+            this.prod_un.DataPropertyName = "prod_un";
+            this.prod_un.HeaderText = "Unidade";
+            this.prod_un.Name = "prod_un";
+            this.prod_un.ReadOnly = true;
+            this.prod_un.Visible = false;
             // 
             // prod_name
             // 
@@ -470,7 +514,10 @@
         private System.Windows.Forms.Label lblComplemento;
         private System.Windows.Forms.Label lblMarca;
         private System.Windows.Forms.ComboBox cbbBrand;
+        private System.Windows.Forms.ComboBox cbbUn;
+        private System.Windows.Forms.Label lblUn;
         private System.Windows.Forms.DataGridViewTextBoxColumn prod_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prod_un;
         private System.Windows.Forms.DataGridViewTextBoxColumn prod_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn prod_created_at;
         private System.Windows.Forms.DataGridViewTextBoxColumn prod_complement;

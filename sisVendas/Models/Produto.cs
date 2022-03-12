@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace sisVendas.Models
 {
-    class Product 
+    class Produto 
     {
-        private int id;
+        private string id;
         private string name;
         private int inventory;
         private int prod_category;
@@ -16,12 +16,13 @@ namespace sisVendas.Models
         private string complement;
         private double value;
         private DateTime created_at;
+        private string un;
 
-        public Product()
+        public Produto()
         {
         }
 
-        public int Id { get => id; set => id = value; }
+        public string Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public int Inventory { get => inventory; set => inventory = value; }
         public int Prod_category { get => prod_category; set => prod_category = value; }
@@ -29,5 +30,6 @@ namespace sisVendas.Models
         public string Complement { get => complement; set => complement = value; }
         public double Value { get => value; set => this.value = value; }
         public DateTime Created_at { get => created_at; set => created_at = value; }
+        public string Un { get => un; set => un = value; }
     }
 }

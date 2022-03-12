@@ -20,9 +20,9 @@ namespace sisVendas.Persistence
         {
             bool res = false;
 
-            if (Objeto.GetType() == typeof(Client))
+            if (Objeto.GetType() == typeof(Cliente))
             {
-                Client cli = (Client)Objeto;
+                Cliente cli = (Cliente)Objeto;
 
                 string SQL;
 
@@ -58,7 +58,7 @@ namespace sisVendas.Persistence
 
 
             string SQL = @"SELECT * FROM Client WHERE cli_name like @filtro OR cli_cpf_cnpj like @filtro order by cli_name";
-            filtro += "%";
+            filtro = "%" + filtro + "%";
 
             db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
 
@@ -66,7 +66,7 @@ namespace sisVendas.Persistence
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    Client cli = new Client();
+                    Cliente cli = new Cliente();
 
 
                     cli.Id = Convert.ToInt32(dt.Rows[i]["cli_id"]);
@@ -93,6 +93,46 @@ namespace sisVendas.Persistence
             return (clients);
 
         }
+        public Cliente buscarCpf(string filtro)
+        {
+
+            DataTable dtBusca = new DataTable();
+
+            string SQL = @"SELECT * FROM Client WHERE cli_cpf_cnpj = @filtro";
+
+            db.ExecuteQuery(SQL, out dtBusca, "@filtro", filtro);
+
+            Cliente cli = new Cliente();
+
+
+            if (dtBusca.Rows.Count > 0)
+            {
+
+                cli.Id = Convert.ToInt32(dtBusca.Rows[0]["cli_id"]);
+                cli.Name = dtBusca.Rows[0]["cli_name"].ToString();
+                cli.Fantasy_name = dtBusca.Rows[0]["cli_fantasy_name"].ToString();
+                cli.Cpf_cnpj = dtBusca.Rows[0]["cli_cpf_cnpj"].ToString();
+                cli.Zip_code = dtBusca.Rows[0]["cli_zip_code"].ToString();
+                cli.Address = dtBusca.Rows[0]["cli_addres"].ToString();
+                cli.District = dtBusca.Rows[0]["cli_district"].ToString();
+                cli.City = dtBusca.Rows[0]["cli_city"].ToString();
+                cli.Telephone = dtBusca.Rows[0]["cli_telephone"].ToString();
+                cli.Rg_ie = dtBusca.Rows[0]["cli_rg_ie"].ToString();
+                cli.Uf = dtBusca.Rows[0]["cli_uf"].ToString();
+                cli.Birth_at = Convert.ToDateTime(dtBusca.Rows[0]["cli_birth_at"].ToString());
+                cli.Created_at = Convert.ToDateTime(dtBusca.Rows[0]["cli_created_at"].ToString());
+                cli.Sex = Convert.ToChar(dtBusca.Rows[0]["cli_sex"].ToString()[0]);
+                cli.Balance = Convert.ToDouble(dtBusca.Rows[0]["cli_balance"].ToString());
+                cli.Email = dtBusca.Rows[0]["cli_email"].ToString();
+                
+            }
+            else
+            {
+                return null;
+            }
+            return (cli);
+
+        }
         public bool remove(string id)
         {
             bool res = false;
@@ -105,9 +145,9 @@ namespace sisVendas.Persistence
         {
 
             bool res = false;
-            if (Objeto.GetType() == typeof(Client))
+            if (Objeto.GetType() == typeof(Cliente))
             {
-                Client cli = (Client)Objeto;
+                Cliente cli = (Cliente)Objeto;
 
                 string SQL = @"UPDATE Client SET cli_name = @name,
                                             cli_fantasy_name = @fantasy,

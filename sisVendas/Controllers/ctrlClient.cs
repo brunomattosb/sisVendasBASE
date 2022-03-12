@@ -14,7 +14,7 @@ namespace sisVendas.Controllers
     class ctrlClient
     {
         private Banco dataBase = new Banco();
-        private Client CurrentClient = new Client();
+        private Cliente CurrentClient = new Cliente();
 
         // DateTime created_at, char sex, double balance)
         public bool SaveClient(string id, string name, string cpf_cnpj, string zip_code, string address, string district,
@@ -78,12 +78,9 @@ namespace sisVendas.Controllers
             dtClient.Columns.Add("cli_uf");
             dtClient.Columns.Add("cli_district");
 
-
-
-
             dataBase.Conecta();
             ClientDB cliBDB= new ClientDB(dataBase);
-            foreach (Client cli in cliBDB.searth(filter))
+            foreach (Cliente cli in cliBDB.searth(filter))
             {
                 
                 DataRow line = dtClient.NewRow();
@@ -110,6 +107,18 @@ namespace sisVendas.Controllers
             dataBase.Desconecta();
 
             return (dtClient);
+        }
+        public Cliente buscarClientePorCpf(string filter)
+        {
+            Cliente cli = new Cliente();
+            dataBase.Conecta();
+
+            ClientDB bd = new ClientDB(dataBase);
+            cli = (Cliente)bd.buscarCpf(filter);
+
+            dataBase.Desconecta();
+            return cli;
+ 
         }
         public bool removeClient(string cod)
         {

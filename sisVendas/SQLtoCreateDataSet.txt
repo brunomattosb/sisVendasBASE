@@ -115,11 +115,11 @@ CREATE TABLE [dbo].[ExpenseType] (
 # ---------------------------------------------------------------------- #
 
 CREATE TABLE [dbo].[Product] (
-    [prod_id]           INT             IDENTITY (1, 1) NOT NULL,
-    [prod_name]         VARCHAR (50)    DEFAULT ('Sem nome') NULL,
+    [prod_id]           VARCHAR (40)    NOT NULL,
+    [prod_name]         VARCHAR (40)    DEFAULT ('Sem nome') NULL,
     [prod_complement]   VARCHAR (200)   NOT NULL,
 	[prod_inventory]    INT             DEFAULT 0 NULL,
-	[prod_category]     INT             NOT NULL,
+	[prod_un]           VARCHAR (3)    NOT NULL,
 	[prod_brand]        INT             NOT NULL,
 	[prod_value]    	NUMERIC (15,2)  DEFAULT 0 NULL,
 	[prod_created_at]   DATETIME         DEFAULT (getdate()) NULL,

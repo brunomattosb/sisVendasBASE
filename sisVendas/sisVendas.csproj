@@ -70,11 +70,11 @@
     <Compile Include="Controllers\ctrlProductCategory.cs" />
     <Compile Include="Controllers\ctrlProvider.cs" />
     <Compile Include="Controllers\Functions.cs" />
-    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\ExpenseType.cs" />
-    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Produto.cs" />
     <Compile Include="Models\ProductBrand.cs" />
     <Compile Include="Models\ProductCategory.cs" />
     <Compile Include="Models\Provider.cs" />
@@ -93,116 +93,173 @@
     <Compile Include="Persistence\ProductCategoryDB.cs" />
     <Compile Include="Persistence\ProductDB.cs" />
     <Compile Include="Persistence\ProviderDB.cs" />
-    <Compile Include="Screens\Create\FormCreateClient.cs">
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\Cliente\FormBuscarCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateClient.Designer.cs">
+    <Compile Include="Telas\Cliente\FormBuscarCliente.Designer.cs">
+      <DependentUpon>FormBuscarCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\Create\FormCreateClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Create\FormCreateClient.Designer.cs">
       <DependentUpon>FormCreateClient.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateEmployee.cs">
+    <Compile Include="Telas\Create\FormCreateEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateEmployee.Designer.cs">
+    <Compile Include="Telas\Create\FormCreateEmployee.Designer.cs">
       <DependentUpon>FormCreateEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateExpense.cs">
+    <Compile Include="Telas\Create\FormCreateExpense.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateExpense.Designer.cs">
+    <Compile Include="Telas\Create\FormCreateExpense.Designer.cs">
       <DependentUpon>FormCreateExpense.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateExpenseType.cs">
+    <Compile Include="Telas\Create\FormCreateExpenseType.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateExpenseType.Designer.cs">
+    <Compile Include="Telas\Create\FormCreateExpenseType.Designer.cs">
       <DependentUpon>FormCreateExpenseType.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateProduct.cs">
+    <Compile Include="Telas\Create\FormCreateProduct.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateProduct.Designer.cs">
+    <Compile Include="Telas\Create\FormCreateProduct.Designer.cs">
       <DependentUpon>FormCreateProduct.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateProductBrand.cs">
+    <Compile Include="Telas\Create\FormCreateProductBrand.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateProductBrand.Designer.cs">
+    <Compile Include="Telas\Create\FormCreateProductBrand.Designer.cs">
       <DependentUpon>FormCreateProductBrand.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateProductCategory.cs">
+    <Compile Include="Telas\Create\FormCreateProductCategory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateProductCategory.Designer.cs">
+    <Compile Include="Telas\Create\FormCreateProductCategory.Designer.cs">
       <DependentUpon>FormCreateProductCategory.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateProvider.cs">
+    <Compile Include="Telas\Create\FormCreateProvider.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\Create\FormCreateProvider.Designer.cs">
+    <Compile Include="Telas\Create\FormCreateProvider.Designer.cs">
       <DependentUpon>FormCreateProvider.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\Parameterization\FormParameterization.cs">
+    <Compile Include="Telas\Parameterization\FormParameterization.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\Parameterization\FormParameterization.Designer.cs">
+    <Compile Include="Telas\Parameterization\FormParameterization.Designer.cs">
       <DependentUpon>FormParameterization.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\FormHome.cs">
+    <Compile Include="Telas\FormHome.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\FormHome.Designer.cs">
+    <Compile Include="Telas\FormHome.Designer.cs">
       <DependentUpon>FormHome.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Screens\Sale\FormSale.cs">
+    <Compile Include="Telas\Produto\FormBuscarProduto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\Sale\FormSale.Designer.cs">
-      <DependentUpon>FormSale.cs</DependentUpon>
+    <Compile Include="Telas\Produto\FormBuscarProduto.Designer.cs">
+      <DependentUpon>FormBuscarProduto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\Sale\FormFormaPagamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Sale\FormFormaPagamento.Designer.cs">
+      <DependentUpon>FormFormaPagamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\Sale\FormVenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Sale\FormVenda.designer.cs">
+      <DependentUpon>FormVenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\Sale\FormSimularVenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Sale\FormSimularVenda.Designer.cs">
+      <DependentUpon>FormSimularVenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\Sale\FormCalcularTroco.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Sale\FormCalcularTroco.Designer.cs">
+      <DependentUpon>FormCalcularTroco.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\Sale\FormTypeOfPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Sale\FormTypeOfPayment.Designer.cs">
+      <DependentUpon>FormTypeOfPayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\Sale\ImprimeVendaVista.cs">
+      <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="Notification\popupClient.resx">
       <DependentUpon>popupClient.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\Create\FormCreateClient.resx">
+    <EmbeddedResource Include="Telas\Cliente\FormBuscarCliente.resx">
+      <DependentUpon>FormBuscarCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Create\FormCreateClient.resx">
       <DependentUpon>FormCreateClient.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\Create\FormCreateEmployee.resx">
+    <EmbeddedResource Include="Telas\Create\FormCreateEmployee.resx">
       <DependentUpon>FormCreateEmployee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\Create\FormCreateExpense.resx">
+    <EmbeddedResource Include="Telas\Create\FormCreateExpense.resx">
       <DependentUpon>FormCreateExpense.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\Create\FormCreateExpenseType.resx">
+    <EmbeddedResource Include="Telas\Create\FormCreateExpenseType.resx">
       <DependentUpon>FormCreateExpenseType.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\Create\FormCreateProduct.resx">
+    <EmbeddedResource Include="Telas\Create\FormCreateProduct.resx">
       <DependentUpon>FormCreateProduct.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\Create\FormCreateProductBrand.resx">
+    <EmbeddedResource Include="Telas\Create\FormCreateProductBrand.resx">
       <DependentUpon>FormCreateProductBrand.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\Create\FormCreateProductCategory.resx">
+    <EmbeddedResource Include="Telas\Create\FormCreateProductCategory.resx">
       <DependentUpon>FormCreateProductCategory.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\Create\FormCreateProvider.resx">
+    <EmbeddedResource Include="Telas\Create\FormCreateProvider.resx">
       <DependentUpon>FormCreateProvider.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\FormHome.resx">
+    <EmbeddedResource Include="Telas\FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="Screens\Sale\FormSale.resx">
-      <DependentUpon>FormSale.cs</DependentUpon>
+    <EmbeddedResource Include="Telas\Produto\FormBuscarProduto.resx">
+      <DependentUpon>FormBuscarProduto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Sale\FormFormaPagamento.resx">
+      <DependentUpon>FormFormaPagamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Sale\FormVenda.resx">
+      <DependentUpon>FormVenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Sale\FormSimularVenda.resx">
+      <DependentUpon>FormSimularVenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Sale\FormCalcularTroco.resx">
+      <DependentUpon>FormCalcularTroco.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Sale\FormTypeOfPayment.resx">
+      <DependentUpon>FormTypeOfPayment.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -233,7 +290,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\AG.png" />
     <Content Include="Resources\cancelar.png" />
+    <None Include="Resources\clientimg.png" />
     <Content Include="Resources\error.png" />
     <Content Include="Resources\info.png" />
     <Content Include="Resources\success.png" />

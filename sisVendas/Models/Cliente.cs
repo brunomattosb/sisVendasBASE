@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace sisVendas.Models
 {
-    class Client
+    public class Cliente
     {
         private int id;
         private string name;
@@ -42,7 +42,7 @@ namespace sisVendas.Models
         public char Sex { get => sex; set => sex = value; }
         public double Balance { get => balance; set => balance = value; }
 
-        public Client(int id, string name, string email, string fantasy_name, string rg_ie, string telephone, string cpf_cnpj, string zip_code, string address, string district, string uf, string city, DateTime birth_at, DateTime created_at, char sex, double balance)
+        public Cliente(int id, string name, string email, string fantasy_name, string rg_ie, string telephone, string cpf_cnpj, string zip_code, string address, string district, string uf, string city, DateTime birth_at, DateTime created_at, char sex, double balance)
         {
             this.id = id;
             this.name = name;
@@ -62,7 +62,7 @@ namespace sisVendas.Models
             this.balance = balance;
         }
 
-        public Client()
+        public Cliente()
         {
         }
     }

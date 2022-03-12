@@ -17,8 +17,37 @@ namespace sisVendas
         public FormHome()
         {
             InitializeComponent();
+            lembretes();
         }
+        public void lembretes()
+        {
+            richTextBox1.Text = @"Performance:
 
+                            Ao excluir uma marca eu preciso verificar se existe um produto utilizando aquela
+                            marca, então eu devo iniciar a ctrlProduto dentro do form marca e fazer uma busca
+                            dos produtos que usam aquela marca?
+
+
+
+                            Fazer:
+                            [] Não permitir aumentar o tamanho das telas de cadastro.
+                            [] Não deixar excluir uma categoria e uma marca que esteja em uso.
+                            [] Nas buscar onde só envolve um item, tirar o foreach.
+                            [] Adicionar controle de estoque ao realizar uma venda
+                            [] Adicionar UN nos produtos e utilizar na venda KG/UN/PC
+                            [] ctrl enter do cadastrar produto não funciona
+                            []
+                            []
+                            []
+                            []
+                            []
+                            []
+                            []
+                            [] add forma de pagamento
+                            [] form simular venda
+                        ";
+            
+        }
 
         private void menuBtnFuncionario_Click(object sender, EventArgs e)
         {
@@ -77,9 +106,9 @@ namespace sisVendas
 
         private void menuBtnEfetuarVenda_Click(object sender, EventArgs e)
         {
-            gbProduto f = new gbProduto();
-            f.WindowState = FormWindowState.Maximized;
-            f.FormBorderStyle = FormBorderStyle.None;
+            FormVenda f = new FormVenda();
+            //f.WindowState = FormWindowState.Maximized;
+            //f.FormBorderStyle = FormBorderStyle.None;
             f.ShowDialog();
         }
     }

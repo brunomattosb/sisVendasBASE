@@ -38,11 +38,12 @@
             this.menuBtnProductBrand = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnExpense = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnExpenseType = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuBtnParameterization = new System.Windows.Forms.ToolStripMenuItem();
-            this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.vendaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnEfetuarVenda = new System.Windows.Forms.ToolStripMenuItem();
             this.relatórioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBtnParameterization = new System.Windows.Forms.ToolStripMenuItem();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,42 +77,42 @@
             // menuBtnFuncionario
             // 
             this.menuBtnFuncionario.Name = "menuBtnFuncionario";
-            this.menuBtnFuncionario.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnFuncionario.Size = new System.Drawing.Size(171, 22);
             this.menuBtnFuncionario.Text = "Funcionário";
             this.menuBtnFuncionario.Click += new System.EventHandler(this.menuBtnFuncionario_Click);
             // 
             // menuBtnClient
             // 
             this.menuBtnClient.Name = "menuBtnClient";
-            this.menuBtnClient.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnClient.Size = new System.Drawing.Size(171, 22);
             this.menuBtnClient.Text = "Cliente";
             this.menuBtnClient.Click += new System.EventHandler(this.menuBtnClient_Click);
             // 
             // menuBtnProvider
             // 
             this.menuBtnProvider.Name = "menuBtnProvider";
-            this.menuBtnProvider.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnProvider.Size = new System.Drawing.Size(171, 22);
             this.menuBtnProvider.Text = "Fornecedor";
             this.menuBtnProvider.Click += new System.EventHandler(this.menuBtnProvider_Click);
             // 
             // menuBtnProduct
             // 
             this.menuBtnProduct.Name = "menuBtnProduct";
-            this.menuBtnProduct.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnProduct.Size = new System.Drawing.Size(171, 22);
             this.menuBtnProduct.Text = "Produto";
             this.menuBtnProduct.Click += new System.EventHandler(this.menuBtnProduct_Click);
             // 
             // menuBtnProductCategory
             // 
             this.menuBtnProductCategory.Name = "menuBtnProductCategory";
-            this.menuBtnProductCategory.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnProductCategory.Size = new System.Drawing.Size(171, 22);
             this.menuBtnProductCategory.Text = "Produto Categoria";
             this.menuBtnProductCategory.Click += new System.EventHandler(this.menuBtnProductCategory_Click);
             // 
             // menuBtnProductBrand
             // 
             this.menuBtnProductBrand.Name = "menuBtnProductBrand";
-            this.menuBtnProductBrand.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnProductBrand.Size = new System.Drawing.Size(171, 22);
             this.menuBtnProductBrand.Text = "Produto Marca";
             this.menuBtnProductBrand.Click += new System.EventHandler(this.menuBtnProductBrand_Click);
             // 
@@ -119,24 +120,16 @@
             // 
             this.menuBtnExpense.Enabled = false;
             this.menuBtnExpense.Name = "menuBtnExpense";
-            this.menuBtnExpense.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnExpense.Size = new System.Drawing.Size(171, 22);
             this.menuBtnExpense.Text = "Despesa";
             this.menuBtnExpense.Click += new System.EventHandler(this.menuBtnExpense_Click);
             // 
             // menuBtnExpenseType
             // 
             this.menuBtnExpenseType.Name = "menuBtnExpenseType";
-            this.menuBtnExpenseType.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnExpenseType.Size = new System.Drawing.Size(171, 22);
             this.menuBtnExpenseType.Text = "Tipo Despesa";
             this.menuBtnExpenseType.Click += new System.EventHandler(this.menuBtnExpenseType_Click);
-            // 
-            // menuBtnParameterization
-            // 
-            this.menuBtnParameterization.Enabled = false;
-            this.menuBtnParameterization.Name = "menuBtnParameterization";
-            this.menuBtnParameterization.Size = new System.Drawing.Size(100, 20);
-            this.menuBtnParameterization.Text = "Parametrização";
-            this.menuBtnParameterization.Click += new System.EventHandler(this.menuBtnParameterization_Click);
             // 
             // vendaToolStripMenuItem
             // 
@@ -150,7 +143,7 @@
             // menuBtnEfetuarVenda
             // 
             this.menuBtnEfetuarVenda.Name = "menuBtnEfetuarVenda";
-            this.menuBtnEfetuarVenda.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnEfetuarVenda.Size = new System.Drawing.Size(146, 22);
             this.menuBtnEfetuarVenda.Text = "Efetuar Venda";
             this.menuBtnEfetuarVenda.Click += new System.EventHandler(this.menuBtnEfetuarVenda_Click);
             // 
@@ -158,14 +151,31 @@
             // 
             this.relatórioToolStripMenuItem.Enabled = false;
             this.relatórioToolStripMenuItem.Name = "relatórioToolStripMenuItem";
-            this.relatórioToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.relatórioToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.relatórioToolStripMenuItem.Text = "Relatório";
+            // 
+            // menuBtnParameterization
+            // 
+            this.menuBtnParameterization.Enabled = false;
+            this.menuBtnParameterization.Name = "menuBtnParameterization";
+            this.menuBtnParameterization.Size = new System.Drawing.Size(100, 20);
+            this.menuBtnParameterization.Text = "Parametrização";
+            this.menuBtnParameterization.Click += new System.EventHandler(this.menuBtnParameterization_Click);
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(31, 41);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(720, 385);
+            this.richTextBox1.TabIndex = 2;
+            this.richTextBox1.Text = "";
             // 
             // FormHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.menuStrip);
             this.Name = "FormHome";
             this.Text = "Form1";
@@ -193,6 +203,7 @@
         private System.Windows.Forms.ToolStripMenuItem vendaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuBtnEfetuarVenda;
         private System.Windows.Forms.ToolStripMenuItem relatórioToolStripMenuItem;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 
