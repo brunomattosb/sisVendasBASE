@@ -11,7 +11,7 @@ namespace sisVendas.Persistence
 {
     class Banco
     {
-        private String strcon = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Bruno\Documents\sisVendas\sisVendas\Database\dbSis.mdf;Integrated Security=True;Connect Timeout=30";
+        private String strcon = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\giobr\Documents\dbSis.mdf;Integrated Security=True;Connect Timeout=30";
 
         private SqlConnection con = null;
         private SqlTransaction trans = null;

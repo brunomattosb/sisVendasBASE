@@ -903,6 +903,7 @@
             this.Controls.Add(this.gbCad);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.GbpPesquisa);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormCreateEmployee";
             this.GbpPesquisa.ResumeLayout(false);
             this.GbpPesquisa.PerformLayout();

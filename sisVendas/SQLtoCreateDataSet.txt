@@ -50,7 +50,7 @@ CREATE TABLE [dbo].[Employee] (
 	[emp_base_salary]	NUMERIC (15,2) DEFAULT 0 NULL,
 	[emp_username]      VARCHAR (50)   NULL,
 	[emp_password]      VARCHAR (50)   NULL,
-	[emp_licence]       VARCHAR (50)   NULL
+	[emp_licence]       VARCHAR (50)   NULL,
 	[emp_admission]     DATETIME       NULL,
 	[emp_resignation]   DATETIME	   NULL,
 	
@@ -109,27 +109,6 @@ CREATE TABLE [dbo].[ExpenseType] (
 
     CONSTRAINT [PK_ID_EXPENSETYPE] PRIMARY KEY CLUSTERED ([expType_id] ASC)
 );
-
-# ---------------------------------------------------------------------- #
-# Add table "Produto"                                                    #
-# ---------------------------------------------------------------------- #
-
-CREATE TABLE [dbo].[Product] (
-    [prod_id]           VARCHAR (40)    NOT NULL,
-    [prod_name]         VARCHAR (40)    DEFAULT ('Sem nome') NULL,
-    [prod_complement]   VARCHAR (200)   NOT NULL,
-	[prod_inventory]    INT             DEFAULT 0 NULL,
-	[prod_un]           VARCHAR (3)    NOT NULL,
-	[prod_brand]        INT             NOT NULL,
-	[prod_value]    	NUMERIC (15,2)  DEFAULT 0 NULL,
-	[prod_created_at]   DATETIME         DEFAULT (getdate()) NULL,
-	
-    CONSTRAINT [PK_ID_PRODUCT] PRIMARY KEY CLUSTERED ([prod_id] ASC),
-	CONSTRAINT [FK_ID_PRODUCTBRAND] FOREIGN KEY (prod_brand) references ProductBrand(prodBrand_id),
-	CONSTRAINT [FK_ID_PRODUCTCATEGORY	] FOREIGN KEY ([prod_category]) references ProductCategory(prodCategory_id)
-	
-);
-
 # ---------------------------------------------------------------------- #
 # Add table "Produto marca"                                                    #
 # ---------------------------------------------------------------------- #
@@ -152,3 +131,24 @@ CREATE TABLE [dbo].[ProductCategory] (
 
     CONSTRAINT [PK_ID_PRODUCTCATEGORY] PRIMARY KEY CLUSTERED ([prodCategory_id] ASC)
 );
+# ---------------------------------------------------------------------- #
+# Add table "Produto"                                                    #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE [dbo].[Product] (
+    [prod_id]           VARCHAR (40)    NOT NULL,
+    [prod_name]         VARCHAR (40)    DEFAULT ('Sem nome') NULL,
+    [prod_complement]   VARCHAR (200)   NOT NULL,
+	[prod_inventory]    INT             DEFAULT 0 NULL,
+	[prod_un]           VARCHAR (3)    NOT NULL,
+	[prod_brand]        INT             NOT NULL,
+	[prod_category]        INT             NOT NULL,
+	[prod_value]    	NUMERIC (15,2)  DEFAULT 0 NULL,
+	[prod_created_at]   DATETIME         DEFAULT (getdate()) NULL,
+	
+    CONSTRAINT [PK_ID_PRODUCT] PRIMARY KEY CLUSTERED ([prod_id] ASC),
+	CONSTRAINT [FK_ID_PRODUCTBRAND] FOREIGN KEY ([prod_brand]) references ProductBrand(prodBrand_id),
+	CONSTRAINT [FK_ID_PRODUCTCATEGORY	] FOREIGN KEY ([prod_category]) references ProductCategory(prodCategory_id)
+	
+);
+

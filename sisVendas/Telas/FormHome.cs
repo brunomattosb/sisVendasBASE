@@ -23,22 +23,15 @@ namespace sisVendas
         {
             richTextBox1.Text = @"Performance:
 
-                            Ao excluir uma marca eu preciso verificar se existe um produto utilizando aquela
-                            marca, então eu devo iniciar a ctrlProduto dentro do form marca e fazer uma busca
-                            dos produtos que usam aquela marca?
-
-
-
                             Fazer:
-                            [] Não permitir aumentar o tamanho das telas de cadastro.
                             [] Não deixar excluir uma categoria e uma marca que esteja em uso.
                             [] Nas buscar onde só envolve um item, tirar o foreach.
                             [] Adicionar controle de estoque ao realizar uma venda
                             [] Adicionar UN nos produtos e utilizar na venda KG/UN/PC
                             [] ctrl enter do cadastrar produto não funciona
-                            []
-                            []
-                            []
+                            [] sempre que adicionar um produto, colocar 1 na quantidade
+                            [] adicioanr subtotal
+                            [] 
                             []
                             []
                             []
@@ -49,67 +42,74 @@ namespace sisVendas
             
         }
 
+        private void openForm(Form f)
+        {
+            f.MaximizeBox = false;
+            f.MinimizeBox = false;
+            f.StartPosition = FormStartPosition.CenterScreen;
+            f.ShowDialog();
+        }
         private void menuBtnFuncionario_Click(object sender, EventArgs e)
         {
+                
             FormCreateEmployee f = new FormCreateEmployee();
-            f.ShowDialog();
+            openForm(f);
         }
 
 
         private void menuBtnClient_Click(object sender, EventArgs e)
         {
             FormCreateClient f = new FormCreateClient();
-            f.ShowDialog();
+            openForm(f);
         }
 
         private void menuBtnProvider_Click(object sender, EventArgs e)
         {
             FormCreateProvider f = new FormCreateProvider();
-            f.ShowDialog();
+            openForm(f); ;
         }
 
         private void menuBtnProduct_Click(object sender, EventArgs e)
         {
             FormCreateProduct f = new FormCreateProduct();
-            f.ShowDialog();
+            openForm(f);
         }
 
         private void menuBtnProductCategory_Click(object sender, EventArgs e)
         {
             FormCreateProductCategory f = new FormCreateProductCategory();
-            f.ShowDialog();
+            openForm(f);
         }
 
         private void menuBtnProductBrand_Click(object sender, EventArgs e)
         {
             FormCreateProductBrand f = new FormCreateProductBrand();
-            f.ShowDialog();
+            openForm(f);
         }
-
         private void menuBtnExpense_Click(object sender, EventArgs e)
         {
             FormCreateExpense f = new FormCreateExpense();
-            f.ShowDialog();
+            openForm(f);
         }
 
         private void menuBtnExpenseType_Click(object sender, EventArgs e)
         {
             FormCreateExpenseType f = new FormCreateExpenseType();
-            f.ShowDialog();
+            openForm(f);
         }
 
         private void menuBtnParameterization_Click(object sender, EventArgs e)
         {
             FormParameterization f = new FormParameterization();
-            f.ShowDialog();
+            openForm(f);
         }
 
         private void menuBtnEfetuarVenda_Click(object sender, EventArgs e)
         {
             FormVenda f = new FormVenda();
-            //f.WindowState = FormWindowState.Maximized;
-            //f.FormBorderStyle = FormBorderStyle.None;
-            f.ShowDialog();
+            f.WindowState = FormWindowState.Maximized;
+            f.FormBorderStyle = FormBorderStyle.None;
+            openForm(f);
         }
     }
 }

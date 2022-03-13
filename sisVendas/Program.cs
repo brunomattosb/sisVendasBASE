@@ -16,7 +16,12 @@ namespace sisVendas
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormHome());
+
+
+            FormHome f = new FormHome();
+            f.StartPosition = FormStartPosition.CenterScreen; 
+            
+            Application.Run(f);
         }
     }
 }
