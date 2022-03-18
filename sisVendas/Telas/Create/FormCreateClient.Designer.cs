@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.gbCod = new System.Windows.Forms.GroupBox();
+            this.tbRg = new System.Windows.Forms.TextBox();
             this.lblSaldo = new System.Windows.Forms.Label();
             this.tbSaldo = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
             this.tbEmail = new System.Windows.Forms.TextBox();
-            this.mtbRgIe = new System.Windows.Forms.MaskedTextBox();
             this.lblRg = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnNew = new System.Windows.Forms.Button();
@@ -95,13 +95,13 @@
             // gbCod
             // 
             this.gbCod.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gbCod.Controls.Add(this.tbRg);
             this.gbCod.Controls.Add(this.lblSaldo);
             this.gbCod.Controls.Add(this.tbSaldo);
             this.gbCod.Controls.Add(this.tbName);
             this.gbCod.Controls.Add(this.label1);
             this.gbCod.Controls.Add(this.lblEmail);
             this.gbCod.Controls.Add(this.tbEmail);
-            this.gbCod.Controls.Add(this.mtbRgIe);
             this.gbCod.Controls.Add(this.lblRg);
             this.gbCod.Controls.Add(this.tableLayoutPanel1);
             this.gbCod.Controls.Add(this.mtbDtNasc);
@@ -131,6 +131,14 @@
             this.gbCod.Size = new System.Drawing.Size(694, 280);
             this.gbCod.TabIndex = 1;
             this.gbCod.TabStop = false;
+            // 
+            // tbRg
+            // 
+            this.tbRg.Location = new System.Drawing.Point(234, 33);
+            this.tbRg.MaxLength = 19;
+            this.tbRg.Name = "tbRg";
+            this.tbRg.Size = new System.Drawing.Size(112, 20);
+            this.tbRg.TabIndex = 44;
             // 
             // lblSaldo
             // 
@@ -184,16 +192,6 @@
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(302, 20);
             this.tbEmail.TabIndex = 13;
-            // 
-            // mtbRgIe
-            // 
-            this.mtbRgIe.Location = new System.Drawing.Point(234, 33);
-            this.mtbRgIe.Mask = "000,000,000-00";
-            this.mtbRgIe.Name = "mtbRgIe";
-            this.mtbRgIe.Size = new System.Drawing.Size(112, 20);
-            this.mtbRgIe.TabIndex = 2;
-            this.mtbRgIe.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.mtbRgIe.Click += new System.EventHandler(this.mtbRgIe_Click);
             // 
             // lblRg
             // 
@@ -746,7 +744,6 @@
 
         #endregion
         private System.Windows.Forms.GroupBox gbCod;
-        private System.Windows.Forms.MaskedTextBox mtbRgIe;
         private System.Windows.Forms.Label lblRg;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btnNew;
@@ -802,5 +799,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cli_sex;
         private System.Windows.Forms.DataGridViewTextBoxColumn cli_balance;
         private System.Windows.Forms.DataGridViewTextBoxColumn cli_created_at;
+        private System.Windows.Forms.TextBox tbRg;
     }
 }

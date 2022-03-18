@@ -1,10 +1,13 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Functions;
 using sisVendas.Models;
+using sisVendas.Models.Venda;
 using sisVendas.Notificacao;
 using sisVendas.Screens.Client;
 using sisVendas.Screens.Product;
+using sisVendas.Telas.Sale;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -15,16 +18,22 @@ namespace sisVendas.Screens.Sale
     {
         private Cliente clienteSelecionado;
         private Produto produtoSelecionado;
-        
+        private VendaCompleta vendaSelecionada;
+
         private ctrlClient controlCliente = new ctrlClient();
         private ctrlProduct controlProduct = new ctrlProduct();
+        private ctrlVenda controlVenda = new ctrlVenda();
+        private ctrlItensVenda controlItensVenda = new ctrlItensVenda();
+        private ctrlParcelasVenda controlParcelas = new ctrlParcelasVenda();
 
         private int itemCoupon = 1;
+
         private double toalVenda = 0;
-        //private double totalOffset = 0;
-        //private double totalDiscount = 0;
+        private double totalDesconto = 0;
+        private double subtotalVenda = 0;
+        private double totalPago = 0;
 
-
+        DataTable dtParcelas = new DataTable();
         DataTable dtProducts = new DataTable();
         public FormVenda()
         {
@@ -50,6 +59,9 @@ namespace sisVendas.Screens.Sale
                 case Keys.F2:
                     abrirFormProduto();
                     break;
+                case Keys.F5:
+                    abrirFormBuscarVenda();
+                    break;
                 case Keys.F9:
                     abrirFormCalcularTroco();
                     break;
@@ -57,7 +69,10 @@ namespace sisVendas.Screens.Sale
                     abrirFormCalcularVenda();
                     break;
                 case Keys.F11:
-                    abrirFormFormaPagamento();
+                    abrirFormDesconto();
+                    break;
+                case Keys.F12:
+                    finalizarVenda();
                     break;
             }
             return base.ProcessCmdKey(ref msg, keyData);
@@ -72,11 +87,16 @@ namespace sisVendas.Screens.Sale
             dtProducts.Columns.Add("cod");
             dtProducts.Columns.Add("amount", typeof(double));
             dtProducts.Columns.Add("un");
-            dtProducts.Columns.Add("valueun", typeof(double));
-            dtProducts.Columns.Add("valuetotal", typeof(double));
+            dtProducts.Columns.Add("valueun");
+            dtProducts.Columns.Add("valuetotal");
 
             dtProducts.PrimaryKey = new DataColumn[] { dtProducts.Columns["name"] };
             dgvProducts.DataSource = dtProducts;
+
+            dtParcelas.TableName = "parcelas";
+            dtParcelas.Columns.Add("valor", typeof(double));
+            dtParcelas.Columns.Add("tipo");
+            dtParcelas.Columns.Add("data");
         }
         #endregion
 
@@ -95,11 +115,15 @@ namespace sisVendas.Screens.Sale
 
             if (clienteSelecionado != null)
             {
+
+                changeCpfCnpj(clienteSelecionado.Cpf_cnpj.Count());
+
                 tbNameClient.Text = clienteSelecionado.Name;
                 mtbCpfClient.Text = clienteSelecionado.Cpf_cnpj;
+                tbNameClient.Enabled = false;
                 lblWarningCpf.Visible = false;
             }
-            tbNameClient.Focus();
+            mtbCpfClient.Focus();
         }
         private void mtbCpfClient_Leave(object sender, EventArgs e)
         {
@@ -113,7 +137,7 @@ namespace sisVendas.Screens.Sale
         {
             string cpf = Function.replaceAll(mtbCpfClient.Text);
 
-            if (cpf.Count() >= 1)
+            if (cpf.Count() > 0 && cpf.Count() <= 11)
             {
                 if ((Function.isCpfValid(mtbCpfClient.Text)))//&& isValidCpf
                 {
@@ -125,7 +149,6 @@ namespace sisVendas.Screens.Sale
                         mtbCpfClient.Text = clienteSelecionado.Cpf_cnpj.ToString();
                         tbNameClient.Text = clienteSelecionado.Name.ToString();
                         lblWarningCpf.Visible = false;
-
                         return true;
                     }
                     clienteSelecionado = null;
@@ -139,26 +162,23 @@ namespace sisVendas.Screens.Sale
                 }
                 lblWarningCpf.Visible = true;
             }
-            else
+            else if (cpf.Count() == 14)
             {
-                tbNameClient.Text = "";
-                clienteSelecionado = null;
-                lblWarningCpf.Visible = false;
+                return true;
             }
+
             return false;
         }
         private void mtbCpfClient_Enter(object sender, EventArgs e)
         {
-            clienteSelecionado = null;
-            tbNameClient.Text = "";
-            tbNameClient.Enabled = true;
+
         }
         #endregion
 
         #region product
         private void tbCodProduct_Leave(object sender, EventArgs e)
         {
-            if(tbCodProduct.Text.Count() > 0)
+            if (tbCodProduct.Text.Count() > 0)
             {
                 if (verificarProdutoExiste(tbCodProduct.Text)) // produto encontrado
                 {
@@ -181,7 +201,7 @@ namespace sisVendas.Screens.Sale
         }
         private bool verificarProdutoExiste(string cod)
         {
-            
+
             if (cod.Count() != 0)
             {
                 Produto prod = controlProduct.buscarProdutoPorCod(cod);
@@ -206,6 +226,7 @@ namespace sisVendas.Screens.Sale
         private void preencheProduto()
         {
             tbNameProduct.Text = produtoSelecionado.Name;
+
             tbCodProduct.Text = produtoSelecionado.Id.ToString();
         }
         private void limpaProduto()
@@ -239,7 +260,7 @@ namespace sisVendas.Screens.Sale
             {
                 if (verificarProdutoExiste(tbCodProduct.Text))
                 {
-                    addProduct();
+                    addProduct(tbAmount.Text);
 
                 }
                 else
@@ -249,6 +270,7 @@ namespace sisVendas.Screens.Sale
                     limpaProduto();
                     tbCodProduct.Focus();
                 }
+                dgvProducts.ClearSelection();
             }
         }
 
@@ -261,22 +283,26 @@ namespace sisVendas.Screens.Sale
 
             if (e.KeyChar == (char)13) //ENTER
             {
-                addProduct();
+                addProduct(tbAmount.Text);
+                dgvProducts.ClearSelection();
             }
-            if (e.KeyChar == (char)45) // [MENOS]
+            else if (e.KeyChar == (char)45) // [MENOS]
             {
                 removeProduct();
+                dgvProducts.ClearSelection();
             }
         }
 
-        private void addProduct()
+        private void addProduct(string amount)
         {
-            if (tbAmount.Text.Count() > 0)
+            if (amount.Count() > 0)
             {
-                if (produtoSelecionado != null && Convert.ToDouble(tbAmount.Text) != 0)
+                if (produtoSelecionado != null && Convert.ToDouble(amount) != 0)
                 {
-                    inserirProdutoBobina();
-                    addToDataTable();
+                    //inserirProdutoBobina();
+                    addToDataTable(amount);
+
+                    tbAmount.Text = "1";
                 }
             }
             else
@@ -303,26 +329,6 @@ namespace sisVendas.Screens.Sale
                 string linha = dgvProducts.Rows[dgvProducts.CurrentRow.Index].Cells[1].Value.ToString();
                 tbCodProduct.Text = linha;
                 tbCodProduct.Focus();
-                /*
-                produtoSelecionado = controlProduct.buscarProdutoPorCod()
-
-
-                    tbCod.Text = linha[0].Value.ToString();
-
-                if (dgv_client.SelectedRows.Count == 1)
-                {
-
-
-                    activeForm();
-                    DataGridViewCellCollection linha = dgv_client.Rows[dgv_client.CurrentRow.Index].Cells;
-
-                    fillForm(linha);
-
-                    btnRemove.Enabled = true;
-                    mtbCpf.Enabled = false;
-                }*/
-                //clientSelected = ;
-                //Close();
             }
         }
         #endregion
@@ -355,7 +361,7 @@ namespace sisVendas.Screens.Sale
                 double total = Convert.ToDouble(produtoSelecionado.Value) * Convert.ToDouble(tbAmount.Text);
                 Bobina.Items.Add(
                     new string(' ', 8 - tbAmount.Text.Length) + tbAmount.Text + " " +
-                    new string(' ', 3 - 2) + "UN" + " x " +
+                    new string(' ', 3 - 2) + produtoSelecionado.Un + " x " +
                     new string(' ', 10 - produtoSelecionado.Value.ToString().Length) + "R$ " + produtoSelecionado.Value + " " +
                     new string(' ', 5) + new string(' ', 11 - total.ToString().Length) + "R$ " + total
                     );
@@ -384,7 +390,7 @@ namespace sisVendas.Screens.Sale
                 double total = Convert.ToDouble(produtoSelecionado.Value) * Convert.ToDouble(tbAmount.Text);
                 Bobina.Items.Add(
                     new string(' ', 8 - tbAmount.Text.Length) + tbAmount.Text + " " +
-                    new string(' ', 3 - 2) + "UN" + " x " +
+                    new string(' ', 3 - 2) + produtoSelecionado.Un + " x " +
                     new string(' ', 9 - produtoSelecionado.Value.ToString().Length) + "R$ " + "-" + produtoSelecionado.Value + " " +
                     new string(' ', 5) + new string(' ', 10 - total.ToString().Length) + "-" + "R$ " + total
                     );
@@ -403,7 +409,7 @@ namespace sisVendas.Screens.Sale
         #endregion
 
         #region Print DataTable
-        private void addToDataTable()
+        private void addToDataTable(string amount)
         {
             string prod_name = produtoSelecionado.Name;
 
@@ -416,10 +422,10 @@ namespace sisVendas.Screens.Sale
                 DataRow linha = dtProducts.NewRow();
 
                 linha["name"] = produtoSelecionado.Name;
-                linha["amount"] = Convert.ToDouble(tbAmount.Text);
-                linha["valueun"] = produtoSelecionado.Value;
-                linha["valuetotal"] = Convert.ToDouble(produtoSelecionado.Value) * Convert.ToDouble(tbAmount.Text);
-                linha["un"] = "UN";
+                linha["amount"] = Convert.ToDouble(amount);
+                linha["valueun"] = "R$ " + produtoSelecionado.Value;
+                linha["valuetotal"] = "R$ " + Convert.ToDouble(produtoSelecionado.Value) * Convert.ToDouble(amount);
+                linha["un"] = produtoSelecionado.Un;
                 linha["cod"] = produtoSelecionado.Id;
 
                 dtProducts.Rows.Add(linha);
@@ -427,11 +433,16 @@ namespace sisVendas.Screens.Sale
             }
             else //caso ja exista no dt
             {
-                dtProducts.Rows[index]["amount"] = Convert.ToDouble(row["amount"]) + Convert.ToDouble(tbAmount.Text);
-                dtProducts.Rows[index]["valueTotal"] = Convert.ToDouble(dtProducts.Rows[index]["amount"]) * Convert.ToDouble(row["valueun"]);
+
+                dtProducts.Rows[index]["amount"] = Convert.ToDouble(row["amount"]) + Convert.ToDouble(amount);
+                dtProducts.Rows[index]["valueTotal"] = "R$ " + Convert.ToDouble(dtProducts.Rows[index]["amount"]) * Convert.ToDouble(row["valueun"].ToString().Replace("R$", ""));
             }
-            toalVenda = toalVenda + (Convert.ToDouble(produtoSelecionado.Value) * Convert.ToDouble(tbAmount.Text));
+            toalVenda = toalVenda + (Convert.ToDouble(produtoSelecionado.Value) * Convert.ToDouble(amount));
+
+            subtotalVenda = toalVenda - totalPago - totalDesconto;
+
             lblTotal.Text = "R$ " + toalVenda;
+            lblSubtotal.Text = "R$ " + subtotalVenda;
         }
 
         private void removeToDataTable()
@@ -451,10 +462,13 @@ namespace sisVendas.Screens.Sale
                 {
                     removerProdutoBobina();
                     dtProducts.Rows[index]["amount"] = Convert.ToDouble(row["amount"]) - Convert.ToDouble(tbAmount.Text);
-                    dtProducts.Rows[index]["valueTotal"] = Convert.ToDouble(row["valueun"]) * Convert.ToDouble(dtProducts.Rows[index]["amount"]);
+                    dtProducts.Rows[index]["valueTotal"] = "R$ " + Convert.ToDouble(dtProducts.Rows[index]["amount"]) * Convert.ToDouble(row["valueun"].ToString().Replace("R$", ""));
 
-                    toalVenda = toalVenda - (Convert.ToDouble(row["valueun"]) * Convert.ToDouble(tbAmount.Text));
-                    lblTotal.Text = "R$ " + toalVenda;
+                    toalVenda = toalVenda - (Convert.ToDouble(produtoSelecionado.Value) * Convert.ToDouble(tbAmount.Text));
+
+                    subtotalVenda = toalVenda - totalPago - totalDesconto;
+                    lblSubtotal.Text = "R$ " + (toalVenda - totalDesconto - totalPago);
+                    lblTotal.Text = "R$ " + (toalVenda);
 
                     //caso quantidade seja zero
                     if (Convert.ToDouble(dtProducts.Rows[index]["amount"]) == 0)
@@ -480,42 +494,287 @@ namespace sisVendas.Screens.Sale
 
         #endregion
 
-        #region abrir rorms
+        #region abrir forms
         public void abrirFormCalcularTroco()
         {
             FormCalcularTroco f = new FormCalcularTroco(toalVenda);
             f.ShowDialog();
         }
+        private void calcularParcelas(DataTable dtParcelas)
+        {
+            totalPago = 0;
+            foreach (DataRow parcela in dtParcelas.Rows)
+            {
+                totalPago += double.Parse(parcela["valor"] + "");
+            }
+            subtotalVenda = toalVenda - totalPago - totalDesconto;
+            lblSubtotal.Text = "R$ " + (toalVenda - totalDesconto - totalPago);
+        }
         public void abrirFormCalcularVenda()
         {
-            FormSimularVenda f = new FormSimularVenda(toalVenda);
+
+            FormSimularVenda f = new FormSimularVenda(toalVenda - totalDesconto, dtParcelas);
             f.ShowDialog();
+
+            this.dtParcelas = f.getLparcela();
+
+            calcularParcelas(dtParcelas);
+
         }
-        public void abrirFormFormaPagamento()
+        public void abrirFormDesconto()
         {
-            FormFormaPagamento f = new FormFormaPagamento();
+            FormDesconto f = new FormDesconto(toalVenda);
             f.ShowDialog();
 
+            totalDesconto = f.getDesconto();
 
-            /*produtoSelecionado = f.returnProduto();
-
-            if (produtoSelecionado != null)
+            if (totalDesconto != 0)
             {
-                preencheProduto();
+                lblDesconto.Visible = lblTextDesconto.Visible = true;
+                lblDesconto.Text = "R$ " + (totalDesconto);
             }
             else
             {
-                limpaProduto();
+                lblDesconto.Visible = lblTextDesconto.Visible = false;
             }
-            tbAmount.Focus();*/
+            subtotalVenda = toalVenda - totalPago - totalDesconto;
+            lblSubtotal.Text = "R$ " + (toalVenda - totalDesconto - totalPago);
+
+
+
         }
-        #endregion
-        private void button4_Click(object sender, EventArgs e)
+        public void abrirFormBuscarVenda()
         {
-            if (produtoSelecionado == null)
-                MessageBox.Show("Produto é null!");
+
+            FormBuscarVenda f = new FormBuscarVenda();
+            f.ShowDialog();
+
+            vendaSelecionada = f.retornaVenda();
+
+            if(vendaSelecionada != null)
+            {
+                tbNameClient.Text = vendaSelecionada.Cli_name;
+                mtbCpfClient.Text = vendaSelecionada.Cli_cpf_cnpj;
+
+                foreach (DataRow prod in controlItensVenda.buscarItensVendaPorIDVenda(vendaSelecionada.Id).Rows)
+                {
+                    MessageBox.Show(prod[0].ToString() + "id"); //id
+                    MessageBox.Show(prod[1].ToString() +"qtde"); //qtde
+                    MessageBox.Show(prod[2].ToString() + "idvenda"); //idvenda
+                    MessageBox.Show(prod[3].ToString() + "idprod"); //idprod
+
+                    verificarProdutoExiste(prod[3].ToString());
+                    addProduct(prod[1].ToString());
+
+
+
+                }
+                dtParcelas = controlParcelas.buscarParcelas(vendaSelecionada.Id);
+                calcularParcelas(dtParcelas);
+            }
+            
+            /*if (totalDesconto != 0)
+            {
+                lblDesconto.Visible = lblTextDesconto.Visible = true;
+                lblDesconto.Text = "R$ " + (totalDesconto);
+            }
+            else
+            {
+                lblDesconto.Visible = lblTextDesconto.Visible = false;
+            }
+            subtotalVenda = toalVenda - totalPago - totalDesconto;
+            lblSubtotal.Text = "R$ " + (toalVenda - totalDesconto - totalPago);
+            */
+
+            
+        }
+        
+
+        #endregion
+
+        public void finalizarVenda()
+        {
+            bool isOk = true;
+            string cpf = Function.replaceAll(mtbCpfClient.Text);
+            
+            //tirar o foco do mtbCPF para realizar a busca do cliente caso esteja focado
+            if(mtbCpfClient.Focused)
+            {
+                tbAmount.Focus();
+            }
+
+            // validando o cliente
+            if(clienteSelecionado == null)
+            {
+                //Cliente não selecionado
+
+                if (cpf.Count() == 14) // verificar se é CNPJ
+                {
+                    //é CNPJ
+                    MessageBox.Show("É CNPJ");
+                }
+                else if (Function.isCpfValid(cpf))//verificar se o Cliente é valido
+                {   // se for valido vai perguntar se deseja inserir na base de dados
+                    if (MessageBox.Show("Cliente não cadastrado na base de dados, deseja inserir ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+                        if(tbNameClient.Text.Count() > 0)
+                        {
+                            if (controlCliente.SaveClient("0", tbNameClient.Text, cpf, "", "", "", "", "", "", "", "", "", DateTime.MaxValue, 'M', 0))
+                            {
+                                // inserido
+                                if (verificaSeClienteExiste())
+                                {
+                                    MessageBox.Show("Cliente salvo OK");
+                                }
+                                else
+                                {
+                                    isOk = false;
+                                    MessageBox.Show("Erro ao salvar CLiente.");
+                                }
+                                
+
+                            }
+                            else
+                            {
+                                //erro ao inserir
+                                isOk = false;
+                                MessageBox.Show("Erro ao salvar Cliente");
+
+                            }
+                        }
+                        else
+                        {
+                            isOk = false;
+                            MessageBox.Show("Preencha o nome do cliente para salvar");
+                        }
+                        
+                    }
+                }
+                else
+                {
+                    if(cpf.Count() > 0)
+                    {
+                        MessageBox.Show("CPF do cliente não é valido");
+                        isOk = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Venda sem CPF");
+                        //clienteSelecionado = new Cliente();
+                    }
+                }
+                
+            }
+            else
+            {
+
+
+                MessageBox.Show("Cliente existente");
+
+            }
+            
+
+
+            //verificar se existe produtos
+            if (dtProducts.Rows.Count == 0)
+            {
+                isOk = false;
+                MessageBox.Show("Não existe produtos cadastrados!");
+            }
+            else
+            {
+                //verificar se foi quitado
+                if (subtotalVenda != 0)
+                {
+                    isOk = false;
+                    MessageBox.Show("Não foi quitado!");
+                }
+            }
+
+
+            if (isOk)
+            {
+                if(clienteSelecionado == null)
+                {
+                    isOk = controlVenda.SalvarVenda(0, dtParcelas, dtProducts, totalDesconto);
+                }
+                else
+                {
+                    isOk = controlVenda.SalvarVenda(clienteSelecionado.Id, dtParcelas, dtProducts, totalDesconto);
+                }
+                if (isOk)
+                {
+                    MessageBox.Show("O cliente foi salvo! agora sera apagado tudo");
+                    dtParcelas.Rows.Clear();
+                    dtProducts.Rows.Clear();
+                    toalVenda = 0;
+                    totalDesconto = 0;
+                    subtotalVenda = 0;
+                    totalPago = 0;
+
+                    produtoSelecionado = null;
+                    clienteSelecionado = null;
+                    tbAmount.Text = "1";
+                    tbNameClient.Text = tbNameProduct.Text = tbCodProduct.Text = mtbCpfClient.Text = "";
+                    lblDesconto.Visible = lblTextDesconto.Visible = false;
+                    lblTotal.Text = lblSubtotal.Text = "R$: ";
+                     
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("FALSE");
+            }
+
+        }
+        public void changeCpfCnpj(int qtde)
+        {
+            if (mtbCpfClient.Mask != "000.000.000-00" && qtde <= 11)
+            {
+                mtbCpfClient.Mask = "000.000.000-00";
+
+                //mtbCpfClient.Select(qtde, 0);
+                lblCpf.Text = "*CPF:";
+            }
+            else if (mtbCpfClient.Mask != "00.000.000/0000-00" && qtde > 11)
+            {
+                int pos = mtbCpfClient.Text.Count();
+                mtbCpfClient.Mask = "00.000.000/0000-00";
+                //mtbCpfClient.Select(pos, 0);
+
+                lblCpf.Text = "*CNPJ:";
+            }
+
         }
 
-        
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (clienteSelecionado == null)
+                MessageBox.Show("é null");
+        }
+
+        private void mtbCpfClient_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Back)
+            {
+                if (Function.replaceAll(mtbCpfClient.Text).Count() == 13)
+                {
+                    mtbCpfClient.Text = "";
+                    tbNameClient.Text = "";
+
+                    changeCpfCnpj(11);
+                    mtbCpfClient.Focus();
+                    tbNameClient.Enabled = true;
+                    clienteSelecionado = null;
+                }
+                else if (clienteSelecionado != null)
+                {
+                    tbNameClient.Text = "";
+                    tbNameClient.Enabled = true;
+                    clienteSelecionado = null;
+                }
+            }
+        }
     }
 }

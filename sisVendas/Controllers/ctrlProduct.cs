@@ -46,7 +46,7 @@ namespace sisVendas.Controllers
 
             return (result);
         }
-
+        
         public DataTable searthProduct(string filter)
         {
 
@@ -78,7 +78,7 @@ namespace sisVendas.Controllers
                 line["prod_value"] = prod.Value;
                 line["prod_un"] = prod.Un;
                 line["prod_created_at"] = prod.Created_at;
-
+                
                 dtProduct.Rows.Add(line);
             }
             dataBase.Desconecta();

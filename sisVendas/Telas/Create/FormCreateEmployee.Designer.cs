@@ -31,6 +31,7 @@
             this.GbpPesquisa = new System.Windows.Forms.GroupBox();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.gbCad = new System.Windows.Forms.GroupBox();
+            this.tbRg = new System.Windows.Forms.TextBox();
             this.gbAdmission = new System.Windows.Forms.GroupBox();
             this.mtbDemissao = new System.Windows.Forms.MaskedTextBox();
             this.lblAdmissao = new System.Windows.Forms.Label();
@@ -46,7 +47,6 @@
             this.cbbLicence = new System.Windows.Forms.ComboBox();
             this.lblEmail = new System.Windows.Forms.Label();
             this.tbEmail = new System.Windows.Forms.TextBox();
-            this.mtbRg = new System.Windows.Forms.MaskedTextBox();
             this.lblRg = new System.Windows.Forms.Label();
             this.mtbDtNasc = new System.Windows.Forms.MaskedTextBox();
             this.mtbTelephone = new System.Windows.Forms.MaskedTextBox();
@@ -132,11 +132,11 @@
             // gbCad
             // 
             this.gbCad.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gbCad.Controls.Add(this.tbRg);
             this.gbCad.Controls.Add(this.gbAdmission);
             this.gbCad.Controls.Add(this.gbAccess);
             this.gbCad.Controls.Add(this.lblEmail);
             this.gbCad.Controls.Add(this.tbEmail);
-            this.gbCad.Controls.Add(this.mtbRg);
             this.gbCad.Controls.Add(this.lblRg);
             this.gbCad.Controls.Add(this.mtbDtNasc);
             this.gbCad.Controls.Add(this.mtbTelephone);
@@ -167,6 +167,14 @@
             this.gbCad.Size = new System.Drawing.Size(694, 325);
             this.gbCad.TabIndex = 0;
             this.gbCad.TabStop = false;
+            // 
+            // tbRg
+            // 
+            this.tbRg.Location = new System.Drawing.Point(234, 43);
+            this.tbRg.MaxLength = 19;
+            this.tbRg.Name = "tbRg";
+            this.tbRg.Size = new System.Drawing.Size(111, 20);
+            this.tbRg.TabIndex = 39;
             // 
             // gbAdmission
             // 
@@ -327,16 +335,6 @@
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(385, 20);
             this.tbEmail.TabIndex = 12;
-            // 
-            // mtbRg
-            // 
-            this.mtbRg.Location = new System.Drawing.Point(234, 43);
-            this.mtbRg.Mask = "000,000,000-00";
-            this.mtbRg.Name = "mtbRg";
-            this.mtbRg.Size = new System.Drawing.Size(112, 20);
-            this.mtbRg.TabIndex = 2;
-            this.mtbRg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.mtbRg.Click += new System.EventHandler(this.mtbRg_Click);
             // 
             // lblRg
             // 
@@ -957,7 +955,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.DataGridView dgv_employee;
         private System.Windows.Forms.Label lblFuncionario;
-        private System.Windows.Forms.MaskedTextBox mtbRg;
         private System.Windows.Forms.Label lblRg;
         private System.Windows.Forms.MaskedTextBox mtbDemissao;
         private System.Windows.Forms.Label lblAdmissao;
@@ -994,5 +991,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn emp_resignation;
         private System.Windows.Forms.DataGridViewTextBoxColumn emp_username;
         private System.Windows.Forms.DataGridViewTextBoxColumn emp_email;
+        private System.Windows.Forms.TextBox tbRg;
     }
 }

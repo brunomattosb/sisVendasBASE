@@ -29,7 +29,6 @@ namespace sisVendas.Persistence
                 SQL = @"INSERT INTO Product (prod_id,prod_name,prod_complement,prod_inventory,prod_category,prod_brand,prod_value, prod_un)
                         values (@prod_id,@prod_name,@prod_complement,@prod_inventory,@prod_category,@prod_brand,@prod_value, @prod_un)";
 
-
                 res = db.ExecuteNonQuery(SQL, "@prod_name", prod.Name,
                                                 "@prod_id", prod.Id,
                                                 "@prod_un", prod.Un,
@@ -69,9 +68,8 @@ namespace sisVendas.Persistence
                     prod.Prod_category = Convert.ToInt32(dt.Rows[i]["prod_category"]);
                     prod.Prod_brand = Convert.ToInt32(dt.Rows[i]["prod_brand"]);
                     prod.Value = Convert.ToDouble(dt.Rows[i]["prod_value"].ToString());
-                    prod.Un = dt.Rows[0]["prod_un"].ToString();
+                    prod.Un = dt.Rows[i]["prod_un"].ToString();
                     prod.Created_at = Convert.ToDateTime(dt.Rows[i]["prod_created_at"].ToString());
-
 
                     produtos.Add(prod);
                 }
@@ -79,6 +77,7 @@ namespace sisVendas.Persistence
             return (produtos);
 
         }
+        
         public Produto buscarPorCod(string filtro)
         {
             DataTable dt = new DataTable();
@@ -96,7 +95,7 @@ namespace sisVendas.Persistence
                 prod.Inventory = Convert.ToInt32(dt.Rows[0]["prod_inventory"]);
                 prod.Prod_category = Convert.ToInt32(dt.Rows[0]["prod_category"]);
                 prod.Prod_brand = Convert.ToInt32(dt.Rows[0]["prod_brand"]);
-                prod.Un = dt.Rows[0]["prod_brand"].ToString();
+                prod.Un = dt.Rows[0]["prod_un"].ToString();
                 prod.Value = Convert.ToDouble(dt.Rows[0]["prod_value"].ToString());
                 prod.Created_at = Convert.ToDateTime(dt.Rows[0]["prod_created_at"].ToString());
             }
@@ -123,7 +122,7 @@ namespace sisVendas.Persistence
             if (Objeto.GetType() == typeof(Produto))
             {
                 Produto prod = (Produto)Objeto;
-
+                MessageBox.Show(prod.Id + "");
                 string SQL = @"UPDATE Product SET prod_name = @prod_name,
                                             prod_complement = @prod_complement,
                                             prod_inventory = @prod_inventory,

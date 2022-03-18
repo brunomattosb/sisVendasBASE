@@ -32,11 +32,11 @@
             this.GbpPesquisa = new System.Windows.Forms.GroupBox();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.gbCad = new System.Windows.Forms.GroupBox();
+            this.tbRg = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
             this.tbEmail = new System.Windows.Forms.TextBox();
-            this.mtbRgIe = new System.Windows.Forms.MaskedTextBox();
             this.lblRg = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnNew = new System.Windows.Forms.Button();
@@ -117,11 +117,11 @@
             // gbCad
             // 
             this.gbCad.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gbCad.Controls.Add(this.tbRg);
             this.gbCad.Controls.Add(this.tbName);
             this.gbCad.Controls.Add(this.lblName);
             this.gbCad.Controls.Add(this.lblEmail);
             this.gbCad.Controls.Add(this.tbEmail);
-            this.gbCad.Controls.Add(this.mtbRgIe);
             this.gbCad.Controls.Add(this.lblRg);
             this.gbCad.Controls.Add(this.tableLayoutPanel1);
             this.gbCad.Controls.Add(this.mtbTelephone);
@@ -147,6 +147,14 @@
             this.gbCad.Size = new System.Drawing.Size(694, 280);
             this.gbCad.TabIndex = 6;
             this.gbCad.TabStop = false;
+            // 
+            // tbRg
+            // 
+            this.tbRg.Location = new System.Drawing.Point(234, 33);
+            this.tbRg.MaxLength = 19;
+            this.tbRg.Name = "tbRg";
+            this.tbRg.Size = new System.Drawing.Size(112, 20);
+            this.tbRg.TabIndex = 42;
             // 
             // tbName
             // 
@@ -181,16 +189,6 @@
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(309, 20);
             this.tbEmail.TabIndex = 13;
-            // 
-            // mtbRgIe
-            // 
-            this.mtbRgIe.Location = new System.Drawing.Point(234, 33);
-            this.mtbRgIe.Mask = "000,000,000-00";
-            this.mtbRgIe.Name = "mtbRgIe";
-            this.mtbRgIe.Size = new System.Drawing.Size(112, 20);
-            this.mtbRgIe.TabIndex = 2;
-            this.mtbRgIe.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.mtbRgIe.Click += new System.EventHandler(this.mtbRgIe_Click);
             // 
             // lblRg
             // 
@@ -643,7 +641,6 @@
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.TextBox tbEmail;
-        private System.Windows.Forms.MaskedTextBox mtbRgIe;
         private System.Windows.Forms.Label lblRg;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btnNew;
@@ -683,5 +680,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn prov_telephone;
         private System.Windows.Forms.DataGridViewTextBoxColumn prov_cpf_cnpj;
         private System.Windows.Forms.DataGridViewTextBoxColumn prov_rg_ie;
+        private System.Windows.Forms.TextBox tbRg;
     }
 }

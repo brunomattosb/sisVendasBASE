@@ -1,11 +1,11 @@
-# ---------------------------------------------------------------------- #
-# Add table "Cliente"                                                    #
-# ---------------------------------------------------------------------- #
+--# ---------------------------------------------------------------------- #
+--# Add table "Cliente"                                                    #
+--# ---------------------------------------------------------------------- #
 CREATE TABLE [dbo].[Client] (
     [cli_id]           INT             IDENTITY (1, 1) NOT NULL,
     [cli_name]         VARCHAR (50)    DEFAULT ('Sem nome') NULL,
     [cli_fantasy_name] VARCHAR (50)    NULL,
-    [cli_cpf_cnpj]     VARCHAR (19)    NOT NULL,
+    [cli_cpf_cnpj]     VARCHAR (19)    UNIQUE NOT NULL,
     [cli_zip_code]     VARCHAR (10)    NULL,
     [cli_addres]       VARCHAR (50)    NULL,
     [cli_district]     VARCHAR (50)    NULL,
@@ -18,19 +18,20 @@ CREATE TABLE [dbo].[Client] (
     [cli_sex]          CHAR (2)        NULL,
     [cli_balance]      NUMERIC (15, 2) DEFAULT ((0)) NULL,
     [cli_email]        VARCHAR (100)   NULL,
-    CONSTRAINT [PK_CPF_CLIENTE] PRIMARY KEY CLUSTERED ([cli_cpf_cnpj] ASC)
+	
+    CONSTRAINT [PK_ID_CLIENTE] PRIMARY KEY CLUSTERED ([cli_id] ASC)
 );
 
 
 
-INSERT INTO Client (cli_name,cli_fantasy_name,cli_cpf_cnpj,cli_zip_code,cli_addres,cli_district,
+/*INSERT INTO Client (cli_name,cli_fantasy_name,cli_cpf_cnpj,cli_zip_code,cli_addres,cli_district,
 cli_city,cli_telephone,cli_rg_ie,cli_uf,cli_birth_at,cli_sex,cli_balance,cli_email)
 values ('Nome','Fantasy Name','387.133.768-45','19470000','Rua Manaus 8-31','Cli District',
-'cli_city','cli_telephone','cli_rg_ie','cl','10-10-2021','M',500,'email@email')
+'cli_city','cli_telephone','cli_rg_ie','cl','10-10-2021','M',500,'email@email')*/
 	
-# ---------------------------------------------------------------------- #
-# Add table "Funcionário"                                                #
-# ---------------------------------------------------------------------- #
+--# ---------------------------------------------------------------------- #
+--# Add table "Funcionário"                                                #
+--# ---------------------------------------------------------------------- #
 
 CREATE TABLE [dbo].[Employee] (
     [emp_id]           INT             IDENTITY (1, 1) NOT NULL,
@@ -56,9 +57,9 @@ CREATE TABLE [dbo].[Employee] (
 	
     CONSTRAINT [PK_CPF_EMPLOYEE] PRIMARY KEY CLUSTERED ([emp_cpf] ASC)
 );
-# ---------------------------------------------------------------------- #
-# Add table "Provider"                                                   #
-# ---------------------------------------------------------------------- #
+--# ---------------------------------------------------------------------- #
+--# Add table "Provider"                                                   #
+--# ---------------------------------------------------------------------- #
 
 CREATE TABLE [dbo].[Provider] (
     
@@ -82,9 +83,9 @@ CREATE TABLE [dbo].[Provider] (
 
 
 
-# ---------------------------------------------------------------------- #
-# Add table "Despesa"                                                    #
-# ---------------------------------------------------------------------- #
+--# ---------------------------------------------------------------------- #
+--# Add table "Despesa"                                                    #
+--# ---------------------------------------------------------------------- #
 
 CREATE TABLE [dbo].[Expense] (
     [exp_id]           INT             IDENTITY (1, 1) NOT NULL,
@@ -98,9 +99,9 @@ CREATE TABLE [dbo].[Expense] (
 );
 
 
-# ---------------------------------------------------------------------- #
-# Add table "Despesa tipo"                                                    #
-# ---------------------------------------------------------------------- #
+--# ---------------------------------------------------------------------- #
+--# Add table "Despesa tipo"                                               #
+--# ---------------------------------------------------------------------- #
 
 CREATE TABLE [dbo].[ExpenseType] (
     [expType_id]       INT             IDENTITY (1, 1) NOT NULL,
@@ -109,9 +110,9 @@ CREATE TABLE [dbo].[ExpenseType] (
 
     CONSTRAINT [PK_ID_EXPENSETYPE] PRIMARY KEY CLUSTERED ([expType_id] ASC)
 );
-# ---------------------------------------------------------------------- #
-# Add table "Produto marca"                                                    #
-# ---------------------------------------------------------------------- #
+--# ---------------------------------------------------------------------- #
+--# Add table "Produto marca"                                              #
+--# ---------------------------------------------------------------------- #
 
 CREATE TABLE [dbo].[ProductBrand] (
     [prodBrand_id]       INT             IDENTITY (1, 1) NOT NULL,
@@ -120,9 +121,9 @@ CREATE TABLE [dbo].[ProductBrand] (
 
     CONSTRAINT [PK_ID_PRODUCTBRAND] PRIMARY KEY CLUSTERED ([ProdBrand_id] ASC)
 );
-# ---------------------------------------------------------------------- #
-# Add table "Produto Categoria"                                                    #
-# ---------------------------------------------------------------------- #
+--# ---------------------------------------------------------------------- #
+--# Add table "Produto Categoria"                                          #
+--# ---------------------------------------------------------------------- #
 
 CREATE TABLE [dbo].[ProductCategory] (
     [prodCategory_id]       INT             IDENTITY (1, 1) NOT NULL,
@@ -131,20 +132,20 @@ CREATE TABLE [dbo].[ProductCategory] (
 
     CONSTRAINT [PK_ID_PRODUCTCATEGORY] PRIMARY KEY CLUSTERED ([prodCategory_id] ASC)
 );
-# ---------------------------------------------------------------------- #
-# Add table "Produto"                                                    #
-# ---------------------------------------------------------------------- #
+--# ---------------------------------------------------------------------- #
+--# Add table "Produto"                                                    #
+--# ---------------------------------------------------------------------- #
 
 CREATE TABLE [dbo].[Product] (
     [prod_id]           VARCHAR (40)    NOT NULL,
     [prod_name]         VARCHAR (40)    DEFAULT ('Sem nome') NULL,
     [prod_complement]   VARCHAR (200)   NOT NULL,
 	[prod_inventory]    INT             DEFAULT 0 NULL,
-	[prod_un]           VARCHAR (3)    NOT NULL,
+	[prod_un]           VARCHAR (3)    	NOT NULL,
 	[prod_brand]        INT             NOT NULL,
-	[prod_category]        INT             NOT NULL,
+	[prod_category]     INT             NOT NULL,
 	[prod_value]    	NUMERIC (15,2)  DEFAULT 0 NULL,
-	[prod_created_at]   DATETIME         DEFAULT (getdate()) NULL,
+	[prod_created_at]   DATETIME        DEFAULT (getdate()) NULL,
 	
     CONSTRAINT [PK_ID_PRODUCT] PRIMARY KEY CLUSTERED ([prod_id] ASC),
 	CONSTRAINT [FK_ID_PRODUCTBRAND] FOREIGN KEY ([prod_brand]) references ProductBrand(prodBrand_id),
@@ -152,3 +153,47 @@ CREATE TABLE [dbo].[Product] (
 	
 );
 
+--# ---------------------------------------------------------------------- #
+--# Add table "Venda"                                                    #
+--# ---------------------------------------------------------------------- #
+
+CREATE TABLE [dbo].[Venda] (
+	[venda_id]           INT            	IDENTITY (1, 1) NOT NULL,
+	[venda_idCliente]  	 INT			    NULL,
+	[venda_desconto] 		NUMERIC (15,2) 		DEFAULT 0 NULL,
+	[venda_criado_em]  	 DATETIME         	DEFAULT (getdate()),
+	
+    CONSTRAINT [PK_ID_VENDA] PRIMARY KEY CLUSTERED ([venda_id] ASC),
+	CONSTRAINT [FK_ID_VENDACLIENT] FOREIGN KEY ([venda_idCliente]) references Client(cli_id),
+	
+);
+--# ---------------------------------------------------------------------- #
+--# Add table "Itens Venda"                                                #
+--# ---------------------------------------------------------------------- #
+
+CREATE TABLE [dbo].[ItensVenda] (
+    [iten_id]         		INT           		IDENTITY (1, 1) NOT NULL,
+	[iten_quantidade] 		NUMERIC (15,2) 		DEFAULT 0 NULL,
+	[iten_idVenda]         	INT					NOT NULL,
+	[iten_idProduto]        VARCHAR (40)		NOT NULL,
+	
+    CONSTRAINT [PK_ID_ITENSVENDA] PRIMARY KEY CLUSTERED ([iten_id] ASC),
+	CONSTRAINT [FK_ID_PRODUCTVENDA] FOREIGN KEY ([iten_idProduto]) references Product(prod_id),
+	CONSTRAINT [FK_ID_VENDAID] FOREIGN KEY ([iten_idVenda]) references Venda(venda_id),
+);
+
+--# ---------------------------------------------------------------------- #
+--# Add table "Parcelas Venda"                                                #
+--# ---------------------------------------------------------------------- #
+
+CREATE TABLE [dbo].[ParcelasVenda] (
+    [parcela_id]         	INT            		IDENTITY (1, 1) NOT NULL,
+	[parcela_idVenda]       INT					NOT NULL,
+	[parcela_valor]			NUMERIC (15,2)  	DEFAULT 0 NULL,
+	[parcela_status]        VARCHAR (4)			NOT NULL,
+	[parcela_tipo]         	VARCHAR (1)   	 	NOT NULL,
+	[parcela_dataPagamento] DATETIME         	DEFAULT (getdate()) NULL,
+	
+    CONSTRAINT [PK_ID_PARCELAVENDA] PRIMARY KEY CLUSTERED ([parcela_id] ASC),
+	CONSTRAINT [FK_ID_PARCELAVENDAID] FOREIGN KEY ([parcela_idVenda]) references Venda(venda_id),
+);

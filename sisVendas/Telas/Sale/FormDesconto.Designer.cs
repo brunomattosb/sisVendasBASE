@@ -1,6 +1,6 @@
 ﻿namespace sisVendas.Screens.Sale
 {
-    partial class FormFormaPagamento
+    partial class FormDesconto
     {
         /// <summary>
         /// Required designer variable.
@@ -60,6 +60,7 @@
             this.btnAppDiscount.TabIndex = 60;
             this.btnAppDiscount.Text = "Aplicar";
             this.btnAppDiscount.UseVisualStyleBackColor = true;
+            this.btnAppDiscount.Click += new System.EventHandler(this.btnAppDiscount_Click);
             // 
             // tbValueDiscount
             // 
@@ -67,6 +68,7 @@
             this.tbValueDiscount.Name = "tbValueDiscount";
             this.tbValueDiscount.Size = new System.Drawing.Size(145, 31);
             this.tbValueDiscount.TabIndex = 59;
+            this.tbValueDiscount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbValueDiscount_KeyPress);
             // 
             // ccbPercent
             // 
@@ -77,7 +79,7 @@
             this.ccbPercent.TabIndex = 1;
             this.ccbPercent.Text = "Em %";
             this.ccbPercent.UseVisualStyleBackColor = true;
-            this.ccbPercent.CheckedChanged += new System.EventHandler(this.ccbPercent_CheckedChanged);
+            this.ccbPercent.Click += new System.EventHandler(this.ccbPercent_Click);
             // 
             // ccbMoney
             // 
@@ -90,15 +92,15 @@
             this.ccbMoney.TabIndex = 0;
             this.ccbMoney.Text = "Em dinheiro";
             this.ccbMoney.UseVisualStyleBackColor = true;
-            this.ccbMoney.CheckedChanged += new System.EventHandler(this.ccbMoney_CheckedChanged);
+            this.ccbMoney.Click += new System.EventHandler(this.ccbMoney_Click);
             // 
-            // FormDiscount
+            // FormDesconto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(194, 308);
             this.Controls.Add(this.groupBox3);
-            this.Name = "FormDiscount";
+            this.Name = "FormDesconto";
             this.Text = "FormDiscount";
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();

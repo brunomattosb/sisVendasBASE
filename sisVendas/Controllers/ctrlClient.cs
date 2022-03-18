@@ -56,6 +56,7 @@ namespace sisVendas.Controllers
 
             return (result);
         }
+
         public DataTable searthClient(string filter)
         {
 

@@ -32,6 +32,8 @@
             this.GbpPesquisa = new System.Windows.Forms.GroupBox();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.gbCad = new System.Windows.Forms.GroupBox();
+            this.cbbUn = new System.Windows.Forms.ComboBox();
+            this.lblUn = new System.Windows.Forms.Label();
             this.cbbCategory = new System.Windows.Forms.ComboBox();
             this.tbComplemento = new System.Windows.Forms.RichTextBox();
             this.lblComplemento = new System.Windows.Forms.Label();
@@ -53,8 +55,6 @@
             this.lblNome = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.dgv_product = new System.Windows.Forms.DataGridView();
-            this.cbbUn = new System.Windows.Forms.ComboBox();
-            this.lblUn = new System.Windows.Forms.Label();
             this.prod_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prod_un = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prod_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -127,6 +127,33 @@
             this.gbCad.Size = new System.Drawing.Size(694, 280);
             this.gbCad.TabIndex = 4;
             this.gbCad.TabStop = false;
+            // 
+            // cbbUn
+            // 
+            this.cbbUn.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbbUn.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbbUn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbUn.FormattingEnabled = true;
+            this.cbbUn.Items.AddRange(new object[] {
+            "CX",
+            "FD",
+            "KG",
+            "MT",
+            "UN"});
+            this.cbbUn.Location = new System.Drawing.Point(477, 90);
+            this.cbbUn.MaxLength = 2;
+            this.cbbUn.Name = "cbbUn";
+            this.cbbUn.Size = new System.Drawing.Size(183, 21);
+            this.cbbUn.TabIndex = 45;
+            // 
+            // lblUn
+            // 
+            this.lblUn.AutoSize = true;
+            this.lblUn.Location = new System.Drawing.Point(474, 74);
+            this.lblUn.Name = "lblUn";
+            this.lblUn.Size = new System.Drawing.Size(51, 13);
+            this.lblUn.TabIndex = 44;
+            this.lblUn.Text = "*Unidade";
             // 
             // cbbCategory
             // 
@@ -367,33 +394,6 @@
             this.dgv_product.TabIndex = 0;
             this.dgv_product.DoubleClick += new System.EventHandler(this.dgv_productCategory_DoubleClick);
             // 
-            // cbbUn
-            // 
-            this.cbbUn.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbbUn.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbbUn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbUn.FormattingEnabled = true;
-            this.cbbUn.Items.AddRange(new object[] {
-            "CX",
-            "FD",
-            "KG",
-            "MT",
-            "UN"});
-            this.cbbUn.Location = new System.Drawing.Point(477, 90);
-            this.cbbUn.MaxLength = 2;
-            this.cbbUn.Name = "cbbUn";
-            this.cbbUn.Size = new System.Drawing.Size(183, 21);
-            this.cbbUn.TabIndex = 45;
-            // 
-            // lblUn
-            // 
-            this.lblUn.AutoSize = true;
-            this.lblUn.Location = new System.Drawing.Point(474, 74);
-            this.lblUn.Name = "lblUn";
-            this.lblUn.Size = new System.Drawing.Size(51, 13);
-            this.lblUn.TabIndex = 44;
-            this.lblUn.Text = "*Unidade";
-            // 
             // prod_id
             // 
             this.prod_id.DataPropertyName = "prod_id";
@@ -409,7 +409,6 @@
             this.prod_un.HeaderText = "Unidade";
             this.prod_un.Name = "prod_un";
             this.prod_un.ReadOnly = true;
-            this.prod_un.Visible = false;
             // 
             // prod_name
             // 

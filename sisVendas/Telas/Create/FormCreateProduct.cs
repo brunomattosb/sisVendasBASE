@@ -224,6 +224,7 @@ namespace sisVendas.Screens.Create
             
             if (isOk)
             {
+
                 if (controlProduct.SaveProduct(
 
                     tbCod.Text,

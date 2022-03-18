@@ -60,7 +60,7 @@ namespace sisVendas.Screens.Create
 			mtbCep.Text =
 			cbbUF.Text =
 			mtbDtNasc.Text =
-			mtbRg.Text =
+			tbRg.Text =
 			tbEmail.Text =
 			mtbTelephone.Text =
 			tbId.Text = "";
@@ -79,7 +79,7 @@ namespace sisVendas.Screens.Create
 			cleanForm();
 
 			mtbCpf.Enabled = false;
-			mtbRg.Enabled = false;
+			tbRg.Enabled = false;
 			tbName.Enabled = false;
 			tbAddres.Enabled = false;
 			cbbSex.Enabled = false;
@@ -88,7 +88,6 @@ namespace sisVendas.Screens.Create
 			mtbCep.Enabled = false;
 			cbbUF.Enabled = false;
 			mtbDtNasc.Enabled = false;
-			mtbRg.Enabled = false;
 			tbEmail.Enabled = false;
 			mtbTelephone.Enabled = false;
 			tbBaseSalary.Enabled = false;
@@ -107,7 +106,6 @@ namespace sisVendas.Screens.Create
 		{
 			cleanForm();
 			mtbCpf.Enabled =
-			mtbRg.Enabled = 
 			tbName.Enabled =
 			tbAddres.Enabled =
 			cbbSex.Enabled =
@@ -115,8 +113,8 @@ namespace sisVendas.Screens.Create
 			tbDistrict.Enabled =
 			mtbCep.Enabled =
 			cbbUF.Enabled = 
-			mtbDtNasc.Enabled = 
-			mtbRg.Enabled = 
+			mtbDtNasc.Enabled =
+			tbRg.Enabled = 
 			tbEmail.Enabled = 
 			mtbTelephone.Enabled = 
 			tbBaseSalary.Enabled = 
@@ -143,7 +141,7 @@ namespace sisVendas.Screens.Create
 			tbDistrict.Text = (linha[5].Value.ToString());
 			tbCity.Text = linha[6].Value.ToString();
 			mtbTelephone.Text = linha[7].Value.ToString();
-			mtbRg.Text = linha[8].Value.ToString();
+			tbRg.Text = linha[8].Value.ToString();
 			cbbUF.Text = (linha[9].Value.ToString());
 			tbUsername.Text = linha[10].Value.ToString();
 			tbPassword.Text = linha[11].Value.ToString();
@@ -174,7 +172,7 @@ namespace sisVendas.Screens.Create
 					tbDistrict.Text = dt.Rows[0]["emp_district"].ToString();
 					tbCity.Text = dt.Rows[0]["emp_city"].ToString();
 					mtbTelephone.Text = dt.Rows[0]["emp_telephone"].ToString();
-					mtbRg.Text = dt.Rows[0]["emp_rg"].ToString();	
+					tbRg.Text = dt.Rows[0]["emp_rg"].ToString();	
 					cbbUF.Text = dt.Rows[0]["emp_uf"].ToString();
 					tbUsername.Text = dt.Rows[0]["emp_username"].ToString();
 					tbPassword.Text = dt.Rows[0]["emp_password"].ToString();
@@ -358,7 +356,7 @@ namespace sisVendas.Screens.Create
 				if (controlEmployee.SavEmployee(
 					tbId.Text,
 					Function.replaceAll(mtbCpf.Text),
-					Function.replaceAll(mtbRg.Text),
+					Function.replaceAll(tbRg.Text),
 					tbName.Text,
 					tbAddres.Text,
 					Convert.ToChar(cbbSex.SelectedItem.ToString()),
@@ -437,11 +435,6 @@ namespace sisVendas.Screens.Create
 				mtbCep.Select(0, 0);
 		}
 
-        private void mtbRg_Click(object sender, EventArgs e)
-        {
-			if (Function.replaceAll(mtbRg.Text).Length == 0)
-				mtbRg.Select(0, 0);
-		}
 
         private void mtbCpf_Click(object sender, EventArgs e)
         {

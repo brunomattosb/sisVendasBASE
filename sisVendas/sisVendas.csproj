@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -61,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ctrlParcelasVenda.cs" />
+    <Compile Include="Controllers\ctrlItensVenda.cs" />
     <Compile Include="Controllers\ctrlClient.cs" />
     <Compile Include="Controllers\ctrlEmployee.cs" />
     <Compile Include="Controllers\ctrlExpensee.cs" />
@@ -68,16 +70,26 @@
     <Compile Include="Controllers\ctrlProduct.cs" />
     <Compile Include="Controllers\ctrlProductBrand.cs" />
     <Compile Include="Controllers\ctrlProductCategory.cs" />
+    <Compile Include="Controllers\ctrlVenda.cs" />
     <Compile Include="Controllers\ctrlProvider.cs" />
     <Compile Include="Controllers\Functions.cs" />
+    <Compile Include="dbSisDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbSisDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\ExpenseType.cs" />
+    <Compile Include="Models\ParcelaVenda.cs" />
     <Compile Include="Models\Produto.cs" />
     <Compile Include="Models\ProductBrand.cs" />
     <Compile Include="Models\ProductCategory.cs" />
     <Compile Include="Models\Provider.cs" />
+    <Compile Include="Models\ItensVenda.cs" />
+    <Compile Include="Models\classVenda.cs" />
+    <Compile Include="Models\VendaCompleta.cs" />
     <Compile Include="Notification\popupClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +97,8 @@
       <DependentUpon>popupClient.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Banco.cs" />
+    <Compile Include="Persistence\ParcelaVendaDB.cs" />
+    <Compile Include="Persistence\ItensVendaDB.cs" />
     <Compile Include="Persistence\ClientDB.cs" />
     <Compile Include="Persistence\EmployeeDB.cs" />
     <Compile Include="Persistence\ExpenseDB.cs" />
@@ -93,6 +107,7 @@
     <Compile Include="Persistence\ProductCategoryDB.cs" />
     <Compile Include="Persistence\ProductDB.cs" />
     <Compile Include="Persistence\ProviderDB.cs" />
+    <Compile Include="Persistence\VendaDB.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -172,11 +187,17 @@
     <Compile Include="Telas\Produto\FormBuscarProduto.Designer.cs">
       <DependentUpon>FormBuscarProduto.cs</DependentUpon>
     </Compile>
-    <Compile Include="Telas\Sale\FormFormaPagamento.cs">
+    <Compile Include="Telas\Sale\FormBuscarVenda.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Telas\Sale\FormFormaPagamento.Designer.cs">
-      <DependentUpon>FormFormaPagamento.cs</DependentUpon>
+    <Compile Include="Telas\Sale\FormBuscarVenda.Designer.cs">
+      <DependentUpon>FormBuscarVenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\Sale\FormDesconto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Sale\FormDesconto.Designer.cs">
+      <DependentUpon>FormDesconto.cs</DependentUpon>
     </Compile>
     <Compile Include="Telas\Sale\FormVenda.cs">
       <SubType>Form</SubType>
@@ -195,12 +216,6 @@
     </Compile>
     <Compile Include="Telas\Sale\FormCalcularTroco.Designer.cs">
       <DependentUpon>FormCalcularTroco.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Telas\Sale\FormTypeOfPayment.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Telas\Sale\FormTypeOfPayment.Designer.cs">
-      <DependentUpon>FormTypeOfPayment.cs</DependentUpon>
     </Compile>
     <Compile Include="Telas\Sale\ImprimeVendaVista.cs">
       <SubType>Component</SubType>
@@ -246,8 +261,11 @@
     <EmbeddedResource Include="Telas\Produto\FormBuscarProduto.resx">
       <DependentUpon>FormBuscarProduto.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Telas\Sale\FormFormaPagamento.resx">
-      <DependentUpon>FormFormaPagamento.cs</DependentUpon>
+    <EmbeddedResource Include="Telas\Sale\FormBuscarVenda.resx">
+      <DependentUpon>FormBuscarVenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Sale\FormDesconto.resx">
+      <DependentUpon>FormDesconto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Sale\FormVenda.resx">
       <DependentUpon>FormVenda.cs</DependentUpon>
@@ -258,9 +276,17 @@
     <EmbeddedResource Include="Telas\Sale\FormCalcularTroco.resx">
       <DependentUpon>FormCalcularTroco.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Telas\Sale\FormTypeOfPayment.resx">
-      <DependentUpon>FormTypeOfPayment.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="dbSisDataSet.xsc">
+      <DependentUpon>dbSisDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="dbSisDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dbSisDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="dbSisDataSet.xss">
+      <DependentUpon>dbSisDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -291,6 +317,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AG.png" />
+    <Content Include="dbSis.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dbSis_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>dbSis.mdf</DependentUpon>
+    </Content>
     <Content Include="Resources\cancelar.png" />
     <None Include="Resources\clientimg.png" />
     <Content Include="Resources\error.png" />

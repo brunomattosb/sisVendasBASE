@@ -27,17 +27,13 @@ namespace sisVendas
                             [] Não deixar excluir uma categoria e uma marca que esteja em uso.
                             [] Nas buscar onde só envolve um item, tirar o foreach.
                             [] Adicionar controle de estoque ao realizar uma venda
-                            [] Adicionar UN nos produtos e utilizar na venda KG/UN/PC
                             [] ctrl enter do cadastrar produto não funciona
-                            [] sempre que adicionar um produto, colocar 1 na quantidade
-                            [] adicioanr subtotal
                             [] 
-                            []
-                            []
-                            []
-                            []
-                            [] add forma de pagamento
-                            [] form simular venda
+                            [] 
+                            [] 
+                            [] update de funcionario não funciona
+                            [] colocar o valor na venda do produto
+                            [] venda não aceita mask CNPJ
                         ";
             
         }
@@ -107,8 +103,8 @@ namespace sisVendas
         private void menuBtnEfetuarVenda_Click(object sender, EventArgs e)
         {
             FormVenda f = new FormVenda();
-            f.WindowState = FormWindowState.Maximized;
-            f.FormBorderStyle = FormBorderStyle.None;
+            //f.WindowState = FormWindowState.Maximized;
+            //f.FormBorderStyle = FormBorderStyle.None;
             openForm(f);
         }
     }

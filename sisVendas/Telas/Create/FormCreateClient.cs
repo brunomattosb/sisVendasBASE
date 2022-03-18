@@ -50,7 +50,6 @@ namespace sisVendas.Screens.Create
         public void cleanForm()
         {
             mtbCpf.Text =
-            mtbRgIe.Text =
             tbName.Text =
             tbFantasyName.Text =
             tbAddres.Text =
@@ -59,7 +58,7 @@ namespace sisVendas.Screens.Create
             mtbCep.Text =
             cbbEstado.Text =
             mtbDtNasc.Text =
-            mtbRgIe.Text =
+            tbRg.Text =
             tbEmail.Text =
             mtbTelephone.Text =
             tbCod.Text = "";
@@ -71,7 +70,6 @@ namespace sisVendas.Screens.Create
             cleanForm();
 
             mtbCpf.Enabled = false;
-            mtbRgIe.Enabled = false;
             tbName.Enabled = false;
             tbFantasyName.Enabled = false;
             tbAddres.Enabled = false;
@@ -81,7 +79,7 @@ namespace sisVendas.Screens.Create
             mtbCep.Enabled = false;
             cbbEstado.Enabled = false;
             mtbDtNasc.Enabled = false;
-            mtbRgIe.Enabled = false;
+            tbRg.Enabled = false;
             tbEmail.Enabled = false;
             mtbTelephone.Enabled = false;
 
@@ -97,7 +95,6 @@ namespace sisVendas.Screens.Create
         {
             cleanForm();
             mtbCpf.Enabled = true;
-            mtbRgIe.Enabled = true;
             tbName.Enabled = true;
             tbAddres.Enabled = true;
             cbbSex.Enabled = true;
@@ -106,7 +103,7 @@ namespace sisVendas.Screens.Create
             mtbCep.Enabled = true;
             cbbEstado.Enabled = true;
             mtbDtNasc.Enabled = true;
-            mtbRgIe.Enabled = true;
+            tbRg.Enabled = true;
             tbEmail.Enabled = true;
             mtbTelephone.Enabled = true;
 
@@ -131,7 +128,7 @@ namespace sisVendas.Screens.Create
             {
                 if (!DateTime.TryParseExact(mtbDtNasc.Text, "dd/MM/yyyy", null, DateTimeStyles.None, out dateValue))
                 {
-                    Function.Alert("Erro!", "Data inválida.", popupClient.enmType.Success);
+                    Function.Alert("Erro!", "Data inválida.", popupClient.enmType.Error);
                     isOk = false;
                 }
             }
@@ -168,7 +165,7 @@ namespace sisVendas.Screens.Create
                     tbAddres.Text,
                     tbDistrict.Text,
                     tbEmail.Text,
-                    Function.replaceAll(mtbRgIe.Text),
+                    Function.replaceAll(tbRg.Text),
                     Function.replaceAll(mtbTelephone.Text),
                     cbbEstado.SelectedItem.ToString(),
                     tbCity.Text,
@@ -289,13 +286,6 @@ namespace sisVendas.Screens.Create
            
         }
 
-        private void mtbRgIe_Click(object sender, EventArgs e)
-        {
-            if (Function.replaceAll(mtbRgIe.Text).Length == 0)
-                mtbRgIe.Select(0, 0);
-            
-        }
-
         private void mtbCep_Click(object sender, EventArgs e)
         {
             if (Function.replaceAll(mtbCep.Text).Length == 0)
@@ -325,7 +315,7 @@ namespace sisVendas.Screens.Create
             mtbCep.Text = linha[4].Value.ToString();
             tbAddres.Text = linha[5].Value.ToString();
             tbEmail.Text = linha[6].Value.ToString();
-            mtbRgIe.Text = linha[7].Value.ToString();
+            tbRg.Text = linha[7].Value.ToString();
             mtbTelephone.Text = linha[8].Value.ToString();
             tbCity.Text = linha[9].Value.ToString();
             mtbDtNasc.Text = linha[10].Value.ToString();
@@ -369,7 +359,7 @@ namespace sisVendas.Screens.Create
                     mtbCep.Text = dt.Rows[0]["cli_zip_code"].ToString();
                     tbAddres.Text = dt.Rows[0]["cli_addres"].ToString();
                     tbEmail.Text = dt.Rows[0]["cli_email"].ToString();
-                    mtbRgIe.Text = dt.Rows[0]["cli_rg_ie"].ToString(); ;
+                    tbRg.Text = dt.Rows[0]["cli_rg_ie"].ToString(); ;
                     mtbTelephone.Text = dt.Rows[0]["cli_telephone"].ToString();
                     tbCity.Text = dt.Rows[0]["cli_city"].ToString();
                     mtbDtNasc.Text = dt.Rows[0]["cli_birth_at"].ToString();

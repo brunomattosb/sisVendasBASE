@@ -67,7 +67,7 @@ namespace sisVendas.Screens.Create
 			tbDistrict.Text =
 			mtbCep.Text =
 			cbbUF.Text =
-			mtbRgIe.Text =
+			tbRg.Text =
 			tbEmail.Text =
 			mtbTelephone.Text =
 			tbId.Text = "";
@@ -85,8 +85,8 @@ namespace sisVendas.Screens.Create
 			tbCity.Enabled = 
 			tbDistrict.Enabled =
 			mtbCep.Enabled = 
-			cbbUF.Enabled = 
-			mtbRgIe.Enabled = 
+			cbbUF.Enabled =
+			tbRg.Enabled = 
 			tbEmail.Enabled =
 			mtbTelephone.Enabled =
 			btnSave.Enabled =
@@ -107,7 +107,7 @@ namespace sisVendas.Screens.Create
 			tbDistrict.Enabled =
 			mtbCep.Enabled =
 			cbbUF.Enabled =
-			mtbRgIe.Enabled =
+			tbRg.Enabled =
 			tbEmail.Enabled =
 			mtbTelephone.Enabled = true;
 			btnNew.Enabled = false;
@@ -123,7 +123,7 @@ namespace sisVendas.Screens.Create
 			
 			tbId.Text = linha[0].Value.ToString();
 			mtbCpf.Text = linha[1].Value.ToString();
-			mtbRgIe.Text = linha[2].Value.ToString();
+			tbRg.Text = linha[2].Value.ToString();
 			tbName.Text = linha[3].Value.ToString();
 			tbFantasyName.Text = linha[4].Value.ToString();
 			tbAddres.Text = linha[5].Value.ToString();
@@ -148,7 +148,7 @@ namespace sisVendas.Screens.Create
 				{
 					tbId.Text = dt.Rows[0]["prov_id"].ToString();
 					mtbCpf.Text = dt.Rows[0]["prov_cpf_cnpj"].ToString();
-					mtbRgIe.Text = dt.Rows[0]["prov_rg_ie"].ToString();
+					tbRg.Text = dt.Rows[0]["prov_rg_ie"].ToString();
 					tbName.Text = dt.Rows[0]["prov_name"].ToString();
 					tbFantasyName.Text = dt.Rows[0]["prov_fantazy_name"].ToString();
 					tbAddres.Text = dt.Rows[0]["prov_addres"].ToString();
@@ -250,7 +250,7 @@ namespace sisVendas.Screens.Create
 
 					tbId.Text,
 					Function.replaceAll(mtbCpf.Text),
-					Function.replaceAll(mtbRgIe.Text),
+					Function.replaceAll(tbRg.Text),
 					tbName.Text,
 					tbFantasyName.Text,
 					tbAddres.Text,
@@ -353,11 +353,7 @@ namespace sisVendas.Screens.Create
 			mtbCpf.Focus();
 		}
 
-        private void mtbRgIe_Click(object sender, EventArgs e)
-        {
-			if (Function.replaceAll(mtbRgIe.Text).Length == 0)
-				mtbRgIe.Select(0, 0);
-		}
+ 
 
         private void mtbCpf_KeyPress(object sender, KeyPressEventArgs e)
         {
