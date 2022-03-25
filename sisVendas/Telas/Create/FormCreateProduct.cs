@@ -42,8 +42,7 @@ namespace sisVendas.Screens.Create
                     break;
                 case Keys.Control | Keys.Enter:
                     //Verificar se existe para evitar erro de cadastrar CPF já existente.
-                    //if (!())
-                    //    btnSave.PerformClick();
+                    btnSave.PerformClick();
                     break;
                 case Keys.Control | Keys.E:
                     btnCancel.PerformClick();
@@ -362,6 +361,9 @@ namespace sisVendas.Screens.Create
                         cbbUn.SelectedValue = prod.Un;
                         mtbValue.Text = prod.Value.ToString();
                         tbCod.Enabled = false;
+                        cbbUn.SelectedValue = prod.Un;
+
+
                     }
                     else
                     {

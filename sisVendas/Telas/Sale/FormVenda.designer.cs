@@ -51,22 +51,21 @@
             this.tbCodProduct = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
             this.lblWarningCpf = new System.Windows.Forms.Label();
             this.tbNameClient = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.mtbCpfClient = new System.Windows.Forms.MaskedTextBox();
             this.lblCpf = new System.Windows.Forms.Label();
-            this.Bobina = new System.Windows.Forms.ListBox();
             this.PanelBotoes = new System.Windows.Forms.FlowLayoutPanel();
             this.botaoF1 = new System.Windows.Forms.Button();
             this.botaoF6 = new System.Windows.Forms.Button();
-            this.botaoF9 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.botaoF5 = new System.Windows.Forms.Button();
+            this.botaoF9 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.botaoF8 = new System.Windows.Forms.Button();
             this.botaoF12 = new System.Windows.Forms.Button();
             this.lblTotal = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -74,6 +73,10 @@
             this.lblSubtotal = new System.Windows.Forms.Label();
             this.lblTextDesconto = new System.Windows.Forms.Label();
             this.lblDesconto = new System.Windows.Forms.Label();
+            this.tbValorUn = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbValorTotal = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.panelTitleVendas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -222,6 +225,10 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.Controls.Add(this.tbValorTotal);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.tbValorUn);
+            this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.tbAmount);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.tbNameProduct);
@@ -244,6 +251,7 @@
             this.tbAmount.Size = new System.Drawing.Size(113, 31);
             this.tbAmount.TabIndex = 48;
             this.tbAmount.Text = "1";
+            this.tbAmount.TextChanged += new System.EventHandler(this.tbAmount_TextChanged);
             this.tbAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbAmount_KeyPress);
             // 
             // label5
@@ -297,7 +305,6 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.lblWarningCpf);
             this.groupBox1.Controls.Add(this.tbNameClient);
             this.groupBox1.Controls.Add(this.label2);
@@ -310,16 +317,6 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente";
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(490, 20);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 33);
-            this.button4.TabIndex = 50;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // lblWarningCpf
             // 
@@ -371,19 +368,6 @@
             this.lblCpf.TabIndex = 4;
             this.lblCpf.Text = "*CPF:";
             // 
-            // Bobina
-            // 
-            this.Bobina.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Bobina.BackColor = System.Drawing.Color.LightYellow;
-            this.Bobina.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Bold);
-            this.Bobina.ForeColor = System.Drawing.Color.Black;
-            this.Bobina.ItemHeight = 16;
-            this.Bobina.Location = new System.Drawing.Point(795, 68);
-            this.Bobina.Name = "Bobina";
-            this.Bobina.Size = new System.Drawing.Size(422, 36);
-            this.Bobina.TabIndex = 7;
-            // 
             // PanelBotoes
             // 
             this.PanelBotoes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -391,12 +375,13 @@
             this.PanelBotoes.BackColor = System.Drawing.Color.Transparent;
             this.PanelBotoes.Controls.Add(this.botaoF1);
             this.PanelBotoes.Controls.Add(this.botaoF6);
-            this.PanelBotoes.Controls.Add(this.botaoF9);
+            this.PanelBotoes.Controls.Add(this.button5);
             this.PanelBotoes.Controls.Add(this.botaoF5);
+            this.PanelBotoes.Controls.Add(this.botaoF9);
             this.PanelBotoes.Controls.Add(this.button1);
             this.PanelBotoes.Controls.Add(this.button3);
+            this.PanelBotoes.Controls.Add(this.button6);
             this.PanelBotoes.Controls.Add(this.button2);
-            this.PanelBotoes.Controls.Add(this.botaoF8);
             this.PanelBotoes.Controls.Add(this.botaoF12);
             this.PanelBotoes.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.PanelBotoes.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -443,24 +428,24 @@
             this.botaoF6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.botaoF6.UseVisualStyleBackColor = false;
             // 
-            // botaoF9
+            // button5
             // 
-            this.botaoF9.BackColor = System.Drawing.Color.Transparent;
-            this.botaoF9.FlatAppearance.BorderSize = 0;
-            this.botaoF9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botaoF9.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.botaoF9.ForeColor = System.Drawing.Color.Black;
-            this.botaoF9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.botaoF9.Location = new System.Drawing.Point(236, 1);
-            this.botaoF9.Margin = new System.Windows.Forms.Padding(1);
-            this.botaoF9.Name = "botaoF9";
-            this.botaoF9.Size = new System.Drawing.Size(233, 26);
-            this.botaoF9.TabIndex = 18;
-            this.botaoF9.TabStop = false;
-            this.botaoF9.Text = " - Cancela Venda";
-            this.botaoF9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.botaoF9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.botaoF9.UseVisualStyleBackColor = false;
+            this.button5.BackColor = System.Drawing.Color.Transparent;
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.ForeColor = System.Drawing.Color.Black;
+            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button5.Location = new System.Drawing.Point(236, 1);
+            this.button5.Margin = new System.Windows.Forms.Padding(1);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(233, 26);
+            this.button5.TabIndex = 25;
+            this.button5.TabStop = false;
+            this.button5.Text = "F4 - Limpar Venda";
+            this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button5.UseVisualStyleBackColor = false;
             // 
             // botaoF5
             // 
@@ -468,18 +453,36 @@
             this.botaoF5.FlatAppearance.BorderSize = 0;
             this.botaoF5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.botaoF5.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.botaoF5.ForeColor = System.Drawing.Color.Black;
+            this.botaoF5.ForeColor = System.Drawing.Color.IndianRed;
             this.botaoF5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.botaoF5.Location = new System.Drawing.Point(236, 29);
             this.botaoF5.Margin = new System.Windows.Forms.Padding(1);
             this.botaoF5.Name = "botaoF5";
             this.botaoF5.Size = new System.Drawing.Size(233, 26);
             this.botaoF5.TabIndex = 14;
-            this.botaoF5.TabStop = false;
             this.botaoF5.Text = "F5 - Recuperar Venda";
             this.botaoF5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.botaoF5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.botaoF5.UseVisualStyleBackColor = false;
+            // 
+            // botaoF9
+            // 
+            this.botaoF9.BackColor = System.Drawing.Color.Transparent;
+            this.botaoF9.FlatAppearance.BorderSize = 0;
+            this.botaoF9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botaoF9.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botaoF9.ForeColor = System.Drawing.Color.Brown;
+            this.botaoF9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.botaoF9.Location = new System.Drawing.Point(471, 1);
+            this.botaoF9.Margin = new System.Windows.Forms.Padding(1);
+            this.botaoF9.Name = "botaoF9";
+            this.botaoF9.Size = new System.Drawing.Size(233, 26);
+            this.botaoF9.TabIndex = 18;
+            this.botaoF9.TabStop = false;
+            this.botaoF9.Text = "F6 - Cancela Venda";
+            this.botaoF9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.botaoF9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.botaoF9.UseVisualStyleBackColor = false;
             // 
             // button1
             // 
@@ -489,13 +492,13 @@
             this.button1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(471, 1);
+            this.button1.Location = new System.Drawing.Point(471, 29);
             this.button1.Margin = new System.Windows.Forms.Padding(1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(233, 26);
             this.button1.TabIndex = 22;
             this.button1.TabStop = false;
-            this.button1.Text = "F9 - Realizar Recebimento";
+            this.button1.Text = "F9 - Calcular Troco";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button1.UseVisualStyleBackColor = false;
@@ -508,16 +511,35 @@
             this.button3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.Black;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(471, 29);
+            this.button3.Location = new System.Drawing.Point(706, 1);
             this.button3.Margin = new System.Windows.Forms.Padding(1);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(233, 26);
             this.button3.TabIndex = 24;
             this.button3.TabStop = false;
-            this.button3.Text = "F10 - Simular Venda";
+            this.button3.Text = "F10 - Compensar Parcelas";
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button3.UseVisualStyleBackColor = false;
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.Transparent;
+            this.button6.FlatAppearance.BorderSize = 0;
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.ForeColor = System.Drawing.Color.Black;
+            this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button6.Location = new System.Drawing.Point(706, 29);
+            this.button6.Margin = new System.Windows.Forms.Padding(1);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(233, 26);
+            this.button6.TabIndex = 26;
+            this.button6.TabStop = false;
+            this.button6.Text = "F11 - Desconto";
+            this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button6.UseVisualStyleBackColor = false;
             // 
             // button2
             // 
@@ -527,7 +549,7 @@
             this.button2.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.Black;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(706, 1);
+            this.button2.Location = new System.Drawing.Point(941, 1);
             this.button2.Margin = new System.Windows.Forms.Padding(1);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(233, 26);
@@ -538,25 +560,6 @@
             this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button2.UseVisualStyleBackColor = false;
             // 
-            // botaoF8
-            // 
-            this.botaoF8.BackColor = System.Drawing.Color.Transparent;
-            this.botaoF8.FlatAppearance.BorderSize = 0;
-            this.botaoF8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botaoF8.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.botaoF8.ForeColor = System.Drawing.Color.Black;
-            this.botaoF8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.botaoF8.Location = new System.Drawing.Point(706, 29);
-            this.botaoF8.Margin = new System.Windows.Forms.Padding(1);
-            this.botaoF8.Name = "botaoF8";
-            this.botaoF8.Size = new System.Drawing.Size(233, 26);
-            this.botaoF8.TabIndex = 17;
-            this.botaoF8.TabStop = false;
-            this.botaoF8.Text = " [-] Remover Item";
-            this.botaoF8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.botaoF8.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.botaoF8.UseVisualStyleBackColor = false;
-            // 
             // botaoF12
             // 
             this.botaoF12.BackColor = System.Drawing.Color.Transparent;
@@ -565,13 +568,13 @@
             this.botaoF12.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botaoF12.ForeColor = System.Drawing.Color.Black;
             this.botaoF12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.botaoF12.Location = new System.Drawing.Point(941, 1);
+            this.botaoF12.Location = new System.Drawing.Point(941, 29);
             this.botaoF12.Margin = new System.Windows.Forms.Padding(1);
             this.botaoF12.Name = "botaoF12";
             this.botaoF12.Size = new System.Drawing.Size(233, 26);
             this.botaoF12.TabIndex = 21;
             this.botaoF12.TabStop = false;
-            this.botaoF12.Text = "[ESC] - Sai";
+            this.botaoF12.Text = "[ESC] - Sair";
             this.botaoF12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.botaoF12.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.botaoF12.UseVisualStyleBackColor = false;
@@ -644,6 +647,42 @@
             this.lblDesconto.Text = "R$ ";
             this.lblDesconto.Visible = false;
             // 
+            // tbValorUn
+            // 
+            this.tbValorUn.Enabled = false;
+            this.tbValorUn.Location = new System.Drawing.Point(214, 151);
+            this.tbValorUn.MaxLength = 8;
+            this.tbValorUn.Name = "tbValorUn";
+            this.tbValorUn.Size = new System.Drawing.Size(209, 31);
+            this.tbValorUn.TabIndex = 50;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(213, 123);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(104, 25);
+            this.label7.TabIndex = 51;
+            this.label7.Text = "Valor UN:";
+            // 
+            // tbValorTotal
+            // 
+            this.tbValorTotal.Enabled = false;
+            this.tbValorTotal.Location = new System.Drawing.Point(478, 151);
+            this.tbValorTotal.MaxLength = 8;
+            this.tbValorTotal.Name = "tbValorTotal";
+            this.tbValorTotal.Size = new System.Drawing.Size(209, 31);
+            this.tbValorTotal.TabIndex = 52;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(477, 123);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(122, 25);
+            this.label8.TabIndex = 53;
+            this.label8.Text = "Valor Total:";
+            // 
             // FormVenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -658,7 +697,6 @@
             this.Controls.Add(this.PanelBotoes);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.Bobina);
             this.Controls.Add(this.dgvProducts);
             this.Controls.Add(this.panelTitleVendas);
             this.MinimumSize = new System.Drawing.Size(1248, 858);
@@ -695,11 +733,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbCodProduct;
         private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.ListBox Bobina;
         private System.Windows.Forms.FlowLayoutPanel PanelBotoes;
         private System.Windows.Forms.Button botaoF1;
         private System.Windows.Forms.Button botaoF6;
-        private System.Windows.Forms.Button botaoF8;
         private System.Windows.Forms.Button botaoF9;
         private System.Windows.Forms.Button botaoF5;
         private System.Windows.Forms.Button botaoF12;
@@ -712,12 +748,17 @@
         private System.Windows.Forms.Label lblSubtotal;
         private System.Windows.Forms.Label lblTextDesconto;
         private System.Windows.Forms.Label lblDesconto;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DataGridViewTextBoxColumn cod;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn amount;
         private System.Windows.Forms.DataGridViewTextBoxColumn un;
         private System.Windows.Forms.DataGridViewTextBoxColumn valueUn;
         private System.Windows.Forms.DataGridViewTextBoxColumn valueTotal;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox tbValorTotal;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox tbValorUn;
+        private System.Windows.Forms.Label label7;
     }
 }

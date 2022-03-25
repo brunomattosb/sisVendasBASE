@@ -16,35 +16,56 @@ namespace sisVendas.Screens.Sale
 {
     public partial class FormVenda : Form
     {
-        private Cliente clienteSelecionado;
-        private Produto produtoSelecionado;
-        private VendaCompleta vendaSelecionada;
+        private Cliente clienteSelecionado = null;
+        private Produto produtoSelecionado = null;
+        private classVenda vendaSelecionada = null;
 
         private ctrlClient controlCliente = new ctrlClient();
         private ctrlProduct controlProduct = new ctrlProduct();
         private ctrlVenda controlVenda = new ctrlVenda();
-        private ctrlItensVenda controlItensVenda = new ctrlItensVenda();
-        private ctrlParcelasVenda controlParcelas = new ctrlParcelasVenda();
+        //private ctrlItensVenda controlItensVenda = new ctrlItensVenda();
+        //private ctrlParcelasVenda controlParcelas = new ctrlParcelasVenda();
 
-        private int itemCoupon = 1;
+        //private int itemCoupon = 1;
 
         private double toalVenda = 0;
         private double totalDesconto = 0;
         private double subtotalVenda = 0;
         private double totalPago = 0;
 
-        DataTable dtParcelas = new DataTable();
-        DataTable dtProducts = new DataTable();
+        DataTable dttParcela = new DataTable();
+        DataTable dttProduto = new DataTable();
         public FormVenda()
         {
             InitializeComponent();
 
             initDataGridView();
-
-            inserirCabecalhoBobina();
+            
+            //inserirCabecalhoBobina();
         }
+        #region iniciarDGV
 
-        #region Hotkeys
+        public void initDataGridView()
+        {
+            dttProduto.TableName = "products";
+            dttProduto.Columns.Add("name");
+            dttProduto.Columns.Add("cod");
+            dttProduto.Columns.Add("amount", typeof(double));
+            dttProduto.Columns.Add("un");
+            dttProduto.Columns.Add("valueun");
+            dttProduto.Columns.Add("valuetotal");
+
+            dttProduto.PrimaryKey = new DataColumn[] { dttProduto.Columns["name"] };
+            dgvProducts.DataSource = dttProduto;
+
+            dttParcela.TableName = "parcelas";
+            dttParcela.Columns.Add("valor", typeof(double));
+            dttParcela.Columns.Add("tipo_pagamento");
+            dttParcela.Columns.Add("data");
+        }
+        #endregion
+
+        #region Formulario
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             switch (keyData)
@@ -54,22 +75,29 @@ namespace sisVendas.Screens.Sale
                     break;
 
                 case Keys.F1:
-                    abrirFormularioCliente();
+                    formCliente();
                     break;
                 case Keys.F2:
-                    abrirFormProduto();
+                    formProduto();
                     break;
+                case Keys.F4:
+                    resetarForm();
+                    break;
+                    
                 case Keys.F5:
-                    abrirFormBuscarVenda();
+                    formBuscarVenda();
+                    break;
+                case Keys.F6:
+                    //abrirCancelarVenda();
                     break;
                 case Keys.F9:
-                    abrirFormCalcularTroco();
+                    FormCalcularTroco();
                     break;
                 case Keys.F10:
-                    abrirFormCalcularVenda();
+                    formCompensarParcela();
                     break;
                 case Keys.F11:
-                    abrirFormDesconto();
+                    formDesconto();
                     break;
                 case Keys.F12:
                     finalizarVenda();
@@ -77,658 +105,128 @@ namespace sisVendas.Screens.Sale
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        #endregion
-
-        #region Init
-        public void initDataGridView()
-        {
-            dtProducts.TableName = "products";
-            dtProducts.Columns.Add("name");
-            dtProducts.Columns.Add("cod");
-            dtProducts.Columns.Add("amount", typeof(double));
-            dtProducts.Columns.Add("un");
-            dtProducts.Columns.Add("valueun");
-            dtProducts.Columns.Add("valuetotal");
-
-            dtProducts.PrimaryKey = new DataColumn[] { dtProducts.Columns["name"] };
-            dgvProducts.DataSource = dtProducts;
-
-            dtParcelas.TableName = "parcelas";
-            dtParcelas.Columns.Add("valor", typeof(double));
-            dtParcelas.Columns.Add("tipo");
-            dtParcelas.Columns.Add("data");
-        }
-        #endregion
-
-        #region Client
-        private void mtbCpfClient_Click(object sender, EventArgs e)
-        {
-            if (Function.replaceAll(mtbCpfClient.Text).Length == 0)
-                mtbCpfClient.Select(0, 0);
-        }
-        public void abrirFormularioCliente()
-        {
-            FormBuscarCliente f = new FormBuscarCliente();
-            f.ShowDialog();
-
-            clienteSelecionado = f.returnClient();
-
-            if (clienteSelecionado != null)
-            {
-
-                changeCpfCnpj(clienteSelecionado.Cpf_cnpj.Count());
-
-                tbNameClient.Text = clienteSelecionado.Name;
-                mtbCpfClient.Text = clienteSelecionado.Cpf_cnpj;
-                tbNameClient.Enabled = false;
-                lblWarningCpf.Visible = false;
-            }
-            mtbCpfClient.Focus();
-        }
-        private void mtbCpfClient_Leave(object sender, EventArgs e)
-        {
-            if (verificaSeClienteExiste())
-            {
-                tbNameClient.Enabled = false;
-            }
-        }
-
-        private bool verificaSeClienteExiste()
-        {
-            string cpf = Function.replaceAll(mtbCpfClient.Text);
-
-            if (cpf.Count() > 0 && cpf.Count() <= 11)
-            {
-                if ((Function.isCpfValid(mtbCpfClient.Text)))//&& isValidCpf
-                {
-                    clienteSelecionado = null;
-
-                    clienteSelecionado = controlCliente.buscarClientePorCpf(cpf);
-                    if (clienteSelecionado != null)
-                    {
-                        mtbCpfClient.Text = clienteSelecionado.Cpf_cnpj.ToString();
-                        tbNameClient.Text = clienteSelecionado.Name.ToString();
-                        lblWarningCpf.Visible = false;
-                        return true;
-                    }
-                    clienteSelecionado = null;
-                    lblWarningCpf.Text = "** CPF não encontrado! será inserido um novo cliente com o CFP e o NOME informado! **";
-                }
-                else
-                {
-                    tbNameClient.Text = "";
-                    clienteSelecionado = null;
-                    lblWarningCpf.Text = "** CPF incorreto **";
-                }
-                lblWarningCpf.Visible = true;
-            }
-            else if (cpf.Count() == 14)
-            {
-                return true;
-            }
-
-            return false;
-        }
-        private void mtbCpfClient_Enter(object sender, EventArgs e)
-        {
-
-        }
-        #endregion
-
-        #region product
-        private void tbCodProduct_Leave(object sender, EventArgs e)
-        {
-            if (tbCodProduct.Text.Count() > 0)
-            {
-                if (verificarProdutoExiste(tbCodProduct.Text)) // produto encontrado
-                {
-                    preencheProduto();
-
-                }
-                else
-                {
-                    Function.Alert("Atenção!", "Código de produto inexistente ou não informado!", popupClient.enmType.Warning);
-
-                    limpaProduto();
-                    tbCodProduct.Focus();
-                }
-            }
-            else
-            {
-                tbNameProduct.Text = "";
-                produtoSelecionado = null;
-            }
-        }
-        private bool verificarProdutoExiste(string cod)
-        {
-
-            if (cod.Count() != 0)
-            {
-                Produto prod = controlProduct.buscarProdutoPorCod(cod);
-
-                if (prod == null) // não existe
-                {
-                    produtoSelecionado = null;
-                    return false;
-                }
-                else //existe
-                {
-                    produtoSelecionado = prod;
-                    return true;
-                }
-            }
-            else
-            {
-                produtoSelecionado = null;
-                return false;
-            }
-        }
-        private void preencheProduto()
-        {
-            tbNameProduct.Text = produtoSelecionado.Name;
-
-            tbCodProduct.Text = produtoSelecionado.Id.ToString();
-        }
-        private void limpaProduto()
-        {
-            produtoSelecionado = null;
-            tbCodProduct.Text = tbNameProduct.Text = "";
-        }
-        public void abrirFormProduto()
-        {
-            FormBuscarProduto f = new FormBuscarProduto();
-            f.ShowDialog();
-
-
-            produtoSelecionado = f.returnProduto();
-
-            if (produtoSelecionado != null)
-            {
-                preencheProduto();
-            }
-            else
-            {
-                limpaProduto();
-            }
-            tbAmount.Focus();
-        }
-
-
-        private void tbCodProduct_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)13) // ENTER
-            {
-                if (verificarProdutoExiste(tbCodProduct.Text))
-                {
-                    addProduct(tbAmount.Text);
-
-                }
-                else
-                {
-                    Function.Alert("Atenção!", "Código de produto inexistente ou não informado!", popupClient.enmType.Warning);
-
-                    limpaProduto();
-                    tbCodProduct.Focus();
-                }
-                dgvProducts.ClearSelection();
-            }
-        }
-
-        private void tbAmount_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)8 && e.KeyChar != (char)44)
-            {
-                e.Handled = true;
-            }
-
-            if (e.KeyChar == (char)13) //ENTER
-            {
-                addProduct(tbAmount.Text);
-                dgvProducts.ClearSelection();
-            }
-            else if (e.KeyChar == (char)45) // [MENOS]
-            {
-                removeProduct();
-                dgvProducts.ClearSelection();
-            }
-        }
-
-        private void addProduct(string amount)
-        {
-            if (amount.Count() > 0)
-            {
-                if (produtoSelecionado != null && Convert.ToDouble(amount) != 0)
-                {
-                    //inserirProdutoBobina();
-                    addToDataTable(amount);
-
-                    tbAmount.Text = "1";
-                }
-            }
-            else
-            {
-                Function.Alert("Atenção!", "Quantidade inválida!", popupClient.enmType.Warning);
-            }
-        }
-        private void removeProduct()
-        {
-            if (produtoSelecionado != null && Convert.ToDouble(tbAmount.Text) != 0)
-            {
-                removeToDataTable();
-
-            }
-        }
-        private void dgvProducts_DoubleClick(object sender, EventArgs e)
-        {
-            selecionarProduto();
-        }
-        private void selecionarProduto()
-        {
-            if (dgvProducts.CurrentRow != null)
-            {
-                string linha = dgvProducts.Rows[dgvProducts.CurrentRow.Index].Cells[1].Value.ToString();
-                tbCodProduct.Text = linha;
-                tbCodProduct.Focus();
-            }
-        }
-        #endregion
-
-        #region Print Coil
-        public void inserirCabecalhoBobina()
-        {
-            try
-            {
-                Bobina.Items.Add(new string('-', 51));
-                Bobina.Items.Add("               **     NFC-e     **               ");
-                Bobina.Items.Add(new string('-', 51));
-                Bobina.Items.Add("ITEM Codigo         Descricao                   ");
-                Bobina.Items.Add("QTD.     UN      VL.UNIT.(R$)       VL.ITEM(R$)");
-                Bobina.Items.Add(new string('-', 51));
-            }
-            catch (Exception eError)
-            {
-                //Log.write(eError.ToString());
-            }
-        }
-        private void inserirProdutoBobina()
-        {
-            try
-            {
-                Bobina.Items.Add(
-                new string('0', 3 - Convert.ToString(itemCoupon).Length) + Convert.ToString(itemCoupon) + "  " +
-                 new string(' ', 43 - produtoSelecionado.Name.Length) + " " + produtoSelecionado.Name.ToString());
-
-                double total = Convert.ToDouble(produtoSelecionado.Value) * Convert.ToDouble(tbAmount.Text);
-                Bobina.Items.Add(
-                    new string(' ', 8 - tbAmount.Text.Length) + tbAmount.Text + " " +
-                    new string(' ', 3 - 2) + produtoSelecionado.Un + " x " +
-                    new string(' ', 10 - produtoSelecionado.Value.ToString().Length) + "R$ " + produtoSelecionado.Value + " " +
-                    new string(' ', 5) + new string(' ', 11 - total.ToString().Length) + "R$ " + total
-                    );
-            }
-            catch (Exception eError)
-            {
-                //Log.write(eError.ToString());
-            }
-
-            //sempre atualiza a seleção no ultimo index;
-            Bobina.SelectedIndex = Bobina.Items.Count - 1;
-            //contador
-            itemCoupon++;
-
-            tbCodProduct.Text = tbNameProduct.Text = "";
-            tbCodProduct.Focus();
-        }
-        private void removerProdutoBobina()
-        {
-            try
-            {
-                Bobina.Items.Add(
-                new string('0', 3 - Convert.ToString(itemCoupon).Length) + Convert.ToString(itemCoupon) + "  " +
-                 new string(' ', 43 - produtoSelecionado.Name.Length) + " " + produtoSelecionado.Name);
-
-                double total = Convert.ToDouble(produtoSelecionado.Value) * Convert.ToDouble(tbAmount.Text);
-                Bobina.Items.Add(
-                    new string(' ', 8 - tbAmount.Text.Length) + tbAmount.Text + " " +
-                    new string(' ', 3 - 2) + produtoSelecionado.Un + " x " +
-                    new string(' ', 9 - produtoSelecionado.Value.ToString().Length) + "R$ " + "-" + produtoSelecionado.Value + " " +
-                    new string(' ', 5) + new string(' ', 10 - total.ToString().Length) + "-" + "R$ " + total
-                    );
-            }
-            catch (Exception eError)
-            {
-                //Log.write(eError.ToString());
-            }
-
-            Bobina.SelectedIndex = Bobina.Items.Count - 1;
-
-            itemCoupon++;
-            tbCodProduct.Text = tbNameProduct.Text = "";
-            tbCodProduct.Focus();
-        }
-        #endregion
-
-        #region Print DataTable
-        private void addToDataTable(string amount)
-        {
-            string prod_name = produtoSelecionado.Name;
-
-            DataRow row = dtProducts.Rows.Find(prod_name);
-
-            int index = dtProducts.Rows.IndexOf(row);
-
-            if (row == null) // se não tiver vai inserir
-            {
-                DataRow linha = dtProducts.NewRow();
-
-                linha["name"] = produtoSelecionado.Name;
-                linha["amount"] = Convert.ToDouble(amount);
-                linha["valueun"] = "R$ " + produtoSelecionado.Value;
-                linha["valuetotal"] = "R$ " + Convert.ToDouble(produtoSelecionado.Value) * Convert.ToDouble(amount);
-                linha["un"] = produtoSelecionado.Un;
-                linha["cod"] = produtoSelecionado.Id;
-
-                dtProducts.Rows.Add(linha);
-                dgvProducts.DataSource = dtProducts;
-            }
-            else //caso ja exista no dt
-            {
-
-                dtProducts.Rows[index]["amount"] = Convert.ToDouble(row["amount"]) + Convert.ToDouble(amount);
-                dtProducts.Rows[index]["valueTotal"] = "R$ " + Convert.ToDouble(dtProducts.Rows[index]["amount"]) * Convert.ToDouble(row["valueun"].ToString().Replace("R$", ""));
-            }
-            toalVenda = toalVenda + (Convert.ToDouble(produtoSelecionado.Value) * Convert.ToDouble(amount));
-
-            subtotalVenda = toalVenda - totalPago - totalDesconto;
-
-            lblTotal.Text = "R$ " + toalVenda;
-            lblSubtotal.Text = "R$ " + subtotalVenda;
-        }
-
-        private void removeToDataTable()
-        {
-            string prod_name = produtoSelecionado.Name;
-            DataRow row = dtProducts.Rows.Find(prod_name);
-            int index = dtProducts.Rows.IndexOf(row);
-
-            if (row == null) // se não tiver vai inserir
-            {
-                Function.Alert("Atenção!", "Não é possivel remover um produto que não está na compra!", popupClient.enmType.Warning);
-            }
-            else //caso ja exista no dt
-            {
-
-                if (Convert.ToDouble(tbAmount.Text) <= Convert.ToDouble(row["amount"]))
-                {
-                    removerProdutoBobina();
-                    dtProducts.Rows[index]["amount"] = Convert.ToDouble(row["amount"]) - Convert.ToDouble(tbAmount.Text);
-                    dtProducts.Rows[index]["valueTotal"] = "R$ " + Convert.ToDouble(dtProducts.Rows[index]["amount"]) * Convert.ToDouble(row["valueun"].ToString().Replace("R$", ""));
-
-                    toalVenda = toalVenda - (Convert.ToDouble(produtoSelecionado.Value) * Convert.ToDouble(tbAmount.Text));
-
-                    subtotalVenda = toalVenda - totalPago - totalDesconto;
-                    lblSubtotal.Text = "R$ " + (toalVenda - totalDesconto - totalPago);
-                    lblTotal.Text = "R$ " + (toalVenda);
-
-                    //caso quantidade seja zero
-                    if (Convert.ToDouble(dtProducts.Rows[index]["amount"]) == 0)
-                    {
-                        dtProducts.Rows[index].Delete();
-                    }
-                }
-                else
-                    Function.Alert("Atenção!", "Não é possivel deixar a quantidade negativa!", popupClient.enmType.Warning);
-            }
-        }
-        #endregion
-
-        #region Utilitários
-
         private void timer_sale_Tick(object sender, EventArgs e)
         {
             lblDate.Text = DateTime.Now.ToString("HH:mm:ss");
             //DateTime.Now.ToString("dd/MM/yyyy");
         }
-
-
-
         #endregion
 
-        #region abrir forms
-        public void abrirFormCalcularTroco()
+        #region Cliente
+        public void formCliente()
         {
-            FormCalcularTroco f = new FormCalcularTroco(toalVenda);
+            FormBuscarCliente f = new FormBuscarCliente();
             f.ShowDialog();
-        }
-        private void calcularParcelas(DataTable dtParcelas)
-        {
-            totalPago = 0;
-            foreach (DataRow parcela in dtParcelas.Rows)
+
+            Cliente cli = f.returnClient();
+
+            if (cli != null)
             {
-                totalPago += double.Parse(parcela["valor"] + "");
+                clienteSelecionado = cli;
+
+                preencherCliente(clienteSelecionado);
             }
-            subtotalVenda = toalVenda - totalPago - totalDesconto;
-            lblSubtotal.Text = "R$ " + (toalVenda - totalDesconto - totalPago);
+            mtbCpfClient.Focus();
         }
-        public void abrirFormCalcularVenda()
+        private void mtbCpfClient_KeyUp(object sender, KeyEventArgs e)
         {
-
-            FormSimularVenda f = new FormSimularVenda(toalVenda - totalDesconto, dtParcelas);
-            f.ShowDialog();
-
-            this.dtParcelas = f.getLparcela();
-
-            calcularParcelas(dtParcelas);
-
-        }
-        public void abrirFormDesconto()
-        {
-            FormDesconto f = new FormDesconto(toalVenda);
-            f.ShowDialog();
-
-            totalDesconto = f.getDesconto();
-
-            if (totalDesconto != 0)
+            if (e.KeyCode == Keys.Back)
             {
-                lblDesconto.Visible = lblTextDesconto.Visible = true;
-                lblDesconto.Text = "R$ " + (totalDesconto);
-            }
-            else
-            {
-                lblDesconto.Visible = lblTextDesconto.Visible = false;
-            }
-            subtotalVenda = toalVenda - totalPago - totalDesconto;
-            lblSubtotal.Text = "R$ " + (toalVenda - totalDesconto - totalPago);
-
-
-
-        }
-        public void abrirFormBuscarVenda()
-        {
-
-            FormBuscarVenda f = new FormBuscarVenda();
-            f.ShowDialog();
-
-            vendaSelecionada = f.retornaVenda();
-
-            if(vendaSelecionada != null)
-            {
-                tbNameClient.Text = vendaSelecionada.Cli_name;
-                mtbCpfClient.Text = vendaSelecionada.Cli_cpf_cnpj;
-
-                foreach (DataRow prod in controlItensVenda.buscarItensVendaPorIDVenda(vendaSelecionada.Id).Rows)
+                if (mtbCpfClient.Mask == "00.000.000/0000-00")
                 {
-                    MessageBox.Show(prod[0].ToString() + "id"); //id
-                    MessageBox.Show(prod[1].ToString() +"qtde"); //qtde
-                    MessageBox.Show(prod[2].ToString() + "idvenda"); //idvenda
-                    MessageBox.Show(prod[3].ToString() + "idprod"); //idprod
+                    mtbCpfClient.Text = "";
 
-                    verificarProdutoExiste(prod[3].ToString());
-                    addProduct(prod[1].ToString());
+                    alterarCpfCnpj(11);
+                    resetaCliente();
+                    
+                }
+                else if (clienteSelecionado != null)
+                {
+                    resetaCliente();
+                }
+            }
+        }
+        public void resetaCliente()
+        {
+            tbNameClient.Enabled = true;
+            tbNameClient.Text = "";
+            clienteSelecionado = null;
+            
+        }
+        public void preencherCliente(Cliente cli)
+        {
+            alterarCpfCnpj(cli.Cpf_cnpj.Count());
 
+            tbNameClient.Text = cli.Name;
+            mtbCpfClient.Text = cli.Cpf_cnpj;
+            tbNameClient.Enabled = false;
+            lblWarningCpf.Visible = false;
+        }
+        private void mtbCpfClient_Click(object sender, EventArgs e)
+        {
+            if (Function.replaceAll(mtbCpfClient.Text).Length == 0)
+                mtbCpfClient.Select(0, 0);
+        }
+        private void mtbCpfClient_Leave(object sender, EventArgs e)
+        {
+            string cpf = mtbCpfClient.Text;
 
+            if (verificarSeClienteExiste(cpf))
+            {
+                tbNameClient.Enabled = false;
+                tbCodProduct.Focus();
+            }
+            
+        }
+        private bool verificarSeClienteExiste(string cpf)
+        {
+
+            cpf = Function.replaceAll(cpf);
+
+            if (cpf.Count() == 11)
+            {
+                if ((Function.isCpfValid(mtbCpfClient.Text)))
+                {
+                    clienteSelecionado = controlCliente.buscarClientePorCpf(cpf);
+
+                    if (clienteSelecionado != null)
+                    {
+                        preencherCliente(clienteSelecionado);
+                        lblWarningCpf.Visible = false;
+                        return true;
+                    }
+                    lblWarningCpf.Text = "** CPF não encontrado! será inserido um novo cliente com o CFP e o NOME informado! **";
 
                 }
-                dtParcelas = controlParcelas.buscarParcelas(vendaSelecionada.Id);
-                calcularParcelas(dtParcelas);
+                else {
+                    lblWarningCpf.Text = "** CPF incorreto **";
+                }
             }
-            
-            /*if (totalDesconto != 0)
+            else if (cpf.Count() == 0)
             {
-                lblDesconto.Visible = lblTextDesconto.Visible = true;
-                lblDesconto.Text = "R$ " + (totalDesconto);
+                lblWarningCpf.Visible = false;
+                return true;
+            }else if (cpf.Count() == 14)
+            {
+                return true;
             }
             else
             {
-                lblDesconto.Visible = lblTextDesconto.Visible = false;
+                lblWarningCpf.Text = "** CPF incorreto **";
             }
-            subtotalVenda = toalVenda - totalPago - totalDesconto;
-            lblSubtotal.Text = "R$ " + (toalVenda - totalDesconto - totalPago);
-            */
 
+            tbNameClient.Text = "";
+            clienteSelecionado = null;
+            lblWarningCpf.Visible = true;
+            return false;
+               
             
         }
-        
-
         #endregion
 
-        public void finalizarVenda()
-        {
-            bool isOk = true;
-            string cpf = Function.replaceAll(mtbCpfClient.Text);
-            
-            //tirar o foco do mtbCPF para realizar a busca do cliente caso esteja focado
-            if(mtbCpfClient.Focused)
-            {
-                tbAmount.Focus();
-            }
+        #region Funções
 
-            // validando o cliente
-            if(clienteSelecionado == null)
-            {
-                //Cliente não selecionado
-
-                if (cpf.Count() == 14) // verificar se é CNPJ
-                {
-                    //é CNPJ
-                    MessageBox.Show("É CNPJ");
-                }
-                else if (Function.isCpfValid(cpf))//verificar se o Cliente é valido
-                {   // se for valido vai perguntar se deseja inserir na base de dados
-                    if (MessageBox.Show("Cliente não cadastrado na base de dados, deseja inserir ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                    {
-                        if(tbNameClient.Text.Count() > 0)
-                        {
-                            if (controlCliente.SaveClient("0", tbNameClient.Text, cpf, "", "", "", "", "", "", "", "", "", DateTime.MaxValue, 'M', 0))
-                            {
-                                // inserido
-                                if (verificaSeClienteExiste())
-                                {
-                                    MessageBox.Show("Cliente salvo OK");
-                                }
-                                else
-                                {
-                                    isOk = false;
-                                    MessageBox.Show("Erro ao salvar CLiente.");
-                                }
-                                
-
-                            }
-                            else
-                            {
-                                //erro ao inserir
-                                isOk = false;
-                                MessageBox.Show("Erro ao salvar Cliente");
-
-                            }
-                        }
-                        else
-                        {
-                            isOk = false;
-                            MessageBox.Show("Preencha o nome do cliente para salvar");
-                        }
-                        
-                    }
-                }
-                else
-                {
-                    if(cpf.Count() > 0)
-                    {
-                        MessageBox.Show("CPF do cliente não é valido");
-                        isOk = false;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Venda sem CPF");
-                        //clienteSelecionado = new Cliente();
-                    }
-                }
-                
-            }
-            else
-            {
-
-
-                MessageBox.Show("Cliente existente");
-
-            }
-            
-
-
-            //verificar se existe produtos
-            if (dtProducts.Rows.Count == 0)
-            {
-                isOk = false;
-                MessageBox.Show("Não existe produtos cadastrados!");
-            }
-            else
-            {
-                //verificar se foi quitado
-                if (subtotalVenda != 0)
-                {
-                    isOk = false;
-                    MessageBox.Show("Não foi quitado!");
-                }
-            }
-
-
-            if (isOk)
-            {
-                if(clienteSelecionado == null)
-                {
-                    isOk = controlVenda.SalvarVenda(0, dtParcelas, dtProducts, totalDesconto);
-                }
-                else
-                {
-                    isOk = controlVenda.SalvarVenda(clienteSelecionado.Id, dtParcelas, dtProducts, totalDesconto);
-                }
-                if (isOk)
-                {
-                    MessageBox.Show("O cliente foi salvo! agora sera apagado tudo");
-                    dtParcelas.Rows.Clear();
-                    dtProducts.Rows.Clear();
-                    toalVenda = 0;
-                    totalDesconto = 0;
-                    subtotalVenda = 0;
-                    totalPago = 0;
-
-                    produtoSelecionado = null;
-                    clienteSelecionado = null;
-                    tbAmount.Text = "1";
-                    tbNameClient.Text = tbNameProduct.Text = tbCodProduct.Text = mtbCpfClient.Text = "";
-                    lblDesconto.Visible = lblTextDesconto.Visible = false;
-                    lblTotal.Text = lblSubtotal.Text = "R$: ";
-                     
-                }
-                
-            }
-            else
-            {
-                MessageBox.Show("FALSE");
-            }
-
-        }
-        public void changeCpfCnpj(int qtde)
+        public void alterarCpfCnpj(int qtde)
         {
             if (mtbCpfClient.Mask != "000.000.000-00" && qtde <= 11)
             {
@@ -747,34 +245,502 @@ namespace sisVendas.Screens.Sale
             }
 
         }
-
-        private void button4_Click(object sender, EventArgs e)
+        public void resetarForm()
         {
-            if (clienteSelecionado == null)
-                MessageBox.Show("é null");
+            dttParcela.Rows.Clear();
+            dttProduto.Rows.Clear();
+            toalVenda = 0;
+            totalDesconto = 0;
+            subtotalVenda = 0;
+            totalPago = 0;
+
+            mtbCpfClient.Mask = "000.000.000-00";
+            produtoSelecionado = null;
+            clienteSelecionado = null;
+            tbAmount.Text = "1";
+            tbNameClient.Text = tbNameProduct.Text = tbCodProduct.Text = mtbCpfClient.Text = "";
+            lblDesconto.Visible = lblTextDesconto.Visible = false;
+            lblTotal.Text = lblSubtotal.Text = "R$: ";
+        }
+        private void calcularParcelas(DataTable dtParcelas)
+        {
+            totalPago = 0;
+            foreach (DataRow parcela in dtParcelas.Rows)
+            {
+                totalPago += double.Parse(parcela["valor"] + "");
+            }
+            subtotalVenda = toalVenda - totalPago - totalDesconto;
+            lblSubtotal.Text = "R$ " + (toalVenda - totalDesconto - totalPago);
+        }
+        #endregion
+
+        #region Produto
+        public void formProduto()
+        {
+            FormBuscarProduto f = new FormBuscarProduto();
+            f.ShowDialog();
+
+            produtoSelecionado = f.returnProduto();
+
+            if (produtoSelecionado != null)
+            {
+                preencheProduto(produtoSelecionado);
+            }
+            else
+            {
+                resetarProduto();
+            }
+            tbAmount.Focus();
+        }
+        private void preencheProduto(Produto prod)
+        {
+
+            tbNameProduct.Text = prod.Name;
+            tbCodProduct.Text = prod.Id.ToString();
+            tbValorUn.Text = "R$ " + prod.Value;
+
+            alterarValorTotalProduto(prod.Value);
+        }
+        private void resetarProduto()
+        {
+            produtoSelecionado = null;
+            
+            tbNameProduct.Text = "";
+            tbAmount.Text = "1";
+            tbValorTotal.Text = tbValorUn.Text = "";
+            tbCodProduct.Text = tbNameProduct.Text = "";
+            tbCodProduct.Focus();
         }
 
-        private void mtbCpfClient_KeyUp(object sender, KeyEventArgs e)
+        private void tbAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyCode == Keys.Back)
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)8 && e.KeyChar != (char)44)
             {
-                if (Function.replaceAll(mtbCpfClient.Text).Count() == 13)
-                {
-                    mtbCpfClient.Text = "";
-                    tbNameClient.Text = "";
+                e.Handled = true;
+            }
 
-                    changeCpfCnpj(11);
-                    mtbCpfClient.Focus();
-                    tbNameClient.Enabled = true;
-                    clienteSelecionado = null;
-                }
-                else if (clienteSelecionado != null)
+            if (e.KeyChar == (char)13) //ENTER
+            {
+                adicionarProduto(tbAmount.Text);
+                dgvProducts.ClearSelection();
+            }
+            else if (e.KeyChar == (char)45) // [MENOS]
+            {
+                removerProduto();
+                dgvProducts.ClearSelection();
+            }
+        }
+        private void removerProduto()
+        {
+            if (produtoSelecionado != null && Convert.ToDouble(tbAmount.Text) != 0)
+            {
+                removerProdutoDataTable(produtoSelecionado);
+                resetarProduto();
+            }
+        }
+        private void removerProdutoDataTable(Produto prod)
+        {
+            DataRow row = dttProduto.Rows.Find(prod.Name);
+            int index = dttProduto.Rows.IndexOf(row);
+
+            if (row == null) // se não tiver vai inserir
+            {
+                Function.Alert("Atenção!", "Não é possivel remover um produto que não está na compra!", popupClient.enmType.Warning);
+            }
+            else //caso ja exista no dt
+            {
+
+                if (Convert.ToDouble(tbAmount.Text) <= Convert.ToDouble(row["amount"]))
                 {
-                    tbNameClient.Text = "";
-                    tbNameClient.Enabled = true;
-                    clienteSelecionado = null;
+                    
+                    dttProduto.Rows[index]["amount"] = Convert.ToDouble(row["amount"]) - Convert.ToDouble(tbAmount.Text);
+                    dttProduto.Rows[index]["valueTotal"] = "R$ " + Convert.ToDouble(dttProduto.Rows[index]["amount"]) * Convert.ToDouble(row["valueun"].ToString().Replace("R$", ""));
+
+                    //alterar totais
+                    toalVenda = toalVenda - (Convert.ToDouble(produtoSelecionado.Value) * Convert.ToDouble(tbAmount.Text));
+                    subtotalVenda = toalVenda - totalPago - totalDesconto;
+                    lblSubtotal.Text = "R$ " + (toalVenda - totalDesconto - totalPago);
+                    lblTotal.Text = "R$ " + (toalVenda);
+
+                    //caso quantidade seja zero
+                    if (Convert.ToDouble(dttProduto.Rows[index]["amount"]) == 0)
+                    {
+                        dttProduto.Rows[index].Delete();
+                    }
+                }
+                else
+                    Function.Alert("Atenção!", "Não é possivel deixar a quantidade negativa!", popupClient.enmType.Warning);
+            }
+        }
+        private void adicionarProduto(string amount)
+        {
+            
+            if (produtoSelecionado != null )
+            {
+                if (Convert.ToDouble(amount) > 0)
+                {
+                    adicionarProdutoDataTable(amount, produtoSelecionado);
+                    resetarProduto();
+                }
+                else
+                {
+                    Function.Alert("Atenção!", "Quantidade inválida!", popupClient.enmType.Warning);
                 }
             }
+
+        }
+        private void adicionarProdutoDataTable(string amount, Produto prod)
+        {
+            string prod_name = prod.Name;
+
+            DataRow row = dttProduto.Rows.Find(prod_name);
+
+            int index = dttProduto.Rows.IndexOf(row);
+            
+            if (row == null) // se não tiver vai inserir
+            {
+                DataRow linha = dttProduto.NewRow();
+
+                linha["name"] = prod.Name;
+                linha["amount"] = Convert.ToDouble(amount);
+                linha["valueun"] = "R$ " + prod.Value;
+                linha["valuetotal"] = "R$ " + Convert.ToDouble(prod.Value) * Convert.ToDouble(amount);
+                linha["un"] = prod.Un;
+                linha["cod"] = prod.Id;
+
+                dttProduto.Rows.Add(linha);
+                dgvProducts.DataSource = dttProduto;
+            }
+            else //caso ja exista no dt
+            {
+
+                dttProduto.Rows[index]["amount"] = Convert.ToDouble(row["amount"]) + Convert.ToDouble(amount);
+                dttProduto.Rows[index]["valueTotal"] = "R$ " + Convert.ToDouble(dttProduto.Rows[index]["amount"]) * Convert.ToDouble(row["valueun"].ToString().Replace("R$", ""));
+            }
+
+
+            //atualizar total
+
+            toalVenda = toalVenda + (Convert.ToDouble(prod.Value) * Convert.ToDouble(amount));
+
+            subtotalVenda = toalVenda - totalPago - totalDesconto;
+
+            lblTotal.Text = "R$ " + toalVenda;
+            lblSubtotal.Text = "R$ " + subtotalVenda;
+        }
+        private void dgvProducts_DoubleClick(object sender, EventArgs e)
+        {
+            selecionarProduto();
+        }
+        private void selecionarProduto()
+        {
+            if (dgvProducts.CurrentRow != null)
+            {
+                string linha = dgvProducts.Rows[dgvProducts.CurrentRow.Index].Cells[1].Value.ToString();
+                tbCodProduct.Text = linha;
+                tbCodProduct.Focus();
+            }
+        }
+
+        private void tbCodProduct_Leave(object sender, EventArgs e)
+        {
+            
+            if (tbCodProduct.Text.Count() > 0)
+            {
+                Produto prod = buscarProduto(tbCodProduct.Text);
+
+                if (prod != null)
+                {
+                    produtoSelecionado = prod;
+                    preencheProduto(prod);
+                }
+                else
+                {
+                    Function.Alert("Atenção!", "Código de produto inexistente ou não informado!", popupClient.enmType.Warning);
+
+                    resetarProduto();
+
+                    tbCodProduct.Focus();
+                    produtoSelecionado = null;
+                }
+            }
+            else
+            {
+                tbNameProduct.Text = "";
+                produtoSelecionado = null;
+            }
+        }
+        private Produto buscarProduto(string cod)
+        {
+
+            if (cod.Count() != 0)
+            {
+                Produto prod = controlProduct.buscarProdutoPorCod(cod);
+
+                return prod;
+                
+            }
+            return null;
+
+        }
+        private void tbCodProduct_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)8 )
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == (char)13) //ENTER
+            {
+                tbAmount.Focus();
+                adicionarProduto(tbAmount.Text);
+                dgvProducts.ClearSelection();
+            }
+            else if (e.KeyChar == (char)45) // [MENOS]
+            {
+                tbAmount.Focus();
+                removerProduto();
+                dgvProducts.ClearSelection();
+            }
+        }
+        #endregion
+
+        #region AbrirForms
+        public void formBuscarVenda()
+        {
+
+            FormBuscarVenda f = new FormBuscarVenda();
+            f.ShowDialog();
+
+            /*
+            vendaSelecionada = f.retornaVenda();
+
+            if (vendaSelecionada != null)
+            {
+                resetarFormVenda();
+                tbNameClient.Text = vendaSelecionada.Cli_name;
+                mtbCpfClient.Text = vendaSelecionada.Cli_cpf_cnpj;
+
+                foreach (DataRow prod in controlItensVenda.buscarItensVendaPorIDVenda(vendaSelecionada.Id).Rows)
+                {
+                    MessageBox.Show(prod[0].ToString() + "id"); //id
+                    MessageBox.Show(prod[1].ToString() + "qtde"); //qtde
+                    MessageBox.Show(prod[2].ToString() + "idvenda"); //idvenda
+                    MessageBox.Show(prod[3].ToString() + "idprod"); //idprod
+
+                    verificarProdutoExiste(prod[3].ToString());
+                    addProduct(prod[1].ToString());
+
+
+
+                }
+                dtParcelas = controlParcelas.buscarParcelas(vendaSelecionada.Id);
+                calcularParcelas(dtParcelas);
+
+
+                inserirDesconto(vendaSelecionada.Desconto);
+            }
+
+            /*if (totalDesconto != 0)
+            {
+                lblDesconto.Visible = lblTextDesconto.Visible = true;
+                lblDesconto.Text = "R$ " + (totalDesconto);
+            }
+            else
+            {
+                lblDesconto.Visible = lblTextDesconto.Visible = false;
+            }
+            subtotalVenda = toalVenda - totalPago - totalDesconto;
+            lblSubtotal.Text = "R$ " + (toalVenda - totalDesconto - totalPago);
+            */
+
+
+        }
+        public void FormCalcularTroco()
+        {
+            FormCalcularTroco f = new FormCalcularTroco(toalVenda);
+            f.ShowDialog();
+        }
+        public void formCompensarParcela()
+        {
+
+            FormInserirParcelas f = new FormInserirParcelas(toalVenda - totalDesconto, dttParcela);
+            f.ShowDialog();
+
+            this.dttParcela = f.getLparcela();
+
+            calcularParcelas(dttParcela);
+
+        }
+        public void formDesconto()
+        {
+            FormDesconto f = new FormDesconto(toalVenda);
+            f.ShowDialog();
+
+
+
+            inserirDesconto(f.getDesconto());
+
+        }
+        public void inserirDesconto(double desconto)
+        {
+            totalDesconto = desconto;
+            if (desconto != 0)
+            {
+                lblDesconto.Visible = lblTextDesconto.Visible = true;
+                lblDesconto.Text = "R$ " + (desconto);
+            }
+            else
+            {
+                lblDesconto.Visible = lblTextDesconto.Visible = false;
+            }
+
+            subtotalVenda = toalVenda - totalPago - desconto;
+            lblSubtotal.Text = "R$ " + (toalVenda - desconto - totalPago);
+        }
+        #endregion
+
+        #region Venda
+        public void finalizarVenda()
+        {
+            bool isOk = true;
+
+            //tirar o foco do mtbCPF para realizar a busca do cliente caso esteja focado
+            tbAmount.Focus();
+
+
+
+            /*MessageBox.Show(@"Confirmar venda para o CPF: " +clienteSelecionado.Cpf_cnpj+" ?\n"+
+                ", deseja inserir \n" +
+                ", deseja inserir \n" +
+                ", deseja inserir \n" +
+                ", deseja inserir \n" +
+                ", deseja inserir \n " +
+                ", deseja inserir \n" +
+                ", deseja inserir \n" +
+                ", deseja inserir \n " +
+                ", deseja inserir " +
+                ", deseja inserir " +
+                "", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);*/
+
+
+            string cpf = Function.replaceAll(mtbCpfClient.Text);
+
+             if (clienteSelecionado == null)
+             {
+                 if (Function.isCpfValid(cpf))
+                 {   
+                     if (MessageBox.Show("Cliente não cadastrado na base de dados, deseja inserir ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                     {
+                         if (tbNameClient.Text.Count() > 0)
+                         {
+                             if (controlCliente.SaveClient("0", tbNameClient.Text, cpf, "", "", "", "", "", "", "", "", "", DateTime.MaxValue, 'M', 0))
+                             {
+                                 
+                                 if (verificarSeClienteExiste(cpf))
+                                 {
+                                     MessageBox.Show("Cliente salvo OK");
+                                 }
+                                 else
+                                 {
+                                     isOk = false;
+                                     MessageBox.Show("Erro ao salvar CLiente.");
+                                 }
+                             }
+                             else
+                             {
+                                 isOk = false;
+                                 MessageBox.Show("Erro ao salvar Cliente");
+
+                             }
+                         }
+                         else
+                         {
+                             isOk = false;
+                             MessageBox.Show("Preencha o nome do cliente para salvar");
+                         }
+
+                     }
+                 }
+                 else
+                 {
+                     if (cpf.Count() > 0)
+                     {
+                         MessageBox.Show("CPF do cliente não é valido");
+                         isOk = false;
+                     }
+                 }
+
+             }
+
+             //verificar se existe produtos
+             if (dttProduto.Rows.Count == 0)
+             {
+                 isOk = false;
+                 MessageBox.Show("Não existe produtos cadastrados!");
+             }
+             else
+             {
+                 //verificar se foi quitado
+                 if (subtotalVenda != 0)
+                 {
+                     isOk = false;
+                     MessageBox.Show("Não foi quitado!");
+                 }
+             }
+
+
+             if (isOk)
+             {
+                 if (vendaSelecionada == null)
+                 {
+                     if (clienteSelecionado == null)
+                     {
+                         isOk = controlVenda.SalvarVenda(0, dttParcela, dttProduto, totalDesconto);
+                     }
+                     else
+                     {
+                         isOk = controlVenda.SalvarVenda(clienteSelecionado.Id, dttParcela, dttProduto, totalDesconto);
+                     }
+
+                     if (isOk)
+                     {
+                        Function.Alert("Sucesso!", "Venda finalizada!", popupClient.enmType.Success);
+                        resetarForm();
+                     }
+                     else
+                     {
+                        Function.Alert("Erro!", "Não foi possivel gravar a venda!", popupClient.enmType.Error);
+                     }
+                 }
+                 else
+                 {
+                     MessageBox.Show("UPDATE");
+                 }
+             }
+             else
+             {
+                Function.Alert("Erro!", "Não foi possivel gravar a venda!", popupClient.enmType.Error);
+             }
+            
+        }
+
+        #endregion
+
+        public void alterarValorTotalProduto(double valor)
+        {
+            if (Double.TryParse(tbAmount.Text, out Double qtde))
+            {
+                tbValorTotal.Text = "R$: " + (qtde * valor);
+            }
+
+        }
+
+        private void tbAmount_TextChanged(object sender, EventArgs e)
+        {
+            
+            alterarValorTotalProduto(Double.Parse(tbValorUn.Text.Replace("R$", "")));
         }
     }
 }

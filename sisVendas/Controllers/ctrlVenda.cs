@@ -33,45 +33,49 @@ namespace sisVendas.Controllers
             
             VendaDB venda = new VendaDB(dataBase);
 
-            //gravar a venda
             vendaSelecionada.Id = venda.Gravar(vendaSelecionada);
-
-            if(vendaSelecionada.Id != 0)
+            
+            if (vendaSelecionada.Id != 0)
             {
                 foreach (DataRow row in dtProdutos.Rows)
                 {
-                    controlItensVenda.SalvarItensVenda(
+                    if(!controlItensVenda.SalvarItensVenda(
                             vendaSelecionada.Id,
                             row["cod"].ToString(),
                             double.Parse(row["amount"].ToString())
-                    );
+                    ))
+                    {
+                        res = false;
+                    }
 
-                    MessageBox.Show(vendaSelecionada.Id + "IDVENDA");
-                    MessageBox.Show(row["cod"].ToString() + "CodProduto");
-                    MessageBox.Show(row["amount"].ToString() + "Quantidade");
                 }
 
                 foreach (DataRow row in dtParcelas.Rows)
                 {
-                    controlParcelas.SalvarParcela(
+                    if(!controlParcelas.SalvarParcela(
                         vendaSelecionada.Id,
                         double.Parse(row["valor"].ToString()),
-                        row["tipo"].ToString(),
+                        row["tipo_pagamento"].ToString(),
                         DateTime.Parse(row["data"].ToString())
-                        
-
-                        );
-
-                    MessageBox.Show(vendaSelecionada.Id + "IDVENDA");
-                    MessageBox.Show(double.Parse(row["valor"].ToString()) + "VALOR");
-                    MessageBox.Show(row["tipo"].ToString() + "TIPO");
-
+                        )){
+                        {
+                            res = false;
+                        }
+                    }
                 }
             }
             else
             {
                 MessageBox.Show("Erro ao gravar venda!");
             }
+
+            if (!res)
+            {
+                controlItensVenda.removerItensVenda(vendaSelecionada.Id);
+                controlParcelas.removerParcelas(vendaSelecionada.Id);
+                this.removerVenda(vendaSelecionada.Id);
+            }
+
             
             dataBase.Desconecta();
 
@@ -81,17 +85,18 @@ namespace sisVendas.Controllers
         }
 
 
-        public DataTable buscarVendas(string filter)
+        /*public DataTable buscarVendas(string filter)
         {
-
+            
             DataTable dtVenda = new DataTable();
 
             dtVenda.Columns.Add("id", typeof(int));
             dtVenda.Columns.Add("desconto");
+            dtVenda.Columns.Add("cpf_cnpj");
             dtVenda.Columns.Add("total");
             dtVenda.Columns.Add("criado_em", typeof(DateTime));
             dtVenda.Columns.Add("nome");
-            dtVenda.Columns.Add("cpf_cnpj");
+            
 
             dataBase.Conecta();
 
@@ -115,18 +120,16 @@ namespace sisVendas.Controllers
             dataBase.Desconecta();
 
             return (dtVenda);
-        }
-
-
-        /*public bool removeProvider(string cod)
+        }*/
+        public bool removerVenda(int cod)
         {
             bool res = true;
             dataBase.Conecta();
-            ProviderDB provDB = new ProviderDB(dataBase);
-            res = provDB.remove(cod);
+            VendaDB vendaDB = new VendaDB(dataBase);
+            res = vendaDB.remover(cod);
             dataBase.Desconecta();
             return res;
-        }*/
+        }
 
     }
 }

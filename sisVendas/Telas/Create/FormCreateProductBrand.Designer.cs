@@ -32,6 +32,10 @@
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.lblCliente = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.dgv_ProductBrand = new System.Windows.Forms.DataGridView();
+            this.prodBrand_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prodBrand_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prodBrand_created_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbCad = new System.Windows.Forms.GroupBox();
             this.lblName = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -42,15 +46,11 @@
             this.lblCod = new System.Windows.Forms.Label();
             this.tbId = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
-            this.dgv_ProductBrand = new System.Windows.Forms.DataGridView();
-            this.prodBrand_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prodBrand_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prodBrand_created_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GbpPesquisa.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductBrand)).BeginInit();
             this.gbCad.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductBrand)).BeginInit();
             this.SuspendLayout();
             // 
             // GbpPesquisa
@@ -98,6 +98,52 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(705, 342);
             this.tableLayoutPanel2.TabIndex = 13;
+            // 
+            // dgv_ProductBrand
+            // 
+            this.dgv_ProductBrand.AllowUserToAddRows = false;
+            this.dgv_ProductBrand.AllowUserToDeleteRows = false;
+            this.dgv_ProductBrand.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgv_ProductBrand.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_ProductBrand.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.prodBrand_name,
+            this.prodBrand_id,
+            this.prodBrand_created_at});
+            this.dgv_ProductBrand.Location = new System.Drawing.Point(3, 3);
+            this.dgv_ProductBrand.MultiSelect = false;
+            this.dgv_ProductBrand.Name = "dgv_ProductBrand";
+            this.dgv_ProductBrand.ReadOnly = true;
+            this.dgv_ProductBrand.RowHeadersVisible = false;
+            this.dgv_ProductBrand.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_ProductBrand.Size = new System.Drawing.Size(699, 336);
+            this.dgv_ProductBrand.TabIndex = 1;
+            this.dgv_ProductBrand.DoubleClick += new System.EventHandler(this.dgv_ProductBrand_DoubleClick);
+            // 
+            // prodBrand_name
+            // 
+            this.prodBrand_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.prodBrand_name.DataPropertyName = "prodBrand_name";
+            this.prodBrand_name.HeaderText = "Nome";
+            this.prodBrand_name.Name = "prodBrand_name";
+            this.prodBrand_name.ReadOnly = true;
+            // 
+            // prodBrand_id
+            // 
+            this.prodBrand_id.DataPropertyName = "prodBrand_id";
+            this.prodBrand_id.HeaderText = "Código";
+            this.prodBrand_id.Name = "prodBrand_id";
+            this.prodBrand_id.ReadOnly = true;
+            this.prodBrand_id.Visible = false;
+            // 
+            // prodBrand_created_at
+            // 
+            this.prodBrand_created_at.DataPropertyName = "prodBrand_created_at";
+            this.prodBrand_created_at.HeaderText = "CreatedAt";
+            this.prodBrand_created_at.Name = "prodBrand_created_at";
+            this.prodBrand_created_at.ReadOnly = true;
+            this.prodBrand_created_at.Visible = false;
             // 
             // gbCad
             // 
@@ -210,52 +256,6 @@
             this.tbName.Size = new System.Drawing.Size(548, 20);
             this.tbName.TabIndex = 4;
             // 
-            // dgv_ProductBrand
-            // 
-            this.dgv_ProductBrand.AllowUserToAddRows = false;
-            this.dgv_ProductBrand.AllowUserToDeleteRows = false;
-            this.dgv_ProductBrand.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgv_ProductBrand.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_ProductBrand.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.prodBrand_name,
-            this.prodBrand_id,
-            this.prodBrand_created_at});
-            this.dgv_ProductBrand.Location = new System.Drawing.Point(3, 3);
-            this.dgv_ProductBrand.MultiSelect = false;
-            this.dgv_ProductBrand.Name = "dgv_ProductBrand";
-            this.dgv_ProductBrand.ReadOnly = true;
-            this.dgv_ProductBrand.RowHeadersVisible = false;
-            this.dgv_ProductBrand.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_ProductBrand.Size = new System.Drawing.Size(699, 336);
-            this.dgv_ProductBrand.TabIndex = 1;
-            this.dgv_ProductBrand.DoubleClick += new System.EventHandler(this.dgv_ProductBrand_DoubleClick);
-            // 
-            // prodBrand_name
-            // 
-            this.prodBrand_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.prodBrand_name.DataPropertyName = "prodBrand_name";
-            this.prodBrand_name.HeaderText = "Nome";
-            this.prodBrand_name.Name = "prodBrand_name";
-            this.prodBrand_name.ReadOnly = true;
-            // 
-            // prodBrand_id
-            // 
-            this.prodBrand_id.DataPropertyName = "prodBrand_id";
-            this.prodBrand_id.HeaderText = "Código";
-            this.prodBrand_id.Name = "prodBrand_id";
-            this.prodBrand_id.ReadOnly = true;
-            this.prodBrand_id.Visible = false;
-            // 
-            // prodBrand_created_at
-            // 
-            this.prodBrand_created_at.DataPropertyName = "prodBrand_created_at";
-            this.prodBrand_created_at.HeaderText = "CreatedAt";
-            this.prodBrand_created_at.Name = "prodBrand_created_at";
-            this.prodBrand_created_at.ReadOnly = true;
-            this.prodBrand_created_at.Visible = false;
-            // 
             // FormCreateProductBrand
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -266,14 +266,15 @@
             this.Controls.Add(this.lblCliente);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Name = "FormCreateProductBrand";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormCreateProductBrand";
             this.GbpPesquisa.ResumeLayout(false);
             this.GbpPesquisa.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductBrand)).EndInit();
             this.gbCad.ResumeLayout(false);
             this.gbCad.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductBrand)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

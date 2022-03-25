@@ -100,8 +100,49 @@ namespace sisVendas.Persistence
             return (employees);
 
         }
+
         
-        
+
+        public Employee buscarUsernameSenha(string filtro)
+        {
+
+            DataTable dt = new DataTable();
+
+            string SQL = @"SELECT * FROM Employee where emp_username like @filtro";
+
+            db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
+            Employee emp = new Employee();
+
+            if (dt.Rows.Count > 0)
+            {
+                emp.Id = Convert.ToInt32(dt.Rows[0]["emp_id"]);
+                emp.Name = dt.Rows[0]["emp_name"].ToString();
+                emp.Cpf = dt.Rows[0]["emp_cpf"].ToString();
+                emp.Zip_code = dt.Rows[0]["emp_zip_code"].ToString();
+                emp.Address = dt.Rows[0]["emp_addres"].ToString();
+                emp.District = dt.Rows[0]["emp_district"].ToString();
+                emp.City = dt.Rows[0]["emp_city"].ToString();
+                emp.Telephone = dt.Rows[0]["emp_telephone"].ToString();
+                emp.Rg = dt.Rows[0]["emp_rg"].ToString();
+                emp.Uf = dt.Rows[0]["emp_uf"].ToString();
+                emp.Birth_at = Convert.ToDateTime(dt.Rows[0]["emp_birth_at"].ToString());
+                emp.Created_at = Convert.ToDateTime(dt.Rows[0]["emp_created_at"].ToString());
+                emp.Email = dt.Rows[0]["emp_email"].ToString();
+                emp.Sex = Convert.ToChar(dt.Rows[0]["emp_sex"].ToString()[0]);
+                emp.Base_salary = Convert.ToDouble(dt.Rows[0]["emp_base_salary"].ToString());
+                emp.Username = dt.Rows[0]["emp_username"].ToString();
+                emp.Password = dt.Rows[0]["emp_password"].ToString();
+                emp.Licence = dt.Rows[0]["emp_licence"].ToString();
+                emp.Admission = Convert.ToDateTime(dt.Rows[0]["emp_admission"].ToString());
+                emp.Resignation = Convert.ToDateTime(dt.Rows[0]["emp_resignation"].ToString());
+
+            }
+            else { 
+                return null;
+            }
+            return (emp);
+
+        }
         public bool update(object Objeto)
         {
 
@@ -111,7 +152,6 @@ namespace sisVendas.Persistence
                 Employee emp = (Employee)Objeto;
 
                 string SQL = @"UPDATE Employee SET emp_name = @emp_name,
-                                            emp_id = @emp_id,
                                             emp_zip_code = @emp_zip_code,
                                             emp_addres = @emp_addres,
                                             emp_district = @emp_district,

@@ -14,24 +14,21 @@ using System.Windows.Forms;
 
 namespace sisVendas.Screens.Sale
 {
-    partial class FormSimularVenda : Form
+    partial class FormInserirParcelas : Form
     {
         private double totalVenda;
         private double totalPago = 0;
         DataTable dtParcelas;
-        public FormSimularVenda()
+        public FormInserirParcelas()
         {
             InitializeComponent();
 
-            
-
-            //dtParcelas.PrimaryKey = new DataColumn[] { dtProducts.Columns["name"] };
             dgvParcelas.DataSource = dtParcelas;
 
             cbbTipo.SelectedIndex = 0;
             tbValor.Focus();
         }
-        public FormSimularVenda(double value, DataTable lparcelas):this()
+        public FormInserirParcelas(double value, DataTable lparcelas):this()
         {
             lblValor.Text = "R$ " + value;
             this.totalVenda = value;
@@ -49,8 +46,9 @@ namespace sisVendas.Screens.Sale
                     tbValor.Text = "";
                 }
                 dgvParcelas.DataSource = dtParcelas;
-                tbValor.Focus();
+                
             }
+            tbValor.Focus();
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -68,7 +66,7 @@ namespace sisVendas.Screens.Sale
 
             DataRow linha = dtParcelas.NewRow();
 
-            linha["tipo"] = cbbTipo.Text;
+            linha["tipo_pagamento"] = cbbTipo.Text;
             linha["valor"] = Convert.ToDouble(valor);
             linha["data"] = data;
 
@@ -166,8 +164,7 @@ namespace sisVendas.Screens.Sale
 
             if (MessageBox.Show("Deseja excluir a parcela selecionada ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
-                double valor = double.Parse(dgvParcelas.Rows[dgvParcelas.CurrentRow.Index].Cells[0].Value.ToString());
-
+                double valor = double.Parse(dgvParcelas.Rows[dgvParcelas.CurrentRow.Index].Cells[2].Value.ToString());
                 totalPago = totalPago - valor;
 
                 tbTotalOffset.Text = "R$: " + totalPago.ToString();

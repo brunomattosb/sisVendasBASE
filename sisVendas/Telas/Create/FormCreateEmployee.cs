@@ -148,6 +148,10 @@ namespace sisVendas.Screens.Create
 			cbbLicence.Text = linha[12].Value.ToString();
 			mtbDtNasc.Text = linha[13].Value.ToString();
 
+
+			cbAccces.Checked = tbUsername.Text.Count() > 0;
+
+			
 			mtbAdmission.Text = linha[15].Value.ToString();
 			mtbDemissao.Text = linha[16].Value.ToString();
 			cbbSex.Text = linha[17].Value.ToString();
@@ -475,6 +479,10 @@ namespace sisVendas.Screens.Create
 
         private void cbAccces_CheckedChanged(object sender, EventArgs e)
         {
+            if (!cbAccces.Checked)
+            {
+				tbUsername.Text = tbPassword.Text = "";
+            }
 			tbUsername.Enabled = tbPassword.Enabled = cbbLicence.Enabled = cbAccces.Checked;
         }
 

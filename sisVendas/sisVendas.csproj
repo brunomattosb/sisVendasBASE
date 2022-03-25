@@ -89,7 +89,6 @@
     <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\ItensVenda.cs" />
     <Compile Include="Models\classVenda.cs" />
-    <Compile Include="Models\VendaCompleta.cs" />
     <Compile Include="Notification\popupClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,6 +166,12 @@
     <Compile Include="Telas\Create\FormCreateProvider.Designer.cs">
       <DependentUpon>FormCreateProvider.cs</DependentUpon>
     </Compile>
+    <Compile Include="Telas\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Telas\Parameterization\FormParameterization.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,6 +192,12 @@
     <Compile Include="Telas\Produto\FormBuscarProduto.Designer.cs">
       <DependentUpon>FormBuscarProduto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Telas\Sale\FormBobina.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Sale\FormBobina.Designer.cs">
+      <DependentUpon>FormBobina.cs</DependentUpon>
+    </Compile>
     <Compile Include="Telas\Sale\FormBuscarVenda.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,11 +216,11 @@
     <Compile Include="Telas\Sale\FormVenda.designer.cs">
       <DependentUpon>FormVenda.cs</DependentUpon>
     </Compile>
-    <Compile Include="Telas\Sale\FormSimularVenda.cs">
+    <Compile Include="Telas\Sale\FormInserirParcelas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Telas\Sale\FormSimularVenda.Designer.cs">
-      <DependentUpon>FormSimularVenda.cs</DependentUpon>
+    <Compile Include="Telas\Sale\FormInserirParcelas.Designer.cs">
+      <DependentUpon>FormInserirParcelas.cs</DependentUpon>
     </Compile>
     <Compile Include="Telas\Sale\FormCalcularTroco.cs">
       <SubType>Form</SubType>
@@ -258,8 +269,14 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Telas\FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Telas\Produto\FormBuscarProduto.resx">
       <DependentUpon>FormBuscarProduto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Sale\FormBobina.resx">
+      <DependentUpon>FormBobina.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Sale\FormBuscarVenda.resx">
       <DependentUpon>FormBuscarVenda.cs</DependentUpon>
@@ -270,8 +287,8 @@
     <EmbeddedResource Include="Telas\Sale\FormVenda.resx">
       <DependentUpon>FormVenda.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Telas\Sale\FormSimularVenda.resx">
-      <DependentUpon>FormSimularVenda.cs</DependentUpon>
+    <EmbeddedResource Include="Telas\Sale\FormInserirParcelas.resx">
+      <DependentUpon>FormInserirParcelas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Sale\FormCalcularTroco.resx">
       <DependentUpon>FormCalcularTroco.cs</DependentUpon>
@@ -324,6 +341,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>dbSis.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\AGlogo.png" />
     <Content Include="Resources\cancelar.png" />
     <None Include="Resources\clientimg.png" />
     <Content Include="Resources\error.png" />

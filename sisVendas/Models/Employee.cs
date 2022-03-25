@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace sisVendas.Models
 {
-    class Employee
+    public class Employee
     {
         private int id;
         private string name;

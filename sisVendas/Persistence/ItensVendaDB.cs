@@ -110,13 +110,8 @@ namespace sisVendas.Persistence
             return (cli);
 
         }
-        public bool remove(string id)
-        {
-            bool res = false;
-            string SQL = @"DELETE FROM Client WHERE cli_id = @id";
-            res = db.ExecuteNonQuery(SQL, "@id", id);
-            return res;
-        }
+
+        
 
         public bool update(object Objeto)
         {
@@ -160,5 +155,12 @@ namespace sisVendas.Persistence
             }
             return res;
         }*/
+        public bool removerItensVenda(int id)
+        {
+            bool res = false;
+            string SQL = @"DELETE FROM ItensVenda WHERE iten_idVenda = @id";
+            res = db.ExecuteNonQuery(SQL, "@id", id);
+            return res;
+        }
     }
 }

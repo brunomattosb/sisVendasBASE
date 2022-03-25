@@ -60,8 +60,6 @@ namespace sisVendas.Persistence
                 {
                     ParcelaVenda parcela = new ParcelaVenda();
 
-
-                    parcela.Id = Convert.ToInt32(dt.Rows[i]["parcela_id"]);
                     parcela.Cod_venda = Convert.ToInt32(dt.Rows[i]["parcela_idVenda"]);
                     parcela.Valor = Convert.ToDouble(dt.Rows[i]["parcela_valor"]);
                     parcela.Status = dt.Rows[i]["parcela_status"].ToString();
@@ -115,13 +113,7 @@ namespace sisVendas.Persistence
             return (cli);
 
         }
-        public bool remove(string id)
-        {
-            bool res = false;
-            string SQL = @"DELETE FROM Client WHERE cli_id = @id";
-            res = db.ExecuteNonQuery(SQL, "@id", id);
-            return res;
-        }
+       
 
         public bool update(object Objeto)
         {
@@ -165,5 +157,12 @@ namespace sisVendas.Persistence
             }
             return res;
         }*/
+        public bool removerParcelas(int id)
+        {
+            bool res = false;
+            string SQL = @"DELETE FROM ParcelasVenda WHERE parcela_idVenda = @id";
+            res = db.ExecuteNonQuery(SQL, "@id", id);
+            return res;
+        }
     }
 }

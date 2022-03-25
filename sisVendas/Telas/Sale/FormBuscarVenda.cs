@@ -18,7 +18,7 @@ namespace sisVendas.Telas.Sale
     {
         
         private ctrlVenda controlVenda = new ctrlVenda();
-        private VendaCompleta vendaSelecionada;
+        private classVenda vendaSelecionada;
         private DataTable dttVenda;
 
         public FormBuscarVenda()
@@ -29,10 +29,11 @@ namespace sisVendas.Telas.Sale
 
         private void updateDgv(string filtro)
         {
-            dttVenda = controlVenda.buscarVendas(filtro);
-            dgv_venda.DataSource = dttVenda;
+            //dttVenda = controlVenda.buscarVendas(filtro);
+            //dgv_venda.DataSource = dttVenda;
 
         }
+        /*
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             switch (keyData)
@@ -65,15 +66,15 @@ namespace sisVendas.Telas.Sale
                 Close();
             }
         }
-
+        */
         private void dgv_venda_DoubleClick(object sender, EventArgs e)
         {
-            selecionarVenda();
+            //selecionarVenda();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            string filtro = "";
+            /*string filtro = "";
             if(cbbMN.SelectedIndex != -1)
             {
                 if (tbValor.Text != "")
@@ -103,7 +104,7 @@ namespace sisVendas.Telas.Sale
                     filtro = filtro + "venda_criado_em BETWEEN '" + ini.Date.ToString() + "' AND '" + fim.Date.ToString()+"'";
                 }
             }
-            updateDgv(filtro);
+            updateDgv(filtro);*/
         }
 
         private void tbValor_Leave(object sender, EventArgs e)
@@ -145,7 +146,7 @@ namespace sisVendas.Telas.Sale
                 mtbDtFim.Select(0, 0);
         }
 
-        public VendaCompleta retornaVenda()
+        /*public VendaCompleta retornaVenda()
         {
             if (vendaSelecionada != null)
             {
@@ -156,6 +157,6 @@ namespace sisVendas.Telas.Sale
             return null;
             
 
-        }
+        }*/
     }
 }

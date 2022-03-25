@@ -266,6 +266,7 @@
             this.Controls.Add(this.gbCad);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Name = "FormCreateExpenseType";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormCreateExpenseType";
             this.GbpPesquisa.ResumeLayout(false);
             this.GbpPesquisa.PerformLayout();

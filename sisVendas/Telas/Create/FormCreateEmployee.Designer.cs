@@ -903,6 +903,7 @@
             this.Controls.Add(this.GbpPesquisa);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormCreateEmployee";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.GbpPesquisa.ResumeLayout(false);
             this.GbpPesquisa.PerformLayout();
             this.gbCad.ResumeLayout(false);

@@ -51,13 +51,25 @@ namespace sisVendas.Controllers
             }
             else
             {
-                //result = emp.updateClient(currentEmployee);
+                result = emp.update(currentEmployee);
             }
             dataBase.Desconecta();
 
             return (result);
         }
-        
+        public Employee buscarFuncPeloUsername(string username)
+        {
+            
+            Employee func = new Employee();
+            dataBase.Conecta();
+
+            EmployeeDB bd = new EmployeeDB(dataBase);
+            func = (Employee)bd.buscarUsernameSenha(username);
+
+            dataBase.Desconecta();
+            return func;
+
+        }
         public DataTable searthEmployee(string filter)
         {
 

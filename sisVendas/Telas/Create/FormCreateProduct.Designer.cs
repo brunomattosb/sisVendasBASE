@@ -474,6 +474,7 @@
             this.Controls.Add(this.gbCad);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Name = "FormCreateProduct";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormCreateProduct";
             this.GbpPesquisa.ResumeLayout(false);
             this.GbpPesquisa.PerformLayout();

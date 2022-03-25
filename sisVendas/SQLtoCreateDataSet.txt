@@ -158,10 +158,11 @@ CREATE TABLE [dbo].[Product] (
 --# ---------------------------------------------------------------------- #
 
 CREATE TABLE [dbo].[Venda] (
-	[venda_id]           INT            	IDENTITY (1, 1) NOT NULL,
-	[venda_idCliente]  	 INT			    NULL,
-	[venda_desconto] 		NUMERIC (15,2) 		DEFAULT 0 NULL,
-	[venda_criado_em]  	 DATETIME         	DEFAULT (getdate()),
+	[venda_id]           	INT            		IDENTITY (1, 1) NOT NULL,
+	[venda_idCliente]  	 	INT			    	NULL,
+	[venda_desconto] 	 	NUMERIC (15,2) 		DEFAULT 0 NULL,
+	[venda_cancelada] 	 	BIT 			DEFAULT FALSE,
+	[venda_criado_em]  	 	DATETIME         	DEFAULT (getdate()),
 	
     CONSTRAINT [PK_ID_VENDA] PRIMARY KEY CLUSTERED ([venda_id] ASC),
 	CONSTRAINT [FK_ID_VENDACLIENT] FOREIGN KEY ([venda_idCliente]) references Client(cli_id),
@@ -172,12 +173,10 @@ CREATE TABLE [dbo].[Venda] (
 --# ---------------------------------------------------------------------- #
 
 CREATE TABLE [dbo].[ItensVenda] (
-    [iten_id]         		INT           		IDENTITY (1, 1) NOT NULL,
 	[iten_quantidade] 		NUMERIC (15,2) 		DEFAULT 0 NULL,
 	[iten_idVenda]         	INT					NOT NULL,
 	[iten_idProduto]        VARCHAR (40)		NOT NULL,
 	
-    CONSTRAINT [PK_ID_ITENSVENDA] PRIMARY KEY CLUSTERED ([iten_id] ASC),
 	CONSTRAINT [FK_ID_PRODUCTVENDA] FOREIGN KEY ([iten_idProduto]) references Product(prod_id),
 	CONSTRAINT [FK_ID_VENDAID] FOREIGN KEY ([iten_idVenda]) references Venda(venda_id),
 );
@@ -187,13 +186,11 @@ CREATE TABLE [dbo].[ItensVenda] (
 --# ---------------------------------------------------------------------- #
 
 CREATE TABLE [dbo].[ParcelasVenda] (
-    [parcela_id]         	INT            		IDENTITY (1, 1) NOT NULL,
 	[parcela_idVenda]       INT					NOT NULL,
 	[parcela_valor]			NUMERIC (15,2)  	DEFAULT 0 NULL,
 	[parcela_status]        VARCHAR (4)			NOT NULL,
 	[parcela_tipo]         	VARCHAR (1)   	 	NOT NULL,
 	[parcela_dataPagamento] DATETIME         	DEFAULT (getdate()) NULL,
 	
-    CONSTRAINT [PK_ID_PARCELAVENDA] PRIMARY KEY CLUSTERED ([parcela_id] ASC),
 	CONSTRAINT [FK_ID_PARCELAVENDAID] FOREIGN KEY ([parcela_idVenda]) references Venda(venda_id),
 );

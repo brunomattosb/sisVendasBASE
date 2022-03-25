@@ -80,16 +80,16 @@ namespace sisVendas.Controllers
             return cli;
  
         }*/
-        /*
-        public bool removeClient(string cod)
+        
+        public bool removerItensVenda(int cod)
         {
             bool res = true;
             dataBase.Conecta();
-            ClientDB clidDB = new ClientDB(dataBase);
-            res = clidDB.remove(cod);
+            ItensVendaDB db = new ItensVendaDB(dataBase);
+            res = db.removerItensVenda(cod);
             dataBase.Desconecta();
             return res;
-        }*/
+        }
         
     }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace sisVendas.Models
 {
-    class Expense
+    public class Expense
     {
         private int id;
         private string name;

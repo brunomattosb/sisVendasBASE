@@ -28,24 +28,19 @@ namespace sisVendas.Controllers
             {
                 parcelaSelecionada.Tipo_pagamento = 'M';
             }
+            else if(tipo == "Fiado")
+            {
+                parcelaSelecionada.Tipo_pagamento = 'F';
+            }
+            else if(tipo == "Crédito")
+            {
+                parcelaSelecionada.Tipo_pagamento = 'C';
+            }
             else
             {
-                if(tipo == "Fiado")
-                {
-                    parcelaSelecionada.Tipo_pagamento = 'F';
-                }
-                else if(tipo == "Crédito")
-                {
-                    parcelaSelecionada.Tipo_pagamento = 'C';
-                }
-                else
-                {
-                    parcelaSelecionada.Tipo_pagamento = 'D';
-                }
-                
+                parcelaSelecionada.Tipo_pagamento = 'D';
             }
-            
-
+                
             if(tipo == "Fiado")
             {
                 parcelaSelecionada.Status = "DEVE";
@@ -78,7 +73,7 @@ namespace sisVendas.Controllers
             dtParcelas.Columns.Add("valor", typeof(double));
             dtParcelas.Columns.Add("status");
             dtParcelas.Columns.Add("tipo");
-            dtParcelas.Columns.Add("dataPagamento", typeof(DateTime));
+            dtParcelas.Columns.Add("data", typeof(DateTime));
 
             dataBase.Conecta();
             ParcelaVendaDB parcelaDB= new ParcelaVendaDB(dataBase);
@@ -87,14 +82,13 @@ namespace sisVendas.Controllers
                 
                 DataRow line = dtParcelas.NewRow();
 
-                line["id"] = parcela.Id;
                 line["idVenda"] = parcela.Cod_venda;
                 line["valor"] = parcela.Valor;
                 line["status"] = parcela.Status;
                 line["tipo"] = parcela.Tipo_pagamento;
-                line["dataPagamento"] = parcela.Data;
-               
+                line["data"] = parcela.Data;
 
+                MessageBox.Show(parcela.Valor + "");
                 dtParcelas.Rows.Add(line);
             }
             dataBase.Desconecta();
@@ -115,16 +109,16 @@ namespace sisVendas.Controllers
  
         }*/
 
-        /*
-        public bool removeClient(string cod)
+        
+        public bool removerParcelas(int cod)
         {
             bool res = true;
             dataBase.Conecta();
-            ClientDB clidDB = new ClientDB(dataBase);
-            res = clidDB.remove(cod);
+            ParcelaVendaDB db = new ParcelaVendaDB(dataBase);
+            res = db.removerParcelas(cod);
             dataBase.Desconecta();
             return res;
-        }*/
+        }
     }
 
     

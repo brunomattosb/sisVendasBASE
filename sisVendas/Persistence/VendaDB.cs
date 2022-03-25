@@ -52,9 +52,9 @@ namespace sisVendas.Persistence
             return (retorno);
         } 
         
-        public List<object> buscar(string filtro)
-        {
-            DataTable dt = new DataTable();
+        //public List<object> buscar(string filtro)
+        //{
+            /*DataTable dt = new DataTable();
 
             List<object> vendas = new List<object>();
 
@@ -94,18 +94,18 @@ namespace sisVendas.Persistence
                     vendas.Add(venda);
                 }
             }
-            return (vendas);
+            return (vendas);*/
 
-        }
-        /*
-        public bool remove(string id)
+       // }
+        
+        public bool remover(int id)
         {
             bool res = false;
-            string SQL = @"DELETE FROM Provider WHERE prov_id = @id";
+            string SQL = @"DELETE FROM venda WHERE venda_id = @id";
             res = db.ExecuteNonQuery(SQL, "@id", id);
             return res;
         }
-        */
+        
         
         public bool atualizar(object Objeto)
         {

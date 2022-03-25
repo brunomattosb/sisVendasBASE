@@ -1,5 +1,7 @@
-﻿using sisVendas.Screens.Create;
+﻿using sisVendas.Models;
+using sisVendas.Screens.Create;
 using sisVendas.Screens.Sale;
+using sisVendas.Telas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,26 +16,44 @@ namespace sisVendas
 {
     public partial class FormHome : Form
     {
+        Employee funcLogado;
+
         public FormHome()
         {
             InitializeComponent();
+
+            validaLogin();
+            
+
             lembretes();
+        }
+
+        public void validaLogin()
+        {
+            FormLogin f = new FormLogin();
+            f.ShowDialog();
+
+            funcLogado = f.retornaFuncionario();
+
+            if (funcLogado == null)
+            {
+                Close();
+            }
         }
         public void lembretes()
         {
             richTextBox1.Text = @"Performance:
 
                             Fazer:
-                            [] Não deixar excluir uma categoria e uma marca que esteja em uso.
-                            [] Nas buscar onde só envolve um item, tirar o foreach.
                             [] Adicionar controle de estoque ao realizar uma venda
-                            [] ctrl enter do cadastrar produto não funciona
+                            [] Não deixar excluir uma categoria e uma marca que esteja em uso.
+                            [] Adicionar id_vendedor no realizar venda
                             [] 
                             [] 
                             [] 
-                            [] update de funcionario não funciona
-                            [] colocar o valor na venda do produto
-                            [] venda não aceita mask CNPJ
+                            [] 
+                            [] 
+                            [] Erro ao fechar o form login no esc, solução colocar um try catch no Program.cs
                         ";
             
         }
@@ -42,7 +62,6 @@ namespace sisVendas
         {
             f.MaximizeBox = false;
             f.MinimizeBox = false;
-            f.StartPosition = FormStartPosition.CenterScreen;
             f.ShowDialog();
         }
         private void menuBtnFuncionario_Click(object sender, EventArgs e)

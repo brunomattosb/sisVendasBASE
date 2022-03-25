@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using sisVendas.Telas;
+using System;
+
 using System.Windows.Forms;
 
 namespace sisVendas
@@ -19,7 +18,7 @@ namespace sisVendas
 
 
             FormHome f = new FormHome();
-            f.StartPosition = FormStartPosition.CenterScreen; 
+
             
             Application.Run(f);
         }

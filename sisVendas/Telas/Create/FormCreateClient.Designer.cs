@@ -729,6 +729,7 @@
             this.Controls.Add(this.gbCod);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Name = "FormCreateClient";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormCreateClient";
             this.gbCod.ResumeLayout(false);
             this.gbCod.PerformLayout();

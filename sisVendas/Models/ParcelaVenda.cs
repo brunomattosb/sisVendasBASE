@@ -8,16 +8,15 @@ namespace sisVendas.Models
 {
     public class ParcelaVenda
     {
-        private int id;
         private int id_venda;
         private double valor;
         private DateTime data; 
         private string status;
         private char tipo_pagamento;
 
-        public ParcelaVenda(int id, int cod_venda, double valor, DateTime data, string status, char tipo_pagamento)
+        public ParcelaVenda( int cod_venda, double valor, DateTime data, string status, char tipo_pagamento)
         {
-            this.id = id;
+
             this.id_venda = cod_venda;
             this.valor = valor;
             this.data = data;
@@ -31,7 +30,6 @@ namespace sisVendas.Models
         }
         public ParcelaVenda(){}
 
-        public int Id { get => id; set => id = value; }
         public int Cod_venda { get => id_venda; set => id_venda = value; }
         public double Valor { get => valor; set => valor = value; }
         public DateTime Data { get => data; set => data = value; }

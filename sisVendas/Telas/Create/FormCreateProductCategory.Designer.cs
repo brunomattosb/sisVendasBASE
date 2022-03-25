@@ -33,6 +33,9 @@
             this.lblCliente = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.dgv_ProductCategory = new System.Windows.Forms.DataGridView();
+            this.prodCategory_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prodCategory_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prodCategory_created_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbCad = new System.Windows.Forms.GroupBox();
             this.lblName = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -43,9 +46,6 @@
             this.lblCod = new System.Windows.Forms.Label();
             this.tbId = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
-            this.prodCategory_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prodCategory_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prodCategory_created_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GbpPesquisa.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ProductCategory)).BeginInit();
@@ -120,6 +120,30 @@
             this.dgv_ProductCategory.Size = new System.Drawing.Size(699, 336);
             this.dgv_ProductCategory.TabIndex = 0;
             this.dgv_ProductCategory.DoubleClick += new System.EventHandler(this.dgv_ProductCategory_DoubleClick);
+            // 
+            // prodCategory_name
+            // 
+            this.prodCategory_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.prodCategory_name.DataPropertyName = "prodCategory_name";
+            this.prodCategory_name.HeaderText = "Nome";
+            this.prodCategory_name.Name = "prodCategory_name";
+            this.prodCategory_name.ReadOnly = true;
+            // 
+            // prodCategory_id
+            // 
+            this.prodCategory_id.DataPropertyName = "prodCategory_id";
+            this.prodCategory_id.HeaderText = "Código";
+            this.prodCategory_id.Name = "prodCategory_id";
+            this.prodCategory_id.ReadOnly = true;
+            this.prodCategory_id.Visible = false;
+            // 
+            // prodCategory_created_at
+            // 
+            this.prodCategory_created_at.DataPropertyName = "prodCategory_created_at";
+            this.prodCategory_created_at.HeaderText = "CreatedAt";
+            this.prodCategory_created_at.Name = "prodCategory_created_at";
+            this.prodCategory_created_at.ReadOnly = true;
+            this.prodCategory_created_at.Visible = false;
             // 
             // gbCad
             // 
@@ -232,30 +256,6 @@
             this.tbName.Size = new System.Drawing.Size(548, 20);
             this.tbName.TabIndex = 4;
             // 
-            // prodCategory_name
-            // 
-            this.prodCategory_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.prodCategory_name.DataPropertyName = "prodCategory_name";
-            this.prodCategory_name.HeaderText = "Nome";
-            this.prodCategory_name.Name = "prodCategory_name";
-            this.prodCategory_name.ReadOnly = true;
-            // 
-            // prodCategory_id
-            // 
-            this.prodCategory_id.DataPropertyName = "prodCategory_id";
-            this.prodCategory_id.HeaderText = "Código";
-            this.prodCategory_id.Name = "prodCategory_id";
-            this.prodCategory_id.ReadOnly = true;
-            this.prodCategory_id.Visible = false;
-            // 
-            // prodCategory_created_at
-            // 
-            this.prodCategory_created_at.DataPropertyName = "prodCategory_created_at";
-            this.prodCategory_created_at.HeaderText = "CreatedAt";
-            this.prodCategory_created_at.Name = "prodCategory_created_at";
-            this.prodCategory_created_at.ReadOnly = true;
-            this.prodCategory_created_at.Visible = false;
-            // 
             // FormCreateProductCategory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -266,6 +266,7 @@
             this.Controls.Add(this.lblCliente);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Name = "FormCreateProductCategory";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormCreateProductCategory";
             this.GbpPesquisa.ResumeLayout(false);
             this.GbpPesquisa.PerformLayout();

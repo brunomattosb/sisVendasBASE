@@ -122,7 +122,6 @@ namespace sisVendas.Persistence
             if (Objeto.GetType() == typeof(Produto))
             {
                 Produto prod = (Produto)Objeto;
-                MessageBox.Show(prod.Id + "");
                 string SQL = @"UPDATE Product SET prod_name = @prod_name,
                                             prod_complement = @prod_complement,
                                             prod_inventory = @prod_inventory,
