@@ -106,6 +106,7 @@ namespace sisVendas.Persistence
                 }
                 cmd.ExecuteNonQuery();
 
+                
                 return true;
             }
             catch (Exception e)

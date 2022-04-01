@@ -1,4 +1,5 @@
 ﻿using sisVendas.Telas;
+using sisVendas.Telas.Caixa;
 using System;
 
 using System.Windows.Forms;

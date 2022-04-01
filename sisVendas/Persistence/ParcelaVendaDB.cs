@@ -28,13 +28,14 @@ namespace sisVendas.Persistence
 
                 string SQL;
 
-                SQL = @"INSERT INTO ParcelasVenda (parcela_idVenda, parcela_valor, parcela_status, parcela_tipo,parcela_dataPagamento)
-                        values (@parcela_idVenda, @parcela_valor, @parcela_status, @parcela_tipo, @parcela_dataPagamento)";
+                SQL = @"INSERT INTO ParcelasVenda (parcela_idVenda, parcela_valor, parcela_status, parcela_tipo,parcela_dataPagamento,parcela_idcaixa)
+                        values (@parcela_idVenda, @parcela_valor, @parcela_status, @parcela_tipo, @parcela_dataPagamento, @parcela_idcaixa)";
 
 
                 res = db.ExecuteNonQuery(SQL, "@parcela_idVenda", parcelaVenda.Cod_venda,
                                                 "@parcela_valor", parcelaVenda.Valor,
                                                 "@parcela_status", parcelaVenda.Status,
+                                                "@parcela_idcaixa", parcelaVenda.IdCaixa,
                                                 "@parcela_tipo", parcelaVenda.Tipo_pagamento,
                                                 "@parcela_dataPagamento", parcelaVenda.Data);
 
@@ -59,12 +60,13 @@ namespace sisVendas.Persistence
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     ParcelaVenda parcela = new ParcelaVenda();
-
+                    parcela.Id = Convert.ToInt32(dt.Rows[i]["parcela_id"]);
                     parcela.Cod_venda = Convert.ToInt32(dt.Rows[i]["parcela_idVenda"]);
                     parcela.Valor = Convert.ToDouble(dt.Rows[i]["parcela_valor"]);
                     parcela.Status = dt.Rows[i]["parcela_status"].ToString();
                     parcela.Tipo_pagamento = Convert.ToChar(dt.Rows[i]["parcela_tipo"]);
                     parcela.Data = Convert.ToDateTime(dt.Rows[i]["parcela_dataPagamento"].ToString());
+                    parcela.IdCaixa = Convert.ToInt32(dt.Rows[i]["parcela_idcaixa"]);
 
 
                     parcelas.Add(parcela);
@@ -72,7 +74,124 @@ namespace sisVendas.Persistence
             }
             return (parcelas);
 
-        }/*
+        }
+        public bool quitarParcela(int idParcela, char tipoPagamento, int idCaixa)
+        {
+
+            bool res = false;
+
+            string SQL = @"UPDATE ParcelasVenda SET parcela_status = 'PAGO',
+                                                    parcela_tipo = @tipoPagamento,
+                                                    parcela_dataPagamento = @parcela_dataPagamento,
+                                                    parcela_idcaixa = @parcela_idcaixa
+                        WHERE parcela_id = @parcela_id";
+
+            res = db.ExecuteNonQuery(SQL, "@tipoPagamento", tipoPagamento,
+                                            "@parcela_dataPagamento", DateTime.Now,
+                                            "@parcela_id", idParcela,
+                                            "@parcela_idcaixa", idCaixa);
+
+            return res;
+        }
+        public bool quitarParcelaParcial(int idParcela, double valorParcela, double valorPago, int idCaixa)
+        {
+
+            bool res = false;
+
+            string SQL = @"UPDATE ParcelasVenda SET parcela_idcaixa = @parcela_idcaixa,
+                                                    parcela_valor = @parcela_valor
+                        WHERE parcela_id = @parcela_id";
+
+            res = db.ExecuteNonQuery(SQL, "@parcela_idcaixa", idCaixa,
+                                            "@parcela_valor", valorParcela - valorPago,
+                                            "@parcela_id", idParcela);
+
+            return res;
+        }
+        public DataTable buscarParcelasEmAberto(string filtro)
+        {
+            DataTable dtParcelas = new DataTable(); 
+            dtParcelas.Columns.Add("id", typeof(int));
+            dtParcelas.Columns.Add("idCaixa", typeof(int));
+            dtParcelas.Columns.Add("idVenda", typeof(int));
+            dtParcelas.Columns.Add("valor", typeof(double));
+            dtParcelas.Columns.Add("dataVenda", typeof(DateTime));
+            dtParcelas.Columns.Add("dataPagamento", typeof(DateTime));
+            dtParcelas.Columns.Add("cpf_cnpj");
+            dtParcelas.Columns.Add("nome");
+
+            DataTable dt = new DataTable();
+
+            string SQL = @"select parcela_id, parcela_idcaixa, parcela_idVenda, parcela_valor, parcela_dataPagamento,venda_criado_em, cli_name, cli_cpf_cnpj
+                                                                                                            from ParcelasVenda
+                            inner join Venda on venda_id = parcela_idVenda
+                            inner join Client on Venda.venda_idCliente = Client.cli_id
+                            where parcela_status = 'DEVE'";
+
+            MessageBox.Show("filtro.Length" + filtro.Length);
+            if(filtro.Length > 0)
+            {
+                MessageBox.Show("Entrou");
+                SQL = SQL + filtro;
+            }
+            Console.WriteLine(SQL);
+
+            db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DataRow line = dtParcelas.NewRow();
+                    line["id"] = Convert.ToInt32(dt.Rows[i]["parcela_id"]);
+                    line["idCaixa"] = Convert.ToInt32(dt.Rows[i]["parcela_idcaixa"]);
+                    line["idVenda"] = Convert.ToInt32(dt.Rows[i]["parcela_idVenda"]);
+                    line["valor"] = Convert.ToDouble(dt.Rows[i]["parcela_valor"]);
+                    line["dataVenda"] = Convert.ToDateTime(dt.Rows[i]["venda_criado_em"].ToString());
+                    line["dataPagamento"] = Convert.ToDateTime(dt.Rows[i]["parcela_dataPagamento"].ToString());
+                    line["cpf_cnpj"] = dt.Rows[i]["cli_cpf_cnpj"].ToString();
+                    line["nome"] = dt.Rows[i]["cli_name"].ToString();
+
+
+                    dtParcelas.Rows.Add(line);
+                }
+            }
+            return (dtParcelas);
+
+        }
+        
+        public List<object> buscarParcelasPorIdCaixa(int idCaixa)
+        {
+            DataTable dt = new DataTable();
+            List<object> parcelas = new List<object>();
+
+
+            string SQL = @"select * from ParcelasVenda
+                                where parcela_idcaixa = @filtro";
+
+            db.ExecuteQuery(SQL, out dt, "@filtro", idCaixa);
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ParcelaVenda parcela = new ParcelaVenda();
+                    parcela.Id = Convert.ToInt32(dt.Rows[i]["parcela_id"]);
+                    parcela.Cod_venda = Convert.ToInt32(dt.Rows[i]["parcela_idVenda"]);
+                    parcela.Valor = Convert.ToDouble(dt.Rows[i]["parcela_valor"]);
+                    parcela.Status = dt.Rows[i]["parcela_status"].ToString();
+                    parcela.Tipo_pagamento = Convert.ToChar(dt.Rows[i]["parcela_tipo"]);
+                    parcela.Data = Convert.ToDateTime(dt.Rows[i]["parcela_dataPagamento"].ToString());
+                    parcela.IdCaixa = Convert.ToInt32(dt.Rows[i]["parcela_idcaixa"]);
+
+
+                    parcelas.Add(parcela);
+                }
+            }
+            return (parcelas);
+
+        }
+        /*
         public Cliente buscarCpf(string filtro)
         {
 

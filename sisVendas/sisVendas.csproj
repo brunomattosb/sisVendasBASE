@@ -61,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ctrlCaixa.cs" />
+    <Compile Include="Controllers\ctrlTransacaoCaixa.cs" />
     <Compile Include="Controllers\ctrlParcelasVenda.cs" />
     <Compile Include="Controllers\ctrlItensVenda.cs" />
     <Compile Include="Controllers\ctrlClient.cs" />
@@ -78,6 +80,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbSisDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Models\Caixa.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Expense.cs" />
@@ -89,6 +92,7 @@
     <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\ItensVenda.cs" />
     <Compile Include="Models\classVenda.cs" />
+    <Compile Include="Models\TransacaoCaixa.cs" />
     <Compile Include="Notification\popupClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +100,8 @@
       <DependentUpon>popupClient.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Banco.cs" />
+    <Compile Include="Persistence\CaixaDB.cs" />
+    <Compile Include="Persistence\TransacaoCaixaDB.cs" />
     <Compile Include="Persistence\ParcelaVendaDB.cs" />
     <Compile Include="Persistence\ItensVendaDB.cs" />
     <Compile Include="Persistence\ClientDB.cs" />
@@ -111,6 +117,24 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\Caixa\FormContasAReceber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Caixa\FormContasAReceber.Designer.cs">
+      <DependentUpon>FormContasAReceber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\Caixa\FormAbrirFecharCaixa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Caixa\FormAbrirFecharCaixa.Designer.cs">
+      <DependentUpon>FormAbrirFecharCaixa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\Caixa\FormQuitarConta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Caixa\FormQuitarConta.Designer.cs">
+      <DependentUpon>FormQuitarConta.cs</DependentUpon>
     </Compile>
     <Compile Include="Telas\Cliente\FormBuscarCliente.cs">
       <SubType>Form</SubType>
@@ -129,12 +153,6 @@
     </Compile>
     <Compile Include="Telas\Create\FormCreateEmployee.Designer.cs">
       <DependentUpon>FormCreateEmployee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Telas\Create\FormCreateExpense.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Telas\Create\FormCreateExpense.Designer.cs">
-      <DependentUpon>FormCreateExpense.cs</DependentUpon>
     </Compile>
     <Compile Include="Telas\Create\FormCreateExpenseType.cs">
       <SubType>Form</SubType>
@@ -234,6 +252,15 @@
     <EmbeddedResource Include="Notification\popupClient.resx">
       <DependentUpon>popupClient.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Caixa\FormContasAReceber.resx">
+      <DependentUpon>FormContasAReceber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Caixa\FormAbrirFecharCaixa.resx">
+      <DependentUpon>FormAbrirFecharCaixa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Caixa\FormQuitarConta.resx">
+      <DependentUpon>FormQuitarConta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Telas\Cliente\FormBuscarCliente.resx">
       <DependentUpon>FormBuscarCliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -242,9 +269,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Create\FormCreateEmployee.resx">
       <DependentUpon>FormCreateEmployee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Telas\Create\FormCreateExpense.resx">
-      <DependentUpon>FormCreateExpense.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Create\FormCreateExpenseType.resx">
       <DependentUpon>FormCreateExpenseType.cs</DependentUpon>

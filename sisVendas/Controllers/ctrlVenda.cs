@@ -17,9 +17,10 @@ namespace sisVendas.Controllers
         private classVenda vendaSelecionada = new classVenda();
         private ctrlItensVenda controlItensVenda = new ctrlItensVenda();
         private ctrlParcelasVenda controlParcelas = new ctrlParcelasVenda();
+        private ctrlTransacaoCaixa controlTransacao = new ctrlTransacaoCaixa();
 
-        public bool SalvarVenda(int id_cliente, DataTable dtParcelas, DataTable dtProdutos, double desconto)
-        {
+        public bool SalvarVenda(int id_cliente, DataTable dtParcelas, DataTable dtProdutos, double desconto, int idCaixa)
+        { 
             bool res = true;
 
             vendaSelecionada.Id_cliente = id_cliente;
@@ -52,17 +53,22 @@ namespace sisVendas.Controllers
 
                 foreach (DataRow row in dtParcelas.Rows)
                 {
-                    if(!controlParcelas.SalvarParcela(
+                    double valor = double.Parse(row["valor"].ToString());
+                    if (!controlParcelas.SalvarParcela(
                         vendaSelecionada.Id,
-                        double.Parse(row["valor"].ToString()),
+                        valor,
                         row["tipo_pagamento"].ToString(),
-                        DateTime.Parse(row["data"].ToString())
-                        )){
-                        {
+                        DateTime.Parse(row["data"].ToString()),
+                        idCaixa))
+                    {
+                        
                             res = false;
-                        }
+                        
                     }
+
                 }
+
+
             }
             else
             {

@@ -186,11 +186,51 @@ CREATE TABLE [dbo].[ItensVenda] (
 --# ---------------------------------------------------------------------- #
 
 CREATE TABLE [dbo].[ParcelasVenda] (
+	[parcela_id]       		INT					IDENTITY (1, 1) NOT NULL,
 	[parcela_idVenda]       INT					NOT NULL,
 	[parcela_valor]			NUMERIC (15,2)  	DEFAULT 0 NULL,
 	[parcela_status]        VARCHAR (4)			NOT NULL,
 	[parcela_tipo]         	VARCHAR (1)   	 	NOT NULL,
 	[parcela_dataPagamento] DATETIME         	DEFAULT (getdate()) NULL,
+	[parcela_idcaixa]		INT				  	NOT NULL,
 	
 	CONSTRAINT [FK_ID_PARCELAVENDAID] FOREIGN KEY ([parcela_idVenda]) references Venda(venda_id),
 );
+
+--# ---------------------------------------------------------------------- #
+--# Add table "Caixa"                                         #
+--# ---------------------------------------------------------------------- #
+
+CREATE TABLE [dbo].[Caixa] (
+	[caixa_id]       		INT					IDENTITY (1, 1) NOT NULL,
+	[caixa_idFunc]			INT				  	NOT NULL,
+	[caixa_dtAbertura]      DATETIME         	DEFAULT (getdate()) NULL,
+	[caixa_dtFechamento] 	DATETIME         	DEFAULT NULL,
+	[caixa_saldoAnterior]	NUMERIC (15,2)  	DEFAULT 0 NULL,
+	[caixa_entradas]		NUMERIC (15,2)  	DEFAULT 0 NULL,
+	[caixa_saidas]			NUMERIC (15,2)  	DEFAULT 0 NULL,
+	[caixa_suprimento]		NUMERIC (15,2)  	DEFAULT 0 NULL,
+	[caixa_sangria]			NUMERIC (15,2)  	DEFAULT 0 NULL,
+	
+	CONSTRAINT [PK_ID_CAIXAID] PRIMARY KEY CLUSTERED ([caixa_id] ASC),
+);
+--# ---------------------------------------------------------------------- #
+--# Add table "Transacao do Caixa"                                         #
+--# ---------------------------------------------------------------------- #
+
+CREATE TABLE [dbo].[TransacaoCaixa] (
+	[transacao_id]       		INT					IDENTITY (1, 1) NOT NULL,
+	[transacao_idcaixa]			INT				  	NOT NULL,
+	[transacao_tipo] 			VARCHAR (1)         DEFAULT NULL,
+	[transacao_descricao]		VARCHAR (50)         DEFAULT NULL,
+	[transacao_valor]			NUMERIC (15,2)  	DEFAULT 0 NULL,	
+	[transacao_criado_em]      	DATETIME         	DEFAULT (getdate()) NULL,
+	
+	CONSTRAINT [PK_ID_TRANSACAO] PRIMARY KEY CLUSTERED ([transacao_id] ASC),
+);
+
+
+
+
+
+

@@ -32,6 +32,7 @@ namespace sisVendas.Screens.Sale
         private double totalDesconto = 0;
         private double subtotalVenda = 0;
         private double totalPago = 0;
+        private int idCaixa;
 
         DataTable dttParcela = new DataTable();
         DataTable dttProduto = new DataTable();
@@ -43,6 +44,11 @@ namespace sisVendas.Screens.Sale
             
             //inserirCabecalhoBobina();
         }
+        public FormVenda(int idCaixa ) : this()
+        {
+            this.idCaixa = idCaixa;
+        }
+
         #region iniciarDGV
 
         public void initDataGridView()
@@ -65,7 +71,7 @@ namespace sisVendas.Screens.Sale
         }
         #endregion
 
-        #region Formulario
+        #region Form e hotkeys
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             switch (keyData)
@@ -697,16 +703,17 @@ namespace sisVendas.Screens.Sale
                  {
                      if (clienteSelecionado == null)
                      {
-                         isOk = controlVenda.SalvarVenda(0, dttParcela, dttProduto, totalDesconto);
+                         isOk = controlVenda.SalvarVenda(0, dttParcela, dttProduto, totalDesconto, idCaixa);
                      }
                      else
                      {
-                         isOk = controlVenda.SalvarVenda(clienteSelecionado.Id, dttParcela, dttProduto, totalDesconto);
+                         isOk = controlVenda.SalvarVenda(clienteSelecionado.Id, dttParcela, dttProduto, totalDesconto, idCaixa);
                      }
 
                      if (isOk)
                      {
                         Function.Alert("Sucesso!", "Venda finalizada!", popupClient.enmType.Success);
+
                         resetarForm();
                      }
                      else

@@ -36,13 +36,26 @@
             this.menuBtnProduct = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnProductCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnProductBrand = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuBtnExpense = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnExpenseType = new System.Windows.Forms.ToolStripMenuItem();
             this.vendaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnEfetuarVenda = new System.Windows.Forms.ToolStripMenuItem();
-            this.relatórioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBtnRelatorioVenda = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBtnTrocaDevoluc = new System.Windows.Forms.ToolStripMenuItem();
+            this.caixaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBtnAbrirFecharCaixa = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBtnLancarDespesa = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBtnQuitarPagamento = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBtnSangria = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBtnAporte = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBtnRelatorioCaixa = new System.Windows.Forms.ToolStripMenuItem();
+            this.comprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBtnLancarCompra = new System.Windows.Forms.ToolStripMenuItem();
+            this.promoçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBtnRegistrarPromocao = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBtnParameterization = new System.Windows.Forms.ToolStripMenuItem();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.lblCaixaStatus = new System.Windows.Forms.Label();
+            this.lblNomeFuncLogado = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +64,9 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cadastrosToolStripMenuItem,
             this.vendaToolStripMenuItem,
+            this.caixaToolStripMenuItem,
+            this.comprasToolStripMenuItem,
+            this.promoçãoToolStripMenuItem,
             this.menuBtnParameterization});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -67,7 +83,6 @@
             this.menuBtnProduct,
             this.menuBtnProductCategory,
             this.menuBtnProductBrand,
-            this.menuBtnExpense,
             this.menuBtnExpenseType});
             this.cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             this.cadastrosToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
@@ -115,14 +130,6 @@
             this.menuBtnProductBrand.Text = "Produto Marca";
             this.menuBtnProductBrand.Click += new System.EventHandler(this.menuBtnProductBrand_Click);
             // 
-            // menuBtnExpense
-            // 
-            this.menuBtnExpense.Enabled = false;
-            this.menuBtnExpense.Name = "menuBtnExpense";
-            this.menuBtnExpense.Size = new System.Drawing.Size(171, 22);
-            this.menuBtnExpense.Text = "Despesa";
-            this.menuBtnExpense.Click += new System.EventHandler(this.menuBtnExpense_Click);
-            // 
             // menuBtnExpenseType
             // 
             this.menuBtnExpenseType.Name = "menuBtnExpenseType";
@@ -134,7 +141,8 @@
             // 
             this.vendaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuBtnEfetuarVenda,
-            this.relatórioToolStripMenuItem});
+            this.menuBtnRelatorioVenda,
+            this.menuBtnTrocaDevoluc});
             this.vendaToolStripMenuItem.Name = "vendaToolStripMenuItem";
             this.vendaToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.vendaToolStripMenuItem.Text = "Vendas";
@@ -142,16 +150,108 @@
             // menuBtnEfetuarVenda
             // 
             this.menuBtnEfetuarVenda.Name = "menuBtnEfetuarVenda";
-            this.menuBtnEfetuarVenda.Size = new System.Drawing.Size(146, 22);
+            this.menuBtnEfetuarVenda.Size = new System.Drawing.Size(180, 22);
             this.menuBtnEfetuarVenda.Text = "Efetuar Venda";
             this.menuBtnEfetuarVenda.Click += new System.EventHandler(this.menuBtnEfetuarVenda_Click);
             // 
-            // relatórioToolStripMenuItem
+            // menuBtnRelatorioVenda
             // 
-            this.relatórioToolStripMenuItem.Enabled = false;
-            this.relatórioToolStripMenuItem.Name = "relatórioToolStripMenuItem";
-            this.relatórioToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.relatórioToolStripMenuItem.Text = "Relatório";
+            this.menuBtnRelatorioVenda.Enabled = false;
+            this.menuBtnRelatorioVenda.Name = "menuBtnRelatorioVenda";
+            this.menuBtnRelatorioVenda.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnRelatorioVenda.Text = "Relatório";
+            // 
+            // menuBtnTrocaDevoluc
+            // 
+            this.menuBtnTrocaDevoluc.Enabled = false;
+            this.menuBtnTrocaDevoluc.Name = "menuBtnTrocaDevoluc";
+            this.menuBtnTrocaDevoluc.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnTrocaDevoluc.Text = "Troca/Devolução";
+            // 
+            // caixaToolStripMenuItem
+            // 
+            this.caixaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuBtnAbrirFecharCaixa,
+            this.menuBtnLancarDespesa,
+            this.menuBtnQuitarPagamento,
+            this.menuBtnSangria,
+            this.menuBtnAporte,
+            this.menuBtnRelatorioCaixa});
+            this.caixaToolStripMenuItem.Name = "caixaToolStripMenuItem";
+            this.caixaToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.caixaToolStripMenuItem.Text = "Caixa";
+            // 
+            // menuBtnAbrirFecharCaixa
+            // 
+            this.menuBtnAbrirFecharCaixa.Name = "menuBtnAbrirFecharCaixa";
+            this.menuBtnAbrirFecharCaixa.Size = new System.Drawing.Size(201, 22);
+            this.menuBtnAbrirFecharCaixa.Text = "Abrir/Fechar";
+            this.menuBtnAbrirFecharCaixa.Click += new System.EventHandler(this.menuBtnAbrirFecharCaixa_Click);
+            // 
+            // menuBtnLancarDespesa
+            // 
+            this.menuBtnLancarDespesa.Enabled = false;
+            this.menuBtnLancarDespesa.Name = "menuBtnLancarDespesa";
+            this.menuBtnLancarDespesa.Size = new System.Drawing.Size(201, 22);
+            this.menuBtnLancarDespesa.Text = "Lançar Despesas";
+            // 
+            // menuBtnQuitarPagamento
+            // 
+            this.menuBtnQuitarPagamento.Name = "menuBtnQuitarPagamento";
+            this.menuBtnQuitarPagamento.Size = new System.Drawing.Size(201, 22);
+            this.menuBtnQuitarPagamento.Text = "Quitar Contas a Receber";
+            this.menuBtnQuitarPagamento.Click += new System.EventHandler(this.menuBtnQuitarPagamento_Click);
+            // 
+            // menuBtnSangria
+            // 
+            this.menuBtnSangria.Enabled = false;
+            this.menuBtnSangria.Name = "menuBtnSangria";
+            this.menuBtnSangria.Size = new System.Drawing.Size(201, 22);
+            this.menuBtnSangria.Text = "Sangria";
+            // 
+            // menuBtnAporte
+            // 
+            this.menuBtnAporte.Enabled = false;
+            this.menuBtnAporte.Name = "menuBtnAporte";
+            this.menuBtnAporte.Size = new System.Drawing.Size(201, 22);
+            this.menuBtnAporte.Text = "Aporte";
+            // 
+            // menuBtnRelatorioCaixa
+            // 
+            this.menuBtnRelatorioCaixa.Enabled = false;
+            this.menuBtnRelatorioCaixa.Name = "menuBtnRelatorioCaixa";
+            this.menuBtnRelatorioCaixa.Size = new System.Drawing.Size(201, 22);
+            this.menuBtnRelatorioCaixa.Text = "Relatório";
+            // 
+            // comprasToolStripMenuItem
+            // 
+            this.comprasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuBtnLancarCompra});
+            this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
+            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.comprasToolStripMenuItem.Text = "Compras";
+            // 
+            // menuBtnLancarCompra
+            // 
+            this.menuBtnLancarCompra.Enabled = false;
+            this.menuBtnLancarCompra.Name = "menuBtnLancarCompra";
+            this.menuBtnLancarCompra.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnLancarCompra.Text = "Lançar Compra";
+            // 
+            // promoçãoToolStripMenuItem
+            // 
+            this.promoçãoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuBtnRegistrarPromocao});
+            this.promoçãoToolStripMenuItem.Name = "promoçãoToolStripMenuItem";
+            this.promoçãoToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
+            this.promoçãoToolStripMenuItem.Text = "Promoção";
+            // 
+            // menuBtnRegistrarPromocao
+            // 
+            this.menuBtnRegistrarPromocao.Enabled = false;
+            this.menuBtnRegistrarPromocao.Name = "menuBtnRegistrarPromocao";
+            this.menuBtnRegistrarPromocao.Size = new System.Drawing.Size(178, 22);
+            this.menuBtnRegistrarPromocao.Text = "Registrar Promoção";
             // 
             // menuBtnParameterization
             // 
@@ -163,22 +263,46 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 27);
+            this.richTextBox1.Location = new System.Drawing.Point(24, 124);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(776, 499);
+            this.richTextBox1.Size = new System.Drawing.Size(776, 402);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
+            // 
+            // lblCaixaStatus
+            // 
+            this.lblCaixaStatus.AutoSize = true;
+            this.lblCaixaStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCaixaStatus.ForeColor = System.Drawing.Color.Red;
+            this.lblCaixaStatus.Location = new System.Drawing.Point(599, 66);
+            this.lblCaixaStatus.Name = "lblCaixaStatus";
+            this.lblCaixaStatus.Size = new System.Drawing.Size(164, 33);
+            this.lblCaixaStatus.TabIndex = 3;
+            this.lblCaixaStatus.Text = "FECHADO";
+            // 
+            // lblNomeFuncLogado
+            // 
+            this.lblNomeFuncLogado.AutoSize = true;
+            this.lblNomeFuncLogado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNomeFuncLogado.Location = new System.Drawing.Point(601, 41);
+            this.lblNomeFuncLogado.Name = "lblNomeFuncLogado";
+            this.lblNomeFuncLogado.Size = new System.Drawing.Size(13, 20);
+            this.lblNomeFuncLogado.TabIndex = 4;
+            this.lblNomeFuncLogado.Text = ".";
             // 
             // FormHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 538);
+            this.Controls.Add(this.lblNomeFuncLogado);
+            this.Controls.Add(this.lblCaixaStatus);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.menuStrip);
             this.Name = "FormHome";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.FormHome_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -196,13 +320,26 @@
         private System.Windows.Forms.ToolStripMenuItem menuBtnProduct;
         private System.Windows.Forms.ToolStripMenuItem menuBtnProductCategory;
         private System.Windows.Forms.ToolStripMenuItem menuBtnProductBrand;
-        private System.Windows.Forms.ToolStripMenuItem menuBtnExpense;
         private System.Windows.Forms.ToolStripMenuItem menuBtnExpenseType;
         private System.Windows.Forms.ToolStripMenuItem menuBtnParameterization;
         private System.Windows.Forms.ToolStripMenuItem vendaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuBtnEfetuarVenda;
-        private System.Windows.Forms.ToolStripMenuItem relatórioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuBtnRelatorioVenda;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.ToolStripMenuItem caixaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuBtnAbrirFecharCaixa;
+        private System.Windows.Forms.ToolStripMenuItem menuBtnLancarDespesa;
+        private System.Windows.Forms.ToolStripMenuItem menuBtnTrocaDevoluc;
+        private System.Windows.Forms.ToolStripMenuItem menuBtnQuitarPagamento;
+        private System.Windows.Forms.ToolStripMenuItem menuBtnSangria;
+        private System.Windows.Forms.ToolStripMenuItem comprasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuBtnLancarCompra;
+        private System.Windows.Forms.ToolStripMenuItem menuBtnAporte;
+        private System.Windows.Forms.ToolStripMenuItem menuBtnRelatorioCaixa;
+        private System.Windows.Forms.ToolStripMenuItem promoçãoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuBtnRegistrarPromocao;
+        private System.Windows.Forms.Label lblCaixaStatus;
+        private System.Windows.Forms.Label lblNomeFuncLogado;
     }
 }
 

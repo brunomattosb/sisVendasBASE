@@ -13,27 +13,28 @@ namespace sisVendas.Models
         private DateTime data; 
         private string status;
         private char tipo_pagamento;
+        private int idCaixa;
+        private int id;
 
-        public ParcelaVenda( int cod_venda, double valor, DateTime data, string status, char tipo_pagamento)
+        public ParcelaVenda(){}
+
+        public ParcelaVenda(int id_venda, double valor, DateTime data, string status, char tipo_pagamento, int idCaixa, int id)
         {
-
-            this.id_venda = cod_venda;
+            this.id_venda = id_venda;
             this.valor = valor;
             this.data = data;
             this.status = status;
             this.tipo_pagamento = tipo_pagamento;
+            this.idCaixa = idCaixa;
+            this.id = id;
         }
-        public ParcelaVenda(double valor, char tipo_pagamento)
-        {
-            this.valor = valor;
-            this.tipo_pagamento = tipo_pagamento;
-        }
-        public ParcelaVenda(){}
 
         public int Cod_venda { get => id_venda; set => id_venda = value; }
         public double Valor { get => valor; set => valor = value; }
         public DateTime Data { get => data; set => data = value; }
         public string Status { get => status; set => status = value; }
         public char Tipo_pagamento { get => tipo_pagamento; set => tipo_pagamento = value; }
+        public int IdCaixa { get => idCaixa; set => idCaixa = value; }
+        public int Id { get => id; set => id = value; }
     }
 }
