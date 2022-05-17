@@ -29,26 +29,28 @@
         private void InitializeComponent()
         {
             this.dgv_venda = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cpf_cnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.desconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.criado_em = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.venda_cancelada = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.tbValor = new System.Windows.Forms.TextBox();
             this.lblSaldo = new System.Windows.Forms.Label();
             this.cbbMN = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.mtbDtFim = new System.Windows.Forms.MaskedTextBox();
+            this.dtpFim = new System.Windows.Forms.DateTimePicker();
+            this.dtpInicio = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
-            this.mtbDtInicio = new System.Windows.Forms.MaskedTextBox();
             this.lblNascimento = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
             this.mtbCpf = new System.Windows.Forms.MaskedTextBox();
             this.lblCpf = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.desconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.criado_em = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cpf_cnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbPesquisarPeriodo = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_venda)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -64,11 +66,12 @@
             this.dgv_venda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_venda.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
-            this.desconto,
-            this.total,
-            this.criado_em,
+            this.cpf_cnpj,
             this.nome,
-            this.cpf_cnpj});
+            this.total,
+            this.desconto,
+            this.criado_em,
+            this.venda_cancelada});
             this.dgv_venda.Location = new System.Drawing.Point(15, 233);
             this.dgv_venda.Margin = new System.Windows.Forms.Padding(6);
             this.dgv_venda.MultiSelect = false;
@@ -79,6 +82,71 @@
             this.dgv_venda.Size = new System.Drawing.Size(1186, 536);
             this.dgv_venda.TabIndex = 6;
             this.dgv_venda.DoubleClick += new System.EventHandler(this.dgv_venda_DoubleClick);
+            // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "Id";
+            this.id.MinimumWidth = 120;
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            this.id.Width = 120;
+            // 
+            // cpf_cnpj
+            // 
+            this.cpf_cnpj.DataPropertyName = "cpf_cnpj";
+            this.cpf_cnpj.HeaderText = "CPF/CNPJ";
+            this.cpf_cnpj.MinimumWidth = 200;
+            this.cpf_cnpj.Name = "cpf_cnpj";
+            this.cpf_cnpj.ReadOnly = true;
+            this.cpf_cnpj.Width = 200;
+            // 
+            // nome
+            // 
+            this.nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nome.DataPropertyName = "nome";
+            this.nome.HeaderText = "Nome";
+            this.nome.Name = "nome";
+            this.nome.ReadOnly = true;
+            // 
+            // total
+            // 
+            this.total.DataPropertyName = "total";
+            this.total.HeaderText = "Total";
+            this.total.MinimumWidth = 200;
+            this.total.Name = "total";
+            this.total.ReadOnly = true;
+            this.total.Width = 200;
+            // 
+            // desconto
+            // 
+            this.desconto.DataPropertyName = "desconto";
+            this.desconto.HeaderText = "Desconto";
+            this.desconto.MinimumWidth = 150;
+            this.desconto.Name = "desconto";
+            this.desconto.ReadOnly = true;
+            this.desconto.Width = 150;
+            // 
+            // criado_em
+            // 
+            this.criado_em.DataPropertyName = "criado_em";
+            this.criado_em.HeaderText = "Data";
+            this.criado_em.MinimumWidth = 200;
+            this.criado_em.Name = "criado_em";
+            this.criado_em.ReadOnly = true;
+            this.criado_em.Width = 200;
+            // 
+            // venda_cancelada
+            // 
+            this.venda_cancelada.DataPropertyName = "venda_cancelada";
+            this.venda_cancelada.HeaderText = "Cancelada";
+            this.venda_cancelada.MinimumWidth = 150;
+            this.venda_cancelada.Name = "venda_cancelada";
+            this.venda_cancelada.ReadOnly = true;
+            this.venda_cancelada.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.venda_cancelada.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.venda_cancelada.Width = 150;
             // 
             // groupBox1
             // 
@@ -112,19 +180,21 @@
             // 
             // tbValor
             // 
-            this.tbValor.Location = new System.Drawing.Point(968, 63);
+            this.tbValor.Location = new System.Drawing.Point(945, 63);
             this.tbValor.Margin = new System.Windows.Forms.Padding(6);
             this.tbValor.MaxLength = 10;
             this.tbValor.Name = "tbValor";
             this.tbValor.Size = new System.Drawing.Size(134, 31);
             this.tbValor.TabIndex = 56;
+            this.tbValor.Text = "R$ 0,00";
+            this.tbValor.Enter += new System.EventHandler(this.tbValor_Enter);
             this.tbValor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbValor_KeyPress);
             this.tbValor.Leave += new System.EventHandler(this.tbValor_Leave);
             // 
             // lblSaldo
             // 
             this.lblSaldo.AutoSize = true;
-            this.lblSaldo.Location = new System.Drawing.Point(963, 35);
+            this.lblSaldo.Location = new System.Drawing.Point(940, 35);
             this.lblSaldo.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblSaldo.Name = "lblSaldo";
             this.lblSaldo.Size = new System.Drawing.Size(68, 25);
@@ -135,10 +205,11 @@
             // 
             this.cbbMN.FormattingEnabled = true;
             this.cbbMN.Items.AddRange(new object[] {
+            "",
             "=",
             ">=",
             "<="});
-            this.cbbMN.Location = new System.Drawing.Point(825, 63);
+            this.cbbMN.Location = new System.Drawing.Point(802, 63);
             this.cbbMN.Margin = new System.Windows.Forms.Padding(6);
             this.cbbMN.Name = "cbbMN";
             this.cbbMN.Size = new System.Drawing.Size(112, 33);
@@ -146,55 +217,48 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.mtbDtFim);
+            this.groupBox2.Controls.Add(this.cbPesquisarPeriodo);
+            this.groupBox2.Controls.Add(this.dtpFim);
+            this.groupBox2.Controls.Add(this.dtpInicio);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.mtbDtInicio);
             this.groupBox2.Controls.Add(this.lblNascimento);
-            this.groupBox2.Location = new System.Drawing.Point(371, 15);
+            this.groupBox2.Location = new System.Drawing.Point(329, 15);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(330, 126);
+            this.groupBox2.Size = new System.Drawing.Size(372, 126);
             this.groupBox2.TabIndex = 55;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Periodo";
             // 
-            // mtbDtFim
+            // dtpFim
             // 
-            this.mtbDtFim.Location = new System.Drawing.Point(178, 71);
-            this.mtbDtFim.Margin = new System.Windows.Forms.Padding(6);
-            this.mtbDtFim.Mask = "00/00/0000";
-            this.mtbDtFim.Name = "mtbDtFim";
-            this.mtbDtFim.Size = new System.Drawing.Size(134, 31);
-            this.mtbDtFim.TabIndex = 53;
-            this.mtbDtFim.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.mtbDtFim.ValidatingType = typeof(System.DateTime);
-            this.mtbDtFim.Click += new System.EventHandler(this.mtbDtFim_Click);
+            this.dtpFim.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFim.Location = new System.Drawing.Point(202, 86);
+            this.dtpFim.Name = "dtpFim";
+            this.dtpFim.Size = new System.Drawing.Size(149, 31);
+            this.dtpFim.TabIndex = 56;
+            // 
+            // dtpInicio
+            // 
+            this.dtpInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpInicio.Location = new System.Drawing.Point(22, 86);
+            this.dtpInicio.Name = "dtpInicio";
+            this.dtpInicio.Size = new System.Drawing.Size(149, 31);
+            this.dtpInicio.TabIndex = 55;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(172, 43);
+            this.label3.Location = new System.Drawing.Point(197, 58);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 25);
             this.label3.TabIndex = 54;
             this.label3.Text = "Fim:";
             // 
-            // mtbDtInicio
-            // 
-            this.mtbDtInicio.Location = new System.Drawing.Point(23, 71);
-            this.mtbDtInicio.Margin = new System.Windows.Forms.Padding(6);
-            this.mtbDtInicio.Mask = "00/00/0000";
-            this.mtbDtInicio.Name = "mtbDtInicio";
-            this.mtbDtInicio.Size = new System.Drawing.Size(134, 31);
-            this.mtbDtInicio.TabIndex = 47;
-            this.mtbDtInicio.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.mtbDtInicio.ValidatingType = typeof(System.DateTime);
-            this.mtbDtInicio.Click += new System.EventHandler(this.mtbDtInicio_Click);
-            // 
             // lblNascimento
             // 
             this.lblNascimento.AutoSize = true;
-            this.lblNascimento.Location = new System.Drawing.Point(17, 43);
+            this.lblNascimento.Location = new System.Drawing.Point(17, 58);
             this.lblNascimento.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblNascimento.Name = "lblNascimento";
             this.lblNascimento.Size = new System.Drawing.Size(68, 25);
@@ -220,6 +284,8 @@
             this.mtbCpf.TabIndex = 44;
             this.mtbCpf.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mtbCpf.Click += new System.EventHandler(this.mtbCpf_Click);
+            this.mtbCpf.TextChanged += new System.EventHandler(this.mtbCpf_TextChanged);
+            this.mtbCpf.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtbCpf_KeyPress);
             // 
             // lblCpf
             // 
@@ -241,57 +307,15 @@
             this.label2.TabIndex = 49;
             this.label2.Text = "Nome:";
             // 
-            // id
+            // cbPesquisarPeriodo
             // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "Id";
-            this.id.MinimumWidth = 50;
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            // 
-            // desconto
-            // 
-            this.desconto.DataPropertyName = "desconto";
-            this.desconto.HeaderText = "Desconto";
-            this.desconto.MinimumWidth = 150;
-            this.desconto.Name = "desconto";
-            this.desconto.ReadOnly = true;
-            this.desconto.Width = 150;
-            // 
-            // total
-            // 
-            this.total.DataPropertyName = "total";
-            this.total.HeaderText = "Total";
-            this.total.MinimumWidth = 200;
-            this.total.Name = "total";
-            this.total.ReadOnly = true;
-            this.total.Width = 200;
-            // 
-            // criado_em
-            // 
-            this.criado_em.DataPropertyName = "criado_em";
-            this.criado_em.HeaderText = "Data";
-            this.criado_em.MinimumWidth = 150;
-            this.criado_em.Name = "criado_em";
-            this.criado_em.ReadOnly = true;
-            this.criado_em.Width = 150;
-            // 
-            // nome
-            // 
-            this.nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nome.DataPropertyName = "nome";
-            this.nome.HeaderText = "Nome";
-            this.nome.Name = "nome";
-            this.nome.ReadOnly = true;
-            // 
-            // cpf_cnpj
-            // 
-            this.cpf_cnpj.DataPropertyName = "cpf_cnpj";
-            this.cpf_cnpj.HeaderText = "CPF/CNPJ";
-            this.cpf_cnpj.MinimumWidth = 200;
-            this.cpf_cnpj.Name = "cpf_cnpj";
-            this.cpf_cnpj.ReadOnly = true;
-            this.cpf_cnpj.Width = 200;
+            this.cbPesquisarPeriodo.AutoSize = true;
+            this.cbPesquisarPeriodo.Location = new System.Drawing.Point(22, 28);
+            this.cbPesquisarPeriodo.Name = "cbPesquisarPeriodo";
+            this.cbPesquisarPeriodo.Size = new System.Drawing.Size(246, 29);
+            this.cbPesquisarPeriodo.TabIndex = 57;
+            this.cbPesquisarPeriodo.Text = "Pesquisar Por Período";
+            this.cbPesquisarPeriodo.UseVisualStyleBackColor = true;
             // 
             // FormBuscarVenda
             // 
@@ -303,7 +327,8 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "FormBuscarVenda";
-            this.Text = "FormBuscarVenda";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Buscar Venda";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_venda)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -320,9 +345,7 @@
         private System.Windows.Forms.Label lblSaldo;
         private System.Windows.Forms.ComboBox cbbMN;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.MaskedTextBox mtbDtFim;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.MaskedTextBox mtbDtInicio;
         private System.Windows.Forms.Label lblNascimento;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.MaskedTextBox mtbCpf;
@@ -330,10 +353,14 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn desconto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn total;
-        private System.Windows.Forms.DataGridViewTextBoxColumn criado_em;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nome;
         private System.Windows.Forms.DataGridViewTextBoxColumn cpf_cnpj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nome;
+        private System.Windows.Forms.DataGridViewTextBoxColumn total;
+        private System.Windows.Forms.DataGridViewTextBoxColumn desconto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn criado_em;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn venda_cancelada;
+        private System.Windows.Forms.DateTimePicker dtpFim;
+        private System.Windows.Forms.DateTimePicker dtpInicio;
+        private System.Windows.Forms.CheckBox cbPesquisarPeriodo;
     }
 }

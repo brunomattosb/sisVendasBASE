@@ -21,27 +21,26 @@ namespace sisVendas.Persistence
             bool res = false;
             int retorno = 0;
 
-            if (Objeto.GetType() == typeof(classVenda))
+            if (Objeto.GetType() == typeof(Vendas))
             {
-                classVenda venda = (classVenda)Objeto;
+                Vendas venda = (Vendas)Objeto;
 
                 string SQL;
 
-                SQL = @"INSERT INTO Venda (venda_idCliente, venda_desconto)
-                        values (@venda_idCliente, @venda_desconto)";
+                SQL = @"INSERT INTO Venda (venda_idCliente, venda_desconto, venda_idFunc)
+                        values (@venda_idCliente, @venda_desconto, @venda_idFunc)";
 
 
                 //grava null caso idCliente seja zero
-                if(venda.Id_cliente == 0)
+                if (venda.Id_cliente == 0)
                 {
-                    SQL = @"INSERT INTO Venda (venda_idCliente, venda_desconto)
-                        values (null, @venda_desconto)";
-
-                    res = db.ExecuteNonQuery(SQL, "@venda_desconto", venda.Desconto);
+                    SQL = @"INSERT INTO Venda (venda_idCliente, venda_desconto, venda_idFunc)
+                        values (null, @venda_desconto, @venda_idFunc)";
                 }
-                else
-                    res = db.ExecuteNonQuery(SQL, "@venda_idCliente", venda.Id_cliente,
-                                                    "@venda_desconto", venda.Desconto);
+
+                res = db.ExecuteNonQuery(SQL, "@venda_idCliente", venda.Id_cliente,
+                                                    "@venda_desconto", venda.Desconto,
+                                                    "@venda_idFunc", venda.Id_funcionario);
 
                 if (res)
                 {
@@ -50,63 +49,112 @@ namespace sisVendas.Persistence
 
             }
             return (retorno);
-        } 
-        
-        //public List<object> buscar(string filtro)
-        //{
-            /*DataTable dt = new DataTable();
+        }
 
-            List<object> vendas = new List<object>();
+        public DataTable buscar(string filtro)
+        {
+            DataTable dtVenda = new DataTable();
 
-            // venda_id, venda_desconto,venda_desconto + soma as total_venda, venda_criado_em, cli_name, cli_cpf_cnpj
+            dtVenda.Columns.Add("id", typeof(int));
+            dtVenda.Columns.Add("desconto", typeof(double));
+            dtVenda.Columns.Add("cpf_cnpj");
+            dtVenda.Columns.Add("total", typeof(double));
+            dtVenda.Columns.Add("criado_em", typeof(DateTime));
+            dtVenda.Columns.Add("venda_cancelada", typeof(bool));
+            dtVenda.Columns.Add("nome");
 
             string SQL = @"select * from (      
-	                        select venda_id, venda_desconto,venda_desconto + soma as total_venda, venda_criado_em, cli_name, cli_cpf_cnpj 
+	                        select venda_id, venda_desconto,venda_desconto + soma as total_venda, venda_criado_em, cli_nome, cli_cpf_cnpj, venda_cancelada
                                                                                                                                     from venda 
-                            inner join client on venda.venda_idCliente = client.cli_id
+                            left join cliente on venda.venda_idCliente = cliente.cli_id
                             inner join (
-                                            select parcela_idVenda, sum(parcela_valor) as soma from ParcelasVenda 
+                                            select parcela_idVenda, sum(parcela_valor) as soma from ParcelaVenda 
                                                                             group by parcela_idVenda) as parcelas 
 							                on venda.venda_id = parcela_idVenda
                             ) as teste ";
 
-            if(filtro != "")
+            Console.WriteLine(SQL);
+            if (filtro != "")
             {
-                SQL = SQL + filtro;
+                SQL = SQL + "where " + filtro;
+                Console.WriteLine(SQL);
             }
 
-            //where total_venda >= 50.00 AND cli_cpf_cnpj = 38713376845 AND cli_name = 'Bruno' AND venda_criado_em BETWEEN '01/11/1995 00:00:00' AND '01/11/2029 00:00:00'
+            DataTable dt = new DataTable();
+
             db.ExecuteQuery(SQL, out dt);
 
             if (dt.Rows.Count > 0)
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    VendaCompleta venda = new VendaCompleta();
+                    DataRow linha = dtVenda.NewRow();
 
-                    venda.Id = Convert.ToInt32(dt.Rows[i]["venda_id"]);
-                    venda.Desconto = Convert.ToDouble(dt.Rows[i]["venda_desconto"].ToString());
-                    venda.Total_venda = Convert.ToDouble(dt.Rows[i]["total_venda"].ToString());
-                    venda.Venda_criado_em = Convert.ToDateTime(dt.Rows[i]["venda_criado_em"].ToString());
-                    venda.Cli_cpf_cnpj = dt.Rows[i]["cli_cpf_cnpj"].ToString();
-                    venda.Cli_name = dt.Rows[i]["cli_name"].ToString();
+                    linha["id"] = Convert.ToInt32(dt.Rows[i]["venda_id"]);
+                    linha["desconto"] = Convert.ToDouble(dt.Rows[i]["venda_desconto"].ToString());
+                    linha["cpf_cnpj"] = dt.Rows[i]["cli_cpf_cnpj"].ToString();
+                    linha["total"] = Convert.ToDouble(dt.Rows[i]["total_venda"].ToString());
+                    linha["nome"] = dt.Rows[i]["cli_nome"].ToString();
+                    linha["criado_em"] = Convert.ToDateTime(dt.Rows[i]["venda_criado_em"].ToString());
+                    linha["venda_cancelada"] = Convert.ToBoolean(dt.Rows[i]["venda_cancelada"].ToString());
 
-                    vendas.Add(venda);
+
+                    dtVenda.Rows.Add(linha);
+
                 }
             }
-            return (vendas);*/
+            return (dtVenda);
 
-       // }
-        
+        }
+
         public bool remover(int id)
         {
             bool res = false;
-            string SQL = @"DELETE FROM venda WHERE venda_id = @id";
+            string SQL = @"update venda set venda_cancelada = 1 WHERE venda_id = @id";
             res = db.ExecuteNonQuery(SQL, "@id", id);
             return res;
         }
-        
-        
+        public bool restabelecer(int id)
+        {
+            bool res = false;
+            string SQL = @"update venda set venda_cancelada = 0 WHERE venda_id = @id";
+            res = db.ExecuteNonQuery(SQL, "@id", id);
+            return res;
+        }
+
+        public Vendas buscarVendaPorCod(int idVenda)
+        {
+            DataTable dt = new DataTable();
+
+            string SQL = @"SELECT * FROM Venda WHERE venda_id = @idVenda";
+
+            db.ExecuteQuery(SQL, out dt, "@idVenda", idVenda);
+            Vendas venda = new Vendas();
+
+            if (dt.Rows.Count > 0)
+            {
+                venda.Id = int.Parse(dt.Rows[0]["venda_id"].ToString());
+
+                venda.Desconto = double.Parse(dt.Rows[0]["venda_desconto"].ToString());
+                venda.Created_at = Convert.ToDateTime(dt.Rows[0]["venda_criado_em"]);
+                venda.Venda_cancelada = bool.Parse(dt.Rows[0]["venda_cancelada"].ToString());
+
+                if (dt.Rows[0]["venda_idCliente"].ToString() == "")
+                {
+                    venda.Id_cliente = 0;
+                }
+                else
+                {
+                    venda.Id_cliente = int.Parse(dt.Rows[0]["venda_idCliente"].ToString());
+                }
+            }
+            else
+            {
+                return null;
+            }
+            return (venda);
+        }
+
         public bool atualizar(object Objeto)
         {
             /*

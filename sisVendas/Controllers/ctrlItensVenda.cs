@@ -15,7 +15,8 @@ namespace sisVendas.Controllers
     class ctrlItensVenda
     {
         private Banco dataBase = new Banco();
-        private ItensVenda ItensVendaSelecionado = new ItensVenda();
+        private ItenVenda ItensVendaSelecionado = new ItenVenda();
+        private ctrlProduct controlProduto = new ctrlProduct();
 
         public bool SalvarItensVenda(int id_venda, string id_produto,double quantidade)
         {
@@ -30,6 +31,11 @@ namespace sisVendas.Controllers
             ItensVendaDB itensVenda = new ItensVendaDB(dataBase);
 
             result = itensVenda.Gravar(ItensVendaSelecionado);
+            if (result)
+            {
+                //subtrair estoque
+                controlProduto.removerEstoque(id_produto, quantidade);
+            }
             
             dataBase.Desconecta();
 
@@ -41,7 +47,6 @@ namespace sisVendas.Controllers
 
             DataTable dtClient = new DataTable();
 
-            dtClient.Columns.Add("iten_id", typeof(int));
             dtClient.Columns.Add("iten_quantidade", typeof(double));
             dtClient.Columns.Add("iten_idVenda", typeof(int));
             dtClient.Columns.Add("iten_idProduto");
@@ -50,12 +55,11 @@ namespace sisVendas.Controllers
 
             dataBase.Conecta();
             ItensVendaDB itensDB= new ItensVendaDB(dataBase);
-            foreach (ItensVenda itens in itensDB.buscarPorIdVenda(filter))
+            foreach (ItenVenda itens in itensDB.buscarPorIdVenda(filter))
             {
                 
                 DataRow line = dtClient.NewRow();
 
-                line["iten_id"] = itens.Id ;
                 line["iten_quantidade"] = itens.Quantidade;
                 line["iten_idVenda"] = itens.Id_venda;
                 line["iten_idProduto"] = itens.Id_produto;

@@ -13,34 +13,34 @@ namespace sisVendas.Controllers
     class ctrlProduct
     {
         private Banco dataBase = new Banco();
-        private Produto CurrentProduct = new Produto();
+        private Produto ProdutoSelecionado = new Produto();
 
         // DateTime created_at, char sex, double balance)
-        public bool SaveProduct(string id, string name, string complement, int inventory, int category, int brand,
+        public bool SaveProduct(string id, string nome, string complemento, int estoque, int categoria, int marca,
             double value, string UN)
         {
 
             // Verifica se existe um numero no tbCod
-            CurrentProduct.Id = id;
-            CurrentProduct.Name = name;
-            CurrentProduct.Complement = complement;
-            CurrentProduct.Inventory = inventory;
-            CurrentProduct.Prod_category = category;
-            CurrentProduct.Prod_brand = brand;
-            CurrentProduct.Value = value;
-            CurrentProduct.Un = UN;
+            ProdutoSelecionado.Id = id;
+            ProdutoSelecionado.Nome = nome;
+            ProdutoSelecionado.Descricao = complemento;
+            ProdutoSelecionado.Estoque = estoque;
+            ProdutoSelecionado.Prod_Categoria = categoria;
+            ProdutoSelecionado.Prod_Marca = marca;
+            ProdutoSelecionado.Valor = value;
+            ProdutoSelecionado.Un = UN;
 
             dataBase.Conecta();
             bool result = false;
 
             ProductDB prodDB = new ProductDB(dataBase);
-            if (prodDB.buscarPorCod(id) == null)
+            if (prodDB.BuscarPorCod(id) == null)
             {
-                result = prodDB.Gravar(CurrentProduct);
+                result = prodDB.Gravar(ProdutoSelecionado);
             }
             else
             {
-                result = prodDB.update(CurrentProduct);
+                result = prodDB.Atualizar(ProdutoSelecionado);
             }
             dataBase.Desconecta();
 
@@ -53,37 +53,61 @@ namespace sisVendas.Controllers
             DataTable dtProduct = new DataTable();
 
             dtProduct.Columns.Add("prod_id");
-            dtProduct.Columns.Add("prod_name");
-            dtProduct.Columns.Add("prod_complement");
+            dtProduct.Columns.Add("prod_nome");
+            dtProduct.Columns.Add("prod_complemento");
             dtProduct.Columns.Add("prod_un");
-            dtProduct.Columns.Add("prod_inventory", typeof(int));
-            dtProduct.Columns.Add("prod_category", typeof(int));
-            dtProduct.Columns.Add("prod_brand", typeof(int));
-            dtProduct.Columns.Add("prod_value", typeof(double));
-            dtProduct.Columns.Add("prod_created_at", typeof(DateTime));
+            dtProduct.Columns.Add("prod_estoque", typeof(int));
+            dtProduct.Columns.Add("prod_categoria", typeof(int));
+            dtProduct.Columns.Add("prod_marca", typeof(int));
+            dtProduct.Columns.Add("prod_valor", typeof(double));
+            dtProduct.Columns.Add("prod_criado_em", typeof(DateTime));
 
             dataBase.Conecta();
             ProductDB prodDB = new ProductDB(dataBase);
-            foreach (Produto prod in prodDB.searth(filter))
+            foreach (Produto prod in prodDB.Buscar(filter))
             {
 
                 DataRow line = dtProduct.NewRow();
 
                 line["prod_id"] = prod.Id;
-                line["prod_name"] = prod.Name;
-                line["prod_complement"] = prod.Complement;
-                line["prod_inventory"] = prod.Inventory;
-                line["prod_category"] = prod.Prod_category;
-                line["prod_brand"] = prod.Prod_brand;
-                line["prod_value"] = prod.Value;
+                line["prod_nome"] = prod.Nome;
+                line["prod_complemento"] = prod.Descricao;
+                line["prod_estoque"] = prod.Estoque;
+                line["prod_categoria"] = prod.Prod_Categoria;
+                line["prod_marca"] = prod.Prod_Marca;
+                line["prod_valor"] = prod.Valor;
                 line["prod_un"] = prod.Un;
-                line["prod_created_at"] = prod.Created_at;
+                line["prod_criado_em"] = prod.Criado_em;
                 
                 dtProduct.Rows.Add(line);
             }
             dataBase.Desconecta();
 
             return (dtProduct);
+        }
+        public bool removerEstoque(string idProd, double estoque)
+        {
+
+            bool res = true;
+
+            dataBase.Conecta();
+            ProductDB bd = new ProductDB(dataBase);
+            res = bd.subtraitEstoque(idProd, estoque);
+
+            dataBase.Desconecta();
+            return res;
+        }
+        public bool adicionarEstoque(string idProd, double estoque)
+        {
+
+            bool res = true;
+
+            dataBase.Conecta();
+            ProductDB bd = new ProductDB(dataBase);
+            res = bd.incrementarEstoque(idProd, estoque);
+
+            dataBase.Desconecta();
+            return res;
         }
         public Produto buscarProdutoPorCod(string filter)
         {
@@ -92,7 +116,7 @@ namespace sisVendas.Controllers
 
             dataBase.Conecta();
             ProductDB bd = new ProductDB(dataBase);
-            prod = (Produto)bd.buscarPorCod(filter);
+            prod = (Produto)bd.BuscarPorCod(filter);
 
             dataBase.Desconecta();
             return prod;
@@ -104,7 +128,7 @@ namespace sisVendas.Controllers
             bool res = true;
             dataBase.Conecta();
             ProductDB prodDB = new ProductDB(dataBase);
-            res = prodDB.remove(cod);
+            res = prodDB.Remover(cod);
             dataBase.Desconecta();
             return res;
         }

@@ -4,6 +4,8 @@ using sisVendas.Screens.Create;
 using sisVendas.Screens.Sale;
 using sisVendas.Telas;
 using sisVendas.Telas.Caixa;
+using sisVendas.Telas.Compra;
+using sisVendas.Telas.Promocao;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +20,7 @@ namespace sisVendas
 {
     public partial class FormHome : Form
     {
-        Employee funcLogado;
+        Funcionario funcLogado;
 
         private ctrlCaixa controlCaixa = new ctrlCaixa();
        
@@ -29,9 +31,6 @@ namespace sisVendas
             InitializeComponent();
 
             
-            
-
-            lembretes();
         }
 
         public bool validaLogin()
@@ -48,27 +47,9 @@ namespace sisVendas
             }
             else
             {
-                
-                lblNomeFuncLogado.Text = funcLogado.Name;
+                lblNomeFuncLogado.Text = funcLogado.Nome;
                 return true;
             }
-            
-        }
-        public void lembretes()
-        {
-            richTextBox1.Text = @"Performance:
-
-                            Fazer:
-                            [] Adicionar controle de estoque ao realizar uma venda
-                            [] Não deixar excluir uma categoria e uma marca que esteja em uso.
-                            [] Adicionar id_vendedor no realizar venda
-                            [] 
-                            [] Não deixar vender fiado para não clientes
-                            [] beetween não funciona na busca de parcelas a receber e na busca de vendas
-                            [] fazer o contas a receber e inserir ao realizar a venda
-                            [] colocar foreignkey idfuncionario no caixa  e no transacao caixa
-                            [] Erro ao fechar o form login no esc, solução colocar um try catch no Program.cs
-                        ";
             
         }
 
@@ -83,20 +64,20 @@ namespace sisVendas
         private void menuBtnFuncionario_Click(object sender, EventArgs e)
         {
                 
-            FormCreateEmployee f = new FormCreateEmployee();
+            FormCriarFuncionario f = new FormCriarFuncionario();
             openForm(f);
         }
 
 
         private void menuBtnClient_Click(object sender, EventArgs e)
         {
-            FormCreateClient f = new FormCreateClient();
+            FormCriarCliente f = new FormCriarCliente();
             openForm(f);
         }
 
         private void menuBtnProvider_Click(object sender, EventArgs e)
         {
-            FormCreateProvider f = new FormCreateProvider();
+            FormCreiarFornecedor f = new FormCreiarFornecedor();
             openForm(f); ;
         }
 
@@ -139,9 +120,9 @@ namespace sisVendas
             }
             else
             {
-                FormVenda f = new FormVenda(caixaSelecionado.Id);
-                //f.WindowState = FormWindowState.Maximized;
-                //f.FormBorderStyle = FormBorderStyle.None;
+                FormVenda f = new FormVenda(caixaSelecionado.Id, caixaSelecionado.IdFunc);
+                f.WindowState = FormWindowState.Maximized;
+                f.FormBorderStyle = FormBorderStyle.None;
                 openForm(f);
             }
 
@@ -150,6 +131,8 @@ namespace sisVendas
         private void menuBtnAbrirFecharCaixa_Click(object sender, EventArgs e)
         {
             FormAbrirFecharCaixa f = new FormAbrirFecharCaixa(funcLogado.Id);
+            f.WindowState = FormWindowState.Maximized;
+            f.FormBorderStyle = FormBorderStyle.None;
             openForm(f);
 
             caixaSelecionado = f.retornaCaixa();
@@ -170,28 +153,37 @@ namespace sisVendas
                 Close();
             }
         }
-        private void buscarCaixaAberto(int cod)
+        private void buscarCaixaAberto(int idFunc)
         {
 
-            caixaSelecionado = controlCaixa.buscarCaixaAberto(cod);
+            caixaSelecionado = controlCaixa.buscarCaixaAberto(idFunc);
 
             alterarLabel();
         }
         private void alterarLabel()
         {
-            if (caixaSelecionado == null)
+
+            if(caixaSelecionado == null)
             {
                 lblCaixaStatus.Text = "FECHADO.";
                 lblCaixaStatus.ForeColor = Color.Red;
             }
             else
             {
-                lblCaixaStatus.Text = "ABERTO.";
-                lblCaixaStatus.ForeColor = Color.Green;
+                if (caixaSelecionado.Dtfechamento != null) // caixa FECHADO
+                {
+                    lblCaixaStatus.Text = "FECHADO.";
+                    lblCaixaStatus.ForeColor = Color.Red;
+                }
+                else
+                {
+                    lblCaixaStatus.Text = "ABERTO.";
+                    lblCaixaStatus.ForeColor = Color.Green;
+                }
             }
         }
 
-        private void menuBtnQuitarPagamento_Click(object sender, EventArgs e)
+        private void menuBtnLancarDespesa_Click(object sender, EventArgs e)
         {
             
 
@@ -201,9 +193,60 @@ namespace sisVendas
             }
             else
             {
+
+                FormLancarDespesas f = new FormLancarDespesas(caixaSelecionado.Id);
+                openForm(f);
+            }
+        }
+
+        private void menuBtnLancarCompra_Click(object sender, EventArgs e)
+        {
+            if (lblCaixaStatus.Text == "FECHADO.")
+            {
+                MessageBox.Show("Caixa fechado!");
+            }
+            else
+            {
+                FormLancarCompra f = new FormLancarCompra(caixaSelecionado.Id);
+                f.WindowState = FormWindowState.Maximized;
+                f.FormBorderStyle = FormBorderStyle.None;
+                openForm(f);
+            }
+        }
+
+
+        private void menuBtnQuitarRecebimento_Click(object sender, EventArgs e)
+        {
+            if (lblCaixaStatus.Text == "FECHADO.")
+            {
+                MessageBox.Show("Caixa fechado!");
+            }
+            else
+            {
                 FormContasAReceber f = new FormContasAReceber(caixaSelecionado.Id);
                 openForm(f);
             }
+        }
+
+        private void menuBtnQuitarPagamento_Click(object sender, EventArgs e)
+        {
+            if (lblCaixaStatus.Text == "FECHADO.")
+            {
+                MessageBox.Show("Caixa fechado!");
+            }
+            else
+            {
+                FormContasAPagar f = new FormContasAPagar(caixaSelecionado.Id);
+                openForm(f);
+            }
+        }
+
+        private void menuBtnRegistrarPromocao_Click(object sender, EventArgs e)
+        {
+
+            FormRegistrarPromocao f = new FormRegistrarPromocao(funcLogado.Id);
+            openForm(f);
+            
         }
     }
 }

@@ -26,18 +26,17 @@ namespace sisVendas.Persistence
                 Caixa caixa = (Caixa)Objeto;
 
                 string SQL;
-
-                SQL = @"INSERT INTO Caixa (caixa_idFunc, caixa_saldoAnterior, caixa_suprimento, caixa_sangria, caixa_dtFechamento)
-                        values (@caixa_idFunc, @caixa_saldoAnterior, @caixa_suprimento, @caixa_sangria, null)";
+                MessageBox.Show(caixa.SaldoAnterior + "Saldo Ante");
+                SQL = @"INSERT INTO Caixa (caixa_idFunc, caixa_saldoAnterior, caixa_dtFechamento)
+                        values (@caixa_idFunc, @caixa_saldoAnterior, null)";
 
 
                 res = db.ExecuteNonQuery(SQL, "@caixa_idFunc", caixa.IdFunc,
-                                                "@caixa_saldoAnterior", caixa.SaldoAnterior,
-                                                "@caixa_suprimento", caixa.Suprimento,
-                                                "@caixa_sangria", caixa.Sangria);
+                                                "@caixa_saldoAnterior", caixa.SaldoAnterior);
 
             }
 
+            MessageBox.Show(res + "res");
             return (res);
         }
         public bool GravarFecharCaixa(object Objeto)
@@ -95,8 +94,6 @@ namespace sisVendas.Persistence
                     caixa.SaldoAnterior = Convert.ToDouble(dt.Rows[i]["caixa_saldoAnterior"].ToString());
                     caixa.Entradas = Convert.ToDouble(dt.Rows[i]["caixa_entradas"].ToString());
                     caixa.Saidas = Convert.ToDouble(dt.Rows[i]["caixa_saidas"].ToString());
-                    caixa.Suprimento = Convert.ToDouble(dt.Rows[i]["caixa_suprimento"].ToString());
-                    caixa.Sangria = Convert.ToDouble(dt.Rows[i]["caixa_sangria"].ToString());
 
                     clients.Add(caixa);
                 }
@@ -108,7 +105,7 @@ namespace sisVendas.Persistence
         {
 
             DataTable dt = new DataTable();
-            string SQL = @"select * from caixa where caixa_dtFechamento IS NULL and caixa_idFunc = @filtro";
+            string SQL = @"select * from caixa where caixa_idFunc = @filtro order by caixa_id DESC";
 
             db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
 
@@ -129,8 +126,18 @@ namespace sisVendas.Persistence
                 caixa.SaldoAnterior = Convert.ToDouble(dt.Rows[0]["caixa_saldoAnterior"].ToString());
                 caixa.Entradas = Convert.ToDouble(dt.Rows[0]["caixa_entradas"].ToString());
                 caixa.Saidas = Convert.ToDouble(dt.Rows[0]["caixa_saidas"].ToString());
-                caixa.Suprimento = Convert.ToDouble(dt.Rows[0]["caixa_suprimento"].ToString());
-                caixa.Sangria = Convert.ToDouble(dt.Rows[0]["caixa_sangria"].ToString());
+
+
+                if (dt.Rows[0]["caixa_dtFechamento"].ToString() == "")
+                {
+                    // caixa aberto
+                    caixa.Dtfechamento = null;
+                }
+                else
+                {
+                    
+                    caixa.Dtfechamento = Convert.ToDateTime(dt.Rows[0]["caixa_dtFechamento"].ToString());
+                }
             }
             else
             {

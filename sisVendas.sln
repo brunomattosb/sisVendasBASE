@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sisVendas", "sisVendas\sisVendas.csproj", "{7A5B39BF-8048-4A41-A95D-C855CBAB9A4A}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstaladorSisVendasWizard", "InstaladorSisVendasWizard\InstaladorSisVendasWizard.vdproj", "{7B811F69-A8DB-49C1-A1CE-25294D7009FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{7A5B39BF-8048-4A41-A95D-C855CBAB9A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A5B39BF-8048-4A41-A95D-C855CBAB9A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A5B39BF-8048-4A41-A95D-C855CBAB9A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B811F69-A8DB-49C1-A1CE-25294D7009FC}.Debug|Any CPU.ActiveCfg = Debug
+		{7B811F69-A8DB-49C1-A1CE-25294D7009FC}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

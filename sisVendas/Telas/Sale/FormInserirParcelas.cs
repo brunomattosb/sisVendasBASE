@@ -19,6 +19,7 @@ namespace sisVendas.Screens.Sale
         private double totalVenda;
         private double totalPago = 0;
         DataTable dtParcelas;
+        private bool ativo;
         public FormInserirParcelas()
         {
             InitializeComponent();
@@ -26,12 +27,13 @@ namespace sisVendas.Screens.Sale
             dgvParcelas.DataSource = dtParcelas;
 
             cbbTipo.SelectedIndex = 0;
-            tbValor.Focus();
+            dgvParcelas.Columns["valor"].DefaultCellStyle.Format = "C";
         }
-        public FormInserirParcelas(double value, DataTable lparcelas):this()
+        public FormInserirParcelas(double value, DataTable lparcelas, bool ativo):this()
         {
-            lblValor.Text = "R$ " + value;
+            lblValor.Text = value.ToString("C");
             this.totalVenda = value;
+            this.ativo = ativo;
 
             this.dtParcelas = lparcelas;
 
@@ -40,13 +42,20 @@ namespace sisVendas.Screens.Sale
                 foreach (DataRow parcela in dtParcelas.Rows)
                 {
                     totalPago = totalPago + double.Parse(parcela["valor"] + "");
-                    tbTotalOffset.Text = "R$: " + totalPago;
+                    tbTotalOffset.Text = totalPago.ToString("C");
 
-                    tbSubtotalOffset.Text = "R$: " + (totalVenda - totalPago) + "";
+                    tbSubtotalOffset.Text = (totalVenda - totalPago).ToString("C");
                     tbValor.Text = "";
                 }
                 dgvParcelas.DataSource = dtParcelas;
                 
+            }
+            if(!ativo)
+            {
+                btnAdd.Enabled =
+                btnAdd.Enabled =
+                tbValor.Enabled =
+                cbbTipo.Enabled = false;
             }
             tbValor.Focus();
         }
@@ -60,7 +69,7 @@ namespace sisVendas.Screens.Sale
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        public void inserir(double valor, string tipo, string data)
+        public void inserir(double valor, string tipo, DateTime data)
         {
             totalPago = totalPago + valor;
 
@@ -72,9 +81,9 @@ namespace sisVendas.Screens.Sale
 
             dtParcelas.Rows.Add(linha);
 
-            tbTotalOffset.Text = "R$: " + totalPago.ToString();
-            tbSubtotalOffset.Text = "R$: " + (totalVenda - totalPago) + "";
-            tbValor.Text = "";
+            tbTotalOffset.Text =totalPago.ToString("C");
+            tbSubtotalOffset.Text = (totalVenda - totalPago).ToString("C");
+            tbValor.Text = "R$ 0,00";
 
             dgvParcelas.DataSource = dtParcelas;
             tbValor.Focus();
@@ -82,21 +91,6 @@ namespace sisVendas.Screens.Sale
         private void btnAdd_Click(object sender, EventArgs e)
         {
             bool isOk = true;
-
-            DateTime dateValue = new DateTime();
-            // Validando data de nascimento
-            if (Function.replaceAll(mtbData.Text).Length > 0) //caso tenha dado
-            {
-                if (!DateTime.TryParseExact(mtbData.Text, "dd/MM/yyyy", null, DateTimeStyles.None, out dateValue))
-                {
-                    Function.Alert("Erro!", "Data inválida.", popupClient.enmType.Error);
-                    isOk = false;
-                }
-            }
-            else
-            {
-                dateValue = DateTime.MaxValue;
-            }
 
             if(isOk)
             {
@@ -108,7 +102,7 @@ namespace sisVendas.Screens.Sale
 
                     if (valor != 0 && totalPago + valor <= totalVenda)
                     {
-                        inserir(valor, cbbTipo.Text, mtbData.Text);
+                        inserir(valor, cbbTipo.Text, dtpData.Value.Date);
                     }
                     else
                     {
@@ -149,13 +143,16 @@ namespace sisVendas.Screens.Sale
 
         private void dgvParcelas_DoubleClick(object sender, EventArgs e)
         {
-            if (dgvParcelas.CurrentRow != null)
+            if (ativo)
             {
-                btnRemover.Enabled = true;
-            }
-            else
-            {
-                btnRemover.Enabled = false; 
+                if (dgvParcelas.CurrentRow != null)
+                {
+                    btnRemover.Enabled = true;
+                }
+                else
+                {
+                    btnRemover.Enabled = false;
+                }
             }
         }
 
@@ -167,8 +164,8 @@ namespace sisVendas.Screens.Sale
                 double valor = double.Parse(dgvParcelas.Rows[dgvParcelas.CurrentRow.Index].Cells[2].Value.ToString());
                 totalPago = totalPago - valor;
 
-                tbTotalOffset.Text = "R$: " + totalPago.ToString();
-                tbSubtotalOffset.Text = "R$: " + (totalVenda - totalPago) + "";
+                tbTotalOffset.Text = totalPago.ToString("C");
+                tbSubtotalOffset.Text =  (totalVenda - totalPago).ToString("C");
 
                 dtParcelas.Rows.RemoveAt(dgvParcelas.CurrentRow.Index);
                 btnRemover.Enabled = false;
@@ -178,24 +175,36 @@ namespace sisVendas.Screens.Sale
 
         }
 
-        private void mtbData_Click(object sender, EventArgs e)
-        {
-            if (Function.replaceAll(mtbData.Text).Length == 0)
-                mtbData.Select(0, 0);
-        }
-
         private void cbbTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(cbbTipo.Text == "Fiado")
             {
                 
-                lblData.Enabled = mtbData.Enabled = true;
+                lblData.Enabled = dtpData.Enabled = true;
             }
             else
             {
-                mtbData.Text = DateTime.Now.Date.ToString();
-                lblData.Enabled = mtbData.Enabled = false;
+                dtpData.Value = DateTime.Now.Date;
+                lblData.Enabled = dtpData.Enabled = false;
             }
+        }
+
+        private void dgvParcelas_CurrentCellChanged(object sender, EventArgs e)
+        {
+            //btnRemover.Enabled = false;
+        }
+
+        private void tbValor_Enter(object sender, EventArgs e)
+        {
+            if(tbValor.Text == "R$ 0,00")
+            {
+                tbValor.Text = "";
+            }
+        }
+
+        private void dgvParcelas_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            btnRemover.Enabled = false;
         }
     }
 }

@@ -61,7 +61,6 @@ namespace sisVendas.Functions
         }
         public static string replaceAll(string str)
         {
-
             return str.Trim().Replace(".", "").Replace(",", "").Replace("-", "").Replace("/", "").Replace(")", "").Replace("(", "").Replace(" ", "").Replace("(  )     -", "");
         }
         /*
@@ -77,6 +76,8 @@ namespace sisVendas.Functions
                 }
             }
         }*/
+
+        
 
     }
 }

@@ -9,13 +9,13 @@ namespace sisVendas.Models
     class Produto 
     {
         private string id;
-        private string name;
-        private int inventory;
-        private int prod_category;
-        private int prod_brand;
-        private string complement;
-        private double value;
-        private DateTime created_at;
+        private string nome;
+        private int estoque;
+        private int prod_Categoria;
+        private int prod_Marca;
+        private string descricao;
+        private double valor;
+        private DateTime criado_em;
         private string un;
 
         public Produto()
@@ -23,13 +23,13 @@ namespace sisVendas.Models
         }
 
         public string Id { get => id; set => id = value; }
-        public string Name { get => name; set => name = value; }
-        public int Inventory { get => inventory; set => inventory = value; }
-        public int Prod_category { get => prod_category; set => prod_category = value; }
-        public int Prod_brand { get => prod_brand; set => prod_brand = value; }
-        public string Complement { get => complement; set => complement = value; }
-        public double Value { get => value; set => this.value = value; }
-        public DateTime Created_at { get => created_at; set => created_at = value; }
+        public string Nome { get => nome; set => nome = value; }
+        public int Estoque { get => estoque; set => estoque = value; }
+        public int Prod_Categoria { get => prod_Categoria; set => prod_Categoria = value; }
+        public int Prod_Marca { get => prod_Marca; set => prod_Marca = value; }
+        public string Descricao { get => descricao; set => descricao = value; }
+        public double Valor { get => valor; set => valor = value; }
+        public DateTime Criado_em { get => criado_em; set => criado_em = value; }
         public string Un { get => un; set => un = value; }
     }
 }

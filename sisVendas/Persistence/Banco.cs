@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,12 @@ namespace sisVendas.Persistence
 {
     class Banco
     {
-        private String strcon = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Bruno\Documents\sisVendas\sisVendas\Database\dbSis.mdf;Integrated Security=True;Connect Timeout=30";
+        //SETUP INSTALL
+        //private String strcon = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\DataBase\dbSis.mdf;Integrated Security=True;Connect Timeout=30";
+        
+        //PC DSENVOLVIMENTO
+        private String strcon = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Bruno\Documents\sisVendas\sisVendas\DataBase\dbSis.mdf;Integrated Security=True;Connect Timeout=30";
+
 
         private SqlConnection con = null;
         private SqlTransaction trans = null;
@@ -21,6 +27,7 @@ namespace sisVendas.Persistence
             bool resultado = false;
             try
             {
+                //MessageBox.Show(strcon);
                 con = new SqlConnection(strcon);
                 con.Open();
                 resultado = true;
@@ -99,7 +106,7 @@ namespace sisVendas.Persistence
                     if(parametros[i+1] == null)
                     {
                         cmd.Parameters.AddWithValue(parametros[i].ToString(), "");
-                        MessageBox.Show(parametros[i].ToString());
+                        //MessageBox.Show(parametros[i].ToString());
                     }
                     else
                         cmd.Parameters.AddWithValue(parametros[i].ToString(), parametros[i + 1]);
@@ -111,10 +118,7 @@ namespace sisVendas.Persistence
             }
             catch (Exception e)
             {
-                Console.Out.WriteLine("Erro execute nonquery" + e.Message);
                 MessageBox.Show("Erro execute nonquery" + e.Message, "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-
                 return false;
             }
         }

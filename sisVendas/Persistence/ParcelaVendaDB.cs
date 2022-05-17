@@ -28,7 +28,7 @@ namespace sisVendas.Persistence
 
                 string SQL;
 
-                SQL = @"INSERT INTO ParcelasVenda (parcela_idVenda, parcela_valor, parcela_status, parcela_tipo,parcela_dataPagamento,parcela_idcaixa)
+                SQL = @"INSERT INTO ParcelaVenda (parcela_idVenda, parcela_valor, parcela_status, parcela_tipo,parcela_dataPagamento,parcela_idcaixa)
                         values (@parcela_idVenda, @parcela_valor, @parcela_status, @parcela_tipo, @parcela_dataPagamento, @parcela_idcaixa)";
 
 
@@ -50,7 +50,7 @@ namespace sisVendas.Persistence
             List<object> parcelas = new List<object>();
 
 
-            string SQL = @"select * from ParcelasVenda
+            string SQL = @"select * from ParcelaVenda
                                 where parcela_idVenda = @filtro";
 
             db.ExecuteQuery(SQL, out dt, "@filtro", codVenda);
@@ -79,8 +79,7 @@ namespace sisVendas.Persistence
         {
 
             bool res = false;
-
-            string SQL = @"UPDATE ParcelasVenda SET parcela_status = 'PAGO',
+            string SQL = @"UPDATE ParcelaVenda SET parcela_status = 'PAGO',
                                                     parcela_tipo = @tipoPagamento,
                                                     parcela_dataPagamento = @parcela_dataPagamento,
                                                     parcela_idcaixa = @parcela_idcaixa
@@ -93,12 +92,24 @@ namespace sisVendas.Persistence
 
             return res;
         }
+        public bool onerarParcela(int idParcela)
+        {
+
+            bool res = false;
+            string SQL = @"UPDATE ParcelaVenda SET parcela_status = 'DEVE'
+                        WHERE parcela_id = @parcela_id";
+
+            MessageBox.Show("IDDDD" + idParcela);
+            res = db.ExecuteNonQuery(SQL,"@parcela_id", idParcela);
+
+            return res;
+        }
         public bool quitarParcelaParcial(int idParcela, double valorParcela, double valorPago, int idCaixa)
         {
 
             bool res = false;
 
-            string SQL = @"UPDATE ParcelasVenda SET parcela_idcaixa = @parcela_idcaixa,
+            string SQL = @"UPDATE ParcelaVenda SET parcela_idcaixa = @parcela_idcaixa,
                                                     parcela_valor = @parcela_valor
                         WHERE parcela_id = @parcela_id";
 
@@ -119,20 +130,19 @@ namespace sisVendas.Persistence
             dtParcelas.Columns.Add("dataPagamento", typeof(DateTime));
             dtParcelas.Columns.Add("cpf_cnpj");
             dtParcelas.Columns.Add("nome");
+            dtParcelas.Columns.Add("status");
+
 
             DataTable dt = new DataTable();
 
-            string SQL = @"select parcela_id, parcela_idcaixa, parcela_idVenda, parcela_valor, parcela_dataPagamento,venda_criado_em, cli_name, cli_cpf_cnpj
-                                                                                                            from ParcelasVenda
+            string SQL = @"select parcela_id, parcela_idcaixa, parcela_idVenda, parcela_valor, parcela_dataPagamento,venda_criado_em, cli_nome, cli_cpf_cnpj, parcela_status, venda_cancelada
+                                                                                                            from ParcelaVenda
                             inner join Venda on venda_id = parcela_idVenda
-                            inner join Client on Venda.venda_idCliente = Client.cli_id
-                            where parcela_status = 'DEVE'";
+                            inner join Cliente on Venda.venda_idCliente = Cliente.cli_id where venda_cancelada = 0";
 
-            MessageBox.Show("filtro.Length" + filtro.Length);
             if(filtro.Length > 0)
             {
-                MessageBox.Show("Entrou");
-                SQL = SQL + filtro;
+                SQL = SQL +" AND " +filtro;
             }
             Console.WriteLine(SQL);
 
@@ -150,8 +160,8 @@ namespace sisVendas.Persistence
                     line["dataVenda"] = Convert.ToDateTime(dt.Rows[i]["venda_criado_em"].ToString());
                     line["dataPagamento"] = Convert.ToDateTime(dt.Rows[i]["parcela_dataPagamento"].ToString());
                     line["cpf_cnpj"] = dt.Rows[i]["cli_cpf_cnpj"].ToString();
-                    line["nome"] = dt.Rows[i]["cli_name"].ToString();
-
+                    line["nome"] = dt.Rows[i]["cli_nome"].ToString();
+                    line["status"] = dt.Rows[i]["parcela_status"].ToString();
 
                     dtParcelas.Rows.Add(line);
                 }
@@ -166,8 +176,8 @@ namespace sisVendas.Persistence
             List<object> parcelas = new List<object>();
 
 
-            string SQL = @"select * from ParcelasVenda
-                                where parcela_idcaixa = @filtro";
+            string SQL = @"select * from ParcelaVenda
+                                where parcela_idcaixa = @filtro AND parcela_status = 'PAGO'";
 
             db.ExecuteQuery(SQL, out dt, "@filtro", idCaixa);
 
@@ -279,7 +289,7 @@ namespace sisVendas.Persistence
         public bool removerParcelas(int id)
         {
             bool res = false;
-            string SQL = @"DELETE FROM ParcelasVenda WHERE parcela_idVenda = @id";
+            string SQL = @"DELETE FROM ParcelaVenda WHERE parcela_idVenda = @id";
             res = db.ExecuteNonQuery(SQL, "@id", id);
             return res;
         }

@@ -16,18 +16,10 @@ namespace sisVendas.Controllers
         private Banco dataBase = new Banco();
         private Caixa caixaSelecionado = new Caixa();
 
-        public bool AbrirCaixa(int codFunc, double saldoAnterior, string suprimentos, string sangria)
+        public bool AbrirCaixa(int codFunc, double saldoAnterior)
         {
-
-            // Verifica se existe um numero no tbCod
-            //if (Int32.TryParse(id, out int number))
-            //    CurrentClient.Id = number;
-
             caixaSelecionado.IdFunc = codFunc;
             caixaSelecionado.SaldoAnterior = (saldoAnterior);
-            caixaSelecionado.Suprimento = double.Parse(suprimentos);
-            caixaSelecionado.Sangria = double.Parse(sangria);
-
 
             dataBase.Conecta();
             bool result = false;
@@ -96,8 +88,6 @@ namespace sisVendas.Controllers
                 line["caixa_saldoAnterior"] = caixa.SaldoAnterior;
                 line["caixa_entradas"] = caixa.Entradas;
                 line["caixa_saidas"] = caixa.Saidas;
-                line["caixa_suprimento"] = caixa.Suprimento;
-                line["caixa_sangria"] = caixa.Sangria;
 
                 dtCixa.Rows.Add(line);
             }
@@ -105,13 +95,13 @@ namespace sisVendas.Controllers
 
             return (dtCixa);
         }
-        public Caixa buscarCaixaAberto(int filter)
+        public Caixa buscarCaixaAberto(int idFunc)
         {
             Caixa caixa = new Caixa();
             dataBase.Conecta();
 
             CaixaDB bd = new CaixaDB(dataBase);
-            caixa = (Caixa)bd.buscarCaixaAberto(filter);
+            caixa = (Caixa)bd.buscarCaixaAberto(idFunc);
 
             dataBase.Desconecta();
             return caixa;

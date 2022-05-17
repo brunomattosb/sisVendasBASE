@@ -29,21 +29,21 @@
         private void InitializeComponent()
         {
             this.dgv_client = new System.Windows.Forms.DataGridView();
-            this.cli_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_rg_ie = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_fantasy_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_nome_fansasia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_zip_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_addres = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_district = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_city = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_cep = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_endereco = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_bairro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_cidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_uf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_birth_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_telephone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_dt_aniversario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_telefone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_cpf_cnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_sex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_sexo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_saldo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_created_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbSearth = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -59,41 +59,41 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_client.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_client.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.cli_name,
+            this.cli_nome,
             this.cli_rg_ie,
             this.cli_email,
-            this.cli_fantasy_name,
+            this.cli_nome_fansasia,
             this.cli_id,
-            this.cli_zip_code,
-            this.cli_addres,
-            this.cli_district,
-            this.cli_city,
+            this.cli_cep,
+            this.cli_endereco,
+            this.cli_bairro,
+            this.cli_cidade,
             this.cli_uf,
-            this.cli_birth_at,
-            this.cli_telephone,
+            this.cli_dt_aniversario,
+            this.cli_telefone,
             this.cli_cpf_cnpj,
-            this.cli_sex,
-            this.cli_balance,
+            this.cli_sexo,
+            this.cli_saldo,
             this.cli_created_at});
-            this.dgv_client.Location = new System.Drawing.Point(12, 47);
+            this.dgv_client.Location = new System.Drawing.Point(12, 69);
             this.dgv_client.MultiSelect = false;
             this.dgv_client.Name = "dgv_client";
             this.dgv_client.ReadOnly = true;
             this.dgv_client.RowHeadersVisible = false;
             this.dgv_client.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_client.Size = new System.Drawing.Size(776, 391);
+            this.dgv_client.Size = new System.Drawing.Size(776, 479);
             this.dgv_client.TabIndex = 3;
             this.dgv_client.DoubleClick += new System.EventHandler(this.dgv_client_DoubleClick);
             // 
-            // cli_name
+            // cli_nome
             // 
-            this.cli_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cli_name.DataPropertyName = "cli_name";
-            this.cli_name.HeaderText = "Nome";
-            this.cli_name.MinimumWidth = 320;
-            this.cli_name.Name = "cli_name";
-            this.cli_name.ReadOnly = true;
-            this.cli_name.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.cli_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cli_nome.DataPropertyName = "cli_nome";
+            this.cli_nome.HeaderText = "Nome";
+            this.cli_nome.MinimumWidth = 320;
+            this.cli_nome.Name = "cli_nome";
+            this.cli_nome.ReadOnly = true;
+            this.cli_nome.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // cli_rg_ie
             // 
@@ -111,13 +111,13 @@
             this.cli_email.ReadOnly = true;
             this.cli_email.Visible = false;
             // 
-            // cli_fantasy_name
+            // cli_nome_fansasia
             // 
-            this.cli_fantasy_name.DataPropertyName = "cli_fantasy_name";
-            this.cli_fantasy_name.HeaderText = "Nome Fantasia";
-            this.cli_fantasy_name.Name = "cli_fantasy_name";
-            this.cli_fantasy_name.ReadOnly = true;
-            this.cli_fantasy_name.Visible = false;
+            this.cli_nome_fansasia.DataPropertyName = "cli_nome_fansasia";
+            this.cli_nome_fansasia.HeaderText = "Nome Fantasia";
+            this.cli_nome_fansasia.Name = "cli_nome_fansasia";
+            this.cli_nome_fansasia.ReadOnly = true;
+            this.cli_nome_fansasia.Visible = false;
             // 
             // cli_id
             // 
@@ -127,37 +127,37 @@
             this.cli_id.ReadOnly = true;
             this.cli_id.Visible = false;
             // 
-            // cli_zip_code
+            // cli_cep
             // 
-            this.cli_zip_code.DataPropertyName = "cli_zip_code";
-            this.cli_zip_code.HeaderText = "CEP";
-            this.cli_zip_code.Name = "cli_zip_code";
-            this.cli_zip_code.ReadOnly = true;
-            this.cli_zip_code.Visible = false;
+            this.cli_cep.DataPropertyName = "cli_cep";
+            this.cli_cep.HeaderText = "CEP";
+            this.cli_cep.Name = "cli_cep";
+            this.cli_cep.ReadOnly = true;
+            this.cli_cep.Visible = false;
             // 
-            // cli_addres
+            // cli_endereco
             // 
-            this.cli_addres.DataPropertyName = "cli_addres";
-            this.cli_addres.HeaderText = "Endereço";
-            this.cli_addres.Name = "cli_addres";
-            this.cli_addres.ReadOnly = true;
-            this.cli_addres.Visible = false;
+            this.cli_endereco.DataPropertyName = "cli_endereco";
+            this.cli_endereco.HeaderText = "Endereço";
+            this.cli_endereco.Name = "cli_endereco";
+            this.cli_endereco.ReadOnly = true;
+            this.cli_endereco.Visible = false;
             // 
-            // cli_district
+            // cli_bairro
             // 
-            this.cli_district.DataPropertyName = "cli_district";
-            this.cli_district.HeaderText = "Bairro";
-            this.cli_district.Name = "cli_district";
-            this.cli_district.ReadOnly = true;
-            this.cli_district.Visible = false;
+            this.cli_bairro.DataPropertyName = "cli_bairro";
+            this.cli_bairro.HeaderText = "Bairro";
+            this.cli_bairro.Name = "cli_bairro";
+            this.cli_bairro.ReadOnly = true;
+            this.cli_bairro.Visible = false;
             // 
-            // cli_city
+            // cli_cidade
             // 
-            this.cli_city.DataPropertyName = "cli_city";
-            this.cli_city.HeaderText = "Cidade";
-            this.cli_city.Name = "cli_city";
-            this.cli_city.ReadOnly = true;
-            this.cli_city.Visible = false;
+            this.cli_cidade.DataPropertyName = "cli_cidade";
+            this.cli_cidade.HeaderText = "Cidade";
+            this.cli_cidade.Name = "cli_cidade";
+            this.cli_cidade.ReadOnly = true;
+            this.cli_cidade.Visible = false;
             // 
             // cli_uf
             // 
@@ -167,22 +167,22 @@
             this.cli_uf.ReadOnly = true;
             this.cli_uf.Visible = false;
             // 
-            // cli_birth_at
+            // cli_dt_aniversario
             // 
-            this.cli_birth_at.DataPropertyName = "cli_birth_at";
-            this.cli_birth_at.HeaderText = "Nascimento";
-            this.cli_birth_at.Name = "cli_birth_at";
-            this.cli_birth_at.ReadOnly = true;
-            this.cli_birth_at.Visible = false;
+            this.cli_dt_aniversario.DataPropertyName = "cli_dt_aniversario";
+            this.cli_dt_aniversario.HeaderText = "Nascimento";
+            this.cli_dt_aniversario.Name = "cli_dt_aniversario";
+            this.cli_dt_aniversario.ReadOnly = true;
+            this.cli_dt_aniversario.Visible = false;
             // 
-            // cli_telephone
+            // cli_telefone
             // 
-            this.cli_telephone.DataPropertyName = "cli_telephone";
-            this.cli_telephone.DividerWidth = 2;
-            this.cli_telephone.HeaderText = "Telefone";
-            this.cli_telephone.Name = "cli_telephone";
-            this.cli_telephone.ReadOnly = true;
-            this.cli_telephone.Visible = false;
+            this.cli_telefone.DataPropertyName = "cli_telefone";
+            this.cli_telefone.DividerWidth = 2;
+            this.cli_telefone.HeaderText = "Telefone";
+            this.cli_telefone.Name = "cli_telefone";
+            this.cli_telefone.ReadOnly = true;
+            this.cli_telefone.Visible = false;
             // 
             // cli_cpf_cnpj
             // 
@@ -194,23 +194,23 @@
             this.cli_cpf_cnpj.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.cli_cpf_cnpj.Width = 200;
             // 
-            // cli_sex
+            // cli_sexo
             // 
-            this.cli_sex.DataPropertyName = "cli_sex";
-            this.cli_sex.HeaderText = "Sexo";
-            this.cli_sex.Name = "cli_sex";
-            this.cli_sex.ReadOnly = true;
-            this.cli_sex.Visible = false;
+            this.cli_sexo.DataPropertyName = "cli_sexo";
+            this.cli_sexo.HeaderText = "Sexo";
+            this.cli_sexo.Name = "cli_sexo";
+            this.cli_sexo.ReadOnly = true;
+            this.cli_sexo.Visible = false;
             // 
-            // cli_balance
+            // cli_saldo
             // 
-            this.cli_balance.DataPropertyName = "cli_balance";
-            this.cli_balance.HeaderText = "Saldo";
-            this.cli_balance.MinimumWidth = 75;
-            this.cli_balance.Name = "cli_balance";
-            this.cli_balance.ReadOnly = true;
-            this.cli_balance.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.cli_balance.Width = 75;
+            this.cli_saldo.DataPropertyName = "cli_saldo";
+            this.cli_saldo.HeaderText = "Saldo";
+            this.cli_saldo.MinimumWidth = 75;
+            this.cli_saldo.Name = "cli_saldo";
+            this.cli_saldo.ReadOnly = true;
+            this.cli_saldo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.cli_saldo.Width = 75;
             // 
             // cli_created_at
             // 
@@ -226,31 +226,33 @@
             this.tbSearth.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbSearth.Location = new System.Drawing.Point(178, 21);
+            this.tbSearth.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSearth.Location = new System.Drawing.Point(12, 39);
             this.tbSearth.Name = "tbSearth";
-            this.tbSearth.Size = new System.Drawing.Size(391, 20);
+            this.tbSearth.Size = new System.Drawing.Size(391, 24);
             this.tbSearth.TabIndex = 1;
             this.tbSearth.TextChanged += new System.EventHandler(this.tbSearth_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(175, 5);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.Size = new System.Drawing.Size(45, 18);
             this.label1.TabIndex = 3;
             this.label1.Text = "Filtro:";
             // 
-            // FormSearthClient
+            // FormBuscarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 560);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbSearth);
             this.Controls.Add(this.dgv_client);
-            this.Name = "FormSearthClient";
-            this.Text = "FormSearthClient";
+            this.Name = "FormBuscarCliente";
+            this.Text = "Buscar Cliente";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_client)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -260,23 +262,23 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgv_client;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_rg_ie;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_fantasy_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_zip_code;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_addres;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_district;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_city;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_uf;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_birth_at;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_telephone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_cpf_cnpj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_sex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_balance;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cli_created_at;
         private System.Windows.Forms.TextBox tbSearth;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_nome;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_rg_ie;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_nome_fansasia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_cep;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_endereco;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_bairro;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_cidade;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_uf;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_dt_aniversario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_telefone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_cpf_cnpj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_sexo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_saldo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_created_at;
     }
 }

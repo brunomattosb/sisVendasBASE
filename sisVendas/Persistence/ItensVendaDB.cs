@@ -21,13 +21,13 @@ namespace sisVendas.Persistence
         {
             bool res = false;
 
-            if (Objeto.GetType() == typeof(ItensVenda))
+            if (Objeto.GetType() == typeof(ItenVenda))
             {
-                ItensVenda itensVenda = (ItensVenda)Objeto;
+                ItenVenda itensVenda = (ItenVenda)Objeto;
 
                 string SQL;
 
-                SQL = @"INSERT INTO ItensVenda (iten_quantidade,iten_idVenda,iten_idProduto)
+                SQL = @"INSERT INTO ItenVenda (iten_quantidade,iten_idVenda,iten_idProduto)
                         values (@iten_quantidade,@iten_idVenda,@iten_idProduto)";
 
 
@@ -46,7 +46,7 @@ namespace sisVendas.Persistence
             List<object> clients = new List<object>();
 
 
-            string SQL = @"select * from ItensVenda where iten_idVenda = @filtro";
+            string SQL = @"select * from ItenVenda where iten_idVenda = @filtro";
 
 
             db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
@@ -55,12 +55,11 @@ namespace sisVendas.Persistence
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    ItensVenda itens = new ItensVenda();
+                    ItenVenda itens = new ItenVenda();
 
                     itens.Quantidade = Convert.ToDouble(dt.Rows[i]["iten_quantidade"]);
                     itens.Id_venda = Convert.ToInt32(dt.Rows[i]["iten_idVenda"]);
                     itens.Id_produto = dt.Rows[i]["iten_idProduto"].ToString();
-                    itens.Id = Convert.ToInt32(dt.Rows[i]["iten_id"]);
 
 
                     clients.Add(itens);
@@ -158,7 +157,7 @@ namespace sisVendas.Persistence
         public bool removerItensVenda(int id)
         {
             bool res = false;
-            string SQL = @"DELETE FROM ItensVenda WHERE iten_idVenda = @id";
+            string SQL = @"DELETE FROM ItenVenda WHERE iten_idVenda = @id";
             res = db.ExecuteNonQuery(SQL, "@id", id);
             return res;
         }

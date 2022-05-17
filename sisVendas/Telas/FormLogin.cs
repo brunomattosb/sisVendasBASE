@@ -1,10 +1,12 @@
 ﻿using sisVendas.Controllers;
+using sisVendas.Functions;
 using sisVendas.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,11 +16,13 @@ namespace sisVendas.Telas
 {
     public partial class FormLogin : Form
     {
-        private ctrlEmployee controlFunc = new ctrlEmployee();
-        private Employee funcAtual;
+        private ctrlFuncionario controlFunc = new ctrlFuncionario();
+        private ctrlBanco controlBanco = new ctrlBanco();
+        private Funcionario funcAtual;
         public FormLogin()
         {
             InitializeComponent();
+
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -30,9 +34,6 @@ namespace sisVendas.Telas
                 case Keys.Escape:
                     Close();
                     break;
-
-
-
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
@@ -52,10 +53,10 @@ namespace sisVendas.Telas
         {
             if(tbUsuario.Text.Count() > 0)
             {
-                Employee emp = controlFunc.buscarFuncPeloUsername(tbUsuario.Text);
+                Funcionario emp = controlFunc.BuscarPorUsuario(tbUsuario.Text);
                 if (emp != null)
                 {
-                    if (tbSenha.Text == emp.Password)
+                    if (tbSenha.Text == emp.Senha)
                     {
                         funcAtual = emp;
                         Close();
@@ -77,10 +78,34 @@ namespace sisVendas.Telas
             }
 
         }
-        public Employee retornaFuncionario()
+        public Funcionario retornaFuncionario()
         {
             return funcAtual;
         }
+        private void verificarSeExisteBanco()
+        {
+            //Desenvolvimento
+            if (!File.Exists(@"C:\Users\Bruno\Documents\sisVendas\sisVendas\DataBase\dbSis.mdf"))
 
+            //Producao
+            //if (!File.Exists(Directory.GetCurrentDirectory() + @"\DataBase\dbSis.mdf"))
+            {
+                //Caso não exista
+                // criar um DB
+                if (MessageBox.Show("O Banco de Dados não foi encontrado! \n Deseja criar um nono ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+
+                    controlBanco.CriarDB();
+                }
+            }
+            
+         }
+        private void FormLogin_Load(object sender, EventArgs e)
+        {
+            verificarSeExisteBanco();
+            
+            funcAtual = controlFunc.BuscarPorUsuario("admin");
+            Close();
+        }
     }
 }

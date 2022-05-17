@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.tbValue = new System.Windows.Forms.TextBox();
+            this.tbValor = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.tbReceived = new System.Windows.Forms.TextBox();
-            this.lblThing = new System.Windows.Forms.Label();
+            this.tbRecebido = new System.Windows.Forms.TextBox();
+            this.lblTroco = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -46,15 +46,17 @@
             this.label1.TabIndex = 61;
             this.label1.Text = "Valor cobrado:";
             // 
-            // tbValue
+            // tbValor
             // 
-            this.tbValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbValue.Location = new System.Drawing.Point(43, 59);
-            this.tbValue.Name = "tbValue";
-            this.tbValue.Size = new System.Drawing.Size(152, 31);
-            this.tbValue.TabIndex = 62;
-            this.tbValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbValue_KeyPress);
-            this.tbValue.Leave += new System.EventHandler(this.tbValue_Leave);
+            this.tbValor.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbValor.Location = new System.Drawing.Point(43, 59);
+            this.tbValor.Name = "tbValor";
+            this.tbValor.Size = new System.Drawing.Size(152, 31);
+            this.tbValor.TabIndex = 62;
+            this.tbValor.Text = "R$ 0,00";
+            this.tbValor.Enter += new System.EventHandler(this.tbValue_Enter);
+            this.tbValor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbValue_KeyPress);
+            this.tbValor.Leave += new System.EventHandler(this.tbValue_Leave);
             // 
             // label2
             // 
@@ -66,25 +68,27 @@
             this.label2.TabIndex = 63;
             this.label2.Text = "Valor recebido:";
             // 
-            // tbReceived
+            // tbRecebido
             // 
-            this.tbReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbReceived.Location = new System.Drawing.Point(232, 59);
-            this.tbReceived.Name = "tbReceived";
-            this.tbReceived.Size = new System.Drawing.Size(152, 31);
-            this.tbReceived.TabIndex = 64;
-            this.tbReceived.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbReceived_KeyPress);
-            this.tbReceived.Leave += new System.EventHandler(this.tbReceived_Leave);
+            this.tbRecebido.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbRecebido.Location = new System.Drawing.Point(232, 59);
+            this.tbRecebido.Name = "tbRecebido";
+            this.tbRecebido.Size = new System.Drawing.Size(152, 31);
+            this.tbRecebido.TabIndex = 64;
+            this.tbRecebido.Text = "R$ 0,00";
+            this.tbRecebido.Enter += new System.EventHandler(this.tbReceived_Enter);
+            this.tbRecebido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbReceived_KeyPress);
+            this.tbRecebido.Leave += new System.EventHandler(this.tbReceived_Leave);
             // 
-            // lblThing
+            // lblTroco
             // 
-            this.lblThing.AutoSize = true;
-            this.lblThing.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblThing.Location = new System.Drawing.Point(131, 145);
-            this.lblThing.Name = "lblThing";
-            this.lblThing.Size = new System.Drawing.Size(71, 31);
-            this.lblThing.TabIndex = 65;
-            this.lblThing.Text = "R$ 0";
+            this.lblTroco.AutoSize = true;
+            this.lblTroco.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTroco.Location = new System.Drawing.Point(131, 145);
+            this.lblTroco.Name = "lblTroco";
+            this.lblTroco.Size = new System.Drawing.Size(109, 31);
+            this.lblTroco.TabIndex = 65;
+            this.lblTroco.Text = "R$ 0,00";
             // 
             // label3
             // 
@@ -102,13 +106,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(421, 212);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.lblThing);
+            this.Controls.Add(this.lblTroco);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.tbReceived);
+            this.Controls.Add(this.tbRecebido);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.tbValue);
+            this.Controls.Add(this.tbValor);
             this.Name = "FormCalcularTroco";
-            this.Text = "FormThing";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Calcular Troco";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,10 +122,10 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tbValue;
+        private System.Windows.Forms.TextBox tbValor;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox tbReceived;
-        private System.Windows.Forms.Label lblThing;
+        private System.Windows.Forms.TextBox tbRecebido;
+        private System.Windows.Forms.Label lblTroco;
         private System.Windows.Forms.Label label3;
     }
 }

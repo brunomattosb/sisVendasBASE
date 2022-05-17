@@ -26,38 +26,82 @@ namespace sisVendas.Persistence
 
                 string SQL;
 
-                SQL = @"INSERT INTO Client (cli_name,cli_fantasy_name,cli_cpf_cnpj,cli_zip_code,cli_addres,cli_district, cli_city,cli_telephone,cli_rg_ie,cli_uf,
-                                                                                                          cli_birth_at,cli_sex,cli_balance,cli_email)
-                        values (@name,@fantasy,@cpf,@cep,@addres,@district,@city,@telephone,@rg,@uf,@birth,@sex,@balance,@email)";
+                SQL = @"INSERT INTO Cliente (cli_nome,cli_nome_fansasia,cli_cpf_cnpj,cli_cep,cli_endereco,cli_bairro,
+                                        cli_cidade,cli_telefone,cli_rg_ie,cli_uf,cli_dt_aniversario,cli_sexo,cli_saldo,cli_email)
+                        values (@cli_nome,@cli_nome_fansasia,@cli_cpf_cnpj,@cli_cep,@cli_endereco,@cli_bairro,
+                                        @cli_cidade,@cli_telefone,@cli_rg_ie,@cli_uf,@cli_dt_aniversario,@cli_sexo,@cli_saldo,@cli_email)";
 
 
-                res = db.ExecuteNonQuery(SQL,   "@name",cli.Name,
-                                                "@fantasy", cli.Fantasy_name,
-                                                "@cpf", cli.Cpf_cnpj,
-                                                "@cep", cli.Zip_code,
-                                                "@addres", cli.Address,
-                                                "@district", cli.District,
-                                                "@city", cli.City,
-                                                "@telephone", cli.Telephone,
-                                                "@rg", cli.Rg_ie,
-                                                "@uf", cli.Uf,
-                                                "@birth", cli.Birth_at,
-                                                "@sex", cli.Sex,
-                                                "@balance", cli.Balance,
-                                                "@email", cli.Email);
+                res = db.ExecuteNonQuery(SQL, "@cli_nome", cli.Nome,
+                                                "@cli_nome_fansasia", cli.Nome_fantasia,
+                                                "@cli_cpf_cnpj", cli.Cpf_cnpj,
+                                                "@cli_cep", cli.Cep,
+                                                "@cli_endereco", cli.Endereco,
+                                                "@cli_bairro", cli.Bairro,
+                                                "@cli_cidade", cli.Cidade,
+                                                "@cli_telefone", cli.Telefone,
+                                                "@cli_rg_ie", cli.Rg_ie,
+                                                "@cli_uf", cli.Uf,
+                                                "@cli_dt_aniversario", cli.DtNascimento,
+                                                "@cli_sexo", cli.Sexo,
+                                                "@cli_saldo", cli.Saldo,
+                                                "@cli_email", cli.Email);
 
 
 
             }
             return (res);
         }
-        public List<object> searth(string filtro)
+        public bool Atualizar(object Objeto)
+        {
+
+            bool res = false;
+            if (Objeto.GetType() == typeof(Cliente))
+            {
+                Cliente cli = (Cliente)Objeto;
+
+                string SQL = @"UPDATE Cliente SET cli_nome = @cli_nome,
+                                            cli_nome_fansasia = @cli_nome_fansasia,
+                                            cli_cep = @cli_cep,
+                                            cli_endereco = @cli_endereco,
+                                            cli_bairro = @cli_bairro,
+                                            cli_cidade = @cli_cidade,
+                                            cli_telefone = @cli_telefone,
+                                            cli_rg_ie = @cli_rg_ie,
+                                            cli_uf = @cli_uf,
+                                            cli_dt_aniversario = @cli_dt_aniversario,
+                                            cli_sexo = @cli_sexo,
+                                            cli_saldo = @cli_saldo,
+                                            cli_email = @cli_email
+                            WHERE cli_id = @cli_id";
+
+                res = db.ExecuteNonQuery(SQL, "@cli_id", cli.Id,
+                                                "@cli_nome", cli.Nome,
+                                                "@cli_nome_fansasia", cli.Nome_fantasia,
+                                                "@cli_cep", cli.Cep,
+                                                "@cli_endereco", cli.Endereco,
+                                                "@cli_bairro", cli.Bairro,
+                                                "@cli_cidade", cli.Cidade,
+                                                "@cli_telefone", cli.Telefone,
+                                                "@cli_rg_ie", cli.Rg_ie,
+                                                "@cli_uf", cli.Uf,
+                                                "@cli_dt_aniversario", cli.DtNascimento,
+                                                "@cli_sexo", cli.Sexo,
+                                                "@cli_saldo", cli.Saldo,
+                                                "@cli_email", cli.Email);
+
+
+            }
+            return res;
+        }
+
+        public List<object> Buscar(string filtro)
         {
             DataTable dt = new DataTable();
             List<object> clients = new List<object>();
 
 
-            string SQL = @"SELECT * FROM Client WHERE cli_name like @filtro OR cli_cpf_cnpj like @filtro order by cli_name";
+            string SQL = @"SELECT * FROM Cliente WHERE cli_nome like @filtro OR cli_cpf_cnpj like @filtro order by cli_nome";
             filtro = "%" + filtro + "%";
 
             db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
@@ -70,20 +114,20 @@ namespace sisVendas.Persistence
 
 
                     cli.Id = Convert.ToInt32(dt.Rows[i]["cli_id"]);
-                    cli.Name = dt.Rows[i]["cli_name"].ToString();
-                    cli.Fantasy_name = dt.Rows[i]["cli_fantasy_name"].ToString();
+                    cli.Nome = dt.Rows[i]["cli_nome"].ToString();
+                    cli.Nome_fantasia = dt.Rows[i]["cli_nome_fansasia"].ToString();
                     cli.Cpf_cnpj = dt.Rows[i]["cli_cpf_cnpj"].ToString();
-                    cli.Zip_code = dt.Rows[i]["cli_zip_code"].ToString();
-                    cli.Address = dt.Rows[i]["cli_addres"].ToString();
-                    cli.District = dt.Rows[i]["cli_district"].ToString();
-                    cli.City = dt.Rows[i]["cli_city"].ToString();
-                    cli.Telephone = dt.Rows[i]["cli_telephone"].ToString();
+                    cli.Cep = dt.Rows[i]["cli_cep"].ToString();
+                    cli.Endereco = dt.Rows[i]["cli_endereco"].ToString();
+                    cli.Bairro = dt.Rows[i]["cli_bairro"].ToString();
+                    cli.Cidade = dt.Rows[i]["cli_cidade"].ToString();
+                    cli.Telefone = dt.Rows[i]["cli_telefone"].ToString();
                     cli.Rg_ie = dt.Rows[i]["cli_rg_ie"].ToString();
                     cli.Uf = dt.Rows[i]["cli_uf"].ToString();
-                    cli.Birth_at = Convert.ToDateTime(dt.Rows[i]["cli_birth_at"].ToString());
-                    cli.Created_at = Convert.ToDateTime(dt.Rows[i]["cli_created_at"].ToString());
-                    cli.Sex = Convert.ToChar(dt.Rows[i]["cli_sex"].ToString()[0]);
-                    cli.Balance = Convert.ToDouble(dt.Rows[i]["cli_balance"].ToString());
+                    cli.DtNascimento = Convert.ToDateTime(dt.Rows[i]["cli_dt_aniversario"].ToString());
+                    cli.Criado_em = Convert.ToDateTime(dt.Rows[i]["cli_created_at"].ToString());
+                    cli.Sexo = Convert.ToChar(dt.Rows[i]["cli_sexo"].ToString()[0]);
+                    cli.Saldo = Convert.ToDouble(dt.Rows[i]["cli_saldo"].ToString());
                     cli.Email = dt.Rows[i]["cli_email"].ToString();
 
 
@@ -93,38 +137,38 @@ namespace sisVendas.Persistence
             return (clients);
 
         }
-        public Cliente buscarCpf(string filtro)
+        public Cliente BuscarPorCPF(string filtro)
         {
 
-            DataTable dtBusca = new DataTable();
+            DataTable dt = new DataTable();
 
-            string SQL = @"SELECT * FROM Client WHERE cli_cpf_cnpj = @filtro";
+            string SQL = @"SELECT * FROM Cliente WHERE cli_cpf_cnpj = @filtro";
 
-            db.ExecuteQuery(SQL, out dtBusca, "@filtro", filtro);
+            db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
 
             Cliente cli = new Cliente();
 
 
-            if (dtBusca.Rows.Count > 0)
+            if (dt.Rows.Count > 0)
             {
 
-                cli.Id = Convert.ToInt32(dtBusca.Rows[0]["cli_id"]);
-                cli.Name = dtBusca.Rows[0]["cli_name"].ToString();
-                cli.Fantasy_name = dtBusca.Rows[0]["cli_fantasy_name"].ToString();
-                cli.Cpf_cnpj = dtBusca.Rows[0]["cli_cpf_cnpj"].ToString();
-                cli.Zip_code = dtBusca.Rows[0]["cli_zip_code"].ToString();
-                cli.Address = dtBusca.Rows[0]["cli_addres"].ToString();
-                cli.District = dtBusca.Rows[0]["cli_district"].ToString();
-                cli.City = dtBusca.Rows[0]["cli_city"].ToString();
-                cli.Telephone = dtBusca.Rows[0]["cli_telephone"].ToString();
-                cli.Rg_ie = dtBusca.Rows[0]["cli_rg_ie"].ToString();
-                cli.Uf = dtBusca.Rows[0]["cli_uf"].ToString();
-                cli.Birth_at = Convert.ToDateTime(dtBusca.Rows[0]["cli_birth_at"].ToString());
-                cli.Created_at = Convert.ToDateTime(dtBusca.Rows[0]["cli_created_at"].ToString());
-                cli.Sex = Convert.ToChar(dtBusca.Rows[0]["cli_sex"].ToString()[0]);
-                cli.Balance = Convert.ToDouble(dtBusca.Rows[0]["cli_balance"].ToString());
-                cli.Email = dtBusca.Rows[0]["cli_email"].ToString();
-                
+                cli.Id = Convert.ToInt32(dt.Rows[0]["cli_id"]);
+                cli.Nome = dt.Rows[0]["cli_nome"].ToString();
+                cli.Nome_fantasia = dt.Rows[0]["cli_nome_fansasia"].ToString();
+                cli.Cpf_cnpj = dt.Rows[0]["cli_cpf_cnpj"].ToString();
+                cli.Cep = dt.Rows[0]["cli_cep"].ToString();
+                cli.Endereco = dt.Rows[0]["cli_endereco"].ToString();
+                cli.Bairro = dt.Rows[0]["cli_bairro"].ToString();
+                cli.Cidade = dt.Rows[0]["cli_cidade"].ToString();
+                cli.Telefone = dt.Rows[0]["cli_telefone"].ToString();
+                cli.Rg_ie = dt.Rows[0]["cli_rg_ie"].ToString();
+                cli.Uf = dt.Rows[0]["cli_uf"].ToString();
+                cli.DtNascimento = Convert.ToDateTime(dt.Rows[0]["cli_dt_aniversario"].ToString());
+                cli.Criado_em = Convert.ToDateTime(dt.Rows[0]["cli_created_at"].ToString());
+                cli.Sexo = Convert.ToChar(dt.Rows[0]["cli_sexo"].ToString()[0]);
+                cli.Saldo = Convert.ToDouble(dt.Rows[0]["cli_saldo"].ToString());
+                cli.Email = dt.Rows[0]["cli_email"].ToString();
+
             }
             else
             {
@@ -133,55 +177,53 @@ namespace sisVendas.Persistence
             return (cli);
 
         }
-        public bool remove(string id)
+        public Cliente buscarPorID(int filtro)
+        {
+
+            DataTable dt = new DataTable();
+
+            string SQL = @"SELECT * FROM Cliente WHERE cli_id = @filtro";
+
+            db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
+
+            Cliente cli = new Cliente();
+
+
+            if (dt.Rows.Count > 0)
+            {
+                cli.Id = Convert.ToInt32(dt.Rows[0]["cli_id"]);
+                cli.Nome = dt.Rows[0]["cli_nome"].ToString();
+                cli.Nome_fantasia = dt.Rows[0]["cli_nome_fansasia"].ToString();
+                cli.Cpf_cnpj = dt.Rows[0]["cli_cpf_cnpj"].ToString();
+                cli.Cep = dt.Rows[0]["cli_cep"].ToString();
+                cli.Endereco = dt.Rows[0]["cli_endereco"].ToString();
+                cli.Bairro = dt.Rows[0]["cli_bairro"].ToString();
+                cli.Cidade = dt.Rows[0]["cli_cidade"].ToString();
+                cli.Telefone = dt.Rows[0]["cli_telefone"].ToString();
+                cli.Rg_ie = dt.Rows[0]["cli_rg_ie"].ToString();
+                cli.Uf = dt.Rows[0]["cli_uf"].ToString();
+                cli.DtNascimento = Convert.ToDateTime(dt.Rows[0]["cli_dt_aniversario"].ToString());
+                cli.Criado_em = Convert.ToDateTime(dt.Rows[0]["cli_created_at"].ToString());
+                cli.Sexo = Convert.ToChar(dt.Rows[0]["cli_sexo"].ToString()[0]);
+                cli.Saldo = Convert.ToDouble(dt.Rows[0]["cli_saldo"].ToString());
+                cli.Email = dt.Rows[0]["cli_email"].ToString();
+
+            }
+            else
+            {
+                return null;
+            }
+            return (cli);
+
+        }
+        public bool Excluir(string id)
         {
             bool res = false;
-            string SQL = @"DELETE FROM Client WHERE cli_id = @id";
+            string SQL = @"DELETE FROM Cliente WHERE cli_id = @id";
             res = db.ExecuteNonQuery(SQL, "@id", id);
             return res;
         }
 
-        public bool update(object Objeto)
-        {
-
-            bool res = false;
-            if (Objeto.GetType() == typeof(Cliente))
-            {
-                Cliente cli = (Cliente)Objeto;
-
-                string SQL = @"UPDATE Client SET cli_name = @name,
-                                            cli_fantasy_name = @fantasy,
-                                            cli_zip_code = @cep,
-                                            cli_addres = @addres,
-                                            cli_district = @district,
-                                            cli_city = @city,
-                                            cli_telephone = @telephone,
-                                            cli_rg_ie = @rg,
-                                            cli_uf = @uf,
-                                            cli_birth_at = @birth,
-                                            cli_sex = @sex,
-                                            cli_balance = @balance,
-                                            cli_email = @email
-                            WHERE cli_id = @id";
-
-                res = db.ExecuteNonQuery(SQL,   "@id", cli.Id,
-                                                "@name", cli.Name,
-                                                "@fantasy", cli.Fantasy_name,
-                                                "@cep", cli.Zip_code,
-                                                "@addres", cli.Address,
-                                                "@district", cli.District,
-                                                "@city", cli.City,
-                                                "@telephone", cli.Telephone,
-                                                "@rg", cli.Rg_ie,
-                                                "@uf", cli.Uf,
-                                                "@birth", cli.Birth_at,
-                                                "@sex", cli.Sex,
-                                                "@balance", cli.Balance,
-                                                "@email", cli.Email);
-
-
-            }
-            return res;
-        }
+        
     }
 }

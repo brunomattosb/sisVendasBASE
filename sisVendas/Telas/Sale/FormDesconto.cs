@@ -32,6 +32,7 @@ namespace sisVendas.Screens.Sale
         public FormDesconto(double totalVenda) : this()
         {
             this.totalVenda = totalVenda;
+            tbValueDiscount.Focus();
         }
         public double getDesconto()
         {

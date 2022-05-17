@@ -101,7 +101,8 @@
             this.ClientSize = new System.Drawing.Size(194, 308);
             this.Controls.Add(this.groupBox3);
             this.Name = "FormDesconto";
-            this.Text = "FormDiscount";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Desconto";
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);

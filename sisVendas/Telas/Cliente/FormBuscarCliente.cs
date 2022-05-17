@@ -8,19 +8,21 @@ namespace sisVendas.Screens.Client
 {
     public partial class FormBuscarCliente : Form
     {
-        private ctrlClient controlClient = new ctrlClient();
+        private ctrlCliente controlClient = new ctrlCliente();
         private DataRow clientSelected;
         private DataTable dttClient;
         public FormBuscarCliente()
         {
             InitializeComponent();
+
+            dgv_client.Columns["cli_saldo"].DefaultCellStyle.Format = "C";
             updateDgv("");
             tbSearth.Focus();
 
         }
         public void updateDgv(string filtro)
         {
-            dttClient = controlClient.searthClient(filtro);
+            dttClient = controlClient.Buscar(filtro);
             dgv_client.DataSource = dttClient;
             
         }

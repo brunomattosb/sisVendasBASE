@@ -14,6 +14,8 @@ namespace sisVendas.Screens.Product
         public FormBuscarProduto()
         {
             InitializeComponent();
+
+            dgv_product.Columns["prod_valor"].DefaultCellStyle.Format = "C";
             updateDgv("");
             tbSearth.Focus();
         }

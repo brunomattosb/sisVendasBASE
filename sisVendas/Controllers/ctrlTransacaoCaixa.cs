@@ -36,7 +36,7 @@ namespace sisVendas.Controllers
             return (result);
         }
         
-        public DataTable buscarPorFuncCaixa(int filter)
+        public DataTable buscarPorIdCaixa(int filter)
         {
 
             DataTable dtTransacao = new DataTable();

@@ -18,22 +18,24 @@ namespace sisVendas.Telas.Sale
     {
         
         private ctrlVenda controlVenda = new ctrlVenda();
-        private classVenda vendaSelecionada;
+        private int vendaSelecionada = 0;
         private DataTable dttVenda;
 
         public FormBuscarVenda()
         {
             InitializeComponent();
+            dgv_venda.Columns["total"].DefaultCellStyle.Format = "C";
+            dgv_venda.Columns["desconto"].DefaultCellStyle.Format = "C";
+
             updateDgv("");
         }
-
+         
         private void updateDgv(string filtro)
         {
-            //dttVenda = controlVenda.buscarVendas(filtro);
-            //dgv_venda.DataSource = dttVenda;
-
+            dttVenda = controlVenda.buscarVendas(filtro);
+            dgv_venda.DataSource = dttVenda;
         }
-        /*
+        
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             switch (keyData)
@@ -48,63 +50,68 @@ namespace sisVendas.Telas.Sale
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
+        
         private void selecionarVenda()
         {
             if (dgv_venda.CurrentRow != null)
             {
                 DataRow row = dttVenda.Rows[dgv_venda.CurrentRow.Index];
 
-                vendaSelecionada = new VendaCompleta();
-                vendaSelecionada.Id = Convert.ToInt32(row[0]);
-                vendaSelecionada.Desconto = Convert.ToDouble(row[1].ToString().Replace("R$",""));
-                vendaSelecionada.Total_venda = Convert.ToDouble(row[2].ToString().Replace("R$", ""));
-                vendaSelecionada.Venda_criado_em = Convert.ToDateTime(row[3]);
-                vendaSelecionada.Cli_name = Convert.ToString(row[4]);
-                vendaSelecionada.Cli_cpf_cnpj = Convert.ToString(row[5]);
+                vendaSelecionada = Convert.ToInt32(row[0]);
 
                 Close();
             }
         }
-        */
+        
         private void dgv_venda_DoubleClick(object sender, EventArgs e)
         {
-            //selecionarVenda();
+            selecionarVenda();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            /*string filtro = "";
-            if(cbbMN.SelectedIndex != -1)
+            string filtro = "";
+
+            if(cbbMN.SelectedIndex > 0)
             {
                 if (tbValor.Text != "")
                 {
-                    filtro = "total_venda " + cbbMN.Text + tbValor.Text.Replace("R$", "").Replace(",",".");
+                    filtro = "total_venda " + cbbMN.Text + tbValor.Text.Replace("R$", "").Replace(".", "").Replace(",", ".");
                 }
             }
 
-            if(Function.replaceAll(mtbCpf.Text).Length == 11)
+            string cpf = Function.replaceAll(mtbCpf.Text);
+
+            if (cpf.Length > 0)
             {
                 if (filtro != "")
                     filtro = filtro + " AND ";
-                filtro = filtro + "cli_cpf_cnpj = " + mtbCpf.Text.Replace(",", "").Replace("-", "");
+                filtro = filtro + "cli_cpf_cnpj like '" + cpf.Trim()+ "%'";
             }
             if (tbName.Text.Length > 0)
             {
                 if (filtro != "")
                     filtro = filtro + " AND ";
-                filtro = filtro + "cli_name = '" + tbName.Text+"'";
+                filtro = filtro + "cli_nome like '%" + tbName.Text+ "%'";
             }
-            if (DateTime.TryParse(mtbDtInicio.Text, out DateTime ini) && DateTime.TryParse(mtbDtFim.Text, out DateTime fim))
+            
+            if(cbPesquisarPeriodo.Checked)
             {
-                if (ini < fim)
+                if (dtpInicio.Value.Date <= dtpFim.Value.Date)
                 {
                     if (filtro != "")
                         filtro = filtro + " AND ";
-                    filtro = filtro + "venda_criado_em BETWEEN '" + ini.Date.ToString() + "' AND '" + fim.Date.ToString()+"'";
+                    filtro = filtro + "venda_criado_em BETWEEN '" + dtpInicio.Value.ToString("yyyy-MM-dd") + " 00:00:00' AND '" + dtpFim.Value.ToString("yyyy-MM-dd") + " 23:59:59'";
+                }
+                else
+                {
+                    Function.Alert("Alerta!", "Data Inicio maior que data Fim", popupClient.enmType.Warning);
                 }
             }
-            updateDgv(filtro);*/
+
+            Console.WriteLine(filtro);
+            updateDgv(filtro);
+
         }
 
         private void tbValor_Leave(object sender, EventArgs e)
@@ -115,8 +122,7 @@ namespace sisVendas.Telas.Sale
                 tbValor.Text = String.Format("{0:c}", res);
             else
             {
-                tbValor.Text = "";
-                Function.Alert("Erro!", "Valor incorreto", popupClient.enmType.Error);
+                tbValor.Text = "R$ 0,00";
             }
         }
 
@@ -128,35 +134,62 @@ namespace sisVendas.Telas.Sale
             }
         }
 
-        private void mtbDtInicio_Click(object sender, EventArgs e)
-        {
-            if (Function.replaceAll(mtbDtInicio.Text).Length == 0)
-                mtbDtInicio.Select(0, 0);
-        }
-
         private void mtbCpf_Click(object sender, EventArgs e)
         {
             if (Function.replaceAll(mtbCpf.Text).Length == 0)
                 mtbCpf.Select(0, 0);
         }
 
-        private void mtbDtFim_Click(object sender, EventArgs e)
+        public int retornaVenda()
         {
-            if (Function.replaceAll(mtbDtFim.Text).Length == 0)
-                mtbDtFim.Select(0, 0);
+             return vendaSelecionada;
         }
 
-        /*public VendaCompleta retornaVenda()
+        private void tbValor_Enter(object sender, EventArgs e)
         {
-            if (vendaSelecionada != null)
+            if(tbValor.Text == "R$ 0,00")
             {
-                return vendaSelecionada;
+                tbValor.Text = "";
+            }
+        }
+
+        private void mtbCpf_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsNumber(e.KeyChar))
+            {
+                int count = Function.replaceAll(mtbCpf.Text).Count();
+                changeCpfCnpj(count);
+            }
+        }
+        public void changeCpfCnpj(int qtde)
+        {
+            //MessageBox.Show(qtde + "");
+            if (mtbCpf.Mask != "000.000.000-00" && qtde < 11)
+            {
+                mtbCpf.Mask = "000.000.000-00";
+
+                mtbCpf.Select(qtde, 0);
+                lblCpf.Text = "CPF:";
+
+            }
+            else if (qtde >= 11)
+            {
+
+                int pos = mtbCpf.Text.Count();
+                mtbCpf.Mask = "00.000.000/0000-00";
+                mtbCpf.Select(pos, 0);
+
+                lblCpf.Text = "CNPJ:";
             }
 
+        }
 
-            return null;
-            
-
-        }*/
+        private void mtbCpf_TextChanged(object sender, EventArgs e)
+        {
+            if (Function.replaceAll(mtbCpf.Text).Count() == 10)
+            {
+                changeCpfCnpj(Function.replaceAll(mtbCpf.Text).Count());
+            }
+        }
     }
 }

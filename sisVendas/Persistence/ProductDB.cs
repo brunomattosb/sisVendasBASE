@@ -26,31 +26,28 @@ namespace sisVendas.Persistence
 
                 string SQL;
 
-                SQL = @"INSERT INTO Product (prod_id,prod_name,prod_complement,prod_inventory,prod_category,prod_brand,prod_value, prod_un)
-                        values (@prod_id,@prod_name,@prod_complement,@prod_inventory,@prod_category,@prod_brand,@prod_value, @prod_un)";
+                SQL = @"INSERT INTO Produto (prod_id,prod_nome,prod_complemento,prod_estoque,prod_categoria,prod_marca,prod_valor, prod_un)
+                        values (@prod_id,@prod_nome,@prod_complemento,@prod_estoque,@prod_categoria,@prod_marca,@prod_valor,@prod_un)";
 
-                res = db.ExecuteNonQuery(SQL, "@prod_name", prod.Name,
+                res = db.ExecuteNonQuery(SQL, "@prod_nome", prod.Nome,
                                                 "@prod_id", prod.Id,
                                                 "@prod_un", prod.Un,
-                                                "@prod_complement", prod.Complement,
-                                                "@prod_inventory", prod.Inventory,
-                                                "@prod_category", prod.Prod_category,
-                                                "@prod_brand", prod.Prod_brand,
-                                                "@prod_value", prod.Value);
-
-
-
+                                                "@prod_complemento", prod.Descricao,
+                                                "@prod_estoque", prod.Estoque,
+                                                "@prod_categoria", prod.Prod_Categoria,
+                                                "@prod_marca", prod.Prod_Marca,
+                                                "@prod_valor", prod.Valor);
             }
             return (res);
         }
-        public List<object> searth(string filtro)
+        public List<object> Buscar(string filtro)
         {
             DataTable dt = new DataTable();
             List<object> produtos = new List<object>();
 
 
-            string SQL = @"SELECT * FROM Product WHERE prod_name like @filtro order by prod_name";
-            filtro += "%";
+            string SQL = @"SELECT * FROM Produto WHERE prod_nome like @filtro order by prod_nome";
+            filtro = "%" + filtro + "%";
 
             db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
 
@@ -62,14 +59,14 @@ namespace sisVendas.Persistence
 
 
                     prod.Id = dt.Rows[i]["prod_id"].ToString();
-                    prod.Name = dt.Rows[i]["prod_name"].ToString();
-                    prod.Complement = dt.Rows[i]["prod_complement"].ToString();
-                    prod.Inventory = Convert.ToInt32(dt.Rows[i]["prod_inventory"]);
-                    prod.Prod_category = Convert.ToInt32(dt.Rows[i]["prod_category"]);
-                    prod.Prod_brand = Convert.ToInt32(dt.Rows[i]["prod_brand"]);
-                    prod.Value = Convert.ToDouble(dt.Rows[i]["prod_value"].ToString());
+                    prod.Nome = dt.Rows[i]["prod_nome"].ToString();
+                    prod.Descricao = dt.Rows[i]["prod_complemento"].ToString();
+                    prod.Estoque = Convert.ToInt32(dt.Rows[i]["prod_estoque"]);
+                    prod.Prod_Categoria = Convert.ToInt32(dt.Rows[i]["prod_categoria"]);
+                    prod.Prod_Marca = Convert.ToInt32(dt.Rows[i]["prod_marca"]);
+                    prod.Valor = Convert.ToDouble(dt.Rows[i]["prod_valor"].ToString());
                     prod.Un = dt.Rows[i]["prod_un"].ToString();
-                    prod.Created_at = Convert.ToDateTime(dt.Rows[i]["prod_created_at"].ToString());
+                    prod.Criado_em = Convert.ToDateTime(dt.Rows[i]["prod_criado_em"].ToString());
 
                     produtos.Add(prod);
                 }
@@ -78,11 +75,11 @@ namespace sisVendas.Persistence
 
         }
         
-        public Produto buscarPorCod(string filtro)
+        public Produto BuscarPorCod(string filtro)
         {
             DataTable dt = new DataTable();
 
-            string SQL = @"SELECT * FROM Product WHERE prod_id like @filtro";
+            string SQL = @"SELECT * FROM Produto WHERE prod_id like @filtro";
 
             db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
             Produto prod = new Produto();
@@ -90,55 +87,71 @@ namespace sisVendas.Persistence
             if (dt.Rows.Count > 0)
             {
                 prod.Id = dt.Rows[0]["prod_id"].ToString();
-                prod.Name = dt.Rows[0]["prod_name"].ToString();
-                prod.Complement = dt.Rows[0]["prod_complement"].ToString();
-                prod.Inventory = Convert.ToInt32(dt.Rows[0]["prod_inventory"]);
-                prod.Prod_category = Convert.ToInt32(dt.Rows[0]["prod_category"]);
-                prod.Prod_brand = Convert.ToInt32(dt.Rows[0]["prod_brand"]);
+                prod.Nome = dt.Rows[0]["prod_nome"].ToString();
+                prod.Descricao = dt.Rows[0]["prod_complemento"].ToString();
+                prod.Estoque = Convert.ToInt32(dt.Rows[0]["prod_estoque"]);
+                prod.Prod_Categoria = Convert.ToInt32(dt.Rows[0]["prod_categoria"]);
+                prod.Prod_Marca = Convert.ToInt32(dt.Rows[0]["prod_marca"]);
+                prod.Valor = Convert.ToDouble(dt.Rows[0]["prod_valor"].ToString());
                 prod.Un = dt.Rows[0]["prod_un"].ToString();
-                prod.Value = Convert.ToDouble(dt.Rows[0]["prod_value"].ToString());
-                prod.Created_at = Convert.ToDateTime(dt.Rows[0]["prod_created_at"].ToString());
+                prod.Criado_em = Convert.ToDateTime(dt.Rows[0]["prod_criado_em"].ToString());
             }
             else
             {
                 return null;
             }
             return (prod);
-
         }
 
-        public bool remove(string id)
+        public bool Remover(string id)
         {
             bool res = false;
-            string SQL = @"DELETE FROM Product WHERE prod_id = @id";
+            string SQL = @"DELETE FROM Produto WHERE prod_id = @id";
             res = db.ExecuteNonQuery(SQL, "@id", id);
             return res;
         }
+        
+        public bool subtraitEstoque(string idProd, double quantidade)
+        {
+            bool res = false;
+            string SQL = @"update produto set prod_estoque = produto.prod_estoque - @quantidade
+                        where prod_id = @idProd;";
+            res = db.ExecuteNonQuery(SQL, "@idProd", idProd, "@quantidade", quantidade);
+            return res;
+        }
+        public bool incrementarEstoque(string idProd, double quantidade)
+        {
+            bool res = false;
+            string SQL = @"update produto set prod_estoque = produto.prod_estoque + @quantidade
+                        where prod_id = @idProd;";
+            res = db.ExecuteNonQuery(SQL, "@idProd", idProd, "@quantidade", quantidade);
+            return res;
+        }
 
-        public bool update(object Objeto)
+        public bool Atualizar(object Objeto)
         {
             
             bool res = false;
             if (Objeto.GetType() == typeof(Produto))
             {
                 Produto prod = (Produto)Objeto;
-                string SQL = @"UPDATE Product SET prod_name = @prod_name,
-                                            prod_complement = @prod_complement,
-                                            prod_inventory = @prod_inventory,
-                                            prod_category = @prod_category,
-                                            prod_brand = @prod_brand,
-                                            prod_value = @prod_value,
+                string SQL = @"UPDATE Produto SET prod_nome = @prod_nome,
+                                            prod_complemento = @prod_complemento,
+                                            prod_estoque = @prod_estoque,
+                                            prod_categoria = @prod_categoria,
+                                            prod_marca = @prod_marca,
+                                            prod_valor = @prod_valor,
                                             prod_un = @prod_un
                             WHERE prod_id = @id";
 
                 res = db.ExecuteNonQuery(SQL, "@id", prod.Id,
-                                                "@prod_name", prod.Name,
+                                                "@prod_nome", prod.Nome,
                                                 "@prod_un", prod.Un,
-                                                "@prod_complement", prod.Complement,
-                                                "@prod_inventory", prod.Inventory,
-                                                "@prod_category", prod.Prod_category,
-                                                "@prod_brand", prod.Prod_brand,
-                                                "@prod_value", prod.Value);
+                                                "@prod_complemento", prod.Descricao,
+                                                "@prod_estoque", prod.Estoque,
+                                                "@prod_categoria", prod.Prod_Categoria,
+                                                "@prod_marca", prod.Prod_Marca,
+                                                "@prod_valor", prod.Valor);
 
 
             }

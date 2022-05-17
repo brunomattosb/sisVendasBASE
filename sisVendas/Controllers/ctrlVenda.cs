@@ -14,12 +14,12 @@ namespace sisVendas.Controllers
     {
         private Banco dataBase = new Banco();
 
-        private classVenda vendaSelecionada = new classVenda();
+        private Vendas vendaSelecionada = new Vendas();
         private ctrlItensVenda controlItensVenda = new ctrlItensVenda();
         private ctrlParcelasVenda controlParcelas = new ctrlParcelasVenda();
-        private ctrlTransacaoCaixa controlTransacao = new ctrlTransacaoCaixa();
+        private ctrlProduct controlProdutos = new ctrlProduct();
 
-        public bool SalvarVenda(int id_cliente, DataTable dtParcelas, DataTable dtProdutos, double desconto, int idCaixa)
+        public bool SalvarVenda(int id_cliente, DataTable dtParcelas, DataTable dtProdutos, double desconto, int idCaixa, int idFunc)
         { 
             bool res = true;
 
@@ -27,17 +27,18 @@ namespace sisVendas.Controllers
             vendaSelecionada.ItensVenda = dtProdutos;
             vendaSelecionada.ParcelasVenda = dtParcelas;
             vendaSelecionada.Desconto = desconto;
+            vendaSelecionada.Id_funcionario = idFunc;
 
             dataBase.Conecta();
 
-
-            
             VendaDB venda = new VendaDB(dataBase);
 
             vendaSelecionada.Id = venda.Gravar(vendaSelecionada);
             
             if (vendaSelecionada.Id != 0)
             {
+                ctrlProduct controlProduto = new ctrlProduct();
+
                 foreach (DataRow row in dtProdutos.Rows)
                 {
                     if(!controlItensVenda.SalvarItensVenda(
@@ -48,6 +49,7 @@ namespace sisVendas.Controllers
                     {
                         res = false;
                     }
+                    
 
                 }
 
@@ -62,80 +64,93 @@ namespace sisVendas.Controllers
                         idCaixa))
                     {
                         
-                            res = false;
+                        res = false;
                         
                     }
 
                 }
 
-
             }
             else
             {
+                res = false;
                 MessageBox.Show("Erro ao gravar venda!");
             }
 
             if (!res)
             {
+                MessageBox.Show(vendaSelecionada.Id + "Venda a ser excluida");
                 controlItensVenda.removerItensVenda(vendaSelecionada.Id);
                 controlParcelas.removerParcelas(vendaSelecionada.Id);
-                this.removerVenda(vendaSelecionada.Id);
+                this.removerVenda(vendaSelecionada.Id, dtProdutos);
             }
 
             
             dataBase.Desconecta();
 
             return (res);
-
-            
         }
-
-
-        /*public DataTable buscarVendas(string filter)
+        public DataTable buscarVendas(string filter)
         {
             
-            DataTable dtVenda = new DataTable();
-
-            dtVenda.Columns.Add("id", typeof(int));
-            dtVenda.Columns.Add("desconto");
-            dtVenda.Columns.Add("cpf_cnpj");
-            dtVenda.Columns.Add("total");
-            dtVenda.Columns.Add("criado_em", typeof(DateTime));
-            dtVenda.Columns.Add("nome");
-            
-
             dataBase.Conecta();
 
             VendaDB vendaDB = new VendaDB(dataBase);
 
-            foreach (VendaCompleta venda in vendaDB.buscar(filter))
-            {
-                
-                DataRow line = dtVenda.NewRow();
+            DataTable dtVendas = vendaDB.buscar(filter);
 
-                line["id"] = venda.Id;
-                line["desconto"] = "R$ "+venda.Desconto;
-                line["total"] = "R$ " + venda.Total_venda;
-                line["criado_em"] = venda.Venda_criado_em;
-                line["nome"] = venda.Cli_name;
-                line["cpf_cnpj"] = venda.Cli_cpf_cnpj;
-
-
-                dtVenda.Rows.Add(line);
-            }
             dataBase.Desconecta();
 
-            return (dtVenda);
-        }*/
-        public bool removerVenda(int cod)
+            return (dtVendas);
+        }
+        public bool removerVenda(int cod, DataTable dttProduto)
         {
             bool res = true;
             dataBase.Conecta();
             VendaDB vendaDB = new VendaDB(dataBase);
             res = vendaDB.remover(cod);
+            if (res)
+            {
+                foreach (DataRow prod in dttProduto.Rows)
+                {
+
+                    controlProdutos.adicionarEstoque(prod["cod"].ToString(), double.Parse(prod["amount"].ToString()));
+                }
+            }
             dataBase.Desconecta();
             return res;
         }
+        public bool restabelecerVenda(int cod, DataTable dttProduto)
+        {
+            bool res = true;
+            dataBase.Conecta();
+            VendaDB vendaDB = new VendaDB(dataBase);
+            res = vendaDB.restabelecer(cod);
+            if (res)
+            {
+                foreach (DataRow prod in dttProduto.Rows)
+                {
 
+                    controlProdutos.removerEstoque(prod["cod"].ToString(), double.Parse(prod["amount"].ToString()));
+                }
+            }
+            dataBase.Desconecta();
+            return res;
+        }
+        
+
+        public Vendas buscarVendaPorCod(int idVenda)
+        {
+           
+            Vendas venda = new Vendas();
+
+            dataBase.Conecta();
+            VendaDB bd = new VendaDB(dataBase);
+            venda = (Vendas)bd.buscarVendaPorCod(idVenda);
+
+            dataBase.Desconecta();
+            return venda;
+            
+        }
     }
 }

@@ -18,11 +18,12 @@ namespace sisVendas.Screens.Sale
         {
             InitializeComponent();
         }
-        public FormCalcularTroco(double value) :this()
+        public FormCalcularTroco(double value) : this()
         {
-            if(value > 0)
+            if (value > 0)
             {
-                tbValue.Text = "R$" + value;
+                tbValor.Text = value.ToString("C");
+                tbRecebido.Focus();
             }
         }
 
@@ -36,33 +37,35 @@ namespace sisVendas.Screens.Sale
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        private void tbReceived_Leave(object sender, EventArgs e)
+        private void CalculaTroco(double recebido, double valorTotal)
         {
-            string text = tbReceived.Text.Replace("R$", "");
-            if (double.TryParse(text, out double res))
-            {
-                tbReceived.Text = String.Format("{0:c}", res);
-                if (tbReceived.Text.Count() > 0 && tbValue.Text.Count() > 0)
-                {
-                    double received = Convert.ToDouble(tbReceived.Text.Replace("R$",""));
-                    double valueTotal = Convert.ToDouble(tbValue.Text.Replace("R$", ""));
 
-                    if (received >= valueTotal)
-                    {
-                        lblThing.Text = "R$ " + (received - valueTotal).ToString("F");
-                    }
-                    else
-                    {
-                        Function.Alert("Atenção!", "Troco negativo.", popupClient.enmType.Error);
-                    }
-                }
+            if (recebido >= valorTotal)
+            {
+                lblTroco.Text = (recebido - valorTotal).ToString("C");
             }
             else
             {
-                tbValue.Text = "";
-                Function.Alert("Erro!", "Valor incorreto", popupClient.enmType.Error);
+                //lblTroco.Text = "R$ 0,00";
             }
+
             
+        }
+        private void tbReceived_Leave(object sender, EventArgs e)
+        {
+            string text = tbRecebido.Text.Replace("R$ ", "");
+
+            if (double.TryParse(text, out double recebido))
+            {
+                tbRecebido.Text = recebido.ToString("C");
+
+                if (double.TryParse(tbValor.Text.Replace("R$ ", ""), out double valorTotal))
+                    CalculaTroco(recebido, valorTotal);
+            }
+            else
+            {
+                tbRecebido.Text = "R$ 0,00";
+            }
         }
 
         private void tbValue_KeyPress(object sender, KeyPressEventArgs e)
@@ -80,16 +83,37 @@ namespace sisVendas.Screens.Sale
                 e.Handled = true;
             }
         }
-
+   
         private void tbValue_Leave(object sender, EventArgs e)
         {
-            string text = tbValue.Text.Replace("R$", "");
-            if (double.TryParse(text, out double res))
-                tbValue.Text = String.Format("{0:c}", res);
+            string text = tbValor.Text.Replace("R$ ", "");
+
+            if (double.TryParse(text, out double valorTotal))
+            {
+                tbValor.Text = valorTotal.ToString("C");
+
+                if (double.TryParse(tbRecebido.Text.Replace("R$ ", ""), out double recebido))
+                    CalculaTroco(recebido, valorTotal);
+            }
             else
             {
-                tbValue.Text = "";
-                Function.Alert("Erro!", "Valor incorreto", popupClient.enmType.Error);
+                tbValor.Text = "R$ 0,00";
+            }
+        }
+
+        private void tbValue_Enter(object sender, EventArgs e)
+        {
+            if(tbValor.Text == "R$ 0,00")
+            {
+                tbValor.Text = "";
+            }
+        }
+
+        private void tbReceived_Enter(object sender, EventArgs e)
+        {
+            if (tbRecebido.Text == "R$ 0,00")
+            {
+                tbRecebido.Text = "";
             }
         }
     }
