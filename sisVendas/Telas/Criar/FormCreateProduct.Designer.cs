@@ -53,7 +53,6 @@
             this.tbInventory = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.lblNome = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.dgv_product = new System.Windows.Forms.DataGridView();
             this.prod_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prod_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,11 +63,15 @@
             this.prod_un = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prod_valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prod_categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gerarPdf = new System.Windows.Forms.Button();
             this.GbpPesquisa.SuspendLayout();
             this.gbCad.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_product)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblFuncionario
@@ -76,7 +79,7 @@
             this.lblFuncionario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFuncionario.AutoSize = true;
             this.lblFuncionario.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFuncionario.Location = new System.Drawing.Point(30, 16);
+            this.lblFuncionario.Location = new System.Drawing.Point(171, 10);
             this.lblFuncionario.Name = "lblFuncionario";
             this.lblFuncionario.Size = new System.Drawing.Size(323, 42);
             this.lblFuncionario.TabIndex = 3;
@@ -84,10 +87,9 @@
             // 
             // GbpPesquisa
             // 
-            this.GbpPesquisa.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.GbpPesquisa.Controls.Add(this.tbSearch);
             this.GbpPesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GbpPesquisa.Location = new System.Drawing.Point(37, 359);
+            this.GbpPesquisa.Location = new System.Drawing.Point(12, 330);
             this.GbpPesquisa.Name = "GbpPesquisa";
             this.GbpPesquisa.Size = new System.Drawing.Size(336, 57);
             this.GbpPesquisa.TabIndex = 1;
@@ -105,7 +107,6 @@
             // 
             // gbCad
             // 
-            this.gbCad.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.gbCad.Controls.Add(this.cbbUn);
             this.gbCad.Controls.Add(this.lblUn);
             this.gbCad.Controls.Add(this.cbbCategory);
@@ -123,9 +124,9 @@
             this.gbCad.Controls.Add(this.tbInventory);
             this.gbCad.Controls.Add(this.tbName);
             this.gbCad.Controls.Add(this.lblNome);
-            this.gbCad.Location = new System.Drawing.Point(36, 70);
+            this.gbCad.Location = new System.Drawing.Point(12, 69);
             this.gbCad.Name = "gbCad";
-            this.gbCad.Size = new System.Drawing.Size(694, 280);
+            this.gbCad.Size = new System.Drawing.Size(648, 255);
             this.gbCad.TabIndex = 0;
             this.gbCad.TabStop = false;
             // 
@@ -141,16 +142,16 @@
             "KG",
             "MT",
             "UN"});
-            this.cbbUn.Location = new System.Drawing.Point(477, 90);
+            this.cbbUn.Location = new System.Drawing.Point(437, 75);
             this.cbbUn.MaxLength = 2;
             this.cbbUn.Name = "cbbUn";
-            this.cbbUn.Size = new System.Drawing.Size(183, 21);
+            this.cbbUn.Size = new System.Drawing.Size(205, 21);
             this.cbbUn.TabIndex = 5;
             // 
             // lblUn
             // 
             this.lblUn.AutoSize = true;
-            this.lblUn.Location = new System.Drawing.Point(474, 74);
+            this.lblUn.Location = new System.Drawing.Point(434, 59);
             this.lblUn.Name = "lblUn";
             this.lblUn.Size = new System.Drawing.Size(51, 13);
             this.lblUn.TabIndex = 44;
@@ -162,25 +163,25 @@
             this.cbbCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbCategory.FormattingEnabled = true;
-            this.cbbCategory.Location = new System.Drawing.Point(272, 90);
+            this.cbbCategory.Location = new System.Drawing.Point(221, 75);
             this.cbbCategory.MaxLength = 2;
             this.cbbCategory.Name = "cbbCategory";
-            this.cbbCategory.Size = new System.Drawing.Size(199, 21);
+            this.cbbCategory.Size = new System.Drawing.Size(205, 21);
             this.cbbCategory.TabIndex = 4;
             // 
             // tbComplemento
             // 
-            this.tbComplemento.Location = new System.Drawing.Point(37, 160);
+            this.tbComplemento.Location = new System.Drawing.Point(6, 142);
             this.tbComplemento.MaxLength = 149;
             this.tbComplemento.Name = "tbComplemento";
-            this.tbComplemento.Size = new System.Drawing.Size(627, 60);
+            this.tbComplemento.Size = new System.Drawing.Size(636, 60);
             this.tbComplemento.TabIndex = 7;
             this.tbComplemento.Text = "";
             // 
             // lblComplemento
             // 
             this.lblComplemento.AutoSize = true;
-            this.lblComplemento.Location = new System.Drawing.Point(36, 144);
+            this.lblComplemento.Location = new System.Drawing.Point(5, 126);
             this.lblComplemento.Name = "lblComplemento";
             this.lblComplemento.Size = new System.Drawing.Size(74, 13);
             this.lblComplemento.TabIndex = 41;
@@ -189,7 +190,7 @@
             // lblMarca
             // 
             this.lblMarca.AutoSize = true;
-            this.lblMarca.Location = new System.Drawing.Point(64, 74);
+            this.lblMarca.Location = new System.Drawing.Point(6, 59);
             this.lblMarca.Name = "lblMarca";
             this.lblMarca.Size = new System.Drawing.Size(41, 13);
             this.lblMarca.TabIndex = 40;
@@ -197,7 +198,7 @@
             // 
             // mtbValue
             // 
-            this.mtbValue.Location = new System.Drawing.Point(537, 131);
+            this.mtbValue.Location = new System.Drawing.Point(518, 116);
             this.mtbValue.MaxLength = 10;
             this.mtbValue.Name = "mtbValue";
             this.mtbValue.Size = new System.Drawing.Size(124, 20);
@@ -210,7 +211,7 @@
             // lblValue
             // 
             this.lblValue.AutoSize = true;
-            this.lblValue.Location = new System.Drawing.Point(535, 117);
+            this.lblValue.Location = new System.Drawing.Point(515, 102);
             this.lblValue.Name = "lblValue";
             this.lblValue.Size = new System.Drawing.Size(38, 13);
             this.lblValue.TabIndex = 29;
@@ -222,10 +223,10 @@
             this.cbbBrand.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbbBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbBrand.FormattingEnabled = true;
-            this.cbbBrand.Location = new System.Drawing.Point(67, 90);
+            this.cbbBrand.Location = new System.Drawing.Point(6, 75);
             this.cbbBrand.MaxLength = 2;
             this.cbbBrand.Name = "cbbBrand";
-            this.cbbBrand.Size = new System.Drawing.Size(199, 21);
+            this.cbbBrand.Size = new System.Drawing.Size(205, 21);
             this.cbbBrand.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -239,19 +240,19 @@
             this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnSave, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnRemove, 2, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(37, 226);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 208);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(627, 43);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(622, 33);
             this.tableLayoutPanel1.TabIndex = 14;
             // 
             // btnNew
             // 
             this.btnNew.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnNew.Location = new System.Drawing.Point(34, 3);
+            this.btnNew.Location = new System.Drawing.Point(40, 5);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(88, 37);
+            this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 1;
             this.btnNew.Text = "Novo";
             this.btnNew.UseVisualStyleBackColor = true;
@@ -260,9 +261,9 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCancel.Location = new System.Drawing.Point(190, 3);
+            this.btnCancel.Location = new System.Drawing.Point(195, 5);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(88, 37);
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -271,9 +272,9 @@
             // btnSave
             // 
             this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSave.Location = new System.Drawing.Point(503, 3);
+            this.btnSave.Location = new System.Drawing.Point(506, 5);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(88, 37);
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -282,9 +283,9 @@
             // btnRemove
             // 
             this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnRemove.Location = new System.Drawing.Point(346, 3);
+            this.btnRemove.Location = new System.Drawing.Point(350, 5);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(88, 37);
+            this.btnRemove.Size = new System.Drawing.Size(75, 23);
             this.btnRemove.TabIndex = 3;
             this.btnRemove.Text = "Excluir";
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -294,7 +295,7 @@
             // 
             this.lblCod.AutoSize = true;
             this.lblCod.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblCod.Location = new System.Drawing.Point(34, 27);
+            this.lblCod.Location = new System.Drawing.Point(3, 12);
             this.lblCod.Name = "lblCod";
             this.lblCod.Size = new System.Drawing.Size(47, 13);
             this.lblCod.TabIndex = 0;
@@ -302,7 +303,7 @@
             // 
             // tbCod
             // 
-            this.tbCod.Location = new System.Drawing.Point(37, 43);
+            this.tbCod.Location = new System.Drawing.Point(6, 28);
             this.tbCod.MaxLength = 39;
             this.tbCod.Name = "tbCod";
             this.tbCod.Size = new System.Drawing.Size(119, 20);
@@ -312,7 +313,7 @@
             // lblCategoria
             // 
             this.lblCategoria.AutoSize = true;
-            this.lblCategoria.Location = new System.Drawing.Point(269, 74);
+            this.lblCategoria.Location = new System.Drawing.Point(218, 59);
             this.lblCategoria.Name = "lblCategoria";
             this.lblCategoria.Size = new System.Drawing.Size(59, 13);
             this.lblCategoria.TabIndex = 17;
@@ -321,7 +322,7 @@
             // lblEstoque
             // 
             this.lblEstoque.AutoSize = true;
-            this.lblEstoque.Location = new System.Drawing.Point(535, 27);
+            this.lblEstoque.Location = new System.Drawing.Point(503, 12);
             this.lblEstoque.Name = "lblEstoque";
             this.lblEstoque.Size = new System.Drawing.Size(53, 13);
             this.lblEstoque.TabIndex = 11;
@@ -329,16 +330,16 @@
             // 
             // tbInventory
             // 
-            this.tbInventory.Location = new System.Drawing.Point(536, 43);
+            this.tbInventory.Location = new System.Drawing.Point(505, 28);
             this.tbInventory.MaxLength = 10;
             this.tbInventory.Name = "tbInventory";
-            this.tbInventory.Size = new System.Drawing.Size(124, 20);
+            this.tbInventory.Size = new System.Drawing.Size(137, 20);
             this.tbInventory.TabIndex = 2;
             this.tbInventory.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbInventory_KeyPress);
             // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(162, 43);
+            this.tbName.Location = new System.Drawing.Point(131, 28);
             this.tbName.MaxLength = 39;
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(368, 20);
@@ -347,26 +348,11 @@
             // lblNome
             // 
             this.lblNome.AutoSize = true;
-            this.lblNome.Location = new System.Drawing.Point(159, 27);
+            this.lblNome.Location = new System.Drawing.Point(128, 12);
             this.lblNome.Name = "lblNome";
             this.lblNome.Size = new System.Drawing.Size(42, 13);
             this.lblNome.TabIndex = 1;
             this.lblNome.Text = "*Nome:";
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.dgv_product, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(30, 422);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(705, 222);
-            this.tableLayoutPanel2.TabIndex = 7;
             // 
             // dgv_product
             // 
@@ -386,13 +372,13 @@
             this.prod_un,
             this.prod_valor,
             this.prod_categoria});
-            this.dgv_product.Location = new System.Drawing.Point(3, 3);
+            this.dgv_product.Location = new System.Drawing.Point(12, 393);
             this.dgv_product.MultiSelect = false;
             this.dgv_product.Name = "dgv_product";
             this.dgv_product.ReadOnly = true;
             this.dgv_product.RowHeadersVisible = false;
             this.dgv_product.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_product.Size = new System.Drawing.Size(699, 216);
+            this.dgv_product.Size = new System.Drawing.Size(648, 172);
             this.dgv_product.TabIndex = 0;
             this.dgv_product.DoubleClick += new System.EventHandler(this.dgv_productCategory_DoubleClick);
             // 
@@ -466,15 +452,46 @@
             this.prod_categoria.ReadOnly = true;
             this.prod_categoria.Visible = false;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.panel1.Controls.Add(this.lblFuncionario);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(677, 63);
+            this.panel1.TabIndex = 12;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.gerarPdf);
+            this.groupBox2.Location = new System.Drawing.Point(354, 330);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(306, 57);
+            this.groupBox2.TabIndex = 14;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Relatório:";
+            // 
+            // gerarPdf
+            // 
+            this.gerarPdf.Location = new System.Drawing.Point(17, 20);
+            this.gerarPdf.Name = "gerarPdf";
+            this.gerarPdf.Size = new System.Drawing.Size(75, 23);
+            this.gerarPdf.TabIndex = 12;
+            this.gerarPdf.Text = "Gerar PDF";
+            this.gerarPdf.UseVisualStyleBackColor = true;
+            this.gerarPdf.Click += new System.EventHandler(this.gerarPdf_Click);
+            // 
             // FormCreateProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 661);
-            this.Controls.Add(this.lblFuncionario);
+            this.ClientSize = new System.Drawing.Size(672, 577);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.dgv_product);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.GbpPesquisa);
             this.Controls.Add(this.gbCad);
-            this.Controls.Add(this.tableLayoutPanel2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormCreateProduct";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastrar Produto";
@@ -483,10 +500,11 @@
             this.gbCad.ResumeLayout(false);
             this.gbCad.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_product)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -509,7 +527,6 @@
         private System.Windows.Forms.TextBox tbInventory;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.Label lblNome;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.DataGridView dgv_product;
         private System.Windows.Forms.ComboBox cbbCategory;
         private System.Windows.Forms.RichTextBox tbComplemento;
@@ -527,5 +544,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn prod_un;
         private System.Windows.Forms.DataGridViewTextBoxColumn prod_valor;
         private System.Windows.Forms.DataGridViewTextBoxColumn prod_categoria;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button gerarPdf;
     }
 }

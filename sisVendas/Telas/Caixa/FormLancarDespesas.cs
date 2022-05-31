@@ -1,4 +1,5 @@
 ﻿using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Models;
 using sisVendas.Notificacao;
@@ -34,7 +35,19 @@ namespace sisVendas.Telas.Caixa
 			cbbTiposDespesas.ValueMember = "desp_tipo_id";
 			cbbTiposDespesas.SelectedIndex = -1;
 
-			cbbFiltroTipo.DataSource = dttTipos.Copy();
+			DataTable dtDespTipo = new DataTable();
+
+			dtDespTipo = dttTipos.Copy();
+
+			DataRow line = dtDespTipo.NewRow();
+
+			line["desp_tipo_id"] = -1;
+			line["desp_tipo_nome"] = "";
+			line["desp_tipo_criado_em"] = DateTime.Now;
+			dtDespTipo.Rows.Add(line);
+
+			dtDespTipo.DefaultView.Sort = ("desp_tipo_nome");
+			cbbFiltroTipo.DataSource = dtDespTipo;
 			cbbFiltroTipo.DisplayMember = "desp_tipo_nome";
 			cbbFiltroTipo.ValueMember = "desp_tipo_id";
 			cbbFiltroTipo.SelectedIndex = -1;
@@ -66,6 +79,7 @@ namespace sisVendas.Telas.Caixa
 			cbbTipoPagamento.SelectedIndex = -1;
 
 			dtpData.Value =
+			dtpVencimento.Value =
 			dtpPagamento.Value = DateTime.Now;
 		}
 		public void neutralForm()
@@ -76,6 +90,8 @@ namespace sisVendas.Telas.Caixa
 			tbValor.Enabled =
 			dtpData.Enabled =
 			cbbTipoPagamento.Enabled =
+			lblDataPagamento.Visible =
+			dtpPagamento.Visible = 
 			cbbTiposDespesas.Enabled = false;
 
 			btnNew.Enabled = true;
@@ -93,6 +109,7 @@ namespace sisVendas.Telas.Caixa
 			lblTipo.ForeColor =
 			lblValor.ForeColor =
 			lblFormaPagamento.ForeColor =
+			lblTipo.ForeColor =
 			lblValorFinal.ForeColor = Color.Black;
 
 		}
@@ -114,7 +131,7 @@ namespace sisVendas.Telas.Caixa
 			dtpData.Enabled =
 			btnCancel.Enabled = true;
 
-			cbbTiposDespesas.SelectedIndex = 0;
+			//cbbTiposDespesas.SelectedIndex = 0;
 			cbbTipoPagamento.SelectedIndex = 0;
 
 			lblValorFinal.Text = "R$ 0,00";
@@ -170,19 +187,10 @@ namespace sisVendas.Telas.Caixa
 				Function.Alert("Alerta!", "Valor total deve ser maior que zero.", popupClient.enmType.Info);
 			}
 
-			if (cbbTipoPagamento.SelectedIndex != -1)
-			{
-				if (cbbTipoPagamento.SelectedIndex != 3) // a pagar
-				{
-					dtpPagamento.Value = DateTime.Now;
-					status = "PAGO";
-				}
-            }
-            else // -1
+			if(cbbTiposDespesas.SelectedIndex == -1)
             {
 				isOk = false;
-				lblFormaPagamento.ForeColor = Color.Red;
-
+				lblTipo.ForeColor = Color.Red;
 			}
 
 			if (isOk)
@@ -195,10 +203,9 @@ namespace sisVendas.Telas.Caixa
 					int.Parse(cbbTiposDespesas.SelectedValue.ToString()),
 					caixaid,
 					desconto,
-					dtpData.Value,
+					dtpData.Value.Date,
 					cbbTipoPagamento.Text,
-					dtpPagamento.Value,
-					status
+					dtpVencimento.Value.Date
 					))
 				{
 
@@ -315,9 +322,8 @@ namespace sisVendas.Telas.Caixa
 			cbbTiposDespesas.SelectedValue = desp.IdTipo;
 			
 			tbValor.Text = desp.Valor.ToString("C");
-			dtpData.Value = desp.DataReferencia;
+			dtpData.Value = DateTime.Parse(desp.DataReferencia.ToString());
 			tbDesconto.Text = desp.Desconto.ToString("C");
-
 			dtpData.Enabled =
 			cbbTiposDespesas.Enabled =
 			tbValor.Enabled =
@@ -326,9 +332,23 @@ namespace sisVendas.Telas.Caixa
 			btnRemove.Enabled =
 			cbbTipoPagamento.Enabled =
 			btnSave.Enabled = (desp.IdCaixa == caixaid);
+
 			lblValorFinal.Text = (desp.Valor - desp.Desconto).ToString("C");
 			cbbTipoPagamento.Text = desp.Forma_pagamento;
-			dtpPagamento.Value = desp.DataPagamento;
+			dtpVencimento.Value = DateTime.Parse(desp.DataVencimento.ToString());
+
+			if (desp.DataPagamento == null)
+            {
+				lblDataPagamento.Visible = 
+				dtpPagamento.Visible = false;
+
+			}
+            else
+            {
+				lblDataPagamento.Visible =
+				dtpPagamento.Visible = true;
+				dtpPagamento.Value = DateTime.Parse(desp.DataPagamento.ToString());
+			}
 		}
 		private void dgv_despesa_DoubleClick(object sender, EventArgs e)
         {
@@ -337,46 +357,68 @@ namespace sisVendas.Telas.Caixa
 			{
 				activeForm();
 				DataGridViewCellCollection linha = dgv_despesa.Rows[dgv_despesa.CurrentRow.Index].Cells;
-
+				 
 				Despesa desp = new Despesa();
-				
+
+				/*
+				MessageBox.Show(linha[0].Value.ToString()); // idDesp
+				MessageBox.Show(linha[1].Value.ToString()); // Descri
+				MessageBox.Show(linha[2].Value.ToString()); // idTipo
+				MessageBox.Show(linha[3].Value.ToString()); // idCaixa
+				MessageBox.Show(linha[4].Value.ToString()); // dtPagamento
+				MessageBox.Show(linha[5].Value.ToString()); // valor
+				MessageBox.Show(linha[6].Value.ToString()); // data ref
+				MessageBox.Show(linha[7].Value.ToString()); // desconto
+				MessageBox.Show(linha[8].Value.ToString()); //forma pagamento
+				MessageBox.Show(linha[9].Value.ToString()); // dataVencimento
+				MessageBox.Show(linha[10].Value.ToString()); // nome Tipo
+				*/				
+
 				desp.Id = int.Parse(linha[0].Value.ToString());
 				desp.Descricao = linha[1].Value.ToString();
 				desp.IdTipo= Convert.ToInt32(linha[2].Value);
 				desp.IdCaixa = int.Parse(linha[3].Value.ToString()); // idcaixa
-				desp.DataPagamento = DateTime.Parse(linha[4].Value.ToString());
 				double.TryParse(linha[5].Value.ToString(), out double valor);
-				
 				desp.DataReferencia = DateTime.Parse(linha[6].Value.ToString());
 				double.TryParse(linha[7].Value.ToString(), out double desconto);
 				desp.Desconto = desconto;
 				desp.Valor = valor + desconto;
-				desp.Forma_pagamento= linha[8].Value.ToString();
-				desp.Status = linha[9].Value.ToString();
+				desp.Forma_pagamento = linha[8].Value.ToString();
+				desp.DataVencimento = DateTime.Parse(linha[9].Value.ToString());
 
+				if (DateTime.TryParse(linha[4].Value.ToString(), out DateTime dtPagamento))
+                {
+
+					desp.DataPagamento = dtPagamento;
+                }
+                else
+                {
+					
+					desp.DataPagamento = null;
+				}
+					
 				fillForm(desp);
 			}
 		}
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+		private string getFiltro()
         {
-			
 			string filtro = "";
 
 			if (cbbFiltroEmAberto.Checked)
 			{
-				filtro = "desp_status = 'DEVE'";
+				filtro = "desp_dataPagamento is null";
 			}
 			if (cbbFiltroPago.Checked)
 			{
 				if (filtro != "")
 				{
 					filtro = "(" + filtro + " OR ";
-					filtro = filtro + "desp_status = 'PAGO')";
+					filtro = filtro + "desp_dataPagamento is not null)";
 				}
 				else
 				{
-					filtro = filtro + "desp_status = 'PAGO'";
+					filtro = filtro + "desp_dataPagamento is not null";
 				}
 			}
 
@@ -384,8 +426,8 @@ namespace sisVendas.Telas.Caixa
 			{
 				if (filtro != "")
 					filtro = filtro + " AND ";
-				filtro = "desp_idCaixa = "+caixaid;
-				
+				filtro = filtro + "desp_idCaixa = " + caixaid;
+
 			}
 
 			if (tbDescFiltro.Text.Length > 0)
@@ -395,15 +437,15 @@ namespace sisVendas.Telas.Caixa
 				filtro = filtro + "desp_descricao like '%" + tbDescFiltro.Text + "%'";
 			}
 
-			if (cbbFiltroTipo.SelectedIndex != -1)
+			if (cbbFiltroTipo.SelectedIndex.ToString() != "0")
 			{
 				if (filtro != "")
 					filtro = filtro + " AND ";
 				filtro = filtro + "desp_idTipo = " + cbbFiltroTipo.SelectedValue;
 			}
 
-            if (cbPesquisarPorPeriodo.Checked)
-            {
+			if (cbPesquisarPorPeriodo.Checked)
+			{
 				if (dtpInicio.Value.Date <= dtpFim.Value.Date)
 				{
 					if (filtro != "")
@@ -415,27 +457,37 @@ namespace sisVendas.Telas.Caixa
 					Function.Alert("Alerta!", "Data final maior que data inicial", popupClient.enmType.Warning);
 				}
 			}
-			
-
-
-			updateDgv(filtro);
-			cbbFiltroTipo.SelectedIndex = -1;
+			return filtro;
+		}
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+			updateDgv(getFiltro());
+			//cbbFiltroTipo.SelectedIndex = -1;
 		}
 
         private void cbbTipoPagamento_SelectedIndexChanged(object sender, EventArgs e)
         {
-			if(cbbTipoPagamento.SelectedIndex == 3)
+			/*if(cbbTipoPagamento.SelectedIndex == 3)
             {
-				dtpPagamento.Enabled = true;
-				lblPagamentoReferencia.Text = "Data de Vencimento";
+				dtpPagamento.Enabled = false;
             }
             else
             {
 				dtpPagamento.Enabled = false;
-				lblPagamentoReferencia.Text = "Data de Pagamento";
 				dtpPagamento.Value = DateTime.Now;
-			}
+			}*/
 
+		}
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+			DataTable dtDespesas = controlDespesa.buscarParaRelatorio(getFiltro());
+			//select prod_nome as Nome, prod_estoque as Estoque, prod_un as Unidade, prod_valor as Valor from Produto order by Nome
+			if (dtDespesas.Rows.Count > 0) // se existir pessoas
+			{
+				float[] largurasColunas = { 1f, 1f, 1f, 1f, 1f, 1f};
+				Relatorios.gerarRelatorio($"RelatórioSisVendas.Despesas.pdf", "Despesas Cadastradas!", dtDespesas, largurasColunas);
+			}
 		}
     }
 }

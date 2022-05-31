@@ -26,6 +26,7 @@ namespace sisVendas.Telas.Compra
             dgvParcelas.DataSource = dttParcelas;
             dtpData.Value = DateTime.Now;
             cbbTipo.SelectedIndex = 0;
+            dgvParcelas.Columns["valor"].DefaultCellStyle.Format = "C";
         }
         public FormParcelasCompra(double total, DataTable dttParcelas, bool ativo) : this()
         {

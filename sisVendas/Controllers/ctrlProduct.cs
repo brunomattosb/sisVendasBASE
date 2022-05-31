@@ -85,6 +85,21 @@ namespace sisVendas.Controllers
 
             return (dtProduct);
         }
+        public DataTable buscarParaRelatorio()
+        {
+
+            DataTable dtProduct = new DataTable();
+
+          
+
+            dataBase.Conecta();
+            ProductDB prodDB = new ProductDB(dataBase);
+            dtProduct = prodDB.buscarParaRelatorio();
+           
+            dataBase.Desconecta();
+
+            return (dtProduct);
+        }
         public bool removerEstoque(string idProd, double estoque)
         {
 

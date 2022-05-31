@@ -1,16 +1,12 @@
 ﻿using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Models;
 using sisVendas.Notificacao;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Screens.Create
@@ -405,9 +401,9 @@ namespace sisVendas.Screens.Create
 					}
 				}
 				else
-					MessageBox.Show("Selecione o Cliente", "Atenção", MessageBoxButtons.OK);
+					MessageBox.Show("Selecione o Cliente", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }else
-				MessageBox.Show("A conta principal não pode ser excluida!", "Atenção", MessageBoxButtons.OK);
+				MessageBox.Show("A conta principal não pode ser excluida!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
 		}
@@ -543,6 +539,8 @@ namespace sisVendas.Screens.Create
 				tbBaseSalary.Text = "";
 			}
 		}
+
+		
     }
 
 }

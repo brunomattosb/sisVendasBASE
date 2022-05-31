@@ -49,51 +49,20 @@ namespace sisVendas.Controllers
             return (result);
         }
 
-        public DataTable buscarCaixa(int filter)
+        
+        public DataTable Buscar(string filter)
         {
 
-            DataTable dtCixa = new DataTable();
-
-            dtCixa.Columns.Add("caixa_id", typeof(int));
-            dtCixa.Columns.Add("caixa_idFunc", typeof(int));
-            dtCixa.Columns.Add("caixa_dtAbertura", typeof(DateTime));
-            dtCixa.Columns.Add("caixa_dtFechamento", typeof(DateTime));
-            dtCixa.Columns.Add("caixa_saldoAnterior", typeof(double));
-            dtCixa.Columns.Add("caixa_entradas", typeof(double));
-            dtCixa.Columns.Add("caixa_saidas", typeof(double));
-            dtCixa.Columns.Add("caixa_suprimento", typeof(double));
-            dtCixa.Columns.Add("caixa_sangria", typeof(double));
+            DataTable dt;
 
             dataBase.Conecta();
             CaixaDB caixaDB= new CaixaDB(dataBase);
 
-            foreach (Caixa caixa in caixaDB.searth(filter))
-            {
-                
-                DataRow line = dtCixa.NewRow();
+            dt = caixaDB.Buscar(filter);
 
-                line["caixa_id"] = caixa.Id;
-                line["caixa_idFunc"] = caixa.IdFunc;
-                line["caixa_dtAbertura"] = caixa.DtAbertura;
-                
-                if (caixa.Dtfechamento == null)
-                {
-                    line["caixa_dtFechamento"] = DBNull.Value;
-                }
-                else
-                {
-                    line["caixa_dtFechamento"] = caixa.Dtfechamento;
-                }
-                    
-                line["caixa_saldoAnterior"] = caixa.SaldoAnterior;
-                line["caixa_entradas"] = caixa.Entradas;
-                line["caixa_saidas"] = caixa.Saidas;
-
-                dtCixa.Rows.Add(line);
-            }
             dataBase.Desconecta();
 
-            return (dtCixa);
+            return (dt);
         }
         public Caixa buscarCaixaAberto(int idFunc)
         {

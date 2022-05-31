@@ -74,7 +74,32 @@ namespace sisVendas.Persistence
             return (produtos);
 
         }
-        
+        public DataTable buscarParaRelatorio()
+        {
+            DataTable dt = new DataTable();
+            List<object> produtos = new List<object>();
+
+
+            string SQL = @"select prod_nome as 'Nome', prod_estoque as 'Estoque', prod_un as 'UN', prod_valor as 'V. Venda',
+									 valor_base as 'V. Base' , valor_base * prod_estoque as 'Total Base'
+				from (	select ItenCompra.iten_idProduto,max (compra.compra_data) as 'Data' from ItenCompra
+					inner join Compra on compra.compra_id = ItenCompra.iten_idCompra
+					group by ItenCompra.iten_idProduto
+				) as tab_ultima_data
+				inner join (
+							select compra_data, iten_valor as valor_base, ItenCompra.iten_idProduto from ItenCompra
+								inner join Compra on Compra.compra_id = ItenCompra.iten_idCompra
+				) as tab_ultimo_valor on tab_ultimo_valor.compra_data = tab_ultima_data.Data AND tab_ultimo_valor.iten_idProduto = tab_ultima_data.iten_idProduto
+				inner join Produto on Produto.prod_id = tab_ultima_data.iten_idProduto";
+;
+
+            db.ExecuteQuery(SQL, out dt);
+
+            
+            return (dt);
+
+        }
+
         public Produto BuscarPorCod(string filtro)
         {
             DataTable dt = new DataTable();

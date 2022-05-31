@@ -22,7 +22,6 @@ namespace sisVendas.Telas
         public FormLogin()
         {
             InitializeComponent();
-
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -85,10 +84,10 @@ namespace sisVendas.Telas
         private void verificarSeExisteBanco()
         {
             //Desenvolvimento
-            if (!File.Exists(@"C:\Users\Bruno\Documents\sisVendas\sisVendas\DataBase\dbSis.mdf"))
+           //if (!File.Exists(@"C:\Users\Bruno\Documents\sisVendas\sisVendas\DataBase\dbSis.mdf"))
 
             //Producao
-            //if (!File.Exists(Directory.GetCurrentDirectory() + @"\DataBase\dbSis.mdf"))
+            if (!File.Exists(Directory.GetCurrentDirectory() + @"\DataBase\dbSis.mdf"))
             {
                 //Caso não exista
                 // criar um DB
@@ -103,9 +102,32 @@ namespace sisVendas.Telas
         private void FormLogin_Load(object sender, EventArgs e)
         {
             verificarSeExisteBanco();
-            
+
             funcAtual = controlFunc.BuscarPorUsuario("admin");
             Close();
         }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            string target = "https://www.instagram.com/automacoesbrasil/";
+
+            try
+            {
+                System.Diagnostics.Process.Start(target);
+            }
+            catch (System.ComponentModel.Win32Exception noBrowser)
+            {
+                if (noBrowser.ErrorCode == -2147467259)
+                    MessageBox.Show("Erro ao abrir o Instagram! "+noBrowser.Message);
+            }
+            catch (System.Exception other)
+            {
+                MessageBox.Show("Erro ao abrir o Instagram! " + other.Message);
+            }
+        }
+
+   
+
+        
     }
 }

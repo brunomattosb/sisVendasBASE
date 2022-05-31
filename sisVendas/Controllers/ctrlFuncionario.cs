@@ -99,6 +99,20 @@ namespace sisVendas.Controllers
             return func;
 
         }
+        public DataTable BuscarCpfNome()
+        {
+
+            DataTable dtFunc = new DataTable();
+
+            dataBase.Conecta();
+            FuncionarioDB empDB = new FuncionarioDB(dataBase);
+            dtFunc = empDB.BuscarCpfNome();
+            
+            dataBase.Desconecta();
+
+            return (dtFunc);
+
+        }
         public DataTable Buscar(string filter)
         {
 
@@ -162,7 +176,31 @@ namespace sisVendas.Controllers
 
             return (dtEmployee);
         }
-        
+        public DataTable BuscarParaComboBox()
+        {
+
+            DataTable dtEmployee = new DataTable();
+
+            dtEmployee.Columns.Add("func_id", typeof(int));
+            dtEmployee.Columns.Add("func_nome");
+
+            dataBase.Conecta();
+            FuncionarioDB empDB = new FuncionarioDB(dataBase);
+            foreach (Funcionario emp in empDB.BuscarParaComboBox())
+            {
+
+                DataRow line = dtEmployee.NewRow();
+
+                line["func_id"] = emp.Id;
+                line["func_nome"] = emp.Nome;
+
+                dtEmployee.Rows.Add(line);
+            }
+            dataBase.Desconecta();
+
+            return (dtEmployee);
+        }
+
         public bool Remover(string cod)
         {
             bool res = true;

@@ -18,7 +18,7 @@ namespace sisVendas.Controllers
 
         // DateTime created_at, char sex, double balance)
         public bool SalvarCliete(string id, string nome, string cpf_cnpj, string cep, string endereco, string bairro,
-            string email, string rg_ie, string telefone, string uf, string cidade, string nome_fantasia, DateTime dtMascimento,
+            string email, string rg_ie, string telefone, string uf, string cidade, string nome_fantasia, Nullable<DateTime> dtMascimento,
             char sexo, double saldo)
         {
 
@@ -56,7 +56,30 @@ namespace sisVendas.Controllers
 
             return (res);
         }
+        public bool adicionarSaldo(int idCliente, double valor)
+        {
+            bool res = false;
 
+            dataBase.Conecta();
+            ClientDB cli = new ClientDB(dataBase);
+
+            res = cli.adicionarSaldo(idCliente, valor);
+
+            dataBase.Desconecta();
+            return res;
+        }
+        public bool removerSaldo(int idCliente, double valor)
+        {
+            bool res = false;
+
+            dataBase.Conecta();
+            ClientDB cli = new ClientDB(dataBase);
+
+            res = cli.removerSaldo(idCliente, valor);
+
+            dataBase.Desconecta();
+            return res;
+        }
         public DataTable Buscar(string filtro)
         {
 
@@ -95,7 +118,6 @@ namespace sisVendas.Controllers
                 line["cli_rg_ie"] = cli.Rg_ie;
                 line["cli_telefone"] = cli.Telefone;
                 line["cli_cidade"] = cli.Cidade;
-                line["cli_dt_aniversario"] = cli.DtNascimento;
                 line["cli_created_at"] = cli.Criado_em;
                 line["cli_sexo"] = cli.Sexo;
                 line["cli_saldo"] = cli.Saldo;
@@ -103,8 +125,58 @@ namespace sisVendas.Controllers
                 line["cli_bairro"] = cli.Bairro;
                 line["cli_email"] = cli.Email;
 
+                if(cli.DtNascimento == null)
+                    line["cli_dt_aniversario"] = DBNull.Value;
+                else
+                    line["cli_dt_aniversario"] = cli.DtNascimento;
+
                 dtClient.Rows.Add(line);
             }
+            dataBase.Desconecta();
+
+            return (dtClient);
+        }
+        public DataTable buscarCpfNome()
+        {
+
+            
+
+
+            dataBase.Conecta();
+            ClientDB cliBDB = new ClientDB(dataBase);
+
+            DataTable dtClient = cliBDB.BuscarCpfNome();
+            /*if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    Cliente cli = new Cliente();
+
+
+                    cli.Id = Convert.ToInt32(dt.Rows[i]["cli_id"]);
+                    cli.Nome = dt.Rows[i]["cli_nome"].ToString();
+                    cli.Nome_fantasia = dt.Rows[i]["cli_nome_fansasia"].ToString();
+                    cli.Cpf_cnpj = dt.Rows[i]["cli_cpf_cnpj"].ToString();
+                    cli.Cep = dt.Rows[i]["cli_cep"].ToString();
+                    cli.Endereco = dt.Rows[i]["cli_endereco"].ToString();
+                    cli.Bairro = dt.Rows[i]["cli_bairro"].ToString();
+                    cli.Cidade = dt.Rows[i]["cli_cidade"].ToString();
+                    cli.Telefone = dt.Rows[i]["cli_telefone"].ToString();
+                    cli.Rg_ie = dt.Rows[i]["cli_rg_ie"].ToString();
+                    cli.Uf = dt.Rows[i]["cli_uf"].ToString();
+                    cli.Criado_em = Convert.ToDateTime(dt.Rows[i]["cli_created_at"].ToString());
+                    cli.Sexo = Convert.ToChar(dt.Rows[i]["cli_sexo"].ToString()[0]);
+                    cli.Saldo = Convert.ToDouble(dt.Rows[i]["cli_saldo"].ToString());
+                    cli.Email = dt.Rows[i]["cli_email"].ToString();
+
+                    if (!DateTime.TryParse(dt.Rows[i]["cli_dt_aniversario"].ToString(), out DateTime result))
+                        cli.DtNascimento = null;
+                    else
+                        cli.DtNascimento = result;
+
+                    clients.Add(cli);
+                }
+            }*/
             dataBase.Desconecta();
 
             return (dtClient);

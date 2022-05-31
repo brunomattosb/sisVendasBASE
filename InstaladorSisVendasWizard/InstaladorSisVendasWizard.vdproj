@@ -21,8 +21,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4C11D76E8E63475CA41DF4E9EF7788E1"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_24B27B8FE68E4A17D635603701A11973"
+        "OwnerKey" = "8:_E6CE2F101127D1C3BAE311A0625064C4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_24B27B8FE68E4A17D635603701A11973"
+        "OwnerKey" = "8:_10EB20DB0B9C43AFBBAB8B82A1AC53FD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -45,8 +51,26 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_E6CE2F101127D1C3BAE311A0625064C4"
+        "OwnerKey" = "8:_10EB20DB0B9C43AFBBAB8B82A1AC53FD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_10EB20DB0B9C43AFBBAB8B82A1AC53FD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E6CE2F101127D1C3BAE311A0625064C4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_24B27B8FE68E4A17D635603701A11973"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -150,12 +174,23 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4C11D76E8E63475CA41DF4E9EF7788E1"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_24B27B8FE68E4A17D635603701A11973"
             {
-            "SourcePath" = "8:..\\sisVendas\\dbSis.mdf"
-            "TargetName" = "8:dbSis.mdf"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_24B27B8FE68E4A17D635603701A11973"
+                    {
+                    "Name" = "8:BouncyCastle.Crypto.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:BouncyCastle.Crypto.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_5F4454450A464CCC89354755A1ED9888"
+            "Folder" = "8:_E44BA63B6B0D48E181E329A0416069C8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -167,7 +202,7 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_56976EB5E2DAD920B957E5BB4091A634"
@@ -241,6 +276,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E6CE2F101127D1C3BAE311A0625064C4"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:iTextSharp.LGPLv2.Core, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_E6CE2F101127D1C3BAE311A0625064C4"
+                    {
+                    "Name" = "8:iTextSharp.LGPLv2.Core.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:iTextSharp.LGPLv2.Core.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_E44BA63B6B0D48E181E329A0416069C8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -282,7 +348,7 @@
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_5F4454450A464CCC89354755A1ED9888"
                     {
                     "Name" = "8:DataBase"
-                    "AlwaysCreate" = "11:FALSE"
+                    "AlwaysCreate" = "11:TRUE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
                     "Property" = "8:_5C437C197B934D39B6320AC996A3EE99"
@@ -320,7 +386,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SisVendas"
         "ProductCode" = "8:{535B67AE-0245-488C-8B0C-CDD312099699}"
-        "PackageCode" = "8:{FC9FB609-95FA-4480-96CF-F9447AF0FBEE}"
+        "PackageCode" = "8:{C9349AFB-D021-46B4-8718-FEC884876352}"
         "UpgradeCode" = "8:{1B1ED506-AC93-4FBE-B920-3435253CAC2B}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -440,7 +506,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_EF4DFA5076D54DE79226D507059A6C10"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_010D8F5DAB1A4AE0B745E51540C38D7F"
             {
             "Name" = "8:SisVendas"
             "Arguments" = "8:"

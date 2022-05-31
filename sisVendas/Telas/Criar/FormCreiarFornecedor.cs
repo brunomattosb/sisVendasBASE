@@ -1,15 +1,12 @@
 ﻿using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Models;
 using sisVendas.Notificacao;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Screens.Create
@@ -280,7 +277,7 @@ namespace sisVendas.Screens.Create
 				}
 			}
 			else
-				MessageBox.Show("Selecione o Cliente", "Atenção", MessageBoxButtons.OK);
+				MessageBox.Show("Selecione o Cliente", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -372,5 +369,19 @@ namespace sisVendas.Screens.Create
         {
 			updateDgv(tbSearch.Text);
 		}
-    }
+
+        private void gerarPdf_Click(object sender, EventArgs e)
+        {
+			
+			
+			DataTable dtFornecedor = controlProvider.BuscarCpfNome();
+
+			if (dtFornecedor.Rows.Count > 0) // se existir pessoas
+			{
+				float[] largurasColunas = { 0.5f, 1.5f };
+				Relatorios.gerarRelatorio($"RelatórioSisVendas.Fornecedor.pdf", "Fornecedores Cadastrados!", dtFornecedor, largurasColunas);
+			}
+			
+		}
+	}
 }

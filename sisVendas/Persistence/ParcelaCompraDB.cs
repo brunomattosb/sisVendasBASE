@@ -26,16 +26,16 @@ namespace sisVendas.Persistence
 
                 string SQL;
 
-                SQL = @"INSERT INTO ParcelaCompra (parcela_idCompra, parcela_valor, parcela_status, parcela_tipo,parcela_dataPagamento,parcela_idcaixa)
-                        values (@parcela_idCompra, @parcela_valor, @parcela_status, @parcela_tipo,@parcela_dataPagamento,@parcela_idcaixa)";
+                SQL = @"INSERT INTO ParcelaCompra (parcela_idCompra, parcela_valor, parcela_tipo,parcela_dataPagamento,parcela_idcaixa, parcela_dataVencimento)
+                        values (@parcela_idCompra, @parcela_valor, @parcela_tipo,NULLIF (@parcela_dataPagamento, ''),@parcela_idcaixa, @parcela_dataVencimento)";
 
 
                 res = db.ExecuteNonQuery(SQL, "@parcela_idCompra", parcela.IdCompra,
                                                 "@parcela_valor", parcela.Valor,
-                                                "@parcela_status", parcela.Status,
                                                 "@parcela_idcaixa", parcela.IdCaixa,
                                                 "@parcela_tipo", parcela.Tipo_pagamento,
-                                                "@parcela_dataPagamento", parcela.DataPagamento);
+                                                "@parcela_dataPagamento", parcela.DataPagamento,
+                                                "@parcela_dataVencimento", parcela.DataVencimento);
 
 
 
@@ -48,8 +48,9 @@ namespace sisVendas.Persistence
             List<object> parcelas = new List<object>();
 
 
-            string SQL = @"select * from ParcelaCompra
-                                where parcela_idcaixa = @filtro AND parcela_status = 'PAGO'";
+            string SQL = @"select parcela_id, parcela_idCompra, parcela_valor, parcela_tipo, parcela_dataPagamento, parcela_dataVencimento, parcela_idcaixa, compra_cancelada from ParcelaCompra
+    inner join Compra on compra.compra_id = ParcelaCompra.parcela_idCompra
+    where parcela_idcaixa = @filtro AND parcela_dataPagamento is not null AND compra_cancelada = 0";
 
             db.ExecuteQuery(SQL, out dt, "@filtro", idCaixa);
 
@@ -61,7 +62,6 @@ namespace sisVendas.Persistence
                     parcela.Id = Convert.ToInt32(dt.Rows[i]["parcela_id"]);
                     parcela.IdCompra = Convert.ToInt32(dt.Rows[i]["parcela_idCompra"]);
                     parcela.Valor = Convert.ToDouble(dt.Rows[i]["parcela_valor"]);
-                    parcela.Status = dt.Rows[i]["parcela_status"].ToString();
                     parcela.Tipo_pagamento = Convert.ToChar(dt.Rows[i]["parcela_tipo"]);
                     parcela.DataPagamento = Convert.ToDateTime(dt.Rows[i]["parcela_dataPagamento"].ToString());
                     parcela.IdCaixa = Convert.ToInt32(dt.Rows[i]["parcela_idcaixa"]);
@@ -77,7 +77,7 @@ namespace sisVendas.Persistence
         {
 
             bool res = false;
-            string SQL = @"UPDATE ParcelaCompra SET parcela_status = 'DEVE', parcela_tipo = 'F'
+            string SQL = @"UPDATE ParcelaCompra SET parcela_dataPagamento = null, parcela_tipo = 'F'
                         WHERE parcela_id = @parcela_id";
 
             res = db.ExecuteNonQuery(SQL, "@parcela_id", idParcela);
@@ -103,11 +103,19 @@ namespace sisVendas.Persistence
                     parcela.Id = Convert.ToInt32(dt.Rows[i]["parcela_id"]);
                     parcela.IdCompra = Convert.ToInt32(dt.Rows[i]["parcela_idCompra"]);
                     parcela.Valor = Convert.ToDouble(dt.Rows[i]["parcela_valor"]);
-                    parcela.Status = dt.Rows[i]["parcela_status"].ToString();
                     parcela.Tipo_pagamento = Convert.ToChar(dt.Rows[i]["parcela_tipo"]);
-                    parcela.DataPagamento = Convert.ToDateTime(dt.Rows[i]["parcela_dataPagamento"].ToString());
+                    
+                    parcela.DataVencimento = Convert.ToDateTime(dt.Rows[i]["parcela_dataVencimento"].ToString());
                     parcela.IdCaixa = Convert.ToInt32(dt.Rows[i]["parcela_idcaixa"]);
 
+                    if (DateTime.TryParse(dt.Rows[i]["parcela_dataPagamento"].ToString(), out DateTime dtPagamento))
+                    {
+                        parcela.DataPagamento = dtPagamento;
+                    }
+                    else
+                    {
+                        parcela.DataPagamento = null;
+                    }
 
                     parcelas.Add(parcela);
                 }
@@ -115,17 +123,20 @@ namespace sisVendas.Persistence
             return (parcelas);
 
         }
-        public List<object> buscar(string filtro)
+        public List<object> BuscarParcelasAPagar(string filtro)
         {
             DataTable dt = new DataTable();
             List<object> parcelas = new List<object>();
 
 
-            string SQL = @"select compra_data, parcela_id, parcela_idCompra,parcela_valor,parcela_status,parcela_tipo,parcela_dataPagamento,parcela_idcaixa from ParcelaCompra left join Compra on Compra.compra_id = ParcelaCompra.parcela_idCompra";
+            string SQL = @"select parcela_id, parcela_idCompra,parcela_valor,parcela_tipo,parcela_dataPagamento,parcela_dataVencimento,parcela_idcaixa, compra.compra_cancelada
+                                                                                                                from ParcelaCompra
+    inner join Compra on compra.compra_id = ParcelaCompra.parcela_idCompra
+        where compra.compra_cancelada = 0";
 
             if (filtro != "")
             {
-                SQL = SQL  + " where "+ filtro;
+                SQL = SQL  + " AND "+ filtro;
             }
 
             db.ExecuteQuery(SQL, out dt);
@@ -138,11 +149,19 @@ namespace sisVendas.Persistence
                     parcela.Id = Convert.ToInt32(dt.Rows[i]["parcela_id"]);
                     parcela.IdCompra = Convert.ToInt32(dt.Rows[i]["parcela_idCompra"]);
                     parcela.Valor = Convert.ToDouble(dt.Rows[i]["parcela_valor"]);
-                    parcela.Status = dt.Rows[i]["parcela_status"].ToString();
                     parcela.Tipo_pagamento = Convert.ToChar(dt.Rows[i]["parcela_tipo"]);
-                    parcela.DataPagamento = Convert.ToDateTime(dt.Rows[i]["parcela_dataPagamento"].ToString());
                     parcela.IdCaixa = Convert.ToInt32(dt.Rows[i]["parcela_idcaixa"]);
-                    parcela.DataReferencia = Convert.ToDateTime(dt.Rows[i]["compra_data"].ToString());
+                    parcela.DataVencimento = Convert.ToDateTime(dt.Rows[i]["parcela_dataVencimento"].ToString());
+
+                    
+                    if(DateTime.TryParse(dt.Rows[i]["parcela_dataPagamento"].ToString(), out DateTime dtPagamento))
+                    {
+                        parcela.DataPagamento = dtPagamento;
+                    }
+                    else
+                    {
+                        parcela.DataPagamento = null;
+                    }
 
                     parcelas.Add(parcela);
                 }
@@ -150,12 +169,33 @@ namespace sisVendas.Persistence
             return (parcelas);
 
         }
+        public DataTable buscarParcelasAPagarParaRelatorio(string filtro)
+        {
+            DataTable dt = new DataTable();
+            List<object> parcelas = new List<object>();
+
+
+            string SQL = @"select compra.compra_criado_em as 'Referência', parcela_valor as 'Valor',parcela_dataPagamento as 'Dt Pagamento', parcela_dataVencimento as 'Dt Vencimento'
+                                                                                                                from ParcelaCompra
+    inner join Compra on compra.compra_id = ParcelaCompra.parcela_idCompra
+        where compra.compra_cancelada = 0";
+
+            if (filtro != "")
+            {
+                SQL = SQL + " AND " + filtro;
+            }
+
+            db.ExecuteQuery(SQL, out dt);
+
+           
+            return (dt);
+
+        }
         public bool quitarParcela(int idParcela, char tipoPagamento, int idCaixa)
         {
 
             bool res = false;
-            string SQL = @"UPDATE ParcelaCompra SET parcela_status = 'PAGO',
-                                                    parcela_tipo = @parcela_tipo,
+            string SQL = @"UPDATE ParcelaCompra SET parcela_tipo = @parcela_tipo,
                                                     parcela_dataPagamento = @parcela_dataPagamento,
                                                     parcela_idcaixa = @parcela_idcaixa
                         WHERE parcela_id = @parcela_id";

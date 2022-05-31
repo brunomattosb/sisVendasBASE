@@ -63,16 +63,6 @@ namespace sisVendas.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AG {
-            get {
-                object obj = ResourceManager.GetObject("AG", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap AGlogo {
             get {
                 object obj = ResourceManager.GetObject("AGlogo", resourceCulture);
@@ -86,16 +76,6 @@ namespace sisVendas.Properties {
         internal static System.Drawing.Bitmap cancelar {
             get {
                 object obj = ResourceManager.GetObject("cancelar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap cancelar1 {
-            get {
-                object obj = ResourceManager.GetObject("cancelar1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -126,6 +106,16 @@ namespace sisVendas.Properties {
         internal static System.Drawing.Bitmap success {
             get {
                 object obj = ResourceManager.GetObject("success", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap thumbnail_image1 {
+            get {
+                object obj = ResourceManager.GetObject("thumbnail_image1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

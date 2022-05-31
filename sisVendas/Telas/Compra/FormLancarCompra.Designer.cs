@@ -64,13 +64,12 @@
             this.PanelBotoes = new System.Windows.Forms.FlowLayoutPanel();
             this.btnPesquisarForn = new System.Windows.Forms.Button();
             this.btnPesquisarProd = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.btnCancelarCompra = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnFinalizar = new System.Windows.Forms.Button();
             this.botaoF12 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.btnCancelarCompra = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.lblSubtotal = new System.Windows.Forms.Label();
             this.lblTotal = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -88,9 +87,6 @@
             this.dgvProducts.AllowUserToDeleteRows = false;
             this.dgvProducts.AllowUserToResizeColumns = false;
             this.dgvProducts.AllowUserToResizeRows = false;
-            this.dgvProducts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProducts.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -467,7 +463,6 @@
             this.PanelBotoes.Controls.Add(this.button2);
             this.PanelBotoes.Controls.Add(this.btnFinalizar);
             this.PanelBotoes.Controls.Add(this.botaoF12);
-            this.PanelBotoes.Controls.Add(this.button5);
             this.PanelBotoes.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.PanelBotoes.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PanelBotoes.Location = new System.Drawing.Point(12, 746);
@@ -512,6 +507,63 @@
             this.btnPesquisarProd.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPesquisarProd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnPesquisarProd.UseVisualStyleBackColor = false;
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.Transparent;
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.ForeColor = System.Drawing.Color.Black;
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button4.Location = new System.Drawing.Point(236, 1);
+            this.button4.Margin = new System.Windows.Forms.Padding(1);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(233, 26);
+            this.button4.TabIndex = 27;
+            this.button4.TabStop = false;
+            this.button4.Text = "F4- Nova Compra";
+            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button4.UseVisualStyleBackColor = false;
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.Transparent;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.Black;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(236, 29);
+            this.button3.Margin = new System.Windows.Forms.Padding(1);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(233, 26);
+            this.button3.TabIndex = 24;
+            this.button3.TabStop = false;
+            this.button3.Text = "F5 - Buscar Compra";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // btnCancelarCompra
+            // 
+            this.btnCancelarCompra.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancelarCompra.FlatAppearance.BorderSize = 0;
+            this.btnCancelarCompra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelarCompra.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelarCompra.ForeColor = System.Drawing.Color.Black;
+            this.btnCancelarCompra.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancelarCompra.Location = new System.Drawing.Point(471, 1);
+            this.btnCancelarCompra.Margin = new System.Windows.Forms.Padding(1);
+            this.btnCancelarCompra.Name = "btnCancelarCompra";
+            this.btnCancelarCompra.Size = new System.Drawing.Size(233, 26);
+            this.btnCancelarCompra.TabIndex = 25;
+            this.btnCancelarCompra.TabStop = false;
+            this.btnCancelarCompra.Text = "F6 - Cancelar Compra";
+            this.btnCancelarCompra.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancelarCompra.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCancelarCompra.UseVisualStyleBackColor = false;
             // 
             // button2
             // 
@@ -570,82 +622,6 @@
             this.botaoF12.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.botaoF12.UseVisualStyleBackColor = false;
             // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.Black;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(236, 29);
-            this.button3.Margin = new System.Windows.Forms.Padding(1);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(233, 26);
-            this.button3.TabIndex = 24;
-            this.button3.TabStop = false;
-            this.button3.Text = "F5 - Buscar Compra";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // btnCancelarCompra
-            // 
-            this.btnCancelarCompra.BackColor = System.Drawing.Color.Transparent;
-            this.btnCancelarCompra.FlatAppearance.BorderSize = 0;
-            this.btnCancelarCompra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelarCompra.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelarCompra.ForeColor = System.Drawing.Color.Black;
-            this.btnCancelarCompra.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelarCompra.Location = new System.Drawing.Point(471, 1);
-            this.btnCancelarCompra.Margin = new System.Windows.Forms.Padding(1);
-            this.btnCancelarCompra.Name = "btnCancelarCompra";
-            this.btnCancelarCompra.Size = new System.Drawing.Size(233, 26);
-            this.btnCancelarCompra.TabIndex = 25;
-            this.btnCancelarCompra.TabStop = false;
-            this.btnCancelarCompra.Text = "F6 - Cancelar Compra";
-            this.btnCancelarCompra.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelarCompra.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCancelarCompra.UseVisualStyleBackColor = false;
-            // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.Black;
-            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(941, 1);
-            this.button5.Margin = new System.Windows.Forms.Padding(1);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(233, 26);
-            this.button5.TabIndex = 26;
-            this.button5.TabStop = false;
-            this.button5.Text = "-";
-            this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button5.UseVisualStyleBackColor = false;
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.Black;
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(236, 1);
-            this.button4.Margin = new System.Windows.Forms.Padding(1);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(233, 26);
-            this.button4.TabIndex = 27;
-            this.button4.TabStop = false;
-            this.button4.Text = "F4- Nova Compra";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button4.UseVisualStyleBackColor = false;
-            // 
             // lblSubtotal
             // 
             this.lblSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -692,12 +668,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1142, 815);
+            this.Controls.Add(this.gbNf);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.lblSubtotal);
             this.Controls.Add(this.PanelBotoes);
-            this.Controls.Add(this.gbNf);
             this.Controls.Add(this.lblFornecedor);
             this.Controls.Add(this.dgvProducts);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -751,7 +727,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnCancelarCompra;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.DateTimePicker dtpDtCompra;
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Label label11;

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.dgv_client = new System.Windows.Forms.DataGridView();
+            this.tbSearth = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.cli_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_rg_ie = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_email = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,8 +47,6 @@
             this.cli_sexo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_saldo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_created_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbSearth = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_client)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,15 +75,40 @@
             this.cli_sexo,
             this.cli_saldo,
             this.cli_created_at});
-            this.dgv_client.Location = new System.Drawing.Point(12, 69);
+            this.dgv_client.Location = new System.Drawing.Point(15, 83);
+            this.dgv_client.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.dgv_client.MultiSelect = false;
             this.dgv_client.Name = "dgv_client";
             this.dgv_client.ReadOnly = true;
             this.dgv_client.RowHeadersVisible = false;
             this.dgv_client.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_client.Size = new System.Drawing.Size(776, 479);
+            this.dgv_client.Size = new System.Drawing.Size(948, 375);
             this.dgv_client.TabIndex = 3;
             this.dgv_client.DoubleClick += new System.EventHandler(this.dgv_client_DoubleClick);
+            // 
+            // tbSearth
+            // 
+            this.tbSearth.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbSearth.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSearth.Location = new System.Drawing.Point(15, 40);
+            this.tbSearth.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tbSearth.Name = "tbSearth";
+            this.tbSearth.Size = new System.Drawing.Size(948, 31);
+            this.tbSearth.TabIndex = 1;
+            this.tbSearth.TextChanged += new System.EventHandler(this.tbSearth_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(15, 9);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(66, 25);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Filtro:";
             // 
             // cli_nome
             // 
@@ -206,11 +231,11 @@
             // 
             this.cli_saldo.DataPropertyName = "cli_saldo";
             this.cli_saldo.HeaderText = "Saldo";
-            this.cli_saldo.MinimumWidth = 75;
+            this.cli_saldo.MinimumWidth = 150;
             this.cli_saldo.Name = "cli_saldo";
             this.cli_saldo.ReadOnly = true;
             this.cli_saldo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.cli_saldo.Width = 75;
+            this.cli_saldo.Width = 150;
             // 
             // cli_created_at
             // 
@@ -220,38 +245,20 @@
             this.cli_created_at.Name = "cli_created_at";
             this.cli_created_at.ReadOnly = true;
             this.cli_created_at.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // tbSearth
-            // 
-            this.tbSearth.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbSearth.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbSearth.Location = new System.Drawing.Point(12, 39);
-            this.tbSearth.Name = "tbSearth";
-            this.tbSearth.Size = new System.Drawing.Size(391, 24);
-            this.tbSearth.TabIndex = 1;
-            this.tbSearth.TextChanged += new System.EventHandler(this.tbSearth_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 18);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Filtro:";
+            this.cli_created_at.Visible = false;
             // 
             // FormBuscarCliente
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 560);
+            this.ClientSize = new System.Drawing.Size(978, 473);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbSearth);
             this.Controls.Add(this.dgv_client);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "FormBuscarCliente";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Buscar Cliente";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_client)).EndInit();
             this.ResumeLayout(false);

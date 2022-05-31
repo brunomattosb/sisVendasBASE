@@ -1,10 +1,14 @@
-﻿using sisVendas.Controllers;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Models;
 using sisVendas.Notificacao;
 using System;
 using System.Data;
-using System.Globalization;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -135,7 +139,7 @@ namespace sisVendas.Screens.Create
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             bool isOk = true;
-
+            Nullable<DateTime> dtNascimento;
             /*
             DateTime dateValue = new DateTime();
              if (Function.replaceAll(mtbDtNasc.Text).Length > 0) //caso tenha dado
@@ -169,7 +173,11 @@ namespace sisVendas.Screens.Create
             }
             if (!cbDtNascimento.Checked)
             {
-                dtpDtNascimento.Text = "01/01/1900";
+                dtNascimento = null;
+            }
+            else
+            {
+                dtNascimento = dtpDtNascimento.Value;
             }
 
             if (isOk)
@@ -187,7 +195,7 @@ namespace sisVendas.Screens.Create
                     cbbEstado.SelectedItem.ToString(),
                     tbCity.Text,
                     tbFantasyName.Text,
-                    dtpDtNascimento.Value,
+                    dtNascimento,
                     Convert.ToChar(cbbSex.SelectedItem.ToString()),
                     Convert.ToDouble(tbSaldo.Text.Replace("R$ ", ""))
                     ))
@@ -245,7 +253,7 @@ namespace sisVendas.Screens.Create
                 }
             }
             else
-                MessageBox.Show("Selecione o Cliente", "Atenção", MessageBoxButtons.OK);
+                MessageBox.Show("Selecione o Cliente", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public void changeCpfCnpj(int qtde)
@@ -344,22 +352,26 @@ namespace sisVendas.Screens.Create
             tbRg.Text = cli.Rg_ie;
             mtbTelephone.Text = cli.Telefone;
             tbCity.Text = cli.Cidade;
-            dtpDtNascimento.Value = cli.DtNascimento;
             cbbSex.Text = cli.Sexo+"";
             cbbEstado.Text = cli.Uf;
             tbDistrict.Text = cli.Bairro;
             tbSaldo.Text = cli.Saldo.ToString("C");
 
-            if(cli.DtNascimento.Date.CompareTo(DateTime.Parse("01/01/1900")) == 0) // não tem
+            
+            if (!DateTime.TryParse(cli.DtNascimento.ToString(), out DateTime result))
             {
+                // é null
+                dtpDtNascimento.Value = DateTimePicker.MinimumDateTime;
                 cbDtNascimento.Checked =
                 dtpDtNascimento.Enabled = false;
             }
             else
             {
+                dtpDtNascimento.Value = result;
                 cbDtNascimento.Checked =
                 dtpDtNascimento.Enabled = true;
             }
+
             btnRemove.Enabled = true;
             mtbCpf.Enabled = false;
 
@@ -387,11 +399,15 @@ namespace sisVendas.Screens.Create
                 cli.Bairro = (linha[15].Value.ToString());
                 cli.Uf = (linha[14].Value.ToString());
                 cli.Cidade = linha[9].Value.ToString();
-                cli.DtNascimento = DateTime.Parse(linha[10].Value.ToString());
                 cli.Sexo = char.Parse(linha[12].Value.ToString());
                 cli.Saldo = Double.Parse(linha[13].Value.ToString());
 
-                
+
+                if (!DateTime.TryParse(linha[10].Value.ToString(), out DateTime result))
+                    cli.DtNascimento = null;
+                else
+                    cli.DtNascimento = result;
+
 
                 fillForm(cli);
 
@@ -433,6 +449,18 @@ namespace sisVendas.Screens.Create
             else
             {
                 dtpDtNascimento.Enabled = false;
+            }
+        }
+
+        private void gerarPdf_Click(object sender, EventArgs e)
+        {
+            
+            DataTable dtClientes = controlCliente.buscarCpfNome();
+
+            if (dtClientes.Rows.Count > 0) // se existir pessoas
+            {
+                float[] largurasColunas = { 0.5f, 1.5f };
+                Relatorios.gerarRelatorio($"RelatórioSisVendas.Clientes.pdf", "Clientes Cadastrados!", dtClientes, largurasColunas);
             }
         }
     }

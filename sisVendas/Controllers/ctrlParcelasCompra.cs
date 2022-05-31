@@ -17,14 +17,14 @@ namespace sisVendas.Controllers
         private ParcelaCompra parcelaSelecionada = new ParcelaCompra();
 
 
-        public bool SalvarParcela(int id_compra, double valor, string tipo, DateTime data, int idCaixa)
+        public bool SalvarParcela(int id_compra, double valor, string tipo, DateTime dataVencimento, int idCaixa)
         {
 
             parcelaSelecionada.IdCompra = id_compra;
             parcelaSelecionada.Valor = valor;
-            parcelaSelecionada.DataPagamento = data;
             parcelaSelecionada.IdCaixa = idCaixa;
-            parcelaSelecionada.Status = "PAGO";
+            parcelaSelecionada.DataPagamento = DateTime.Now;
+            parcelaSelecionada.DataVencimento = dataVencimento;
 
             if (tipo == "Dinheiro")
             {
@@ -42,7 +42,7 @@ namespace sisVendas.Controllers
             else
             {
                 parcelaSelecionada.Tipo_pagamento = 'F';
-                parcelaSelecionada.Status = "DEVE";
+                parcelaSelecionada.DataPagamento = null;
             }
 
             dataBase.Conecta();
@@ -77,7 +77,6 @@ namespace sisVendas.Controllers
             dtParcelas.Columns.Add("idCaixa", typeof(int));
             dtParcelas.Columns.Add("idCompra", typeof(int));
             dtParcelas.Columns.Add("valor", typeof(double));
-            dtParcelas.Columns.Add("status");
             dtParcelas.Columns.Add("tipo");
             dtParcelas.Columns.Add("data", typeof(DateTime));
 
@@ -90,7 +89,6 @@ namespace sisVendas.Controllers
                 line["id"] = parcela.Id;
                 line["idCompra"] = parcela.IdCompra;
                 line["valor"] = parcela.Valor;
-                line["status"] = parcela.Status;
                 line["data"] = parcela.DataPagamento;
                 line["tipo"] = parcela.Tipo_pagamento;
                 line["idCaixa"] = parcela.IdCaixa;
@@ -138,83 +136,21 @@ namespace sisVendas.Controllers
             dataBase.Desconecta();
             return (result);
         }
-        /*
-        
-        public bool onerarParcela(int idParcela)
+        public DataTable buscarParaRelatorio(string filtro)
         {
 
+
             dataBase.Conecta();
-            bool result = false;
-            ParcelaVendaDB parcelaVenda = new ParcelaVendaDB(dataBase);
 
-            result = parcelaVenda.onerarParcela(idParcela);
+            // buscar Parcelas Compras
+            ParcelaCompraDB parcDB = new ParcelaCompraDB(dataBase);
 
+            DataTable dtExpense = parcDB.buscarParcelasAPagarParaRelatorio(filtro);
+            
             dataBase.Desconecta();
 
-            return (result);
+            return (dtExpense);
         }
-        
-        public DataTable buscarParcelasEmAberto(string filtro)
-        {
-
-            DataTable dtParcelas = new DataTable();
-
-            dataBase.Conecta();
-            ParcelaVendaDB parcelaDB = new ParcelaVendaDB(dataBase);
-            dtParcelas = parcelaDB.buscarParcelasEmAberto(filtro);
-
-            dataBase.Desconecta();
-
-            return (dtParcelas);
-        }
-        
-        public DataTable buscarParcelasPorIdCaixa(int idCaixa)
-        {
-
-            DataTable dtParcelas = new DataTable();
-
-            dtParcelas.Columns.Add("id", typeof(int));
-            dtParcelas.Columns.Add("idCaixa", typeof(int));
-            dtParcelas.Columns.Add("idVenda", typeof(int));
-            dtParcelas.Columns.Add("valor", typeof(double));
-            dtParcelas.Columns.Add("status");
-            dtParcelas.Columns.Add("tipo");
-            dtParcelas.Columns.Add("data", typeof(DateTime));
-
-            dataBase.Conecta();
-            ParcelaVendaDB parcelaDB = new ParcelaVendaDB(dataBase);
-            foreach (ParcelaVenda parcela in parcelaDB.buscarParcelasPorIdCaixa(idCaixa))
-            {
-
-                DataRow line = dtParcelas.NewRow();
-                line["id"] = parcela.Id;
-                line["idVenda"] = parcela.Cod_venda;
-                line["valor"] = parcela.Valor;
-                line["status"] = parcela.Status;
-                line["tipo"] = parcela.Tipo_pagamento;
-                line["data"] = parcela.Data;
-                line["idCaixa"] = parcela.IdCaixa;
-
-                dtParcelas.Rows.Add(line);
-            }
-            dataBase.Desconecta();
-
-            return (dtParcelas);
-        }
-
-
-
-
-        public bool removerParcelas(int cod)
-        {
-            bool res = true;
-            dataBase.Conecta();
-            ParcelaVendaDB db = new ParcelaVendaDB(dataBase);
-            res = db.removerParcelas(cod);
-            dataBase.Desconecta();
-            return res;
-        }*/
-
         public DataTable buscarParcelasAPagar(string filtro)
         {
 
@@ -222,8 +158,7 @@ namespace sisVendas.Controllers
 
             dtExpense.Columns.Add("id", typeof(int));
             dtExpense.Columns.Add("dtPagamento", typeof(DateTime));
-            dtExpense.Columns.Add("dtDespesa", typeof(DateTime));
-            dtExpense.Columns.Add("status"); // "DEVE" "PAGO"
+            dtExpense.Columns.Add("dtVencimento", typeof(DateTime));
             dtExpense.Columns.Add("formaPagamento"); // "M/D/C/F"
             dtExpense.Columns.Add("caixaId", typeof(int));
             dtExpense.Columns.Add("valor", typeof(double));
@@ -231,11 +166,11 @@ namespace sisVendas.Controllers
             dtExpense.Columns.Add("descricao");
 
             dataBase.Conecta();
-           
+
             // buscar Parcelas Compras
             ParcelaCompraDB parcDB = new ParcelaCompraDB(dataBase);
 
-            foreach (ParcelaCompra parc in parcDB.buscar(filtro))
+            foreach (ParcelaCompra parc in parcDB.BuscarParcelasAPagar(filtro))
             {
 
                 DataRow line = dtExpense.NewRow();
@@ -262,9 +197,16 @@ namespace sisVendas.Controllers
                 line["descricao"] = "Compra realizada";
                 line["idVenda"] = parc.IdCompra;
                 line["caixaId"] = parc.IdCaixa;
-                line["dtDespesa"] = parc.DataReferencia;
-                line["dtPagamento"] = parc.DataPagamento;
-                line["status"] = parc.Status;
+                line["dtVencimento"] = parc.DataVencimento;
+
+                if (parc.DataPagamento == null)
+                {
+                    line["dtPagamento"] = DBNull.Value;
+                }
+                else
+                {
+                    line["dtPagamento"] = parc.DataPagamento;
+                }
 
                 dtExpense.Rows.Add(line);
             }
@@ -281,9 +223,9 @@ namespace sisVendas.Controllers
             dtParcelas.Columns.Add("idCaixa", typeof(int));
             dtParcelas.Columns.Add("idCompra", typeof(int));
             dtParcelas.Columns.Add("valor", typeof(double));
-            dtParcelas.Columns.Add("status");
             dtParcelas.Columns.Add("tipo_pagamento");
             dtParcelas.Columns.Add("dataPagamento", typeof(DateTime));
+            dtParcelas.Columns.Add("dataVencimento", typeof(DateTime));
 
             dataBase.Conecta();
             ParcelaCompraDB parcelaDB = new ParcelaCompraDB(dataBase);
@@ -294,8 +236,17 @@ namespace sisVendas.Controllers
                 line["id"] = parcela.Id;
                 line["idCompra"] = parcela.IdCompra;
                 line["valor"] = parcela.Valor;
-                line["status"] = parcela.Status;
-                line["dataPagamento"] = parcela.DataPagamento;
+                if(parcela.DataPagamento == null)
+                {
+                    line["dataPagamento"] = DBNull.Value;
+                }
+                else {
+                    line["dataPagamento"] = parcela.DataPagamento; 
+                }
+                line["dataVencimento"] = parcela.DataVencimento;
+                
+                
+                
                 line["idCaixa"] = parcela.IdCaixa;
                 
                 char tipo = parcela.Tipo_pagamento;

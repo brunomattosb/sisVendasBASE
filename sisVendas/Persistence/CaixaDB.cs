@@ -1,11 +1,6 @@
 ﻿using sisVendas.Models;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace sisVendas.Persistence
 {
@@ -26,7 +21,6 @@ namespace sisVendas.Persistence
                 Caixa caixa = (Caixa)Objeto;
 
                 string SQL;
-                MessageBox.Show(caixa.SaldoAnterior + "Saldo Ante");
                 SQL = @"INSERT INTO Caixa (caixa_idFunc, caixa_saldoAnterior, caixa_dtFechamento)
                         values (@caixa_idFunc, @caixa_saldoAnterior, null)";
 
@@ -36,7 +30,6 @@ namespace sisVendas.Persistence
 
             }
 
-            MessageBox.Show(res + "res");
             return (res);
         }
         public bool GravarFecharCaixa(object Objeto)
@@ -52,55 +45,33 @@ namespace sisVendas.Persistence
                 SQL = @"UPDATE Caixa set caixa_dtFechamento = @caixa_dtFechamento, caixa_entradas = @caixa_entradas, caixa_saidas = @caixa_saidas
                         where caixa_id = @caixa_id";
 
-                MessageBox.Show(caixa.Id+"-"+caixa.Saidas);
-
                 res = db.ExecuteNonQuery(SQL, "@caixa_dtFechamento", DateTime.Now,
                                                 "@caixa_entradas", caixa.Entradas,
                                                 "@caixa_saidas", caixa.Saidas,
                                                 "@caixa_id", caixa.Id);
 
             }
-            MessageBox.Show(res + "");
             return (res);
-        }
+        } 
         
-        public List<object> searth(int filtro)
+        public DataTable Buscar(string filtro)
         {
             DataTable dt = new DataTable();
-            List<object> clients = new List<object>();
 
-            string SQL = @"SELECT * FROM caixa WHERE caixa_idFunc = @filtro";
+            string SQL = @"SELECT caixa_id, caixa_idFunc,caixa_dtAbertura, caixa_dtFechamento, caixa_saldoAnterior, caixa_entradas, caixa_saidas, func_nome FROM caixa
+            inner join Funcionario on Funcionario.func_id = caixa.caixa_idFunc";
 
-            db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
-
-            if (dt.Rows.Count > 0)
+            if(filtro != "")
             {
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    Caixa caixa = new Caixa();
-
-                    if (DateTime.TryParse(dt.Rows[i]["caixa_dtFechamento"].ToString(), out DateTime dtFechamento))
-                    {
-                        caixa.Dtfechamento = dtFechamento;
-                    }
-                    else
-                    {
-                        caixa.Dtfechamento = null;
-                    }
-
-                    caixa.Id = Convert.ToInt32(dt.Rows[i]["caixa_id"]);
-                    caixa.IdFunc = Convert.ToInt32(dt.Rows[i]["caixa_idFunc"]);
-                    caixa.DtAbertura = Convert.ToDateTime(dt.Rows[i]["caixa_dtAbertura"].ToString());
-                    caixa.SaldoAnterior = Convert.ToDouble(dt.Rows[i]["caixa_saldoAnterior"].ToString());
-                    caixa.Entradas = Convert.ToDouble(dt.Rows[i]["caixa_entradas"].ToString());
-                    caixa.Saidas = Convert.ToDouble(dt.Rows[i]["caixa_saidas"].ToString());
-
-                    clients.Add(caixa);
-                }
+                SQL = SQL + " WHERE " + filtro;
             }
-            return (clients);
+            SQL = SQL + " order by caixa_dtAbertura desc";
+            db.ExecuteQuery(SQL, out dt);
+
+            return (dt);
 
         }
+
         public Caixa buscarCaixaAberto(int filtro)
         {
 

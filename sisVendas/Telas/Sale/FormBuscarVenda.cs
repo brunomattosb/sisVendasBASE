@@ -1,15 +1,11 @@
 ﻿using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Models;
 using sisVendas.Notificacao;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Telas.Sale
@@ -20,6 +16,7 @@ namespace sisVendas.Telas.Sale
         private ctrlVenda controlVenda = new ctrlVenda();
         private int vendaSelecionada = 0;
         private DataTable dttVenda;
+        private string filtro = "";
 
         public FormBuscarVenda()
         {
@@ -68,11 +65,11 @@ namespace sisVendas.Telas.Sale
             selecionarVenda();
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private string getFiltro()
         {
             string filtro = "";
 
-            if(cbbMN.SelectedIndex > 0)
+            if (cbbMN.SelectedIndex > 0)
             {
                 if (tbValor.Text != "")
                 {
@@ -86,16 +83,16 @@ namespace sisVendas.Telas.Sale
             {
                 if (filtro != "")
                     filtro = filtro + " AND ";
-                filtro = filtro + "cli_cpf_cnpj like '" + cpf.Trim()+ "%'";
+                filtro = filtro + "cli_cpf_cnpj like '" + cpf.Trim() + "%'";
             }
             if (tbName.Text.Length > 0)
             {
                 if (filtro != "")
                     filtro = filtro + " AND ";
-                filtro = filtro + "cli_nome like '%" + tbName.Text+ "%'";
+                filtro = filtro + "cli_nome like '%" + tbName.Text + "%'";
             }
-            
-            if(cbPesquisarPeriodo.Checked)
+
+            if (cbPesquisarPeriodo.Checked)
             {
                 if (dtpInicio.Value.Date <= dtpFim.Value.Date)
                 {
@@ -108,9 +105,13 @@ namespace sisVendas.Telas.Sale
                     Function.Alert("Alerta!", "Data Inicio maior que data Fim", popupClient.enmType.Warning);
                 }
             }
-
-            Console.WriteLine(filtro);
-            updateDgv(filtro);
+            return filtro;
+        }
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            
+            
+            updateDgv(getFiltro());
 
         }
 
@@ -163,7 +164,6 @@ namespace sisVendas.Telas.Sale
         }
         public void changeCpfCnpj(int qtde)
         {
-            //MessageBox.Show(qtde + "");
             if (mtbCpf.Mask != "000.000.000-00" && qtde < 11)
             {
                 mtbCpf.Mask = "000.000.000-00";
@@ -189,6 +189,18 @@ namespace sisVendas.Telas.Sale
             if (Function.replaceAll(mtbCpf.Text).Count() == 10)
             {
                 changeCpfCnpj(Function.replaceAll(mtbCpf.Text).Count());
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DataTable dttVendasRelatorio = controlVenda.buscarParaRelatorio(getFiltro());
+            
+            if (dttVenda.Rows.Count > 0) // se existir pessoas
+            {
+                float[] largurasColunas = { 1f, 1f, 1f, 1f, 1f };
+                
+                Relatorios.gerarRelatorio($"RelatórioSisVendas.Produtos.pdf", "Vendas Cadastradas!", dttVendasRelatorio, largurasColunas);
             }
         }
     }

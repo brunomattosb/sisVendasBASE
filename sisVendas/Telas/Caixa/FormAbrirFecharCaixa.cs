@@ -2,15 +2,7 @@
 using sisVendas.Functions;
 using sisVendas.Notificacao;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using sisVendas.Models;
-using System.Threading.Tasks;
-using sisVendas.Persistence;
 using System.Windows.Forms;
 
 namespace sisVendas.Telas.Caixa
@@ -31,12 +23,23 @@ namespace sisVendas.Telas.Caixa
 
         private double saldoCaixaAnterior = 0.00;
         private double saldoCaixa = 0.00;
+
         private double total_sangria = 0.00;
         private double total_aporte = 0.00;
-        private double total_despesa = 0.00;
-        private double total_credito = 0.00;
-        private double total_debido = 0.00;
-        private double total_dinheiro = 0.00;
+
+        private double total_despesa_credito = 0.00;
+        private double total_despesa_debito = 0.00;
+        private double total_despesa_dinheiro = 0.00;
+        
+        private double total_vendas_credito = 0.00;
+        private double total_vendas_debido = 0.00;
+        private double total_vendas_dinheiro = 0.00;
+       
+        private double total_cancelamento = 0.00;
+
+        private double total_compras_dinheiro = 0.00;
+        private double total_compras_credito = 0.00;
+        private double total_compras_debito = 0.00;
 
         public FormAbrirFecharCaixa()
         {
@@ -120,7 +123,7 @@ namespace sisVendas.Telas.Caixa
                     buscarCaixaAberto(idFuncionario);
 
                     if (suprimentos != 0)
-                        controlTransacao.salvarTransacao(caixaSelecionado.Id, "Suprimento", '*', suprimentos);
+                        controlTransacao.salvarTransacao(caixaSelecionado.Id, "Aporte", '*', suprimentos);
                     if (sangria != 0)
                         controlTransacao.salvarTransacao(caixaSelecionado.Id, "Sangria", '*', sangria);
 
@@ -129,8 +132,8 @@ namespace sisVendas.Telas.Caixa
             }
             else // fechar caixa
             {
-                double entradas = total_aporte + total_credito + total_debido + total_dinheiro;
-                double saidas = total_sangria + total_despesa;
+                double entradas = total_aporte +  total_vendas_dinheiro;
+                double saidas = total_sangria + total_compras_dinheiro + total_despesa_dinheiro;
 
                 controlCaixa.FecharCaixa(caixaSelecionado.Id, entradas, saidas);
 
@@ -168,7 +171,10 @@ namespace sisVendas.Telas.Caixa
             dttParcelasCompra = controlParcelasCompra.buscarParcelasPorIdCaixa(idCaixa);
 
 
-            total_sangria = total_aporte = total_despesa = total_credito = total_debido = total_dinheiro = 0;
+            total_sangria = total_aporte =
+            total_despesa_dinheiro =total_despesa_credito = total_despesa_debito =
+            total_compras_dinheiro = total_compras_credito = total_compras_debito =
+            total_vendas_credito = total_vendas_debido = total_vendas_dinheiro = 0;
 
             dttItensCaixa.Rows.Clear();
 
@@ -183,9 +189,13 @@ namespace sisVendas.Telas.Caixa
                 {
                     total_sangria = total_sangria + valor;
                 }
-                else
+                else if (descricao == "Aporte")
                 {
                     total_aporte = total_aporte + valor;
+                }
+                else
+                {
+                    total_cancelamento = total_cancelamento + valor;
                 }
                 
             }
@@ -193,17 +203,31 @@ namespace sisVendas.Telas.Caixa
             foreach (DataRow dr in dttDespesas.Rows)
             {
                 double.TryParse(dr["desp_valor"].ToString(), out double Valor);
-                insereItensDttCaixa("*", "Desp. " + dr["desp_descricao"],
-                            DateTime.Parse(dr["desp_dataReferencia"].ToString()), dr["desp_formaPagamento"].ToString(), Valor);
+                if (dr["desp_formaPagamento"].ToString() != "Fiado")
+                {
+                    if (dr["desp_formaPagamento"].ToString() == "Dinheiro")
+                    {
+                        insereItensDttCaixa("*", "Desp. " + dr["desp_descricao"],
+                                    DateTime.Parse(dr["desp_dataReferencia"].ToString()), dr["desp_formaPagamento"].ToString(), Valor);
+                        total_despesa_dinheiro = total_despesa_dinheiro + Valor;
+                    }
+                    else if (dr["desp_formaPagamento"].ToString() == "Crédito")
+                    {
+                        total_despesa_credito = total_despesa_credito + Valor;
+                    }
+                    else if (dr["desp_formaPagamento"].ToString() == "Débito")
+                    {
+                        total_despesa_debito = total_despesa_debito + Valor;
+                    }
 
-                total_despesa = total_despesa + Valor;
+                }
+                    
             }
             
             foreach (DataRow dr in dttParcelasVenda.Rows)
             {
-                //DataRow linha = dttItensCaixa.NewRow();
 
-                if (dr["tipo"].ToString() != "F") // para não pegar os fiados
+                if (dr["tipo"].ToString() != "F")
                 {
                     double.TryParse(dr["valor"].ToString(), out double Valor);
 
@@ -212,22 +236,19 @@ namespace sisVendas.Telas.Caixa
                     if (dr["tipo"].ToString() == "D")
                     {
                         formaPgto = "Débito";
-                        total_debido = total_debido + Valor;
+                        total_vendas_debido = total_vendas_debido + Valor;
                     }
                     else if (dr["tipo"].ToString() == "C")
                     {
                         formaPgto = "Crédito";
-                        total_credito = total_credito + Valor;
-
+                        total_vendas_credito = total_vendas_credito + Valor;
                     }
                     else if (dr["tipo"].ToString() == "M")
                     {
                         formaPgto = "Dinheiro";
-                        total_dinheiro = total_dinheiro + Valor; 
+                        total_vendas_dinheiro = total_vendas_dinheiro + Valor;
+                        insereItensDttCaixa("*", "Venda realizada N°: " + dr["idVenda"], DateTime.Parse(dr["data"].ToString()), formaPgto, Valor);
                     }
-
-                    insereItensDttCaixa("*", "Venda realizada N°: " + dr["idVenda"], DateTime.Parse(dr["data"].ToString()), formaPgto, Valor);
-
                 }
             }
 
@@ -243,20 +264,19 @@ namespace sisVendas.Telas.Caixa
                     if (dr["tipo"].ToString() == "D")
                     {
                         formaPgto = "Débito";
-                        
+                        total_compras_debito = total_compras_debito + Valor;
                     }
                     else if (dr["tipo"].ToString() == "C")
                     {
                         formaPgto = "Crédito";
-
+                        total_compras_credito = total_compras_credito + Valor;
                     }
                     else if (dr["tipo"].ToString() == "M")
                     {
                         formaPgto = "Dinheiro";
+                        total_compras_dinheiro = total_compras_dinheiro + Valor;
+                        insereItensDttCaixa("*", "Comrpa realizada N°: " + dr["idCompra"], DateTime.Parse(dr["data"].ToString()), formaPgto, Valor);
                     }
-                    total_despesa = total_despesa + Valor;
-                    insereItensDttCaixa("*", "Comrpa realizada N°: " + dr["idCompra"], DateTime.Parse(dr["data"].ToString()), formaPgto, Valor);
-
                 }
             }
 
@@ -265,22 +285,33 @@ namespace sisVendas.Telas.Caixa
         }
         private void preencherResumo()
         {
-            
-            lblResumoCartao.Text = "Total: " + (total_credito + total_debido).ToString("C");
-            lblResumoCredito.Text = "Crédito: " + total_credito.ToString("C");
-            lblResumoDebito.Text = "Débito: " + total_debido.ToString("C");
+            // vendas
+            lblResumoVendasTotal.Text = (total_vendas_credito + total_vendas_debido).ToString("C");
+            lblResumoVendasCredito.Text =  total_vendas_credito.ToString("C");
+            lblResumoVendasDebito.Text = total_vendas_debido.ToString("C");
+            lblResumoVendasDinheiro.Text = total_vendas_dinheiro.ToString("C");
 
-            lblResumoDinheiro.Text = total_dinheiro.ToString("C");
+            //aporte/sangria
+            lblResumoAporte.Text =  total_aporte.ToString("C");
+            lblResumoSangria.Text = total_sangria.ToString("C");
 
-            lblResumoAporte.Text = "Aporte: " + total_aporte.ToString("C");
-            lblResumoSangria.Text = "Sangria: " + total_sangria.ToString("C");
+            //despesas
+            lblResumoDespesasDebito.Text = total_despesa_debito.ToString("C");
+            lblResumoDespesasCredito.Text = total_despesa_credito.ToString("C");
+            lblResumoDespesasDinheiro.Text = total_despesa_dinheiro.ToString("C");
 
-            lblResumoDespesas.Text = total_despesa.ToString("C");
+            //compras
+            lblResumoComprasDebito.Text = total_compras_debito.ToString("C");
+            lblResumoComprasCredito.Text = total_compras_credito.ToString("C");
+            lblResumoComprasDinheiro.Text = total_compras_dinheiro.ToString("C");
 
-            saldoCaixa = saldoCaixaAnterior + total_credito + total_debido + total_aporte - total_sangria - total_despesa + total_dinheiro;
+            //cancelado
+            lblTotalCancelamento.Text = total_cancelamento.ToString("C");
 
-            tbEntrada.Text = (total_credito + total_debido + total_aporte + total_dinheiro).ToString("C");
-            tbSaida.Text = (total_sangria + total_despesa).ToString("C");
+            saldoCaixa = saldoCaixaAnterior +   total_aporte - total_sangria - total_despesa_dinheiro + total_vendas_dinheiro - total_vendas_dinheiro;
+
+            tbEntrada.Text = (total_vendas_dinheiro + total_aporte ).ToString("C");
+            tbSaida.Text = (total_sangria + total_despesa_dinheiro + total_compras_dinheiro).ToString("C");
 
             lblValorDiaAnterior.Text = saldoCaixaAnterior.ToString("C");
             tbSaldo.Text = saldoCaixa.ToString("C");
@@ -369,7 +400,7 @@ namespace sisVendas.Telas.Caixa
                     }
                     else
                     {
-                        MessageBox.Show("Não temos todo esse dinheiro no caixa!");
+                        MessageBox.Show("O valor da Sangria deve ser menor ou igual ao total do caixa!", "Saldo insuficiente!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         isOk = false;
                     }
                 }
@@ -387,15 +418,11 @@ namespace sisVendas.Telas.Caixa
                         cbAporte.Checked = false;
                         tbSangriaAporte.Text = "R$ 0,00";
                     }
-                    else
-                    {
-                        MessageBox.Show("Erro ao realizar Sangria/Aporte.");
-                    }
                 }
             }
             else
             {
-                MessageBox.Show("O valor deve ser maior que zero!");
+                MessageBox.Show("O valor deve ser maior que zero!", "Valor incorreto!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
         }
@@ -468,12 +495,21 @@ namespace sisVendas.Telas.Caixa
         {
             lblDate.Text = DateTime.Now.ToString("dd/MM/yyyy") + " " + DateTime.Now.ToString("HH:mm");
         }
+        private void ConsularCaixas()
+        {
+            Form f = new FormConsultarAnteriores();
+            f.ShowDialog();
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             switch (keyData)
             {
                 case Keys.Escape:
                     Close();
+                    break;
+                case Keys.F1:
+                    ConsularCaixas();
                     break;
             }
             return base.ProcessCmdKey(ref msg, keyData);

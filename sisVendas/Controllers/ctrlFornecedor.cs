@@ -121,6 +121,20 @@ namespace sisVendas.Controllers
 
             return (diProvider);
         }
+        public DataTable BuscarCpfNome()
+        {
+
+            DataTable diProvider = new DataTable();
+
+
+            dataBase.Conecta();
+            FornecedorDB fornDB = new FornecedorDB(dataBase);
+            diProvider = fornDB.BuscarCpfNome();
+            
+            dataBase.Desconecta();
+
+            return (diProvider);
+        }
         public DataTable buscarFornecedorResumido(string filter)
         {
 

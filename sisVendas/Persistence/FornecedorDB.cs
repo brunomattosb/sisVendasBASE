@@ -75,6 +75,18 @@ namespace sisVendas.Persistence
             return (forn);
 
         }
+        public DataTable BuscarCpfNome()
+        {
+            DataTable dt = new DataTable();
+
+            string SQL = @"SELECT forn_cpf_cnpj as 'CPF/CNPJ', forn_nome as Nome FROM Fornecedor order by Nome";
+
+            db.ExecuteQuery(SQL, out dt);
+
+           
+            return (dt);
+
+        }
         public Fornecedor buscarPorCod(int filtro)
         {
             DataTable dt = new DataTable();

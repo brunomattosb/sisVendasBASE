@@ -6,14 +6,9 @@ using sisVendas.Telas;
 using sisVendas.Telas.Caixa;
 using sisVendas.Telas.Compra;
 using sisVendas.Telas.Promocao;
+using sisVendas.Telas.Sale;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas
@@ -48,6 +43,7 @@ namespace sisVendas
             else
             {
                 lblNomeFuncLogado.Text = funcLogado.Nome;
+                this.WindowState = FormWindowState.Maximized;
                 return true;
             }
             
@@ -116,7 +112,7 @@ namespace sisVendas
         {
             if(lblCaixaStatus.Text == "FECHADO.")
             {
-                MessageBox.Show("Caixa fechado!");
+                MessageBox.Show("Abra o caixa para continuar!", "Caixa Fechado!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -124,15 +120,11 @@ namespace sisVendas
                 f.WindowState = FormWindowState.Maximized;
                 f.FormBorderStyle = FormBorderStyle.None;
                 openForm(f);
-            }
-
-            
+            }            
         }
         private void menuBtnAbrirFecharCaixa_Click(object sender, EventArgs e)
         {
             FormAbrirFecharCaixa f = new FormAbrirFecharCaixa(funcLogado.Id);
-            f.WindowState = FormWindowState.Maximized;
-            f.FormBorderStyle = FormBorderStyle.None;
             openForm(f);
 
             caixaSelecionado = f.retornaCaixa();
@@ -189,7 +181,7 @@ namespace sisVendas
 
             if (lblCaixaStatus.Text == "FECHADO.")
             {
-                MessageBox.Show("Caixa fechado!");
+                MessageBox.Show("Abra o caixa para continuar!", "Caixa Fechado!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -203,13 +195,12 @@ namespace sisVendas
         {
             if (lblCaixaStatus.Text == "FECHADO.")
             {
-                MessageBox.Show("Caixa fechado!");
+                MessageBox.Show("Abra o caixa para continuar!", "Caixa Fechado!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
                 FormLancarCompra f = new FormLancarCompra(caixaSelecionado.Id);
-                f.WindowState = FormWindowState.Maximized;
-                f.FormBorderStyle = FormBorderStyle.None;
+                
                 openForm(f);
             }
         }
@@ -219,7 +210,7 @@ namespace sisVendas
         {
             if (lblCaixaStatus.Text == "FECHADO.")
             {
-                MessageBox.Show("Caixa fechado!");
+                MessageBox.Show("Abra o caixa para continuar!", "Caixa Fechado!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -232,7 +223,7 @@ namespace sisVendas
         {
             if (lblCaixaStatus.Text == "FECHADO.")
             {
-                MessageBox.Show("Caixa fechado!");
+                MessageBox.Show("Abra o caixa para continuar!", "Caixa Fechado!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -248,5 +239,12 @@ namespace sisVendas
             openForm(f);
             
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ctrlCliente controlcliente = new ctrlCliente();
+            
+        }
+
     }
 }

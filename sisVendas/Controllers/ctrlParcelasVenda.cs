@@ -17,13 +17,14 @@ namespace sisVendas.Controllers
         private ParcelaVenda parcelaSelecionada = new ParcelaVenda();
 
         
-        public bool SalvarParcela(int id_venda, double valor, string tipo, DateTime data, int idCaixa)
+        public bool SalvarParcela(int id_venda, double valor, string tipo, DateTime dataVencimento, int idCaixa)
         {
 
             parcelaSelecionada.Cod_venda = id_venda;
             parcelaSelecionada.Valor = valor;
-            parcelaSelecionada.Data = data;
             parcelaSelecionada.IdCaixa = idCaixa;
+            parcelaSelecionada.DataPagamento = DateTime.Now;
+            parcelaSelecionada.DataVencimento = dataVencimento;
 
             if(tipo == "Dinheiro")
             {
@@ -32,32 +33,28 @@ namespace sisVendas.Controllers
             else if(tipo == "Fiado")
             {
                 parcelaSelecionada.Tipo_pagamento = 'F';
+                parcelaSelecionada.DataPagamento = null;
             }
             else if(tipo == "Crédito")
             {
                 parcelaSelecionada.Tipo_pagamento = 'C';
             }
+            else if (tipo == "Saldo")
+            {
+                parcelaSelecionada.Tipo_pagamento = 'S';
+            }
             else
             {
                 parcelaSelecionada.Tipo_pagamento = 'D';
-            }
-                
-            if(tipo == "Fiado")
-            {
-                parcelaSelecionada.Status = "DEVE";
-            }
-            else
-            {
-                parcelaSelecionada.Status = "PAGO";
-            }
-
-
+            }           
 
             dataBase.Conecta();
             bool result = false;
             ParcelaVendaDB parcelaVenda = new ParcelaVendaDB(dataBase);
+            
 
             result = parcelaVenda.Gravar(parcelaSelecionada);
+            
 
             dataBase.Desconecta();
 
@@ -95,6 +92,10 @@ namespace sisVendas.Controllers
                 else if (tipo == "Crédito")
                 {
                     tipoPagamento = 'C';
+                }
+                else if (tipo == "Saldo")
+                {
+                    tipoPagamento = 'S';
                 }
                 else
                 {
@@ -134,6 +135,19 @@ namespace sisVendas.Controllers
 
             return (dtParcelas);
         }
+        public DataTable buscarParcelasFormulario(string filtro)
+        {
+
+            DataTable dtParcelas = new DataTable();
+
+            dataBase.Conecta();
+            ParcelaVendaDB parcelaDB = new ParcelaVendaDB(dataBase);
+            dtParcelas = parcelaDB.buscarParcelasFormulario(filtro);
+
+            dataBase.Desconecta();
+
+            return (dtParcelas);
+        }
         public DataTable buscarParcelas(int codVenda)
         {
 
@@ -143,9 +157,9 @@ namespace sisVendas.Controllers
             dtParcelas.Columns.Add("idCaixa", typeof(int));
             dtParcelas.Columns.Add("idVenda", typeof(int));
             dtParcelas.Columns.Add("valor", typeof(double));
-            dtParcelas.Columns.Add("status");
             dtParcelas.Columns.Add("tipo");
             dtParcelas.Columns.Add("data", typeof(DateTime));
+            //dtParcelas.Columns.Add("dataVencimento", typeof(DateTime));
 
             dataBase.Conecta();
             ParcelaVendaDB parcelaDB = new ParcelaVendaDB(dataBase);
@@ -156,10 +170,11 @@ namespace sisVendas.Controllers
                 line["id"] = parcela.Id;
                 line["idVenda"] = parcela.Cod_venda;
                 line["valor"] = parcela.Valor;
-                line["status"] = parcela.Status;
                 line["tipo"] = parcela.Tipo_pagamento;
-                line["data"] = parcela.Data;
                 line["idCaixa"] = parcela.IdCaixa;
+
+                
+                line["data"] = parcela.DataVencimento;
 
                 dtParcelas.Rows.Add(line);
             }
@@ -176,7 +191,6 @@ namespace sisVendas.Controllers
             dtParcelas.Columns.Add("idCaixa", typeof(int));
             dtParcelas.Columns.Add("idVenda", typeof(int));
             dtParcelas.Columns.Add("valor", typeof(double));
-            dtParcelas.Columns.Add("status");
             dtParcelas.Columns.Add("tipo");
             dtParcelas.Columns.Add("data", typeof(DateTime));
 
@@ -189,8 +203,7 @@ namespace sisVendas.Controllers
                 line["id"] = parcela.Id;
                 line["idVenda"] = parcela.Cod_venda;
                 line["valor"] = parcela.Valor;
-                line["status"] = parcela.Status;
-                line["data"] = parcela.Data;
+                line["data"] = parcela.DataPagamento;
                 line["tipo"] = parcela.Tipo_pagamento;
                 line["idCaixa"] = parcela.IdCaixa;
 

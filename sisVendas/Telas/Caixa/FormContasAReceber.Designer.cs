@@ -33,25 +33,29 @@
             this.lblCpf = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dgv_parcelas = new System.Windows.Forms.DataGridView();
-            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cpf_cnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idCaixas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbQuitada = new System.Windows.Forms.CheckBox();
             this.cbAberto = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbPesquisarPorPeriodo = new System.Windows.Forms.CheckBox();
             this.dtpFim = new System.Windows.Forms.DateTimePicker();
             this.dtpInicio = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.cbPesquisarPorPeriodo = new System.Windows.Forms.CheckBox();
+            this.btnGerarRelatorio = new System.Windows.Forms.Button();
+            this.cli_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.parcela_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_cpf_cnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.venda_criado_em = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.parcela_valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.parcela_dataPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.parcela_dataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.venda_cancelada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.parcela_idcaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.parcela_idVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.parcela_tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_parcelas)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -61,17 +65,17 @@
             // tbName
             // 
             this.tbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbName.Location = new System.Drawing.Point(12, 106);
+            this.tbName.Location = new System.Drawing.Point(20, 136);
             this.tbName.Margin = new System.Windows.Forms.Padding(4);
             this.tbName.MaxLength = 49;
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(516, 24);
+            this.tbName.Size = new System.Drawing.Size(475, 24);
             this.tbName.TabIndex = 46;
             // 
             // mtbCpf
             // 
             this.mtbCpf.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mtbCpf.Location = new System.Drawing.Point(13, 51);
+            this.mtbCpf.Location = new System.Drawing.Point(20, 87);
             this.mtbCpf.Margin = new System.Windows.Forms.Padding(4);
             this.mtbCpf.Mask = "999.999.999-99";
             this.mtbCpf.Name = "mtbCpf";
@@ -86,7 +90,7 @@
             // 
             this.lblCpf.AutoSize = true;
             this.lblCpf.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCpf.Location = new System.Drawing.Point(10, 29);
+            this.lblCpf.Location = new System.Drawing.Point(20, 65);
             this.lblCpf.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCpf.Name = "lblCpf";
             this.lblCpf.Size = new System.Drawing.Size(42, 18);
@@ -97,7 +101,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(10, 85);
+            this.label2.Location = new System.Drawing.Point(20, 117);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 18);
@@ -113,97 +117,31 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_parcelas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_parcelas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nome,
-            this.cpf_cnpj,
-            this.id,
-            this.idCaixas,
-            this.idVenda,
-            this.valor,
-            this.dataVenda,
-            this.dataPagamento});
-            this.dgv_parcelas.Location = new System.Drawing.Point(13, 159);
+            this.cli_nome,
+            this.parcela_id,
+            this.cli_cpf_cnpj,
+            this.venda_criado_em,
+            this.parcela_valor,
+            this.parcela_dataPagamento,
+            this.parcela_dataVencimento,
+            this.venda_cancelada,
+            this.parcela_idcaixa,
+            this.parcela_idVenda,
+            this.parcela_tipo});
+            this.dgv_parcelas.Location = new System.Drawing.Point(13, 195);
             this.dgv_parcelas.Margin = new System.Windows.Forms.Padding(4);
             this.dgv_parcelas.MultiSelect = false;
             this.dgv_parcelas.Name = "dgv_parcelas";
             this.dgv_parcelas.ReadOnly = true;
             this.dgv_parcelas.RowHeadersVisible = false;
             this.dgv_parcelas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_parcelas.Size = new System.Drawing.Size(900, 382);
+            this.dgv_parcelas.Size = new System.Drawing.Size(900, 346);
             this.dgv_parcelas.TabIndex = 8;
             this.dgv_parcelas.DoubleClick += new System.EventHandler(this.dgv_parcelas_DoubleClick);
             // 
-            // nome
-            // 
-            this.nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nome.DataPropertyName = "nome";
-            this.nome.HeaderText = "Nome";
-            this.nome.Name = "nome";
-            this.nome.ReadOnly = true;
-            // 
-            // cpf_cnpj
-            // 
-            this.cpf_cnpj.DataPropertyName = "cpf_cnpj";
-            this.cpf_cnpj.HeaderText = "CPF/CNPJ";
-            this.cpf_cnpj.MinimumWidth = 200;
-            this.cpf_cnpj.Name = "cpf_cnpj";
-            this.cpf_cnpj.ReadOnly = true;
-            this.cpf_cnpj.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.cpf_cnpj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.cpf_cnpj.Width = 200;
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "ID";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // idCaixas
-            // 
-            this.idCaixas.DataPropertyName = "idCaixa";
-            this.idCaixas.HeaderText = "idCaixa";
-            this.idCaixas.Name = "idCaixas";
-            this.idCaixas.ReadOnly = true;
-            this.idCaixas.Visible = false;
-            // 
-            // idVenda
-            // 
-            this.idVenda.DataPropertyName = "idVenda";
-            this.idVenda.HeaderText = "idVenda";
-            this.idVenda.Name = "idVenda";
-            this.idVenda.ReadOnly = true;
-            this.idVenda.Visible = false;
-            // 
-            // valor
-            // 
-            this.valor.DataPropertyName = "valor";
-            this.valor.HeaderText = "Valor";
-            this.valor.MinimumWidth = 150;
-            this.valor.Name = "valor";
-            this.valor.ReadOnly = true;
-            this.valor.Width = 150;
-            // 
-            // dataVenda
-            // 
-            this.dataVenda.DataPropertyName = "dataVenda";
-            this.dataVenda.HeaderText = "Data";
-            this.dataVenda.MinimumWidth = 150;
-            this.dataVenda.Name = "dataVenda";
-            this.dataVenda.ReadOnly = true;
-            this.dataVenda.Width = 150;
-            // 
-            // dataPagamento
-            // 
-            this.dataPagamento.DataPropertyName = "dataPagamento";
-            this.dataPagamento.HeaderText = "Data Prevista";
-            this.dataPagamento.MinimumWidth = 150;
-            this.dataPagamento.Name = "dataPagamento";
-            this.dataPagamento.ReadOnly = true;
-            this.dataPagamento.Width = 150;
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnGerarRelatorio);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.btnBuscar);
@@ -216,7 +154,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(900, 138);
+            this.groupBox1.Size = new System.Drawing.Size(900, 174);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
@@ -227,7 +165,7 @@
             this.groupBox3.Controls.Add(this.cbAberto);
             this.groupBox3.Location = new System.Drawing.Point(538, 16);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(192, 114);
+            this.groupBox3.Size = new System.Drawing.Size(165, 108);
             this.groupBox3.TabIndex = 62;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Parcelas";
@@ -235,7 +173,7 @@
             // cbQuitada
             // 
             this.cbQuitada.AutoSize = true;
-            this.cbQuitada.Location = new System.Drawing.Point(20, 62);
+            this.cbQuitada.Location = new System.Drawing.Point(23, 66);
             this.cbQuitada.Name = "cbQuitada";
             this.cbQuitada.Size = new System.Drawing.Size(86, 22);
             this.cbQuitada.TabIndex = 62;
@@ -245,9 +183,7 @@
             // cbAberto
             // 
             this.cbAberto.AutoSize = true;
-            this.cbAberto.Checked = true;
-            this.cbAberto.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbAberto.Location = new System.Drawing.Point(20, 34);
+            this.cbAberto.Location = new System.Drawing.Point(23, 32);
             this.cbAberto.Name = "cbAberto";
             this.cbAberto.Size = new System.Drawing.Size(97, 22);
             this.cbAberto.TabIndex = 61;
@@ -263,15 +199,25 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(209, 16);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(319, 83);
+            this.groupBox2.Size = new System.Drawing.Size(310, 108);
             this.groupBox2.TabIndex = 60;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Data da Venda";
             // 
+            // cbPesquisarPorPeriodo
+            // 
+            this.cbPesquisarPorPeriodo.AutoSize = true;
+            this.cbPesquisarPorPeriodo.Location = new System.Drawing.Point(24, 23);
+            this.cbPesquisarPorPeriodo.Name = "cbPesquisarPorPeriodo";
+            this.cbPesquisarPorPeriodo.Size = new System.Drawing.Size(177, 22);
+            this.cbPesquisarPorPeriodo.TabIndex = 57;
+            this.cbPesquisarPorPeriodo.Text = "Pesquisar Por Período";
+            this.cbPesquisarPorPeriodo.UseVisualStyleBackColor = true;
+            // 
             // dtpFim
             // 
             this.dtpFim.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFim.Location = new System.Drawing.Point(175, 52);
+            this.dtpFim.Location = new System.Drawing.Point(175, 71);
             this.dtpFim.Name = "dtpFim";
             this.dtpFim.Size = new System.Drawing.Size(111, 24);
             this.dtpFim.TabIndex = 56;
@@ -279,7 +225,7 @@
             // dtpInicio
             // 
             this.dtpInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpInicio.Location = new System.Drawing.Point(24, 52);
+            this.dtpInicio.Location = new System.Drawing.Point(24, 71);
             this.dtpInicio.Name = "dtpInicio";
             this.dtpInicio.Size = new System.Drawing.Size(111, 24);
             this.dtpInicio.TabIndex = 55;
@@ -287,7 +233,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(172, 36);
+            this.label3.Location = new System.Drawing.Point(173, 50);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 18);
@@ -297,7 +243,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 36);
+            this.label4.Location = new System.Drawing.Point(21, 50);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 18);
@@ -307,23 +253,116 @@
             // btnBuscar
             // 
             this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscar.Location = new System.Drawing.Point(762, 54);
+            this.btnBuscar.Location = new System.Drawing.Point(737, 29);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(104, 35);
+            this.btnBuscar.Size = new System.Drawing.Size(125, 35);
             this.btnBuscar.TabIndex = 59;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
-            // cbPesquisarPorPeriodo
+            // btnGerarRelatorio
             // 
-            this.cbPesquisarPorPeriodo.AutoSize = true;
-            this.cbPesquisarPorPeriodo.Location = new System.Drawing.Point(109, 13);
-            this.cbPesquisarPorPeriodo.Name = "cbPesquisarPorPeriodo";
-            this.cbPesquisarPorPeriodo.Size = new System.Drawing.Size(177, 22);
-            this.cbPesquisarPorPeriodo.TabIndex = 57;
-            this.cbPesquisarPorPeriodo.Text = "Pesquisar Por Período";
-            this.cbPesquisarPorPeriodo.UseVisualStyleBackColor = true;
+            this.btnGerarRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGerarRelatorio.Location = new System.Drawing.Point(737, 81);
+            this.btnGerarRelatorio.Name = "btnGerarRelatorio";
+            this.btnGerarRelatorio.Size = new System.Drawing.Size(125, 35);
+            this.btnGerarRelatorio.TabIndex = 63;
+            this.btnGerarRelatorio.Text = "Gerar Relatório";
+            this.btnGerarRelatorio.UseVisualStyleBackColor = true;
+            this.btnGerarRelatorio.Click += new System.EventHandler(this.btnGerarRelatorio_Click);
+            // 
+            // cli_nome
+            // 
+            this.cli_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cli_nome.DataPropertyName = "cli_nome";
+            this.cli_nome.HeaderText = "Nome";
+            this.cli_nome.Name = "cli_nome";
+            this.cli_nome.ReadOnly = true;
+            // 
+            // parcela_id
+            // 
+            this.parcela_id.DataPropertyName = "parcela_id";
+            this.parcela_id.HeaderText = "ID";
+            this.parcela_id.Name = "parcela_id";
+            this.parcela_id.ReadOnly = true;
+            this.parcela_id.Visible = false;
+            // 
+            // cli_cpf_cnpj
+            // 
+            this.cli_cpf_cnpj.DataPropertyName = "cli_cpf_cnpj";
+            this.cli_cpf_cnpj.HeaderText = "CPF/CNPJ";
+            this.cli_cpf_cnpj.MinimumWidth = 150;
+            this.cli_cpf_cnpj.Name = "cli_cpf_cnpj";
+            this.cli_cpf_cnpj.ReadOnly = true;
+            this.cli_cpf_cnpj.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.cli_cpf_cnpj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.cli_cpf_cnpj.Width = 150;
+            // 
+            // venda_criado_em
+            // 
+            this.venda_criado_em.DataPropertyName = "venda_criado_em";
+            this.venda_criado_em.HeaderText = "Data Venda";
+            this.venda_criado_em.MinimumWidth = 150;
+            this.venda_criado_em.Name = "venda_criado_em";
+            this.venda_criado_em.ReadOnly = true;
+            this.venda_criado_em.Width = 150;
+            // 
+            // parcela_valor
+            // 
+            this.parcela_valor.DataPropertyName = "parcela_valor";
+            this.parcela_valor.HeaderText = "Valor";
+            this.parcela_valor.MinimumWidth = 150;
+            this.parcela_valor.Name = "parcela_valor";
+            this.parcela_valor.ReadOnly = true;
+            this.parcela_valor.Width = 150;
+            // 
+            // parcela_dataPagamento
+            // 
+            this.parcela_dataPagamento.DataPropertyName = "parcela_dataPagamento";
+            this.parcela_dataPagamento.HeaderText = "Data Pagamento";
+            this.parcela_dataPagamento.MinimumWidth = 150;
+            this.parcela_dataPagamento.Name = "parcela_dataPagamento";
+            this.parcela_dataPagamento.ReadOnly = true;
+            this.parcela_dataPagamento.Width = 150;
+            // 
+            // parcela_dataVencimento
+            // 
+            this.parcela_dataVencimento.DataPropertyName = "parcela_dataVencimento";
+            this.parcela_dataVencimento.HeaderText = "Data Vencimento";
+            this.parcela_dataVencimento.Name = "parcela_dataVencimento";
+            this.parcela_dataVencimento.ReadOnly = true;
+            // 
+            // venda_cancelada
+            // 
+            this.venda_cancelada.DataPropertyName = "venda_cancelada";
+            this.venda_cancelada.HeaderText = "venda_cancelada";
+            this.venda_cancelada.Name = "venda_cancelada";
+            this.venda_cancelada.ReadOnly = true;
+            this.venda_cancelada.Visible = false;
+            // 
+            // parcela_idcaixa
+            // 
+            this.parcela_idcaixa.DataPropertyName = "parcela_idcaixa";
+            this.parcela_idcaixa.HeaderText = "idCaixa";
+            this.parcela_idcaixa.Name = "parcela_idcaixa";
+            this.parcela_idcaixa.ReadOnly = true;
+            this.parcela_idcaixa.Visible = false;
+            // 
+            // parcela_idVenda
+            // 
+            this.parcela_idVenda.DataPropertyName = "parcela_idVenda";
+            this.parcela_idVenda.HeaderText = "idVenda";
+            this.parcela_idVenda.Name = "parcela_idVenda";
+            this.parcela_idVenda.ReadOnly = true;
+            this.parcela_idVenda.Visible = false;
+            // 
+            // parcela_tipo
+            // 
+            this.parcela_tipo.DataPropertyName = "parcela_tipo";
+            this.parcela_tipo.HeaderText = "Forma Pgmto";
+            this.parcela_tipo.Name = "parcela_tipo";
+            this.parcela_tipo.ReadOnly = true;
             // 
             // FormContasAReceber
             // 
@@ -333,6 +372,7 @@
             this.Controls.Add(this.dgv_parcelas);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormContasAReceber";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -356,14 +396,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgv_parcelas;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cpf_cnpj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idCaixas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idVenda;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataVenda;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataPagamento;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DateTimePicker dtpFim;
@@ -374,5 +406,17 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox cbQuitada;
         private System.Windows.Forms.CheckBox cbPesquisarPorPeriodo;
+        private System.Windows.Forms.Button btnGerarRelatorio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_nome;
+        private System.Windows.Forms.DataGridViewTextBoxColumn parcela_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cli_cpf_cnpj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn venda_criado_em;
+        private System.Windows.Forms.DataGridViewTextBoxColumn parcela_valor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn parcela_dataPagamento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn parcela_dataVencimento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn venda_cancelada;
+        private System.Windows.Forms.DataGridViewTextBoxColumn parcela_idcaixa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn parcela_idVenda;
+        private System.Windows.Forms.DataGridViewTextBoxColumn parcela_tipo;
     }
 }

@@ -1,14 +1,10 @@
 ﻿using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Notificacao;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Telas.Caixa
@@ -23,8 +19,8 @@ namespace sisVendas.Telas.Caixa
         {
             InitializeComponent();
 
-            dgv_parcelas.Columns["valor"].DefaultCellStyle.Format = "C";
-            btnBuscar.PerformClick();
+            dgv_parcelas.Columns["parcela_valor"].DefaultCellStyle.Format = "C";
+            UpdateDGV("");
         }
         private void UpdateDGV(string filtro)
         {
@@ -46,24 +42,24 @@ namespace sisVendas.Telas.Caixa
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private string getFiltro()
         {
             string filtro = "";
 
             if (cbAberto.Checked)
             {
-                filtro = "parcela_status = 'DEVE'";
+                filtro = "parcela_dataPagamento is null";
             }
             if (cbQuitada.Checked)
             {
                 if (filtro != "")
                 {
                     filtro = "(" + filtro + " OR ";
-                    filtro = filtro + "parcela_status = 'PAGO')";
+                    filtro = filtro + "parcela_dataPagamento is not null)";
                 }
                 else
                 {
-                    filtro = filtro + "parcela_status = 'PAGO'";
+                    filtro = filtro + "parcela_dataPagamento is not null";
                 }
             }
 
@@ -79,10 +75,10 @@ namespace sisVendas.Telas.Caixa
             {
                 if (filtro != "")
                     filtro = filtro + " AND ";
-                filtro = filtro + "cli_nome like '%" + tbName.Text+"%'";
+                filtro = filtro + "cli_nome like '%" + tbName.Text + "%'";
             }
 
-            if(cbPesquisarPorPeriodo.Checked)
+            if (cbPesquisarPorPeriodo.Checked)
             {
                 if (dtpInicio.Value.Date <= dtpFim.Value.Date)
                 {
@@ -95,9 +91,12 @@ namespace sisVendas.Telas.Caixa
                     Function.Alert("Alerta!", "Data Inicio maior que data Fim", popupClient.enmType.Warning);
                 }
             }
-
-            UpdateDGV(filtro);
-            Console.WriteLine(filtro);
+            return filtro;
+        }
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            
+            UpdateDGV(getFiltro());
         }
 
         private void dgv_parcelas_DoubleClick(object sender, EventArgs e)
@@ -107,11 +106,25 @@ namespace sisVendas.Telas.Caixa
            {
 
                //activeForm();
-              DataGridViewCellCollection linha = dgv_parcelas.Rows[dgv_parcelas.CurrentRow.Index].Cells;
+               DataGridViewCellCollection linha = dgv_parcelas.Rows[dgv_parcelas.CurrentRow.Index].Cells;
+               
+               /*
+                   0     parcela_id
+                   1     idCaixa
+                   2     idVenda
+                   3     Valor
+                   4     dtPagamento
+                   5     criado_em / Data venda
+                   6     nome
+                   7     cpf
+                   8     cancelada
+                   9     dtVencimento
+               */
 
-               if (linha[8].Value.ToString() == "DEVE")
+               if (linha[4].Value.ToString() == "") // é null, não foi pago!
                {
-                   FormQuitarContaReceber f = new FormQuitarContaReceber(double.Parse(linha[3].Value.ToString()), int.Parse(linha[0].Value.ToString()), idCaixa, int.Parse(linha[2].Value.ToString()));
+                   FormQuitarContaReceber f = new FormQuitarContaReceber(double.Parse(linha[3].Value.ToString()),
+                                                    int.Parse(linha[0].Value.ToString()), idCaixa, int.Parse(linha[2].Value.ToString()));
                    f.ShowDialog();
 
                    if (f.alterou())
@@ -119,7 +132,6 @@ namespace sisVendas.Telas.Caixa
                }
                else
                {
-                   MessageBox.Show(idCaixa + "");
                    if(int.Parse(linha[1].Value.ToString()) == idCaixa)
                    {
                        if (MessageBox.Show("Deseja estornar a parcela selecionada?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
@@ -132,10 +144,10 @@ namespace sisVendas.Telas.Caixa
                    }
                    else
                    {
-                       MessageBox.Show("Parcela não quitada no caixa atual.", "Alerta!", MessageBoxButtons.OK);
+                       MessageBox.Show("Parcela não quitada no caixa atual.", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                    }
-               }                
-           }
+                }        
+            }
        }
 
        private void mtbCpf_Click(object sender, EventArgs e)
@@ -163,7 +175,6 @@ namespace sisVendas.Telas.Caixa
         }
         public void changeCpfCnpj(int qtde)
         {
-            //MessageBox.Show(qtde + "");
             if (mtbCpf.Mask != "000.000.000-00" && qtde < 11)
             {
                 mtbCpf.Mask = "000.000.000-00";
@@ -183,6 +194,17 @@ namespace sisVendas.Telas.Caixa
 
             }
 
+        }
+
+        private void btnGerarRelatorio_Click(object sender, EventArgs e)
+        {
+            DataTable dtContasReceber = controlParcelasVenda.buscarParcelasFormulario(getFiltro());
+            //select prod_nome as Nome, prod_estoque as Estoque, prod_un as Unidade, prod_valor as Valor from Produto order by Nome
+            if (dtContasReceber.Rows.Count > 0) // se existir pessoas
+            {
+                float[] largurasColunas = { 1.5f, 1f, 1f, 1f, 1f, 1f };
+                Relatorios.gerarRelatorio($"RelatórioSisVendas.ContasAReceber.pdf", "Contas A Receber!", dtContasReceber, largurasColunas);
+            }
         }
     }
 }

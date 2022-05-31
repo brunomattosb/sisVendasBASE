@@ -61,6 +61,12 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="iTextSharp.LGPLv2.Core, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.LGPLv2.Core.1.8.0\lib\net40\iTextSharp.LGPLv2.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
@@ -93,12 +99,13 @@
     <Compile Include="Controllers\ctrlProdutoCategoria.cs" />
     <Compile Include="Controllers\ctrlVenda.cs" />
     <Compile Include="Controllers\ctrlFornecedor.cs" />
-    <Compile Include="Controllers\Functions.cs" />
+    <Compile Include="Funcoes\Functions.cs" />
     <Compile Include="dbSisDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dbSisDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Funcoes\Relatorios.cs" />
     <Compile Include="Models\Caixa.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Compra.cs" />
@@ -146,6 +153,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Telas\Caixa\FormConsultarAnteriores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Caixa\FormConsultarAnteriores.Designer.cs">
+      <DependentUpon>FormConsultarAnteriores.cs</DependentUpon>
     </Compile>
     <Compile Include="Telas\Caixa\FormContasAPagar.cs">
       <SubType>Form</SubType>
@@ -305,6 +318,12 @@
     <Compile Include="Telas\Sale\FormDesconto.Designer.cs">
       <DependentUpon>FormDesconto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Telas\Sale\FormExcluirVendaSaldoDoPagamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Sale\FormExcluirVendaSaldoDoPagamento.Designer.cs">
+      <DependentUpon>FormExcluirVendaSaldoDoPagamento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Telas\Sale\FormVenda.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -325,6 +344,9 @@
     </Compile>
     <EmbeddedResource Include="Notification\popupClient.resx">
       <DependentUpon>popupClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Caixa\FormConsultarAnteriores.resx">
+      <DependentUpon>FormConsultarAnteriores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Caixa\FormContasAPagar.resx">
       <DependentUpon>FormContasAPagar.cs</DependentUpon>
@@ -409,6 +431,9 @@
     <EmbeddedResource Include="Telas\Sale\FormDesconto.resx">
       <DependentUpon>FormDesconto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Sale\FormExcluirVendaSaldoDoPagamento.resx">
+      <DependentUpon>FormExcluirVendaSaldoDoPagamento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Telas\Sale\FormVenda.resx">
       <DependentUpon>FormVenda.cs</DependentUpon>
     </EmbeddedResource>
@@ -429,6 +454,7 @@
     <None Include="dbSisDataSet.xss">
       <DependentUpon>dbSisDataSet.xsd</DependentUpon>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -471,6 +497,7 @@
     <Content Include="Resources\error.png" />
     <Content Include="Resources\info.png" />
     <Content Include="Resources\success.png" />
+    <None Include="Resources\thumbnail_image1.jpg" />
     <Content Include="Resources\warning.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,14 +2,8 @@
 using sisVendas.Models;
 using sisVendas.Notificacao;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Screens.Sale
@@ -20,6 +14,7 @@ namespace sisVendas.Screens.Sale
         private double totalPago = 0;
         DataTable dtParcelas;
         private bool ativo;
+        private double saldo;
         public FormInserirParcelas()
         {
             InitializeComponent();
@@ -29,11 +24,12 @@ namespace sisVendas.Screens.Sale
             cbbTipo.SelectedIndex = 0;
             dgvParcelas.Columns["valor"].DefaultCellStyle.Format = "C";
         }
-        public FormInserirParcelas(double value, DataTable lparcelas, bool ativo):this()
+        public FormInserirParcelas(double value, DataTable lparcelas, bool ativo, double saldo):this()
         {
             lblValor.Text = value.ToString("C");
-            this.totalVenda = value;
+            this.totalVenda = Math.Round(value, 2);
             this.ativo = ativo;
+            this.saldo = saldo;
 
             this.dtParcelas = lparcelas;
 
@@ -56,6 +52,12 @@ namespace sisVendas.Screens.Sale
                 btnAdd.Enabled =
                 tbValor.Enabled =
                 cbbTipo.Enabled = false;
+            }
+
+            lblSaldo.Text = saldo.ToString("C");
+            if (saldo > 0)
+            {
+                cbbTipo.Items.Add("Saldo");
             }
             tbValor.Focus();
         }
@@ -99,8 +101,7 @@ namespace sisVendas.Screens.Sale
                     string text = tbValor.Text.Replace("R$", "");
 
                     double.TryParse(text, out double valor);
-
-                    if (valor != 0 && totalPago + valor <= totalVenda)
+;                    if (valor != 0 && totalPago + valor <= totalVenda)
                     {
                         inserir(valor, cbbTipo.Text, dtpData.Value.Date);
                     }
@@ -205,6 +206,16 @@ namespace sisVendas.Screens.Sale
         private void dgvParcelas_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             btnRemover.Enabled = false;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblSaldo_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

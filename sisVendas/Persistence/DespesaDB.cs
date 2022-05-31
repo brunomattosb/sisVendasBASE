@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Persistence
@@ -26,10 +23,11 @@ namespace sisVendas.Persistence
 
                 string SQL;
 
+                
                 SQL = @"INSERT INTO Despesa(desp_descricao,desp_valor,desp_idTipo, desp_idCaixa, desp_desconto, desp_dataReferencia, desp_formaPagamento,
-                                                                                                                    desp_dataPagamento, desp_status)
+                                                                                                                    desp_dataPagamento, desp_dataVencimento)
                         VALUES (@desp_descricao,@desp_valor,@desp_idTipo, @desp_idCaixa, @desp_desconto, @desp_dataReferencia, @desp_formaPagamento,
-                                                                                                                @desp_dataPagamento, @desp_status)";
+                                                                                                                NULLIF (@desp_dataPagamento, ''), @desp_dataVencimento)";
 
                 res = db.ExecuteNonQuery(SQL, "@desp_descricao", desp.Descricao,
                                                 "@desp_valor", desp.Valor - desp.Desconto,
@@ -39,16 +37,15 @@ namespace sisVendas.Persistence
                                                 "@desp_dataReferencia", desp.DataReferencia,
                                                 "@desp_formaPagamento", desp.Forma_pagamento,
                                                 "@desp_dataPagamento", desp.DataPagamento,
-                                                "@desp_status", desp.Status
+                                                "@desp_dataVencimento", desp.DataVencimento
                                                 );
             }
             return (res);
         }
         public bool estornarDespesa(int idParcela)
         {
-            MessageBox.Show(idParcela + ":Despesa");
             bool res = false;
-            string SQL = @"UPDATE despesa SET desp_status = 'DEVE', desp_formaPagamento = 'F'
+            string SQL = @"UPDATE despesa SET desp_dataPagamento = null, desp_formaPagamento = 'F'
                         WHERE desp_id = @desp_id";
 
             res = db.ExecuteNonQuery(SQL, "@desp_id", idParcela);
@@ -63,12 +60,14 @@ namespace sisVendas.Persistence
 
 
 
-            string SQL = @"SELECT * FROM Despesa ";
+            string SQL = @"SELECT desp_id,desp_idTipo,desp_descricao,desp_valor,desp_idCaixa,desp_dataPagamento,desp_desconto,desp_dataReferencia,desp_formaPagamento,
+desp_dataVencimento,desp_tipo_nome FROM Despesa
+inner join DespesaTipo on DespesaTipo.desp_tipo_id = Despesa.desp_idTipo";
             if (filtro != "")
             {
-                SQL = SQL + "where " + filtro;
+                SQL = SQL + " where " + filtro;
             }
-            SQL = SQL + " order by desp_id DESC";
+            SQL = SQL + " order by desp_dataReferencia DESC";
             Console.WriteLine(SQL);
 
             db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
@@ -86,15 +85,51 @@ namespace sisVendas.Persistence
                     exp.IdCaixa = Convert.ToInt32(dt.Rows[i]["desp_idCaixa"]);
                     exp.Desconto = Convert.ToDouble(dt.Rows[i]["desp_desconto"].ToString());
                     exp.DataReferencia = Convert.ToDateTime(dt.Rows[i]["desp_dataReferencia"].ToString());
-                    exp.DataPagamento = Convert.ToDateTime(dt.Rows[i]["desp_dataPagamento"].ToString());
+                    
                     exp.Forma_pagamento = dt.Rows[i]["desp_formaPagamento"].ToString();
-                    exp.Status = dt.Rows[i]["desp_status"].ToString();
+                    exp.DataVencimento = Convert.ToDateTime(dt.Rows[i]["desp_dataVencimento"].ToString());
+                    exp.Tipo = dt.Rows[i]["desp_tipo_nome"].ToString();
+
+
+                    if (DateTime.TryParse(dt.Rows[i]["desp_dataPagamento"].ToString(), out DateTime dtPagamento))
+                    {
+                        exp.DataPagamento = dtPagamento;
+                    }
+                    else
+                    {
+                        exp.DataPagamento = null;
+                    }
+                    
                     expense.Add(exp);
                 }
             }
 
 
             return (expense);
+        }
+        public DataTable buscarParaRelatorio(string filtro)
+        {
+            List<object> expense = new List<object>();
+
+            DataTable dt = new DataTable();
+
+
+
+            string SQL = @"SELECT desp_dataReferencia as 'Referência',desp_tipo_nome as 'Tipo',
+                                            desp_valor as 'Valor',desp_desconto as 'Desconto',
+							                desp_dataPagamento as 'Dt Pgmto',desp_dataVencimento as 'Dt Vencimento'
+																							FROM Despesa
+		inner join DespesaTipo on DespesaTipo.desp_tipo_id = Despesa.desp_idTipo";
+            if (filtro != "")
+            {
+                SQL = SQL + " where " + filtro;
+            }
+            SQL = SQL + " order by desp_dataReferencia DESC";
+            Console.WriteLine(SQL);
+
+            db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
+
+            return (dt);
         }
         public List<object> BuscarPorIdCaixa(int idCaixa)
         {
@@ -104,7 +139,7 @@ namespace sisVendas.Persistence
 
 
 
-            string SQL = @"SELECT * FROM Despesa where desp_idCaixa = @idCaixa AND desp_status = 'PAGO' order by desp_id DESC";
+            string SQL = @"SELECT * FROM Despesa where desp_idCaixa = @idCaixa AND desp_dataPagamento is not null order by desp_id DESC";
             
             Console.WriteLine(SQL);
 
@@ -125,7 +160,7 @@ namespace sisVendas.Persistence
                     exp.DataReferencia = Convert.ToDateTime(dt.Rows[i]["desp_dataReferencia"].ToString());
                     exp.DataPagamento = Convert.ToDateTime(dt.Rows[i]["desp_dataPagamento"].ToString());
                     exp.Forma_pagamento = dt.Rows[i]["desp_formaPagamento"].ToString();
-                    exp.Status = dt.Rows[i]["desp_status"].ToString();
+                    exp.DataVencimento = Convert.ToDateTime(dt.Rows[i]["desp_dataVencimento"].ToString());
                     expense.Add(exp);
                 }
             }
@@ -133,30 +168,14 @@ namespace sisVendas.Persistence
 
             return (expense);
         }
-        public bool quitarDespesaParcial(int idParcela, double valorParcela, double valorPago, int idCaixa)
-        {
-
-            bool res = false;
-
-            string SQL = @"UPDATE Despesa SET desp_idCaixa = @desp_idCaixa,
-                                                    desp_valor = @desp_valor
-                        WHERE desp_id = @desp_id";
-
-            res = db.ExecuteNonQuery(SQL, "@desp_idCaixa", idCaixa,
-                                            "@desp_valor", valorParcela - valorPago,
-                                            "@desp_id", idParcela);
-
-            return res;
-        }
+        
         public List<object> BuscarDespesaParaContasAPagar(string filtro)
         {
             List<object> expense = new List<object>();
             
             DataTable dt = new DataTable();
-            
 
-
-            string SQL = @"select desp_id, desp_dataReferencia, desp_dataPagamento, desp_status, desp_formaPagamento, desp_idCaixa, desp_valor,
+            string SQL = @"select desp_id, desp_dataPagamento, desp_dataVencimento, desp_formaPagamento, desp_idCaixa, desp_valor,
                                                                                                             desp_tipo_nome from Despesa
 	                            inner join DespesaTipo on DespesaTipo.desp_tipo_id = Despesa.desp_idTipo";
             
@@ -172,68 +191,33 @@ namespace sisVendas.Persistence
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     Despesa exp = new Despesa();
-                    // , , , , , , desp_valor, 
                     exp.Id = Convert.ToInt32(dt.Rows[i]["desp_id"]);
-                    exp.DataReferencia = Convert.ToDateTime(dt.Rows[i]["desp_dataReferencia"].ToString());
-                    exp.DataPagamento = Convert.ToDateTime(dt.Rows[i]["desp_dataPagamento"].ToString());
-                    exp.Status = dt.Rows[i]["desp_status"].ToString();
+                    exp.DataVencimento = Convert.ToDateTime(dt.Rows[i]["desp_dataVencimento"].ToString());
                     exp.Forma_pagamento = dt.Rows[i]["desp_formaPagamento"].ToString();
                     exp.IdCaixa = Convert.ToInt32(dt.Rows[i]["desp_idCaixa"]);
                     exp.Valor = Convert.ToDouble(dt.Rows[i]["desp_valor"].ToString());
                     exp.Descricao = dt.Rows[i]["desp_tipo_nome"].ToString();
                     
+                    if(DateTime.TryParse(dt.Rows[i]["desp_dataPagamento"].ToString(), out DateTime dtPagmento))
+                    {
+                        exp.DataPagamento = dtPagmento;
+                    }
+                    else
+                    {
+                        exp.DataPagamento = null;
+                    }
                     expense.Add(exp);
                 }
             }
            
             return (expense);
         }
-        public List<object> BuscarFiltrado(string filtro)
-        {
-            List<object> expense = new List<object>();
-            DataTable dt = new DataTable();
-            /*
-            string SQL = @"SELECT * FROM Despesa ";
-
-            if(filtro != "")
-            {
-                SQL = SQL +"where "+ filtro;
-            }
-            SQL = SQL + " order by desp_id DESC";
-            Console.WriteLine (SQL + "SQL!");
-            db.ExecuteQuery(SQL, out dt);
-
-            if (dt.Rows.Count > 0)
-            {
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    Despesa exp = new Despesa();
-
-
-                    exp.Id = Convert.ToInt32(dt.Rows[i]["desp_id"]);
-                    exp.Descricao = dt.Rows[i]["desp_descricao"].ToString();
-                    exp.Valor = Convert.ToDouble(dt.Rows[i]["desp_valor"].ToString());
-                    exp.IdTipo = Convert.ToInt32(dt.Rows[i]["desp_idTipo"]);
-                    exp.IdCaixa = Convert.ToInt32(dt.Rows[i]["desp_idCaixa"]);
-                    exp.Criado_em = Convert.ToDateTime(dt.Rows[i]["desp_criado_em"].ToString());
-                    exp.Desconto = Convert.ToDouble(dt.Rows[i]["desp_desconto"].ToString());
-                    exp.DataDespesa = Convert.ToDateTime(dt.Rows[i]["desp_data"].ToString());
-                    exp.DataVencimento = Convert.ToDateTime(dt.Rows[i]["desp_dtVencimento"].ToString());
-                    exp.Forma_pagamento = dt.Rows[i]["desp_formaPagamento"].ToString();
-                    exp.Status = dt.Rows[i]["desp_status"].ToString();
-
-                    expense.Add(exp);
-                }
-            }*/
-            return (expense);
-
-        }
+        
         public bool quitarDespesa(int idDespesa, char tipoPagamento, int idCaixa)
         {
 
             bool res = false;
-            string SQL = @"UPDATE Despesa SET desp_status = 'PAGO',
-                                                    desp_formaPagamento = @desp_formaPagamento,
+            string SQL = @"UPDATE Despesa SET desp_formaPagamento = @desp_formaPagamento,
                                                     desp_dataPagamento = @desp_dataPagamento,
                                                     desp_idCaixa = @desp_idCaixa
                         WHERE desp_id = @desp_id";
@@ -256,11 +240,11 @@ namespace sisVendas.Persistence
                                             desp_descricao = @desp_descricao,
                                             desp_valor = @desp_valor,
                                             desp_idCaixa = @desp_idCaixa,
-                                            desp_dataPagamento = @desp_dataPagamento,
+                                            desp_dataPagamento = NULLIF (@desp_dataPagamento, ''),
                                             desp_desconto = @desp_desconto,
                                             desp_dataReferencia = @desp_dataReferencia,
                                             desp_formaPagamento = @desp_formaPagamento,
-                                            desp_status = @desp_status
+                                            desp_dataVencimento = @desp_dataVencimento
                             WHERE desp_id = @desp_id";
 
                 res = db.ExecuteNonQuery(SQL, "@desp_descricao", desp.Descricao,
@@ -272,7 +256,7 @@ namespace sisVendas.Persistence
                                                 "desp_id", desp.Id,
                                                 "@desp_dataPagamento", desp.DataPagamento,
                                                 "@desp_formaPagamento", desp.Forma_pagamento,
-                                                "@desp_status", desp.Status);
+                                                "@desp_dataVencimento", desp.DataVencimento);
             }
             return res;
         }

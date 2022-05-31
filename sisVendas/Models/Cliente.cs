@@ -20,7 +20,7 @@ namespace sisVendas.Models
         private string bairro;
         private string uf;
         private string cidade;
-        private DateTime dtNascimento;
+        private Nullable<DateTime> dtNascimento;
         private DateTime criado_em;
         private char sexo;
         private double saldo;
@@ -40,7 +40,7 @@ namespace sisVendas.Models
         public string Bairro { get => bairro; set => bairro = value; }
         public string Uf { get => uf; set => uf = value; }
         public string Cidade { get => cidade; set => cidade = value; }
-        public DateTime DtNascimento { get => dtNascimento; set => dtNascimento = value; }
+        public Nullable<DateTime> DtNascimento { get => dtNascimento; set => dtNascimento = value; }
         public DateTime Criado_em { get => criado_em; set => criado_em = value; }
         public char Sexo { get => sexo; set => sexo = value; }
         public double Saldo { get => saldo; set => saldo = value; }

@@ -183,7 +183,7 @@ namespace sisVendas.Telas.Compra
             if (fornecedorSelecionado == null)
             {
                 isOk = false;
-                MessageBox.Show("Fornecedor não selecionado");
+                MessageBox.Show("Fornecedor não selecionado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
 
@@ -191,32 +191,28 @@ namespace sisVendas.Telas.Compra
             if (dttProduto.Rows.Count == 0)
             {
                 isOk = false;
-                MessageBox.Show("Não existe produtos cadastrados!");
+                MessageBox.Show("Não existe produtos cadastrados!", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 //verificar se foi quitado
                 
 
-
-                MessageBox.Show(totalPago + "TotalPago");
-                MessageBox.Show((totalCompra - totalDesconto) + "Total - Desconto");
                 if (totalPago != (totalCompra - totalDesconto))
                 {
                     isOk = false;
-                    MessageBox.Show("Não foi quitado!");
+                    MessageBox.Show("Lance as parcelas antes de finalizar a compra!", "Não foi quitado!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 
             if(tbChaveNF.Text.Length < 20)
             {
                 isOk = false;
-                MessageBox.Show("Confira a chave da NF!");
+                MessageBox.Show("Confira a chave da NF!", "Chave incorreta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             if (isOk)
             {
-                MessageBox.Show("Aqui FOI!");
                 if (compraSelecionada == null)
                 {
 
@@ -657,7 +653,7 @@ namespace sisVendas.Telas.Compra
 
                     parcela["tipo_pagamento"] = prod["tipo_pagamento"].ToString();
                     parcela["valor"] = double.Parse(prod["valor"].ToString().Replace("R$ ",""));
-                    parcela["data"] = prod["dataPagamento"].ToString();
+                    parcela["data"] = prod["dataVencimento"].ToString();
 
 
                     dttParcela.Rows.Add(parcela);
@@ -725,13 +721,13 @@ namespace sisVendas.Telas.Compra
                 }
                 else
                 {
-                    MessageBox.Show("Esta compra não pertence a este caixa!");
+                    MessageBox.Show("Para que a compra possa ser excluida, ela deve pertencer ao caixa atual!", "Compra não pertence ao caixa atual!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
             {
 
-                MessageBox.Show("Compra não selecionada!");
+                MessageBox.Show("Selecione a compra para continuar!", "Compra não selecionada!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -803,7 +799,19 @@ namespace sisVendas.Telas.Compra
             {
                 if (MessageBox.Show("Deseja excluir o item selecionado?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    dgvProducts.Rows.RemoveAt(dgvProducts.CurrentRow.Index);
+                    //achar a POS
+                    int pos = dgvProducts.CurrentRow.Index;
+                    
+                    //atualizar totais
+                    totalCompra = totalCompra - double.Parse(Function.replaceAll(dgvProducts[5, pos].Value.ToString()));
+                    subtotalCompra = totalCompra - totalPago - totalDesconto;
+                    lblTotal.Text = totalCompra.ToString("C"); ;
+                    lblSubtotal.Text = subtotalCompra.ToString("C");
+
+                    //Remover
+                    dgvProducts.Rows.RemoveAt(pos);
+                    
+
                 }
 
             }

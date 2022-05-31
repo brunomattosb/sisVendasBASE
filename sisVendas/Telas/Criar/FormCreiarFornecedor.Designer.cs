@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblFornecedor = new System.Windows.Forms.Label();
             this.GbpPesquisa = new System.Windows.Forms.GroupBox();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.gbCad = new System.Windows.Forms.GroupBox();
@@ -61,7 +60,6 @@
             this.tbFantasyName = new System.Windows.Forms.TextBox();
             this.lblFantasyName = new System.Windows.Forms.Label();
             this.lblCpf = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.dgv_Provider = new System.Windows.Forms.DataGridView();
             this.forn_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.forn_nome_fantasia = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,30 +74,24 @@
             this.forn_telefone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.forn_cpf_cnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.forn_rg_ie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblFornecedor = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gerarPdf = new System.Windows.Forms.Button();
             this.GbpPesquisa.SuspendLayout();
             this.gbCad.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Provider)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lblFornecedor
-            // 
-            this.lblFornecedor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFornecedor.AutoSize = true;
-            this.lblFornecedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFornecedor.Location = new System.Drawing.Point(30, 18);
-            this.lblFornecedor.Name = "lblFornecedor";
-            this.lblFornecedor.Size = new System.Drawing.Size(384, 42);
-            this.lblFornecedor.TabIndex = 5;
-            this.lblFornecedor.Text = "Cadastrar Fornecedor";
             // 
             // GbpPesquisa
             // 
             this.GbpPesquisa.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.GbpPesquisa.Controls.Add(this.tbSearch);
             this.GbpPesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GbpPesquisa.Location = new System.Drawing.Point(37, 354);
+            this.GbpPesquisa.Location = new System.Drawing.Point(12, 355);
             this.GbpPesquisa.Name = "GbpPesquisa";
             this.GbpPesquisa.Size = new System.Drawing.Size(345, 57);
             this.GbpPesquisa.TabIndex = 7;
@@ -109,15 +101,14 @@
             // tbSearch
             // 
             this.tbSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbSearch.Location = new System.Drawing.Point(9, 22);
+            this.tbSearch.Location = new System.Drawing.Point(19, 22);
             this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(322, 20);
+            this.tbSearch.Size = new System.Drawing.Size(309, 20);
             this.tbSearch.TabIndex = 0;
             this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
             // 
             // gbCad
             // 
-            this.gbCad.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.gbCad.Controls.Add(this.tbRg);
             this.gbCad.Controls.Add(this.tbName);
             this.gbCad.Controls.Add(this.lblName);
@@ -143,15 +134,15 @@
             this.gbCad.Controls.Add(this.tbFantasyName);
             this.gbCad.Controls.Add(this.lblFantasyName);
             this.gbCad.Controls.Add(this.lblCpf);
-            this.gbCad.Location = new System.Drawing.Point(36, 69);
+            this.gbCad.Location = new System.Drawing.Point(12, 69);
             this.gbCad.Name = "gbCad";
-            this.gbCad.Size = new System.Drawing.Size(694, 280);
+            this.gbCad.Size = new System.Drawing.Size(651, 280);
             this.gbCad.TabIndex = 0;
             this.gbCad.TabStop = false;
             // 
             // tbRg
             // 
-            this.tbRg.Location = new System.Drawing.Point(234, 33);
+            this.tbRg.Location = new System.Drawing.Point(213, 33);
             this.tbRg.MaxLength = 19;
             this.tbRg.Name = "tbRg";
             this.tbRg.Size = new System.Drawing.Size(112, 20);
@@ -159,7 +150,7 @@
             // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(37, 73);
+            this.tbName.Location = new System.Drawing.Point(19, 73);
             this.tbName.MaxLength = 49;
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(309, 20);
@@ -168,7 +159,7 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(34, 57);
+            this.lblName.Location = new System.Drawing.Point(19, 57);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(42, 13);
             this.lblName.TabIndex = 41;
@@ -177,7 +168,7 @@
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(36, 178);
+            this.lblEmail.Location = new System.Drawing.Point(19, 178);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(35, 13);
             this.lblEmail.TabIndex = 40;
@@ -185,7 +176,7 @@
             // 
             // tbEmail
             // 
-            this.tbEmail.Location = new System.Drawing.Point(37, 194);
+            this.tbEmail.Location = new System.Drawing.Point(19, 194);
             this.tbEmail.MaxLength = 20;
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(309, 20);
@@ -194,7 +185,7 @@
             // lblRg
             // 
             this.lblRg.AutoSize = true;
-            this.lblRg.Location = new System.Drawing.Point(231, 17);
+            this.lblRg.Location = new System.Drawing.Point(213, 17);
             this.lblRg.Name = "lblRg";
             this.lblRg.Size = new System.Drawing.Size(41, 13);
             this.lblRg.TabIndex = 36;
@@ -211,19 +202,19 @@
             this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnSave, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnRemove, 2, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(37, 226);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(19, 230);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(627, 43);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(612, 33);
             this.tableLayoutPanel1.TabIndex = 14;
             // 
             // btnNew
             // 
             this.btnNew.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnNew.Location = new System.Drawing.Point(34, 3);
+            this.btnNew.Location = new System.Drawing.Point(39, 5);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(88, 37);
+            this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 1;
             this.btnNew.Text = "Novo";
             this.btnNew.UseVisualStyleBackColor = true;
@@ -232,9 +223,9 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCancel.Location = new System.Drawing.Point(190, 3);
+            this.btnCancel.Location = new System.Drawing.Point(192, 5);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(88, 37);
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -243,9 +234,10 @@
             // btnSave
             // 
             this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSave.Location = new System.Drawing.Point(503, 3);
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSave.Location = new System.Drawing.Point(498, 5);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(88, 37);
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -254,9 +246,9 @@
             // btnRemove
             // 
             this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnRemove.Location = new System.Drawing.Point(346, 3);
+            this.btnRemove.Location = new System.Drawing.Point(345, 5);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(88, 37);
+            this.btnRemove.Size = new System.Drawing.Size(75, 23);
             this.btnRemove.TabIndex = 3;
             this.btnRemove.Text = "Excluir";
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -264,10 +256,10 @@
             // 
             // mtbTelephone
             // 
-            this.mtbTelephone.Location = new System.Drawing.Point(552, 150);
+            this.mtbTelephone.Location = new System.Drawing.Point(531, 150);
             this.mtbTelephone.Mask = "(00)00000-0000";
             this.mtbTelephone.Name = "mtbTelephone";
-            this.mtbTelephone.Size = new System.Drawing.Size(112, 20);
+            this.mtbTelephone.Size = new System.Drawing.Size(100, 20);
             this.mtbTelephone.TabIndex = 10;
             this.mtbTelephone.Click += new System.EventHandler(this.mtbTelefone_Click);
             // 
@@ -275,7 +267,7 @@
             // 
             this.lblId.AutoSize = true;
             this.lblId.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblId.Location = new System.Drawing.Point(34, 17);
+            this.lblId.Location = new System.Drawing.Point(19, 17);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(43, 13);
             this.lblId.TabIndex = 0;
@@ -284,7 +276,7 @@
             // lblTelefone
             // 
             this.lblTelefone.AutoSize = true;
-            this.lblTelefone.Location = new System.Drawing.Point(549, 134);
+            this.lblTelefone.Location = new System.Drawing.Point(531, 134);
             this.lblTelefone.Name = "lblTelefone";
             this.lblTelefone.Size = new System.Drawing.Size(59, 13);
             this.lblTelefone.TabIndex = 33;
@@ -292,7 +284,7 @@
             // 
             // mtbCpf
             // 
-            this.mtbCpf.Location = new System.Drawing.Point(116, 33);
+            this.mtbCpf.Location = new System.Drawing.Point(98, 33);
             this.mtbCpf.Mask = "000,000,000-00";
             this.mtbCpf.Name = "mtbCpf";
             this.mtbCpf.Size = new System.Drawing.Size(112, 20);
@@ -305,7 +297,7 @@
             // 
             // mtbCep
             // 
-            this.mtbCep.Location = new System.Drawing.Point(352, 151);
+            this.mtbCep.Location = new System.Drawing.Point(334, 150);
             this.mtbCep.Mask = "00000-000";
             this.mtbCep.Name = "mtbCep";
             this.mtbCep.Size = new System.Drawing.Size(112, 20);
@@ -316,7 +308,7 @@
             // tbCod
             // 
             this.tbCod.Enabled = false;
-            this.tbCod.Location = new System.Drawing.Point(37, 33);
+            this.tbCod.Location = new System.Drawing.Point(19, 33);
             this.tbCod.Name = "tbCod";
             this.tbCod.Size = new System.Drawing.Size(73, 20);
             this.tbCod.TabIndex = 0;
@@ -324,7 +316,7 @@
             // lblEstado
             // 
             this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(467, 135);
+            this.lblEstado.Location = new System.Drawing.Point(449, 134);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(28, 13);
             this.lblEstado.TabIndex = 17;
@@ -364,7 +356,7 @@
             "SE",
             "SP",
             "TO"});
-            this.cbbUF.Location = new System.Drawing.Point(470, 150);
+            this.cbbUF.Location = new System.Drawing.Point(449, 149);
             this.cbbUF.MaxLength = 2;
             this.cbbUF.Name = "cbbUF";
             this.cbbUF.Size = new System.Drawing.Size(77, 21);
@@ -374,7 +366,7 @@
             // lblDistrict
             // 
             this.lblDistrict.AutoSize = true;
-            this.lblDistrict.Location = new System.Drawing.Point(34, 135);
+            this.lblDistrict.Location = new System.Drawing.Point(19, 134);
             this.lblDistrict.Name = "lblDistrict";
             this.lblDistrict.Size = new System.Drawing.Size(37, 13);
             this.lblDistrict.TabIndex = 11;
@@ -382,7 +374,7 @@
             // 
             // tbDistrict
             // 
-            this.tbDistrict.Location = new System.Drawing.Point(37, 151);
+            this.tbDistrict.Location = new System.Drawing.Point(19, 150);
             this.tbDistrict.MaxLength = 20;
             this.tbDistrict.Name = "tbDistrict";
             this.tbDistrict.Size = new System.Drawing.Size(309, 20);
@@ -390,16 +382,16 @@
             // 
             // tbCity
             // 
-            this.tbCity.Location = new System.Drawing.Point(354, 109);
+            this.tbCity.Location = new System.Drawing.Point(334, 109);
             this.tbCity.MaxLength = 29;
             this.tbCity.Name = "tbCity";
-            this.tbCity.Size = new System.Drawing.Size(310, 20);
+            this.tbCity.Size = new System.Drawing.Size(297, 20);
             this.tbCity.TabIndex = 6;
             // 
             // lblCidade
             // 
             this.lblCidade.AutoSize = true;
-            this.lblCidade.Location = new System.Drawing.Point(351, 96);
+            this.lblCidade.Location = new System.Drawing.Point(333, 95);
             this.lblCidade.Name = "lblCidade";
             this.lblCidade.Size = new System.Drawing.Size(40, 13);
             this.lblCidade.TabIndex = 15;
@@ -407,7 +399,7 @@
             // 
             // tbAddres
             // 
-            this.tbAddres.Location = new System.Drawing.Point(37, 112);
+            this.tbAddres.Location = new System.Drawing.Point(19, 109);
             this.tbAddres.MaxLength = 49;
             this.tbAddres.Name = "tbAddres";
             this.tbAddres.Size = new System.Drawing.Size(309, 20);
@@ -416,7 +408,7 @@
             // lblEnd
             // 
             this.lblEnd.AutoSize = true;
-            this.lblEnd.Location = new System.Drawing.Point(34, 96);
+            this.lblEnd.Location = new System.Drawing.Point(19, 95);
             this.lblEnd.Name = "lblEnd";
             this.lblEnd.Size = new System.Drawing.Size(56, 13);
             this.lblEnd.TabIndex = 9;
@@ -425,7 +417,7 @@
             // lblCep
             // 
             this.lblCep.AutoSize = true;
-            this.lblCep.Location = new System.Drawing.Point(349, 135);
+            this.lblCep.Location = new System.Drawing.Point(331, 134);
             this.lblCep.Name = "lblCep";
             this.lblCep.Size = new System.Drawing.Size(31, 13);
             this.lblCep.TabIndex = 10;
@@ -433,16 +425,16 @@
             // 
             // tbFantasyName
             // 
-            this.tbFantasyName.Location = new System.Drawing.Point(352, 73);
+            this.tbFantasyName.Location = new System.Drawing.Point(334, 73);
             this.tbFantasyName.MaxLength = 49;
             this.tbFantasyName.Name = "tbFantasyName";
-            this.tbFantasyName.Size = new System.Drawing.Size(312, 20);
+            this.tbFantasyName.Size = new System.Drawing.Size(297, 20);
             this.tbFantasyName.TabIndex = 4;
             // 
             // lblFantasyName
             // 
             this.lblFantasyName.AutoSize = true;
-            this.lblFantasyName.Location = new System.Drawing.Point(351, 58);
+            this.lblFantasyName.Location = new System.Drawing.Point(334, 57);
             this.lblFantasyName.Name = "lblFantasyName";
             this.lblFantasyName.Size = new System.Drawing.Size(81, 13);
             this.lblFantasyName.TabIndex = 1;
@@ -451,26 +443,11 @@
             // lblCpf
             // 
             this.lblCpf.AutoSize = true;
-            this.lblCpf.Location = new System.Drawing.Point(116, 19);
+            this.lblCpf.Location = new System.Drawing.Point(98, 17);
             this.lblCpf.Name = "lblCpf";
             this.lblCpf.Size = new System.Drawing.Size(66, 13);
             this.lblCpf.TabIndex = 2;
             this.lblCpf.Text = "*CPF/CNPJ:";
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.dgv_Provider, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(30, 421);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(705, 222);
-            this.tableLayoutPanel2.TabIndex = 9;
             // 
             // dgv_Provider
             // 
@@ -494,13 +471,13 @@
             this.forn_telefone,
             this.forn_cpf_cnpj,
             this.forn_rg_ie});
-            this.dgv_Provider.Location = new System.Drawing.Point(3, 3);
+            this.dgv_Provider.Location = new System.Drawing.Point(12, 417);
             this.dgv_Provider.MultiSelect = false;
             this.dgv_Provider.Name = "dgv_Provider";
             this.dgv_Provider.ReadOnly = true;
             this.dgv_Provider.RowHeadersVisible = false;
             this.dgv_Provider.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_Provider.Size = new System.Drawing.Size(699, 216);
+            this.dgv_Provider.Size = new System.Drawing.Size(651, 166);
             this.dgv_Provider.TabIndex = 0;
             this.dgv_Provider.DoubleClick += new System.EventHandler(this.dgv_Provider_DoubleClick);
             // 
@@ -611,15 +588,59 @@
             this.forn_rg_ie.ReadOnly = true;
             this.forn_rg_ie.Visible = false;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.panel1.Controls.Add(this.lblFornecedor);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(678, 63);
+            this.panel1.TabIndex = 10;
+            // 
+            // lblFornecedor
+            // 
+            this.lblFornecedor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFornecedor.AutoSize = true;
+            this.lblFornecedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFornecedor.Location = new System.Drawing.Point(135, 9);
+            this.lblFornecedor.Name = "lblFornecedor";
+            this.lblFornecedor.Size = new System.Drawing.Size(384, 42);
+            this.lblFornecedor.TabIndex = 5;
+            this.lblFornecedor.Text = "Cadastrar Fornecedor";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.gerarPdf);
+            this.groupBox2.Location = new System.Drawing.Point(364, 355);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(299, 57);
+            this.groupBox2.TabIndex = 14;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Relatório:";
+            // 
+            // gerarPdf
+            // 
+            this.gerarPdf.Location = new System.Drawing.Point(17, 20);
+            this.gerarPdf.Name = "gerarPdf";
+            this.gerarPdf.Size = new System.Drawing.Size(75, 23);
+            this.gerarPdf.TabIndex = 12;
+            this.gerarPdf.Text = "Gerar PDF";
+            this.gerarPdf.UseVisualStyleBackColor = true;
+            this.gerarPdf.Click += new System.EventHandler(this.gerarPdf_Click);
+            // 
             // FormCreiarFornecedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 661);
-            this.Controls.Add(this.lblFornecedor);
+            this.ClientSize = new System.Drawing.Size(675, 595);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.dgv_Provider);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.GbpPesquisa);
             this.Controls.Add(this.gbCad);
-            this.Controls.Add(this.tableLayoutPanel2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximumSize = new System.Drawing.Size(691, 634);
+            this.MinimumSize = new System.Drawing.Size(691, 634);
             this.Name = "FormCreiarFornecedor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastrar Fornecedor";
@@ -628,15 +649,15 @@
             this.gbCad.ResumeLayout(false);
             this.gbCad.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Provider)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label lblFornecedor;
         private System.Windows.Forms.GroupBox GbpPesquisa;
         private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.GroupBox gbCad;
@@ -668,7 +689,6 @@
         private System.Windows.Forms.TextBox tbFantasyName;
         private System.Windows.Forms.Label lblFantasyName;
         private System.Windows.Forms.Label lblCpf;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.DataGridView dgv_Provider;
         private System.Windows.Forms.TextBox tbRg;
         private System.Windows.Forms.DataGridViewTextBoxColumn forn_nome;
@@ -684,5 +704,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn forn_telefone;
         private System.Windows.Forms.DataGridViewTextBoxColumn forn_cpf_cnpj;
         private System.Windows.Forms.DataGridViewTextBoxColumn forn_rg_ie;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblFornecedor;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button gerarPdf;
     }
 }

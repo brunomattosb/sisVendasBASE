@@ -206,7 +206,7 @@
             // valueUn
             // 
             this.valueUn.DataPropertyName = "valueUn";
-            this.valueUn.HeaderText = "VALOT UN";
+            this.valueUn.HeaderText = "VALOR UN";
             this.valueUn.MinimumWidth = 200;
             this.valueUn.Name = "valueUn";
             this.valueUn.ReadOnly = true;
@@ -765,12 +765,6 @@
         private System.Windows.Forms.Label lblSubtotal;
         private System.Windows.Forms.Label lblTextDesconto;
         private System.Windows.Forms.Label lblDesconto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn amount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn un;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valueUn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valueTotal;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button btnDesconto;
         private System.Windows.Forms.TextBox tbValorTotal;
@@ -778,5 +772,11 @@
         private System.Windows.Forms.TextBox tbValorUn;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblCancelada;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn amount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn un;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valueUn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valueTotal;
     }
 }

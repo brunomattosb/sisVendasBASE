@@ -1,13 +1,11 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Functions;
 using sisVendas.Models;
-using sisVendas.Models.Venda;
 using sisVendas.Notificacao;
 using sisVendas.Screens.Client;
 using sisVendas.Screens.Product;
 using sisVendas.Telas.Sale;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -184,6 +182,7 @@ namespace sisVendas.Screens.Sale
         {
             string cpf = mtbCpfClient.Text;
 
+            
             if (verificarSeClienteExiste(cpf))
             {
                 tbNameClient.Enabled = false;
@@ -222,7 +221,7 @@ namespace sisVendas.Screens.Sale
             else if (cpf.Count() == 0)
             {
                 lblWarningCpf.Visible = false;
-                return true;
+                return false;
             }
             else
             {
@@ -315,6 +314,7 @@ namespace sisVendas.Screens.Sale
             }
             else
             {
+                
                 resetarProduto();
             }
             tbAmount.Focus();
@@ -379,14 +379,16 @@ namespace sisVendas.Screens.Sale
 
                 if (Convert.ToDouble(tbAmount.Text) <= Convert.ToDouble(row["amount"]))
                 {
-                    double vTotal = Convert.ToDouble(dttProduto.Rows[index]["amount"]) * Convert.ToDouble(row["valueun"].ToString().Replace("R$", ""));
                     dttProduto.Rows[index]["amount"] = Convert.ToDouble(row["amount"]) - Convert.ToDouble(tbAmount.Text);
+
+                    double vTotal = Convert.ToDouble(dttProduto.Rows[index]["amount"]) * Convert.ToDouble(row["valueun"].ToString().Replace("R$", ""));
+                    
                     dttProduto.Rows[index]["valueTotal"] = vTotal.ToString("C");
 
                     //alterar totais
                     toalVenda = toalVenda - (Convert.ToDouble(produtoSelecionado.Valor) * Convert.ToDouble(tbAmount.Text));
                     subtotalVenda = toalVenda - totalPago - totalDesconto;
-                    lblSubtotal.Text = "R$ " + (toalVenda - totalDesconto - totalPago);
+                    lblSubtotal.Text =  (toalVenda - totalDesconto - totalPago).ToString("C");
                     lblTotal.Text = toalVenda.ToString("C");
 
                     //caso quantidade seja zero
@@ -470,13 +472,12 @@ namespace sisVendas.Screens.Sale
             {
                 string linha = dgvProducts.Rows[dgvProducts.CurrentRow.Index].Cells[1].Value.ToString();
                 tbCodProduct.Text = linha;
-                tbCodProduct.Focus();
+                eventoLeave();
+                tbAmount.Focus();
             }
         }
-
-        private void tbCodProduct_Leave(object sender, EventArgs e)
+        private void eventoLeave()
         {
-
             if (tbCodProduct.Text.Count() > 0)
             {
                 string[] divisao = tbCodProduct.Text.Split('*');
@@ -516,6 +517,12 @@ namespace sisVendas.Screens.Sale
                 tbNameProduct.Text = "";
                 produtoSelecionado = null;
             }
+        }
+        private void tbCodProduct_Leave(object sender, EventArgs e)
+        {
+            eventoLeave();
+
+
         }
         private Produto buscarProduto(string cod)
         {
@@ -596,6 +603,8 @@ namespace sisVendas.Screens.Sale
                         linha["tipo_pagamento"] = "Dinheiro";
                     else if (tipoPg == 'D')
                         linha["tipo_pagamento"] = "Débito";
+                    else if (tipoPg == 'S')
+                        linha["tipo_pagamento"] = "Saldo";
                     else
                         linha["tipo_pagamento"] = "Crédito";
 
@@ -633,13 +642,15 @@ namespace sisVendas.Screens.Sale
 
                 if (vendaSelecionada.Venda_cancelada) // se venda cancelada
                 {
+                    btnCancelarVenda.Visible = false;
                     lblCancelada.Visible = true;
-                    btnCancelarVenda.Text = "F6 - Restaurar Venda";
+                    //btnCancelarVenda.Text = "F6 - Restaurar Venda";
                 }
                 else
                 {
+                    btnCancelarVenda.Visible = true;
                     lblCancelada.Visible = false;
-                    btnCancelarVenda.Text = "F6 - Cancela Venda";
+                    //btnCancelarVenda.Text = "F6 - Cancela Venda";
                 }
             }
 
@@ -652,8 +663,11 @@ namespace sisVendas.Screens.Sale
         public void formCompensarParcela()
         {
 
+            double saldo = 0;
+            if (clienteSelecionado != null)
+                saldo = clienteSelecionado.Saldo;
 
-            FormInserirParcelas f = new FormInserirParcelas(toalVenda - totalDesconto, dttParcela, vendaSelecionada == null);
+            FormInserirParcelas f = new FormInserirParcelas(toalVenda - totalDesconto, dttParcela, vendaSelecionada == null, saldo);
             f.ShowDialog();
 
             this.dttParcela = f.getLparcela();
@@ -821,7 +835,7 @@ namespace sisVendas.Screens.Sale
                 }
                 else
                 {
-                    MessageBox.Show("UPDATE");
+                    //MessageBox.Show("UPDATE");
                 }
             }
             else
@@ -833,51 +847,57 @@ namespace sisVendas.Screens.Sale
         private void CancelarVenda()
         {
 
+
             if (vendaSelecionada != null)
             {
-                if (true) ///////////////// ver o que vai fazer aq
-                //vendaSelecionada.id
-                //if (vendaSelecionada.IdCaixa == idCaixa)
+                int vendaSelecionadaIdCaixa = controlVenda.verificarMesmoCaixa(vendaSelecionada.Id);
+                if (vendaSelecionadaIdCaixa == idCaixa)
                 {
-                    if (vendaSelecionada.Venda_cancelada) //verdadeiro por ser 1
+                    if (MessageBox.Show("Deseja excluir a compra selecionada ?\n\nAo confirmar a exclusão, não será possivel restaurar a compra!", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        if (MessageBox.Show("Deseja restaurar a venda selecionada ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        if (controlVenda.exclusaoFisicaDaVeda(vendaSelecionada.Id, dttProduto))
                         {
-                            controlVenda.restabelecerVenda(vendaSelecionada.Id, dttProduto);
                             resetarForm();
-                            Function.Alert("Sucesso!", "Venda restaurada!", popupClient.enmType.Success);
                         }
                     }
-                    else
-                    {
-                        if (MessageBox.Show("Deseja excluir a venda selecionada ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                        {
-                            controlVenda.removerVenda(vendaSelecionada.Id, dttProduto);
-                            resetarForm();
-                            Function.Alert("Sucesso!", "Venda removida!", popupClient.enmType.Success);
-                        }
-                    }
+                        // exclusao TOTAL da venda
+                        // remover do banco de dados
+                    
                 }
-                /*else
+                else
                 {
-                    if (MessageBox.Show("Esta venda não pertence a este caixa, deseja excluir a venda selecionada ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                    {
-                        if (MessageBox.Show("Deseja inserir o saldo ao cliente ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                        {
+                    MessageBox.Show("A venda não foi realizada no caixa atual!", "Não é possivel excluir a venda!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // aqui não é o caixa atual, adicionar saldo ao cliente
+                    /*MessageBox.Show("CaixaAtualNAAO!");
 
-                            controlVenda.removerVenda(vendaSelecionada.Id, dttProduto);
-                            resetarForm();
-                            Function.Alert("Sucesso!", "Venda removida!", popupClient.enmType.Success);
-                        }
+                    if (!vendaSelecionada.Venda_cancelada)
+                    {
+                        Form f = new FormExcluirVendaSaldoDoPagamento(vendaSelecionada.Id, vendaSelecionada.Id_cliente, dttProduto, dttParcela, idCaixa);
+                        f.ShowDialog();
+
+
+
+                        resetarForm();
+
                     }
-                }*/
+                    
+
+                    }*/
+
+                }
 
             }
             else
             {
 
-                MessageBox.Show("Venda não selecionada!");
+                MessageBox.Show("Selecione uma venda para continuar!", "Venda não selecionada!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
+
+
+
+
+            
         }
         #endregion
 

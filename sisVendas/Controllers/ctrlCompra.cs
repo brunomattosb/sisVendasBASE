@@ -1,11 +1,7 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Models;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Persistence
@@ -21,7 +17,7 @@ namespace sisVendas.Persistence
         
         //private ctrlTransacaoCaixa controlTransacao = new ctrlTransacaoCaixa();
         
-        public bool SalvarCompra( DataTable dttParcelas, DataTable dttProdutos, int id_fornecedor, double desconto, string chave, DateTime dtCompra, int idCaixa )
+        public bool SalvarCompra(DataTable dttParcelas, DataTable dttProdutos, int id_fornecedor, double desconto, string chave, DateTime dtCompra, int idCaixa )
         {
 
             bool res = true;
@@ -41,7 +37,6 @@ namespace sisVendas.Persistence
 
             if (compraSelecionada.Id != 0)
             {
-                MessageBox.Show("Entrou!");
                 ctrlProduct controlProduto = new ctrlProduct();
                 foreach (DataRow row in dttProdutos.Rows)
                 {
@@ -58,7 +53,6 @@ namespace sisVendas.Persistence
                     }
                     else
                     {
-                        //caso de merda
                         res = false;
                     }
 
@@ -85,7 +79,7 @@ namespace sisVendas.Persistence
             else
             {
                 res = false;
-                MessageBox.Show("Erro ao gravar venda!");
+                MessageBox.Show("Erro ao gravar venda!", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             /*if (!res)

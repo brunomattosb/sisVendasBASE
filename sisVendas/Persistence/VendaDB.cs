@@ -106,11 +106,62 @@ namespace sisVendas.Persistence
             return (dtVenda);
 
         }
+        public DataTable buscarParaRelatorio(string filtro)
+        {
+  
 
+            string SQL = @"
+select cli_nome as 'Cliente', cli_cpf_cnpj as 'CPF/CNPJ', venda_desconto + soma as 'Total',
+venda_desconto as 'Desconto',venda_criado_em as 'Data' from (      
+				select venda_id, venda_desconto,venda_desconto + soma as total_venda, venda_criado_em, 
+																cli_nome, cli_cpf_cnpj,venda_cancelada, soma
+                                                                               from venda 
+				left join cliente on venda.venda_idCliente = cliente.cli_id
+				inner join (select parcela_idVenda, sum(parcela_valor) as soma from ParcelaVenda 
+																group by parcela_idVenda) as parcelas 
+								on venda.venda_id = parcela_idVenda
+) as teste ";
+
+            Console.WriteLine(SQL);
+            if (filtro != "")
+            {
+                SQL = SQL + "where " + filtro;
+                Console.WriteLine(SQL);
+            }
+
+            DataTable dt = new DataTable();
+
+            db.ExecuteQuery(SQL, out dt);
+
+
+            return (dt);
+
+        }
+        public DataTable verificarMesmoCaixa(int idVenda)
+        {
+            
+            string SQL = @"select parcela_idCaixa from ParcelaVenda
+	                        where parcela_idVenda = @idVenda
+	                        group by parcela_idCaixa";
+
+            DataTable dt = new DataTable();
+
+            db.ExecuteQuery(SQL, out dt, "@idVenda", idVenda);
+
+            
+            return (dt);
+        }
         public bool remover(int id)
         {
             bool res = false;
             string SQL = @"update venda set venda_cancelada = 1 WHERE venda_id = @id";
+            res = db.ExecuteNonQuery(SQL, "@id", id);
+            return res;
+        }
+        public bool removerFisica(int id)
+        {
+            bool res = false;
+            string SQL = @"delete from venda WHERE venda_id = @id";
             res = db.ExecuteNonQuery(SQL, "@id", id);
             return res;
         }

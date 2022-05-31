@@ -42,13 +42,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cbbTipo = new System.Windows.Forms.ComboBox();
             this.dgvParcelas = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbValor = new System.Windows.Forms.TextBox();
             this.valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipo_pagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbValor = new System.Windows.Forms.TextBox();
             this.gbFormPrincipal.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvParcelas)).BeginInit();
@@ -173,9 +173,9 @@
             this.lblData.Enabled = false;
             this.lblData.Location = new System.Drawing.Point(550, 43);
             this.lblData.Name = "lblData";
-            this.lblData.Size = new System.Drawing.Size(63, 25);
+            this.lblData.Size = new System.Drawing.Size(182, 25);
             this.lblData.TabIndex = 66;
-            this.lblData.Text = "Data:";
+            this.lblData.Text = "Data Vencimento:";
             // 
             // label2
             // 
@@ -228,6 +228,27 @@
             this.dgvParcelas.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvParcelas_CellEnter);
             this.dgvParcelas.DoubleClick += new System.EventHandler(this.dgvParcelas_DoubleClick);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(67, 43);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 25);
+            this.label1.TabIndex = 51;
+            this.label1.Text = "Valor:";
+            // 
+            // tbValor
+            // 
+            this.tbValor.Location = new System.Drawing.Point(68, 71);
+            this.tbValor.MaxLength = 9;
+            this.tbValor.Name = "tbValor";
+            this.tbValor.Size = new System.Drawing.Size(138, 31);
+            this.tbValor.TabIndex = 0;
+            this.tbValor.Text = "R$ 0,00";
+            this.tbValor.Click += new System.EventHandler(this.tbValor_Click);
+            this.tbValor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbValor_KeyPress);
+            this.tbValor.Leave += new System.EventHandler(this.tbValor_Leave);
+            // 
             // valor
             // 
             this.valor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -264,32 +285,11 @@
             // data
             // 
             this.data.DataPropertyName = "data";
-            this.data.HeaderText = "Data";
+            this.data.HeaderText = "Vencimento";
             this.data.MinimumWidth = 200;
             this.data.Name = "data";
             this.data.ReadOnly = true;
             this.data.Width = 200;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(67, 43);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 25);
-            this.label1.TabIndex = 51;
-            this.label1.Text = "Valor:";
-            // 
-            // tbValor
-            // 
-            this.tbValor.Location = new System.Drawing.Point(68, 71);
-            this.tbValor.MaxLength = 9;
-            this.tbValor.Name = "tbValor";
-            this.tbValor.Size = new System.Drawing.Size(138, 31);
-            this.tbValor.TabIndex = 0;
-            this.tbValor.Text = "R$ 0,00";
-            this.tbValor.Click += new System.EventHandler(this.tbValor_Click);
-            this.tbValor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbValor_KeyPress);
-            this.tbValor.Leave += new System.EventHandler(this.tbValor_Leave);
             // 
             // FormParcelasCompra
             // 
@@ -323,13 +323,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbbTipo;
         private System.Windows.Forms.DataGridView dgvParcelas;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbValor;
+        private System.Windows.Forms.DateTimePicker dtpData;
         private System.Windows.Forms.DataGridViewTextBoxColumn valor;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
         private System.Windows.Forms.DataGridViewTextBoxColumn idVenda;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipo_pagamento;
         private System.Windows.Forms.DataGridViewTextBoxColumn data;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tbValor;
-        private System.Windows.Forms.DateTimePicker dtpData;
     }
 }

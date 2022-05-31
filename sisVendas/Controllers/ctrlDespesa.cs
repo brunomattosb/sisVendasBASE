@@ -1,11 +1,12 @@
 ﻿using sisVendas.Models;
 using sisVendas.Persistence;
-using System;
+using System; 
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace sisVendas.Controllers
 {
@@ -14,7 +15,7 @@ namespace sisVendas.Controllers
         private Banco dataBase = new Banco();
         private Despesa CurrentExpense = new Despesa();
 
-        public bool SalvarDespesa(string id, string descricao, double valor, int tipo, int caixaId, double desconto, DateTime dataDespesa, string formaPagamento, DateTime dataVecimento, string status)
+        public bool SalvarDespesa(string id, string descricao, double valor, int tipo, int caixaId, double desconto, Nullable<DateTime> dataDespesa, string formaPagamento, Nullable<DateTime> dataVencimento)
         {
             if (Int32.TryParse(id, out int number))
                 CurrentExpense.Id = number;
@@ -24,9 +25,9 @@ namespace sisVendas.Controllers
             CurrentExpense.IdTipo = tipo;
             CurrentExpense.IdCaixa = caixaId;
             CurrentExpense.Desconto = desconto;
-            CurrentExpense.Status = status;
             CurrentExpense.DataReferencia = dataDespesa;
-            CurrentExpense.DataPagamento = dataVecimento;
+            CurrentExpense.DataVencimento = dataVencimento;
+            CurrentExpense.DataPagamento = DateTime.Now;
 
             if (formaPagamento == "Dinheiro")
             {
@@ -43,6 +44,7 @@ namespace sisVendas.Controllers
             else
             {
                 CurrentExpense.Forma_pagamento = "F";
+                CurrentExpense.DataPagamento = null;
             }
 
             dataBase.Conecta();
@@ -87,7 +89,8 @@ namespace sisVendas.Controllers
             dtExpense.Columns.Add("desp_dataReferencia", typeof(DateTime));
             dtExpense.Columns.Add("desp_desconto", typeof(double));
             dtExpense.Columns.Add("desp_formaPagamento");
-            dtExpense.Columns.Add("desp_status");
+            dtExpense.Columns.Add("desp_dataVencimento");
+            dtExpense.Columns.Add("desp_tipo");
 
             dataBase.Conecta();
             DespesaDB expDB = new DespesaDB(dataBase);
@@ -118,16 +121,40 @@ namespace sisVendas.Controllers
                 line["desp_descricao"] = exp.Descricao;
                 line["desp_valor"] = exp.Valor;
                 line["desp_idTipo"] = exp.IdTipo;
-                line["desp_dataPagamento"] = exp.DataPagamento;
+                
                 line["desp_idCaixa"] = exp.IdCaixa;
                 line["desp_dataReferencia"] = exp.DataReferencia;
                 line["desp_desconto"] = exp.Desconto;
-                line["desp_status"] = exp.Status;
+                line["desp_tipo"] = exp.Tipo;
+                line["desp_dataVencimento"] = exp.DataVencimento;
 
-
+                if(exp.DataPagamento == null)
+                {
+                    line["desp_dataPagamento"] = DBNull.Value;
+                }
+                else
+                {
+                    line["desp_dataPagamento"] = exp.DataPagamento;
+                }
 
                 dtExpense.Rows.Add(line);
             }
+            dataBase.Desconecta();
+
+            return (dtExpense);
+        }
+        public DataTable buscarParaRelatorio(string filtro)
+        {
+
+            DataTable dtExpense = new DataTable();
+
+
+            dataBase.Conecta();
+            DespesaDB expDB = new DespesaDB(dataBase);
+
+            dtExpense = expDB.buscarParaRelatorio(filtro);
+            
+            
             dataBase.Desconecta();
 
             return (dtExpense);
@@ -181,7 +208,6 @@ namespace sisVendas.Controllers
                 line["desp_idCaixa"] = exp.IdCaixa;
                 line["desp_dataReferencia"] = exp.DataReferencia;
                 line["desp_desconto"] = exp.Desconto;
-                line["desp_status"] = exp.Status;
 
 
 
@@ -198,8 +224,7 @@ namespace sisVendas.Controllers
             
             dtExpense.Columns.Add("id", typeof(int));
             dtExpense.Columns.Add("dtPagamento", typeof(DateTime));
-            dtExpense.Columns.Add("dtDespesa", typeof(DateTime));
-            dtExpense.Columns.Add("status"); // "DEVE" "PAGO"
+            dtExpense.Columns.Add("dtVencimento", typeof(DateTime));
             dtExpense.Columns.Add("formaPagamento"); // "M/D/C/F"
             dtExpense.Columns.Add("caixaId", typeof(int));
             dtExpense.Columns.Add("valor", typeof(double));
@@ -236,9 +261,17 @@ namespace sisVendas.Controllers
                 line["descricao"] = exp.Descricao;
                 line["idVenda"] = 0;
                 line["caixaId"] = exp.IdCaixa;
-                line["dtDespesa"] = exp.DataReferencia;
-                line["dtPagamento"] = exp.DataPagamento;
-                line["status"] = exp.Status;
+                line["dtVencimento"] = exp.DataVencimento;
+                
+
+                if(exp.DataPagamento == null)
+                {
+                    line["dtPagamento"] = DBNull.Value;
+                }
+                else
+                {
+                    line["dtPagamento"] = exp.DataPagamento;
+                }
 
                 dtExpense.Rows.Add(line);
             }

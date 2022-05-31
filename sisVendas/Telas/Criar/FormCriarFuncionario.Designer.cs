@@ -31,10 +31,10 @@
             this.GbpPesquisa = new System.Windows.Forms.GroupBox();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.gbCad = new System.Windows.Forms.GroupBox();
-            this.cbAtivo = new System.Windows.Forms.CheckBox();
             this.dtpDtNasc = new System.Windows.Forms.DateTimePicker();
             this.tbRg = new System.Windows.Forms.TextBox();
             this.gbAdmission = new System.Windows.Forms.GroupBox();
+            this.cbAtivo = new System.Windows.Forms.CheckBox();
             this.dtpDemissao = new System.Windows.Forms.DateTimePicker();
             this.dtpAdmissao = new System.Windows.Forms.DateTimePicker();
             this.lblAdmissao = new System.Windows.Forms.Label();
@@ -78,7 +78,6 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.dgv_employee = new System.Windows.Forms.DataGridView();
             this.func_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.func_rg = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -102,21 +101,21 @@
             this.func_email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.func_ativo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.lblFuncionario = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.GbpPesquisa.SuspendLayout();
             this.gbCad.SuspendLayout();
             this.gbAdmission.SuspendLayout();
             this.gbAccess.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_employee)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // GbpPesquisa
             // 
-            this.GbpPesquisa.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.GbpPesquisa.Controls.Add(this.tbSearch);
             this.GbpPesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GbpPesquisa.Location = new System.Drawing.Point(30, 436);
+            this.GbpPesquisa.Location = new System.Drawing.Point(12, 433);
             this.GbpPesquisa.Name = "GbpPesquisa";
             this.GbpPesquisa.Size = new System.Drawing.Size(336, 57);
             this.GbpPesquisa.TabIndex = 2;
@@ -134,8 +133,6 @@
             // 
             // gbCad
             // 
-            this.gbCad.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.gbCad.Controls.Add(this.cbAtivo);
             this.gbCad.Controls.Add(this.dtpDtNasc);
             this.gbCad.Controls.Add(this.tbRg);
             this.gbCad.Controls.Add(this.gbAdmission);
@@ -166,34 +163,23 @@
             this.gbCad.Controls.Add(this.tbName);
             this.gbCad.Controls.Add(this.lblName);
             this.gbCad.Controls.Add(this.lblCpf);
-            this.gbCad.Location = new System.Drawing.Point(33, 55);
+            this.gbCad.Location = new System.Drawing.Point(12, 69);
             this.gbCad.Name = "gbCad";
-            this.gbCad.Size = new System.Drawing.Size(694, 325);
+            this.gbCad.Size = new System.Drawing.Size(647, 321);
             this.gbCad.TabIndex = 0;
             this.gbCad.TabStop = false;
-            // 
-            // cbAtivo
-            // 
-            this.cbAtivo.AutoSize = true;
-            this.cbAtivo.Location = new System.Drawing.Point(343, 267);
-            this.cbAtivo.Name = "cbAtivo";
-            this.cbAtivo.Size = new System.Drawing.Size(50, 17);
-            this.cbAtivo.TabIndex = 51;
-            this.cbAtivo.Text = "Ativo";
-            this.cbAtivo.UseVisualStyleBackColor = true;
-            this.cbAtivo.CheckedChanged += new System.EventHandler(this.cbAtivo_CheckedChanged);
             // 
             // dtpDtNasc
             // 
             this.dtpDtNasc.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDtNasc.Location = new System.Drawing.Point(553, 128);
+            this.dtpDtNasc.Location = new System.Drawing.Point(525, 118);
             this.dtpDtNasc.Name = "dtpDtNasc";
             this.dtpDtNasc.Size = new System.Drawing.Size(111, 20);
             this.dtpDtNasc.TabIndex = 10;
             // 
             // tbRg
             // 
-            this.tbRg.Location = new System.Drawing.Point(234, 43);
+            this.tbRg.Location = new System.Drawing.Point(208, 32);
             this.tbRg.MaxLength = 19;
             this.tbRg.Name = "tbRg";
             this.tbRg.Size = new System.Drawing.Size(111, 20);
@@ -202,21 +188,33 @@
             // gbAdmission
             // 
             this.gbAdmission.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gbAdmission.Controls.Add(this.cbAtivo);
             this.gbAdmission.Controls.Add(this.dtpDemissao);
             this.gbAdmission.Controls.Add(this.dtpAdmissao);
             this.gbAdmission.Controls.Add(this.lblAdmissao);
             this.gbAdmission.Controls.Add(this.lblDemissao);
             this.gbAdmission.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbAdmission.Location = new System.Drawing.Point(399, 254);
+            this.gbAdmission.Location = new System.Drawing.Point(369, 185);
             this.gbAdmission.Name = "gbAdmission";
-            this.gbAdmission.Size = new System.Drawing.Size(280, 58);
+            this.gbAdmission.Size = new System.Drawing.Size(267, 92);
             this.gbAdmission.TabIndex = 15;
             this.gbAdmission.TabStop = false;
+            // 
+            // cbAtivo
+            // 
+            this.cbAtivo.AutoSize = true;
+            this.cbAtivo.Location = new System.Drawing.Point(12, 19);
+            this.cbAtivo.Name = "cbAtivo";
+            this.cbAtivo.Size = new System.Drawing.Size(50, 17);
+            this.cbAtivo.TabIndex = 51;
+            this.cbAtivo.Text = "Ativo";
+            this.cbAtivo.UseVisualStyleBackColor = true;
+            this.cbAtivo.CheckedChanged += new System.EventHandler(this.cbAtivo_CheckedChanged);
             // 
             // dtpDemissao
             // 
             this.dtpDemissao.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDemissao.Location = new System.Drawing.Point(150, 30);
+            this.dtpDemissao.Location = new System.Drawing.Point(139, 58);
             this.dtpDemissao.Name = "dtpDemissao";
             this.dtpDemissao.Size = new System.Drawing.Size(111, 20);
             this.dtpDemissao.TabIndex = 52;
@@ -224,7 +222,7 @@
             // dtpAdmissao
             // 
             this.dtpAdmissao.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpAdmissao.Location = new System.Drawing.Point(23, 30);
+            this.dtpAdmissao.Location = new System.Drawing.Point(12, 58);
             this.dtpAdmissao.Name = "dtpAdmissao";
             this.dtpAdmissao.Size = new System.Drawing.Size(111, 20);
             this.dtpAdmissao.TabIndex = 51;
@@ -232,7 +230,7 @@
             // lblAdmissao
             // 
             this.lblAdmissao.AutoSize = true;
-            this.lblAdmissao.Location = new System.Drawing.Point(20, 14);
+            this.lblAdmissao.Location = new System.Drawing.Point(9, 42);
             this.lblAdmissao.Name = "lblAdmissao";
             this.lblAdmissao.Size = new System.Drawing.Size(59, 13);
             this.lblAdmissao.TabIndex = 0;
@@ -241,7 +239,7 @@
             // lblDemissao
             // 
             this.lblDemissao.AutoSize = true;
-            this.lblDemissao.Location = new System.Drawing.Point(147, 14);
+            this.lblDemissao.Location = new System.Drawing.Point(136, 42);
             this.lblDemissao.Name = "lblDemissao";
             this.lblDemissao.Size = new System.Drawing.Size(56, 13);
             this.lblDemissao.TabIndex = 46;
@@ -256,9 +254,9 @@
             this.gbAccess.Controls.Add(this.lblPassword);
             this.gbAccess.Controls.Add(this.lblLicenca);
             this.gbAccess.Controls.Add(this.cbbLicence);
-            this.gbAccess.Location = new System.Drawing.Point(6, 195);
+            this.gbAccess.Location = new System.Drawing.Point(9, 185);
             this.gbAccess.Name = "gbAccess";
-            this.gbAccess.Size = new System.Drawing.Size(682, 58);
+            this.gbAccess.Size = new System.Drawing.Size(354, 127);
             this.gbAccess.TabIndex = 14;
             this.gbAccess.TabStop = false;
             this.gbAccess.Text = "Acesso:";
@@ -266,7 +264,7 @@
             // cbAccces
             // 
             this.cbAccces.AutoSize = true;
-            this.cbAccces.Location = new System.Drawing.Point(10, 33);
+            this.cbAccces.Location = new System.Drawing.Point(10, 19);
             this.cbAccces.Name = "cbAccces";
             this.cbAccces.Size = new System.Drawing.Size(116, 17);
             this.cbAccces.TabIndex = 0;
@@ -277,7 +275,7 @@
             // tbPassword
             // 
             this.tbPassword.Enabled = false;
-            this.tbPassword.Location = new System.Drawing.Point(300, 32);
+            this.tbPassword.Location = new System.Drawing.Point(10, 95);
             this.tbPassword.MaxLength = 49;
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.Size = new System.Drawing.Size(162, 20);
@@ -286,7 +284,7 @@
             // tbUsername
             // 
             this.tbUsername.Enabled = false;
-            this.tbUsername.Location = new System.Drawing.Point(132, 32);
+            this.tbUsername.Location = new System.Drawing.Point(10, 56);
             this.tbUsername.MaxLength = 49;
             this.tbUsername.Name = "tbUsername";
             this.tbUsername.Size = new System.Drawing.Size(162, 20);
@@ -295,7 +293,7 @@
             // lblUser
             // 
             this.lblUser.AutoSize = true;
-            this.lblUser.Location = new System.Drawing.Point(129, 14);
+            this.lblUser.Location = new System.Drawing.Point(7, 40);
             this.lblUser.Name = "lblUser";
             this.lblUser.Size = new System.Drawing.Size(50, 13);
             this.lblUser.TabIndex = 50;
@@ -304,7 +302,7 @@
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(297, 16);
+            this.lblPassword.Location = new System.Drawing.Point(7, 79);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(45, 13);
             this.lblPassword.TabIndex = 49;
@@ -313,7 +311,7 @@
             // lblLicenca
             // 
             this.lblLicenca.AutoSize = true;
-            this.lblLicenca.Location = new System.Drawing.Point(468, 16);
+            this.lblLicenca.Location = new System.Drawing.Point(175, 40);
             this.lblLicenca.Name = "lblLicenca";
             this.lblLicenca.Size = new System.Drawing.Size(52, 13);
             this.lblLicenca.TabIndex = 47;
@@ -330,16 +328,16 @@
             "Basico",
             "Neutro",
             "Master"});
-            this.cbbLicence.Location = new System.Drawing.Point(468, 32);
+            this.cbbLicence.Location = new System.Drawing.Point(178, 56);
             this.cbbLicence.MaxLength = 2;
             this.cbbLicence.Name = "cbbLicence";
-            this.cbbLicence.Size = new System.Drawing.Size(164, 21);
+            this.cbbLicence.Size = new System.Drawing.Size(170, 21);
             this.cbbLicence.TabIndex = 2;
             // 
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(159, 153);
+            this.lblEmail.Location = new System.Drawing.Point(131, 144);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(39, 13);
             this.lblEmail.TabIndex = 38;
@@ -347,7 +345,7 @@
             // 
             // tbEmail
             // 
-            this.tbEmail.Location = new System.Drawing.Point(162, 169);
+            this.tbEmail.Location = new System.Drawing.Point(134, 159);
             this.tbEmail.MaxLength = 99;
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(385, 20);
@@ -356,7 +354,7 @@
             // lblRg
             // 
             this.lblRg.AutoSize = true;
-            this.lblRg.Location = new System.Drawing.Point(232, 27);
+            this.lblRg.Location = new System.Drawing.Point(204, 16);
             this.lblRg.Name = "lblRg";
             this.lblRg.Size = new System.Drawing.Size(26, 13);
             this.lblRg.TabIndex = 36;
@@ -364,7 +362,7 @@
             // 
             // mtbTelephone
             // 
-            this.mtbTelephone.Location = new System.Drawing.Point(37, 168);
+            this.mtbTelephone.Location = new System.Drawing.Point(9, 158);
             this.mtbTelephone.Mask = "(00)00000-0000";
             this.mtbTelephone.Name = "mtbTelephone";
             this.mtbTelephone.Size = new System.Drawing.Size(112, 20);
@@ -376,7 +374,7 @@
             // 
             this.lblCod.AutoSize = true;
             this.lblCod.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblCod.Location = new System.Drawing.Point(34, 27);
+            this.lblCod.Location = new System.Drawing.Point(6, 16);
             this.lblCod.Name = "lblCod";
             this.lblCod.Size = new System.Drawing.Size(43, 13);
             this.lblCod.TabIndex = 0;
@@ -385,7 +383,7 @@
             // lblTelefone
             // 
             this.lblTelefone.AutoSize = true;
-            this.lblTelefone.Location = new System.Drawing.Point(35, 154);
+            this.lblTelefone.Location = new System.Drawing.Point(7, 144);
             this.lblTelefone.Name = "lblTelefone";
             this.lblTelefone.Size = new System.Drawing.Size(59, 13);
             this.lblTelefone.TabIndex = 33;
@@ -393,7 +391,7 @@
             // 
             // mtbCpf
             // 
-            this.mtbCpf.Location = new System.Drawing.Point(116, 43);
+            this.mtbCpf.Location = new System.Drawing.Point(90, 32);
             this.mtbCpf.Mask = "000,000,000-00";
             this.mtbCpf.Name = "mtbCpf";
             this.mtbCpf.Size = new System.Drawing.Size(112, 20);
@@ -404,7 +402,7 @@
             // 
             // mtbCep
             // 
-            this.mtbCep.Location = new System.Drawing.Point(352, 129);
+            this.mtbCep.Location = new System.Drawing.Point(324, 118);
             this.mtbCep.Mask = "00000-000";
             this.mtbCep.Name = "mtbCep";
             this.mtbCep.Size = new System.Drawing.Size(112, 20);
@@ -415,7 +413,7 @@
             // lblSalario
             // 
             this.lblSalario.AutoSize = true;
-            this.lblSalario.Location = new System.Drawing.Point(550, 156);
+            this.lblSalario.Location = new System.Drawing.Point(522, 144);
             this.lblSalario.Name = "lblSalario";
             this.lblSalario.Size = new System.Drawing.Size(73, 13);
             this.lblSalario.TabIndex = 29;
@@ -423,7 +421,7 @@
             // 
             // tbBaseSalary
             // 
-            this.tbBaseSalary.Location = new System.Drawing.Point(553, 169);
+            this.tbBaseSalary.Location = new System.Drawing.Point(525, 159);
             this.tbBaseSalary.MaxLength = 10;
             this.tbBaseSalary.Name = "tbBaseSalary";
             this.tbBaseSalary.Size = new System.Drawing.Size(111, 20);
@@ -435,7 +433,7 @@
             // tbCod
             // 
             this.tbCod.Enabled = false;
-            this.tbCod.Location = new System.Drawing.Point(37, 43);
+            this.tbCod.Location = new System.Drawing.Point(11, 32);
             this.tbCod.Name = "tbCod";
             this.tbCod.Size = new System.Drawing.Size(73, 20);
             this.tbCod.TabIndex = 0;
@@ -443,7 +441,7 @@
             // lblSexo
             // 
             this.lblSexo.AutoSize = true;
-            this.lblSexo.Location = new System.Drawing.Point(349, 74);
+            this.lblSexo.Location = new System.Drawing.Point(325, 60);
             this.lblSexo.Name = "lblSexo";
             this.lblSexo.Size = new System.Drawing.Size(38, 13);
             this.lblSexo.TabIndex = 26;
@@ -456,7 +454,7 @@
             this.cbbSex.Items.AddRange(new object[] {
             "M",
             "F"});
-            this.cbbSex.Location = new System.Drawing.Point(352, 89);
+            this.cbbSex.Location = new System.Drawing.Point(325, 75);
             this.cbbSex.MaxLength = 1;
             this.cbbSex.Name = "cbbSex";
             this.cbbSex.Size = new System.Drawing.Size(112, 21);
@@ -465,7 +463,7 @@
             // lblNascimento
             // 
             this.lblNascimento.AutoSize = true;
-            this.lblNascimento.Location = new System.Drawing.Point(550, 114);
+            this.lblNascimento.Location = new System.Drawing.Point(522, 103);
             this.lblNascimento.Name = "lblNascimento";
             this.lblNascimento.Size = new System.Drawing.Size(65, 13);
             this.lblNascimento.TabIndex = 25;
@@ -474,7 +472,7 @@
             // lblEstado
             // 
             this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(467, 113);
+            this.lblEstado.Location = new System.Drawing.Point(439, 103);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(28, 13);
             this.lblEstado.TabIndex = 17;
@@ -514,7 +512,7 @@
             "SE",
             "SP",
             "TO"});
-            this.cbbUF.Location = new System.Drawing.Point(470, 128);
+            this.cbbUF.Location = new System.Drawing.Point(442, 117);
             this.cbbUF.MaxLength = 2;
             this.cbbUF.Name = "cbbUF";
             this.cbbUF.Size = new System.Drawing.Size(77, 21);
@@ -524,7 +522,7 @@
             // lblBairro
             // 
             this.lblBairro.AutoSize = true;
-            this.lblBairro.Location = new System.Drawing.Point(34, 113);
+            this.lblBairro.Location = new System.Drawing.Point(6, 103);
             this.lblBairro.Name = "lblBairro";
             this.lblBairro.Size = new System.Drawing.Size(37, 13);
             this.lblBairro.TabIndex = 11;
@@ -532,7 +530,7 @@
             // 
             // tbDistrict
             // 
-            this.tbDistrict.Location = new System.Drawing.Point(37, 129);
+            this.tbDistrict.Location = new System.Drawing.Point(9, 118);
             this.tbDistrict.MaxLength = 20;
             this.tbDistrict.Name = "tbDistrict";
             this.tbDistrict.Size = new System.Drawing.Size(309, 20);
@@ -540,7 +538,7 @@
             // 
             // tbCity
             // 
-            this.tbCity.Location = new System.Drawing.Point(470, 87);
+            this.tbCity.Location = new System.Drawing.Point(442, 76);
             this.tbCity.MaxLength = 29;
             this.tbCity.Name = "tbCity";
             this.tbCity.Size = new System.Drawing.Size(194, 20);
@@ -549,7 +547,7 @@
             // lblCidade
             // 
             this.lblCidade.AutoSize = true;
-            this.lblCidade.Location = new System.Drawing.Point(467, 74);
+            this.lblCidade.Location = new System.Drawing.Point(439, 60);
             this.lblCidade.Name = "lblCidade";
             this.lblCidade.Size = new System.Drawing.Size(44, 13);
             this.lblCidade.TabIndex = 15;
@@ -557,7 +555,7 @@
             // 
             // tbAddres
             // 
-            this.tbAddres.Location = new System.Drawing.Point(37, 90);
+            this.tbAddres.Location = new System.Drawing.Point(10, 76);
             this.tbAddres.MaxLength = 49;
             this.tbAddres.Name = "tbAddres";
             this.tbAddres.Size = new System.Drawing.Size(309, 20);
@@ -566,7 +564,7 @@
             // lblEnd
             // 
             this.lblEnd.AutoSize = true;
-            this.lblEnd.Location = new System.Drawing.Point(34, 74);
+            this.lblEnd.Location = new System.Drawing.Point(9, 60);
             this.lblEnd.Name = "lblEnd";
             this.lblEnd.Size = new System.Drawing.Size(60, 13);
             this.lblEnd.TabIndex = 9;
@@ -575,7 +573,7 @@
             // lblCep
             // 
             this.lblCep.AutoSize = true;
-            this.lblCep.Location = new System.Drawing.Point(349, 113);
+            this.lblCep.Location = new System.Drawing.Point(321, 103);
             this.lblCep.Name = "lblCep";
             this.lblCep.Size = new System.Drawing.Size(31, 13);
             this.lblCep.TabIndex = 10;
@@ -583,16 +581,16 @@
             // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(352, 43);
+            this.tbName.Location = new System.Drawing.Point(325, 32);
             this.tbName.MaxLength = 49;
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(312, 20);
+            this.tbName.Size = new System.Drawing.Size(311, 20);
             this.tbName.TabIndex = 3;
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(349, 29);
+            this.lblName.Location = new System.Drawing.Point(321, 16);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(42, 13);
             this.lblName.TabIndex = 1;
@@ -601,7 +599,7 @@
             // lblCpf
             // 
             this.lblCpf.AutoSize = true;
-            this.lblCpf.Location = new System.Drawing.Point(113, 27);
+            this.lblCpf.Location = new System.Drawing.Point(87, 16);
             this.lblCpf.Name = "lblCpf";
             this.lblCpf.Size = new System.Drawing.Size(34, 13);
             this.lblCpf.TabIndex = 2;
@@ -618,19 +616,19 @@
             this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnSave, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnRemove, 2, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(33, 388);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 397);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(694, 43);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(647, 31);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // btnNew
             // 
             this.btnNew.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnNew.Location = new System.Drawing.Point(42, 3);
+            this.btnNew.Location = new System.Drawing.Point(43, 4);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(88, 37);
+            this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 0;
             this.btnNew.Text = "Novo";
             this.btnNew.UseVisualStyleBackColor = true;
@@ -639,9 +637,9 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCancel.Location = new System.Drawing.Point(215, 3);
+            this.btnCancel.Location = new System.Drawing.Point(204, 4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(88, 37);
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -650,9 +648,9 @@
             // btnSave
             // 
             this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSave.Location = new System.Drawing.Point(562, 3);
+            this.btnSave.Location = new System.Drawing.Point(527, 4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(88, 37);
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -661,36 +659,18 @@
             // btnRemove
             // 
             this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnRemove.Location = new System.Drawing.Point(388, 3);
+            this.btnRemove.Location = new System.Drawing.Point(365, 4);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(88, 37);
+            this.btnRemove.Size = new System.Drawing.Size(75, 23);
             this.btnRemove.TabIndex = 2;
             this.btnRemove.Text = "Excluir";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.dgv_employee, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(27, 497);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(705, 242);
-            this.tableLayoutPanel2.TabIndex = 5;
-            // 
             // dgv_employee
             // 
             this.dgv_employee.AllowUserToAddRows = false;
             this.dgv_employee.AllowUserToDeleteRows = false;
-            this.dgv_employee.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_employee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_employee.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.func_nome,
@@ -714,13 +694,13 @@
             this.func_usuario,
             this.func_email,
             this.func_ativo});
-            this.dgv_employee.Location = new System.Drawing.Point(3, 3);
+            this.dgv_employee.Location = new System.Drawing.Point(12, 496);
             this.dgv_employee.MultiSelect = false;
             this.dgv_employee.Name = "dgv_employee";
             this.dgv_employee.ReadOnly = true;
             this.dgv_employee.RowHeadersVisible = false;
             this.dgv_employee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_employee.Size = new System.Drawing.Size(699, 236);
+            this.dgv_employee.Size = new System.Drawing.Size(647, 148);
             this.dgv_employee.TabIndex = 0;
             this.dgv_employee.DoubleClick += new System.EventHandler(this.dgv_employee_DoubleClick);
             // 
@@ -901,21 +881,30 @@
             this.lblFuncionario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFuncionario.AutoSize = true;
             this.lblFuncionario.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFuncionario.Location = new System.Drawing.Point(27, 11);
+            this.lblFuncionario.Location = new System.Drawing.Point(143, 9);
             this.lblFuncionario.Name = "lblFuncionario";
             this.lblFuncionario.Size = new System.Drawing.Size(388, 42);
             this.lblFuncionario.TabIndex = 0;
             this.lblFuncionario.Text = "Cadastrar Funcionário";
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.panel1.Controls.Add(this.lblFuncionario);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(676, 63);
+            this.panel1.TabIndex = 11;
+            // 
             // FormCriarFuncionario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 751);
-            this.Controls.Add(this.lblFuncionario);
+            this.ClientSize = new System.Drawing.Size(671, 656);
+            this.Controls.Add(this.dgv_employee);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.gbCad);
-            this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.GbpPesquisa);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormCriarFuncionario";
@@ -930,10 +919,10 @@
             this.gbAccess.ResumeLayout(false);
             this.gbAccess.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_employee)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -969,7 +958,6 @@
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblCpf;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.DataGridView dgv_employee;
         private System.Windows.Forms.Label lblFuncionario;
         private System.Windows.Forms.Label lblRg;
@@ -1012,5 +1000,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn func_usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn func_email;
         private System.Windows.Forms.DataGridViewCheckBoxColumn func_ativo;
+        private System.Windows.Forms.Panel panel1;
     }
 }

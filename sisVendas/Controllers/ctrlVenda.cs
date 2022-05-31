@@ -1,11 +1,7 @@
 ﻿using sisVendas.Models;
 using sisVendas.Persistence;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Controllers
@@ -18,6 +14,7 @@ namespace sisVendas.Controllers
         private ctrlItensVenda controlItensVenda = new ctrlItensVenda();
         private ctrlParcelasVenda controlParcelas = new ctrlParcelasVenda();
         private ctrlProduct controlProdutos = new ctrlProduct();
+        private ctrlCliente controlCliente = new ctrlCliente();
 
         public bool SalvarVenda(int id_cliente, DataTable dtParcelas, DataTable dtProdutos, double desconto, int idCaixa, int idFunc)
         { 
@@ -47,25 +44,34 @@ namespace sisVendas.Controllers
                             double.Parse(row["amount"].ToString())
                     ))
                     {
+
                         res = false;
                     }
                     
 
                 }
-
                 foreach (DataRow row in dtParcelas.Rows)
                 {
                     double valor = double.Parse(row["valor"].ToString());
-                    if (!controlParcelas.SalvarParcela(
+                    if (controlParcelas.SalvarParcela(
                         vendaSelecionada.Id,
                         valor,
                         row["tipo_pagamento"].ToString(),
                         DateTime.Parse(row["data"].ToString()),
                         idCaixa))
                     {
-                        
+
+                        if(row["tipo_pagamento"].ToString() == "Saldo")
+                        {
+                            controlCliente.removerSaldo(vendaSelecionada.Id_cliente, valor);
+                        }
+
+
+                    }
+                    else
+                    {
                         res = false;
-                        
+
                     }
 
                 }
@@ -74,15 +80,13 @@ namespace sisVendas.Controllers
             else
             {
                 res = false;
-                MessageBox.Show("Erro ao gravar venda!");
+                MessageBox.Show("Erro ao gravar venda!", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             if (!res)
             {
-                MessageBox.Show(vendaSelecionada.Id + "Venda a ser excluida");
-                controlItensVenda.removerItensVenda(vendaSelecionada.Id);
-                controlParcelas.removerParcelas(vendaSelecionada.Id);
-                this.removerVenda(vendaSelecionada.Id, dtProdutos);
+                
+                this.exclusaoFisicaDaVeda(vendaSelecionada.Id, dtProdutos);
             }
 
             
@@ -90,6 +94,28 @@ namespace sisVendas.Controllers
 
             return (res);
         }
+
+
+        public int verificarMesmoCaixa(int idVenda)
+        {
+            int res =0;
+            dataBase.Conecta();
+            VendaDB vendaDB = new VendaDB(dataBase);
+            DataTable dt = vendaDB.verificarMesmoCaixa(idVenda);
+            int count = dt.Rows.Count;
+            if (count != 1)
+            {
+                return res;
+            }else
+            {
+
+                res = int.Parse(dt.Rows[0]["parcela_idCaixa"].ToString());
+                
+            }
+            dataBase.Desconecta();
+            return res;
+        }
+        
         public DataTable buscarVendas(string filter)
         {
             
@@ -98,6 +124,19 @@ namespace sisVendas.Controllers
             VendaDB vendaDB = new VendaDB(dataBase);
 
             DataTable dtVendas = vendaDB.buscar(filter);
+
+            dataBase.Desconecta();
+
+            return (dtVendas);
+        }
+        public DataTable buscarParaRelatorio(string filter)
+        {
+
+            dataBase.Conecta();
+
+            VendaDB vendaDB = new VendaDB(dataBase);
+
+            DataTable dtVendas = vendaDB.buscarParaRelatorio(filter);
 
             dataBase.Desconecta();
 
@@ -113,13 +152,37 @@ namespace sisVendas.Controllers
             {
                 foreach (DataRow prod in dttProduto.Rows)
                 {
-
                     controlProdutos.adicionarEstoque(prod["cod"].ToString(), double.Parse(prod["amount"].ToString()));
                 }
             }
             dataBase.Desconecta();
             return res;
         }
+        public bool exclusaoFisicaDaVeda(int cod, DataTable dttProduto)
+        {
+            bool res = true;
+            dataBase.Conecta();
+            VendaDB vendaDB = new VendaDB(dataBase);
+
+            //adicionar estoque
+            //if (res)
+            //{
+            
+            foreach (DataRow prod in dttProduto.Rows)
+            {
+                controlProdutos.adicionarEstoque(prod["cod"].ToString(), double.Parse(prod["amount"].ToString()));
+            }
+            controlItensVenda.removerItensVenda(cod);
+            controlParcelas.removerParcelas(cod);
+            //}
+            res = vendaDB.removerFisica(cod);
+
+
+            dataBase.Desconecta();
+            return res;
+        }
+
+        
         public bool restabelecerVenda(int cod, DataTable dttProduto)
         {
             bool res = true;

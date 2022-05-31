@@ -40,7 +40,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.lblValor);
             this.groupBox1.Controls.Add(this.btnRemover);
@@ -49,9 +48,9 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.tbValor);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(11, 11);
+            this.groupBox1.Location = new System.Drawing.Point(12, 11);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(381, 289);
+            this.groupBox1.Size = new System.Drawing.Size(316, 193);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Parcela a Receber";
@@ -60,7 +59,7 @@
             // 
             this.lblValor.AutoSize = true;
             this.lblValor.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblValor.Location = new System.Drawing.Point(33, 64);
+            this.lblValor.Location = new System.Drawing.Point(6, 27);
             this.lblValor.Name = "lblValor";
             this.lblValor.Size = new System.Drawing.Size(76, 42);
             this.lblValor.TabIndex = 59;
@@ -68,7 +67,7 @@
             // 
             // btnRemover
             // 
-            this.btnRemover.Location = new System.Drawing.Point(122, 221);
+            this.btnRemover.Location = new System.Drawing.Point(97, 149);
             this.btnRemover.Name = "btnRemover";
             this.btnRemover.Size = new System.Drawing.Size(109, 34);
             this.btnRemover.TabIndex = 5;
@@ -79,7 +78,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(194, 121);
+            this.label2.Location = new System.Drawing.Point(157, 77);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 25);
             this.label2.TabIndex = 63;
@@ -96,15 +95,15 @@
             "Dinheiro",
             "Débito",
             "Crédito"});
-            this.cbbTipo.Location = new System.Drawing.Point(199, 149);
+            this.cbbTipo.Location = new System.Drawing.Point(157, 103);
             this.cbbTipo.Name = "cbbTipo";
-            this.cbbTipo.Size = new System.Drawing.Size(138, 33);
+            this.cbbTipo.Size = new System.Drawing.Size(153, 33);
             this.cbbTipo.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 121);
+            this.label1.Location = new System.Drawing.Point(8, 77);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 25);
             this.label1.TabIndex = 51;
@@ -112,7 +111,7 @@
             // 
             // tbValor
             // 
-            this.tbValor.Location = new System.Drawing.Point(36, 149);
+            this.tbValor.Location = new System.Drawing.Point(8, 105);
             this.tbValor.MaxLength = 9;
             this.tbValor.Name = "tbValor";
             this.tbValor.Size = new System.Drawing.Size(138, 31);
@@ -126,8 +125,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(407, 312);
+            this.ClientSize = new System.Drawing.Size(340, 216);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormQuitarContaReceber";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quitar Conta";

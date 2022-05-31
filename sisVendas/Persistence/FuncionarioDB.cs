@@ -100,8 +100,45 @@ namespace sisVendas.Persistence
             return (employees);
 
         }
+        public DataTable BuscarCpfNome()
+        {
+
+            DataTable dt = new DataTable();
+
+            string SQL = @"SELECT func_cpf as Cpf, func_nome as Nome FROM Funcionario order by Nome";
+
+            db.ExecuteQuery(SQL, out dt);
+
+            
+            return (dt);
+
+        }
+        public List<object> BuscarParaComboBox()
+        {
+
+            DataTable dt = new DataTable();
+            List<object> employees = new List<object>();
 
 
+            string SQL = @"SELECT func_id, func_nome FROM Funcionario";
+
+            db.ExecuteQuery(SQL, out dt);
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    Funcionario emp = new Funcionario();
+
+                    emp.Id = Convert.ToInt32(dt.Rows[i]["func_id"]);
+                    emp.Nome = dt.Rows[i]["func_nome"].ToString();
+
+                    employees.Add(emp);
+                }
+            }
+            return (employees);
+
+        }
 
         public Funcionario buscarPorUsername(string filtro)
         {

@@ -25,12 +25,11 @@ namespace sisVendas.Persistence
                 Cliente cli = (Cliente)Objeto;
 
                 string SQL;
-
+                
                 SQL = @"INSERT INTO Cliente (cli_nome,cli_nome_fansasia,cli_cpf_cnpj,cli_cep,cli_endereco,cli_bairro,
                                         cli_cidade,cli_telefone,cli_rg_ie,cli_uf,cli_dt_aniversario,cli_sexo,cli_saldo,cli_email)
                         values (@cli_nome,@cli_nome_fansasia,@cli_cpf_cnpj,@cli_cep,@cli_endereco,@cli_bairro,
-                                        @cli_cidade,@cli_telefone,@cli_rg_ie,@cli_uf,@cli_dt_aniversario,@cli_sexo,@cli_saldo,@cli_email)";
-
+                                        @cli_cidade,@cli_telefone,@cli_rg_ie,@cli_uf, NULLIF (@cli_dt_aniversario, ''),@cli_sexo,@cli_saldo,@cli_email)";
 
                 res = db.ExecuteNonQuery(SQL, "@cli_nome", cli.Nome,
                                                 "@cli_nome_fansasia", cli.Nome_fantasia,
@@ -69,7 +68,7 @@ namespace sisVendas.Persistence
                                             cli_telefone = @cli_telefone,
                                             cli_rg_ie = @cli_rg_ie,
                                             cli_uf = @cli_uf,
-                                            cli_dt_aniversario = @cli_dt_aniversario,
+                                            cli_dt_aniversario = NULLIF (@cli_dt_aniversario, ''),
                                             cli_sexo = @cli_sexo,
                                             cli_saldo = @cli_saldo,
                                             cli_email = @cli_email
@@ -94,7 +93,37 @@ namespace sisVendas.Persistence
             }
             return res;
         }
+        public bool adicionarSaldo(int idCliente, double valor)
+        {
 
+            bool res = false;
+
+
+            string SQL = @"UPDATE Cliente SET cli_saldo = (cli_saldo + @cli_saldo)
+                        WHERE cli_id = @cli_id;";
+
+            res = db.ExecuteNonQuery(SQL, "@cli_id", idCliente,
+                                            "@cli_saldo", valor);
+
+
+            return res;
+        }
+        public bool removerSaldo(int idCliente, double valor)
+        {
+
+            bool res = false;
+
+            MessageBox.Show(valor + "");
+            MessageBox.Show(idCliente + "");
+            string SQL = @"UPDATE Cliente SET cli_saldo = (cli_saldo - @cli_saldo)
+                        WHERE cli_id = @cli_id";
+
+            res = db.ExecuteNonQuery(SQL, "@cli_id", idCliente,
+                                            "@cli_saldo", valor);
+
+
+            return res;
+        }
         public List<object> Buscar(string filtro)
         {
             DataTable dt = new DataTable();
@@ -124,17 +153,34 @@ namespace sisVendas.Persistence
                     cli.Telefone = dt.Rows[i]["cli_telefone"].ToString();
                     cli.Rg_ie = dt.Rows[i]["cli_rg_ie"].ToString();
                     cli.Uf = dt.Rows[i]["cli_uf"].ToString();
-                    cli.DtNascimento = Convert.ToDateTime(dt.Rows[i]["cli_dt_aniversario"].ToString());
                     cli.Criado_em = Convert.ToDateTime(dt.Rows[i]["cli_created_at"].ToString());
                     cli.Sexo = Convert.ToChar(dt.Rows[i]["cli_sexo"].ToString()[0]);
                     cli.Saldo = Convert.ToDouble(dt.Rows[i]["cli_saldo"].ToString());
                     cli.Email = dt.Rows[i]["cli_email"].ToString();
 
+                    if (!DateTime.TryParse(dt.Rows[i]["cli_dt_aniversario"].ToString(), out DateTime result))
+                        cli.DtNascimento = null;
+                    else
+                        cli.DtNascimento = result;
 
                     clients.Add(cli);
                 }
             }
             return (clients);
+
+        }
+        public DataTable BuscarCpfNome()
+        {
+            DataTable dt = new DataTable();
+            List<object> clients = new List<object>();
+
+
+            string SQL = @"SELECT cli_cpf_cnpj as 'CPF/CNPJ', cli_nome as Nome FROM Cliente order by Nome";
+
+            db.ExecuteQuery(SQL, out dt);
+
+            
+            return (dt);
 
         }
         public Cliente BuscarPorCPF(string filtro)
@@ -163,11 +209,15 @@ namespace sisVendas.Persistence
                 cli.Telefone = dt.Rows[0]["cli_telefone"].ToString();
                 cli.Rg_ie = dt.Rows[0]["cli_rg_ie"].ToString();
                 cli.Uf = dt.Rows[0]["cli_uf"].ToString();
-                cli.DtNascimento = Convert.ToDateTime(dt.Rows[0]["cli_dt_aniversario"].ToString());
                 cli.Criado_em = Convert.ToDateTime(dt.Rows[0]["cli_created_at"].ToString());
                 cli.Sexo = Convert.ToChar(dt.Rows[0]["cli_sexo"].ToString()[0]);
                 cli.Saldo = Convert.ToDouble(dt.Rows[0]["cli_saldo"].ToString());
                 cli.Email = dt.Rows[0]["cli_email"].ToString();
+
+                if (!DateTime.TryParse(dt.Rows[0]["cli_dt_aniversario"].ToString(), out DateTime result))
+                    cli.DtNascimento = null;
+                else
+                    cli.DtNascimento = result;
 
             }
             else
@@ -202,7 +252,16 @@ namespace sisVendas.Persistence
                 cli.Telefone = dt.Rows[0]["cli_telefone"].ToString();
                 cli.Rg_ie = dt.Rows[0]["cli_rg_ie"].ToString();
                 cli.Uf = dt.Rows[0]["cli_uf"].ToString();
-                cli.DtNascimento = Convert.ToDateTime(dt.Rows[0]["cli_dt_aniversario"].ToString());
+
+                if(DateTime.TryParse(dt.Rows[0]["cli_dt_aniversario"].ToString(), out DateTime dtAniversario))
+                {
+                    cli.DtNascimento = dtAniversario;
+                }
+                else
+                {
+                    cli.DtNascimento = null;
+                }
+
                 cli.Criado_em = Convert.ToDateTime(dt.Rows[0]["cli_created_at"].ToString());
                 cli.Sexo = Convert.ToChar(dt.Rows[0]["cli_sexo"].ToString()[0]);
                 cli.Saldo = Convert.ToDouble(dt.Rows[0]["cli_saldo"].ToString());

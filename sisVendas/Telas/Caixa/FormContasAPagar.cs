@@ -1,14 +1,10 @@
 ﻿using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Notificacao;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Telas.Caixa
@@ -25,7 +21,7 @@ namespace sisVendas.Telas.Caixa
         {
             InitializeComponent();
             
-            btnBuscar.PerformClick();
+            
         }
         public FormContasAPagar(int idCaixa):this()
         {
@@ -55,32 +51,27 @@ namespace sisVendas.Telas.Caixa
             }
             dgv_despesas.DataSource = dttDespesas;
         }
-
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private string getFiltro()
         {
             string filtro = "";
 
-            if (dtpInicio.Value.Date > dtpFim.Value.Date)
-            {
-                Function.Alert("Alerta!", "Data Inicio maior que data Fim", popupClient.enmType.Warning);
-            }
+
 
             if (cbParcelasCompra.Checked)
             {
                 if (cbAberto.Checked)
                 {
-                    filtro = "parcela_status = 'DEVE'";
+                    filtro = "parcela_dataPagamento is null";
                 }
                 if (cbQuitada.Checked)
                 {
                     if (filtro != "")
                     {
-                        filtro = "(" + filtro + " OR ";
-                        filtro = filtro + "parcela_status = 'PAGO')";
+                        filtro = "";
                     }
                     else
                     {
-                        filtro = filtro + "parcela_status = 'PAGO'";
+                        filtro = filtro + "parcela_dataPagamento is not null";
                     }
                 }
                 if (tbFornNome.Text.Count() > 0)
@@ -91,43 +82,51 @@ namespace sisVendas.Telas.Caixa
                 }
                 if (cbPesquisarPorPeriodo.Checked)
                 {
+                    if (dtpInicio.Value.Date > dtpFim.Value.Date)
+                    {
+                        Function.Alert("Alerta!", "Data Inicio maior que data Fim", popupClient.enmType.Warning);
+                    }
+
                     if (filtro != "")
                         filtro = filtro + " AND ";
-                    filtro = filtro + "parcela_dataPagamento BETWEEN '" + dtpInicio.Value.ToString("yyyy-MM-dd") + " 00:00:00' AND '" + dtpFim.Value.ToString("yyyy-MM-dd") + " 23:59:59'";
+                    filtro = filtro + "parcela_dataVencimento BETWEEN '" + dtpInicio.Value.ToString("yyyy-MM-dd") + " 00:00:00' AND '" + dtpFim.Value.ToString("yyyy-MM-dd") + " 23:59:59'";
 
                 }
-               
+
                 despesa = "ContaAPagar";
             }
             else
             {
                 if (cbAberto.Checked)
                 {
-                    filtro = "desp_status = 'DEVE'";
+                    filtro = "desp_dataPagamento is null";
                 }
                 if (cbQuitada.Checked)
                 {
                     if (filtro != "")
                     {
-                        filtro = "(" + filtro + " OR ";
-                        filtro = filtro + "desp_status = 'PAGO')";
+                        filtro = "";
                     }
                     else
                     {
-                        filtro = filtro + "desp_status = 'PAGO'";
+                        filtro = filtro + "desp_dataPagamento is not null";
                     }
                 }
                 if (cbPesquisarPorPeriodo.Checked)
                 {
                     if (filtro != "")
                         filtro = filtro + " AND ";
-                    filtro = filtro + "desp_dataReferencia BETWEEN '" + dtpInicio.Value.ToString("yyyy-MM-dd") + " 00:00:00' AND '" + dtpFim.Value.ToString("yyyy-MM-dd") + " 23:59:59'";
+                    filtro = filtro + "desp_dataVencimento BETWEEN '" + dtpInicio.Value.ToString("yyyy-MM-dd") + " 00:00:00' AND '" + dtpFim.Value.ToString("yyyy-MM-dd") + " 23:59:59'";
                 }
 
                 despesa = "Despesa";
             }
-            Console.WriteLine(filtro);
-            updateDGV(filtro);
+            return filtro;
+        }
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            
+            updateDGV(getFiltro());
         }
 
         private void cbParcelasCompra_Click_1(object sender, EventArgs e)
@@ -148,16 +147,23 @@ namespace sisVendas.Telas.Caixa
 
         private void dgv_despesas_DoubleClick(object sender, EventArgs e)
         {
+            DataGridViewCellCollection linha = dgv_despesas.Rows[dgv_despesas.CurrentRow.Index].Cells;
+
+            /*0 idParcela 
+            1 dtPagamento
+            2 dtVencimento
+            3 Tipo
+            4 idCaixa
+            5 valor
+            6 idCompra
+            7 desc*/
+            
             if (dgv_despesas.SelectedRows.Count == 1)
             {
-
-                //activeForm();
-                DataGridViewCellCollection linha = dgv_despesas.Rows[dgv_despesas.CurrentRow.Index].Cells;
-
-                if (linha[3].Value.ToString() == "DEVE")
-                {
-                                                                            //(double valor, int idParcela, int idCaixa, int idVenda, string despesa) : this()
-                    FormQuitarContasAPagar f = new FormQuitarContasAPagar(double.Parse(linha[6].Value.ToString()), int.Parse(linha[0].Value.ToString()), idCaixa, int.Parse(linha[7].Value.ToString()), despesa);
+                if (linha[1].Value.ToString() == "")
+                {                                                
+                    FormQuitarContasAPagar f = new FormQuitarContasAPagar(double.Parse(linha[5].Value.ToString()),
+                                                    int.Parse(linha[0].Value.ToString()), idCaixa, int.Parse(linha[6].Value.ToString()), despesa);
                     f.ShowDialog();
 
                     if (f.alterou())
@@ -165,10 +171,8 @@ namespace sisVendas.Telas.Caixa
                 }
                 else
                 {
-                    //MessageBox.Show(idCaixa + "");
-                    //MessageBox.Show("idCaixaDaParcela");
-
-                    if (int.Parse(linha[5].Value.ToString()) == idCaixa)
+                    
+                    if (int.Parse(linha[4].Value.ToString()) == idCaixa)
                     {
                         if (MessageBox.Show("Deseja estornar a parcela selecionada?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
@@ -176,9 +180,9 @@ namespace sisVendas.Telas.Caixa
 
                             //controlParcelas.onerarParcela(int.Parse(linha[0].Value.ToString()));
                             //
-
                             if (cbParcelasCompra.Checked)
                             {
+                                
                                 //onerar parcelas
                                 controlParcelas.estornarParcela(int.Parse(linha[0].Value.ToString()));
                             }
@@ -192,11 +196,44 @@ namespace sisVendas.Telas.Caixa
                     }
                     else
                     {
-                        MessageBox.Show("Parcela não quitada no caixa atual.", "Alerta!", MessageBoxButtons.OK);
+                        MessageBox.Show("Parcela não quitada no caixa atual.", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
 
             }
+        }
+
+        private void FormContasAPagar_Load(object sender, EventArgs e)
+        {
+            btnBuscar.PerformClick();
+        }
+
+        private void btnGerarRelatorio_Click(object sender, EventArgs e)
+        {
+            DataTable dt;
+            
+            if (cbParcelasCompra.Checked)
+            {
+                dt = controlParcelas.buscarParaRelatorio(getFiltro());
+                float[] largurasColunas = { 1f, 1f, 1f, 1f };
+                if (dttDespesas.Rows.Count > 0) // se existir pessoas
+                {
+
+                    Relatorios.gerarRelatorio($"RelatórioSisVendas.ContasAPagr.pdf", "Contas a Pagar!", dt, largurasColunas);
+                }
+            }
+            else
+            {
+                dt = controlDespesa.buscarParaRelatorio(getFiltro());
+                float[] largurasColunas = { 1.5f, 1f, 1f, 1f, 1f, 1f };
+                if (dttDespesas.Rows.Count > 0) // se existir pessoas
+                {
+
+                    Relatorios.gerarRelatorio($"RelatórioSisVendas.ContasAPagr.pdf", "Contas a Pagar!", dt, largurasColunas);
+                }
+            }
+                       
+            
         }
     }
 }
