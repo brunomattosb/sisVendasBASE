@@ -12,7 +12,7 @@ namespace sisVendas.Models.Venda
         private double quantidade;
         private int id_venda;
         private string id_produto;
-
+        private double valor;
 
         public ItenVenda()
         {
@@ -31,5 +31,6 @@ namespace sisVendas.Models.Venda
         public double Quantidade { get => quantidade; set => quantidade = value; }
         public int Id_venda { get => id_venda; set => id_venda = value; }
         public string Id_produto { get => id_produto; set => id_produto = value; }
+        public double Valor { get => valor; set => valor = value; }
     }
 }

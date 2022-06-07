@@ -1,59 +1,52 @@
 ﻿using sisVendas.Controllers;
-using sisVendas.Functions;
-using sisVendas.Models;
-using sisVendas.Notificacao;
-using sisVendas.Screens.Product;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Telas.Promocao
 {
     public partial class FormRegistrarPromocao : Form
     {
-        Produto produtoSelecionado;
         int idFunc;
+
         DataTable dttProduto = new DataTable();
-        DataTable dttPromocao = new DataTable();
+        DataTable dttProdutosPromocao = new DataTable();
+
         ctrlProduct controlProduto = new ctrlProduct();
         ctrlPromocao controlPromocao = new ctrlPromocao();
-        //Promocao promocaoSelecionada = new Promocao();
 
         public FormRegistrarPromocao()
         {
             InitializeComponent();
 
-            
+            //Produtos da promoção
+            dttProdutosPromocao.TableName = "produtosPromo";
+            dttProdutosPromocao.Columns.Add("prod_nome");
+            dttProdutosPromocao.Columns.Add("prod_id");
+            dttProdutosPromocao.Columns.Add("prod_estoque", typeof(double));
+            dttProdutosPromocao.Columns.Add("prod_valor", typeof(double));
+            dttProdutosPromocao.Columns.Add("prod_valor_original", typeof(double));
 
-            dttProduto.TableName = "products";
-            dttProduto.Columns.Add("nome");
-            dttProduto.Columns.Add("cod");
-            dttProduto.Columns.Add("quantidade", typeof(double));
-            dttProduto.Columns.Add("valor");
-            dgv_produtos.Columns["valor"].DefaultCellStyle.Format = "C";
-            dttProduto.PrimaryKey = new DataColumn[] { dttProduto.Columns["nome"] };
+            dgv_ProdutosSelecionados.DataSource = dttProdutosPromocao;
 
+            dgv_ProdutosSelecionados.Columns["prod_valor_promo"].DefaultCellStyle.Format = "C";
+            dgv_ProdutosSelecionados.Columns["prod_estoque_promo"].DefaultCellStyle.Format = "F";
+            dgv_ProdutosSelecionados.Columns["prod_valor_original_promo"].DefaultCellStyle.Format = "C";
+
+            //Produtos cadastrados
+
+            dttProduto = atualizarDGV();
             dgv_produtos.DataSource = dttProduto;
 
-            updateDGVPromocao("");
-        }
-        public FormRegistrarPromocao(int idFunc) : this()
-        {
-            this.idFunc = idFunc;
-        }
 
-
-        private void updateDGVPromocao(string filtro)
+            dgv_produtos.Columns["prod_valor"].DefaultCellStyle.Format = "C";
+            dgv_produtos.Columns["prod_estoque"].DefaultCellStyle.Format = "F";
+        }
+        private DataTable atualizarDGV()
         {
-            // promocao
-            dttPromocao = controlPromocao.Buscar(filtro);
-            dgvPromocao.DataSource = dttPromocao;
+            
+            return controlProduto.buscarParaPromocao();
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -62,175 +55,17 @@ namespace sisVendas.Telas.Promocao
                 case Keys.Escape:
                     Close();
                     break;
-
-                case Keys.F2:
-                    //if (promocaoSelecionada == null)
-                        formProduto();
+                case Keys.F1:
+                    abrirFormBuscarPromocao();
                     break;
-               
+
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        public void formProduto()
-        {
-            FormBuscarProduto f = new FormBuscarProduto();
-            f.ShowDialog();
-
-            produtoSelecionado = f.returnProduto();
-
-            if (produtoSelecionado != null)
-            {
-                preencheProduto(produtoSelecionado);
-            }
-            else
-            {
-                resetarProduto();
-            }
-            tbAmount.Focus();
-        }
-        private void tbCodProduct_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)8 && e.KeyChar != (char)42)
-            {
-                e.Handled = true;
-            }
-
-            if (e.KeyChar == (char)13) //ENTER
-            {
-                tbAmount.Focus();
-                adicionarProduto(tbAmount.Text);
-                dgv_produtos.ClearSelection();
-            }
-            else if (e.KeyChar == (char)45) // [MENOS]
-            {
-                tbAmount.Focus();
-                removerProduto();
-                dgv_produtos.ClearSelection();
-            }
-        }
-        private void removerProduto()
-        {
-            if (produtoSelecionado != null && Convert.ToDouble(tbAmount.Text) != 0)
-            {
-                removerProdutoDataTable(produtoSelecionado);
-                resetarProduto();
-            }
-        }
-        private void removerProdutoDataTable(Produto prod)
-        {
-            DataRow row = dttProduto.Rows.Find(prod.Nome);
-            int index = dttProduto.Rows.IndexOf(row);
-
-            if (row == null) // se não tiver vai inserir
-            {
-                Function.Alert("Atenção!", "Não é possivel remover um produto que não está na compra!", popupClient.enmType.Warning);
-            }
-            else //caso ja exista no dt
-            {
-
-                if (Convert.ToDouble(tbAmount.Text) <= Convert.ToDouble(row["quantidade"]))
-                {
-                    double vTotal = Convert.ToDouble(dttProduto.Rows[index]["quantidade"]) * Convert.ToDouble(row["valor"].ToString().Replace("R$", ""));
-                    dttProduto.Rows[index]["quantidade"] = Convert.ToDouble(row["quantidade"]) - Convert.ToDouble(tbAmount.Text);
-                    dttProduto.Rows[index]["valor"] = vTotal.ToString("C");
-
-                    //alterar totais
-                    //toalVenda = toalVenda - (Convert.ToDouble(produtoSelecionado.Valor) * Convert.ToDouble(tbAmount.Text));
-                    //subtotalVenda = toalVenda - totalPago - totalDesconto;
-                    //lblSubtotal.Text = "R$ " + (toalVenda - totalDesconto - totalPago);
-                    //lblTotal.Text = toalVenda.ToString("C");
-
-                    //caso quantidade seja zero
-                    if (Convert.ToDouble(dttProduto.Rows[index]["quantidade"]) == 0)
-                    {
-                        dttProduto.Rows[index].Delete();
-                    }
-                }
-                else
-                    Function.Alert("Atenção!", "Não é possivel deixar a quantidade negativa!", popupClient.enmType.Warning);
-            }
-        }
-        private void tbCodProduct_Leave(object sender, EventArgs e)
-        {
-            if (tbCodProduct.Text.Count() > 0)
-            {
-                string[] divisao = tbCodProduct.Text.Split('*');
-                string strIdProd, quantidade;
-
-                try
-                {
-                    quantidade = divisao[0];
-                    strIdProd = divisao[1];
-                }
-                catch (Exception)
-                {
-                    quantidade = "1";
-                    strIdProd = divisao[0];
-                }
-                tbAmount.Text = quantidade;
-
-                Produto prod = buscarProduto(strIdProd);
-
-                if (prod != null)
-                {
-                    produtoSelecionado = prod;
-                    preencheProduto(prod);
-                }
-                else
-                {
-                    Function.Alert("Atenção!", "Código de produto inexistente ou não informado!", popupClient.enmType.Warning);
-
-                    resetarProduto();
-
-                    tbCodProduct.Focus();
-                    produtoSelecionado = null;
-                }
-            }
-            else
-            {
-                tbNameProduct.Text = "";
-                produtoSelecionado = null;
-            }
-        }
-        private Produto buscarProduto(string cod)
+        public FormRegistrarPromocao(int idFunc) : this()
         {
 
-            if (cod.Count() != 0)
-            {
-                Produto prod = controlProduto.buscarProdutoPorCod(cod);
-
-                return prod;
-
-            }
-            return null;
-
-        }
-        private void tbAmount_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)8 && e.KeyChar != (char)44)
-            {
-                e.Handled = true;
-            }
-
-            if (e.KeyChar == (char)13) //ENTER
-            {
-                adicionarProduto(tbAmount.Text);
-                dgv_produtos.ClearSelection();
-            }
-            else if (e.KeyChar == (char)45) // [MENOS]
-            {
-                removerProduto();
-                dgv_produtos.ClearSelection();
-            }
-        }
-
-        private void tbValorUn_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)44 && e.KeyChar != (char)08)
-            {
-                e.Handled = true;
-            }
-            
+            this.idFunc = idFunc;
         }
 
         private void tbValorUn_Click(object sender, EventArgs e)
@@ -240,101 +75,310 @@ namespace sisVendas.Telas.Promocao
                 tbValorUn.Text = "";
             }
         }
-        private void adicionarProduto(string amount)
+
+        private void tbValorDesconto_Leave(object sender, EventArgs e)
         {
-
-            if (double.TryParse(amount, out double quanitdade))
+            string text = tbValorDesconto.Text.Replace("R$", "");
+            if (double.TryParse(text, out double res))
             {
-                if (produtoSelecionado != null)
-                {
-                    adicionarProdutoDataTable(quanitdade, produtoSelecionado);
-                    resetarProduto();
+                tbValorDesconto.Text = String.Format("{0:c}", res);
+            }
+            else
+            {
+                tbValorDesconto.Text = "R$ 0,00";
+            }
+        }
 
+        private void tbValorDesconto_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (tbValorDesconto.Text == "R$ 0,00")
+            {
+                tbValorDesconto.Text = "";
+            }
+        }
+
+        private void tbValorDesconto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)44 && e.KeyChar != (char)08)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbPorcentagemDesconto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)44 && e.KeyChar != (char)08)
+            {
+                e.Handled = true;
+            }
+        }
+        private void tbValorUn_Leave(object sender, EventArgs e)
+        {
+            string text = tbValorUn.Text.Replace("R$ ", "");
+            if (double.TryParse(text, out double res))
+            {
+                tbValorUn.Text = String.Format("{0:C}", res);
+            }
+            else
+            {
+                tbValorUn.Text = "0,00%";
+                //Alerta.notificacao("Erro!", "Valor incorreto", Alerta.enmType.Error);
+            }
+        }
+        private void tbPorcentagemDesconto_Leave(object sender, EventArgs e)
+        {
+            string text = tbPorcentagemDesconto.Text.Replace("%", "");
+            if (double.TryParse(text, out double res))
+            {
+                if (res < 100)
+                    tbPorcentagemDesconto.Text = String.Format("{0:f}", res) + "%";
+                else
+                {
+                    tbPorcentagemDesconto.Text = "0,00%";
+                    MessageBox.Show("O desconto não pode ser de 100%");
                 }
             }
             else
             {
-                Function.Alert("Atenção!", "Quantidade inválida!", popupClient.enmType.Warning);
+                tbPorcentagemDesconto.Text = "0,00%";
+                //Alerta.notificacao("Erro!", "Valor incorreto", Alerta.enmType.Error);
             }
         }
-        private void adicionarProdutoDataTable(double amount, Produto prod)
+
+        private void tbPorcentagemDesconto_Click(object sender, EventArgs e)
         {
-            string prod_name = prod.Nome;
-
-            DataRow row = dttProduto.Rows.Find(prod_name);
-
-            int index = dttProduto.Rows.IndexOf(row);
-
-            if (row == null) // se não tiver vai inserir
+            if (tbPorcentagemDesconto.Text == "0,00%")
             {
-                DataRow linha = dttProduto.NewRow();
-
-                linha["nome"] = prod.Nome;
-                linha["quantidade"] = amount;
-                linha["valor"] = prod.Valor.ToString("C");
-                linha["cod"] = prod.Id;
-
-                dttProduto.Rows.Add(linha);
-                dgv_produtos.DataSource = dttProduto;
+                tbPorcentagemDesconto.Text = "";
             }
-            else //caso ja exista no dt
+        }
+
+        private void setPropriedadesProduto()
+        {
+            if (dgv_produtos.SelectedRows.Count == 1)
             {
-                double vTotal = Convert.ToDouble(dttProduto.Rows[index]["quantidade"]) * Convert.ToDouble(row["valor"].ToString().Replace("R$", ""));
+                string estoque = dgv_produtos.Rows[dgv_produtos.CurrentRow.Index].Cells[1].Value.ToString();
+                string nome = dgv_produtos.Rows[dgv_produtos.CurrentRow.Index].Cells[2].Value.ToString();
+                string valor = dgv_produtos.Rows[dgv_produtos.CurrentRow.Index].Cells[3].Value.ToString();
 
-                dttProduto.Rows[index]["quantidade"] = Convert.ToDouble(row["quantidade"]) + Convert.ToDouble(amount);
-                dttProduto.Rows[index]["valor"] = vTotal.ToString("C");
+                tbEstoque.Text = estoque;
+                tbNomeProduto.Text = nome;
+                tbValorUn.Text = "R$ " + valor;
+            }
+        }
+        private void limparProduto()
+        {
+            tbEstoque.Text = "";
+            tbNomeProduto.Text = "";
+            tbValorUn.Text = "R$ 0,00";
+        }
+        private void dgv_produtos_SelectionChanged(object sender, EventArgs e)
+        {
+            setPropriedadesProduto();
+        }
+        private void adicionarProdutoAPromocao(string id, string estoque, string nome, string valorOriginal, string valorPromo)
+        {
+            DataRow linha = dttProdutosPromocao.NewRow();
+
+            linha["prod_nome"] = nome;
+            linha["prod_id"] = int.Parse(id);
+            linha["prod_estoque"] = double.Parse(estoque);
+            linha["prod_valor"] = double.Parse(valorPromo.Replace("R$ ", ""));
+            linha["prod_valor_original"] = double.Parse(valorOriginal.Replace("R$ ", ""));
+
+            dttProdutosPromocao.Rows.Add(linha);
+        }
+        private void btnInserirProduto_Click(object sender, EventArgs e)
+        {
+            if (dgv_produtos.SelectedRows.Count > 0)
+            {
+                string id = dgv_produtos.Rows[dgv_produtos.CurrentRow.Index].Cells[0].Value.ToString(); 
+                string estoque = dgv_produtos.Rows[dgv_produtos.CurrentRow.Index].Cells[1].Value.ToString();
+                string nome = dgv_produtos.Rows[dgv_produtos.CurrentRow.Index].Cells[2].Value.ToString();
+                string valorOriginal = dgv_produtos.Rows[dgv_produtos.CurrentRow.Index].Cells[3].Value.ToString();
+                adicionarProdutoAPromocao(id, estoque, nome, valorOriginal, tbValorUn.Text);
+
+                var results = dttProduto.AsEnumerable().Where(x => x.Field<string>("prod_id") == id).
+                    Select(s => s);
+                dttProduto.Rows.Remove(results.First());
+            }
+        }
+
+        private void cbbPorcentagem_Click(object sender, EventArgs e)
+        {
+            cbbValor.Checked = false;
+            cbbPorcentagem.Checked = true;
+
+            tbValorDesconto.Enabled = false;
+            tbPorcentagemDesconto.Enabled = true;
+
+            tbValorDesconto.Text = "R$ 0,00";
+        }
+
+        private void cbbValor_Click(object sender, EventArgs e)
+        {
+            cbbValor.Checked = true;
+            cbbPorcentagem.Checked = false;
+            tbValorDesconto.Enabled = true;
+            tbPorcentagemDesconto.Enabled = false;
+            tbPorcentagemDesconto.Text = "0,00%";
+        }
+
+        private void tbValorUn_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)44 && e.KeyChar != (char)08)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void dgv_produtos_Click(object sender, EventArgs e)
+        {
+            setPropriedadesProduto();
+        }
+        private void adicionarProduto(string id, string estoque, string nome, string valorOriginal)
+        {
+            DataRow linha = dttProduto.NewRow();
+
+            linha["prod_nome"] = nome;
+            linha["prod_id"] = int.Parse(id);
+            linha["prod_estoque"] = double.Parse(estoque);
+            linha["prod_valor"] = double.Parse(valorOriginal.Replace("R$ ", ""));
+
+            dttProduto.Rows.Add(linha);
+        }
+        private void btnRemoverProduto_Click(object sender, EventArgs e)
+        {
+            if (dgv_ProdutosSelecionados.SelectedRows.Count > 0)
+            {
+               
+                string id = dgv_ProdutosSelecionados.Rows[dgv_ProdutosSelecionados.CurrentRow.Index].Cells[1].Value.ToString();
+                string estoque = dgv_ProdutosSelecionados.Rows[dgv_ProdutosSelecionados.CurrentRow.Index].Cells[2].Value.ToString();
+                string nome = dgv_ProdutosSelecionados.Rows[dgv_ProdutosSelecionados.CurrentRow.Index].Cells[0].Value.ToString();
+                string valorOriginal = dgv_ProdutosSelecionados.Rows[dgv_ProdutosSelecionados.CurrentRow.Index].Cells[4].Value.ToString();
+
+                adicionarProduto(id, estoque, nome, valorOriginal);
+
+                var results = dttProdutosPromocao.AsEnumerable().Where(x => x.Field<string>("prod_id") == id).
+                    Select(s => s);
+                dttProdutosPromocao.Rows.Remove(results.First());
             }
 
-
-            //atualizar total
-
-            //toalVenda = toalVenda + (Convert.ToDouble(prod.Valor) * Convert.ToDouble(amount));
-
-            //subtotalVenda = toalVenda - totalPago - totalDesconto;
-
-            //posicionar ultima linha
-            dgv_produtos.FirstDisplayedScrollingRowIndex = dgv_produtos.RowCount - 1;
-            //dgvProducts.CurrentCell = dgvProducts(0, dgvProducts.RowCount - 1)
         }
-        private void preencheProduto(Produto prod)
+
+        private void btnInserirTodos_Click(object sender, EventArgs e)
         {
+            string id;
+            string estoque;
+            string nome;
+            string valorOriginal;
+            
+            foreach (DataRow row in dttProduto.Rows)
+            {
+                id = row[0].ToString();
+                estoque = row[1].ToString();
+                nome = row[2].ToString();
+                valorOriginal = row[3].ToString();
 
-            tbNameProduct.Text = prod.Nome;
-            tbCodProduct.Text = prod.Id.ToString();
-            tbValorUn.Text = prod.Valor.ToString("C");
-
+                adicionarProdutoAPromocao(id, estoque, nome, valorOriginal, valorOriginal);
+            }
+            dttProduto.Rows.Clear();
         }
-        
-        private void resetarProduto()
-        {
-            produtoSelecionado = null;
 
-            tbNameProduct.Text = "";
-            tbAmount.Text = "1";
-            //tbValorTotal.Text = tbValorUn.Text = "";
-            tbCodProduct.Text = tbNameProduct.Text = "";
-            tbCodProduct.Focus();
+        private void btnRemoverTodos_Click(object sender, EventArgs e)
+        {
+            string id;
+            string estoque;
+            string nome;
+            string valorOriginal;
+
+            foreach (DataRow row in dttProdutosPromocao.Rows)
+            {
+                id = row[1].ToString();
+                estoque = row[2].ToString();
+                nome = row[0].ToString();
+                valorOriginal = row[4].ToString();
+  
+
+
+                adicionarProduto(id, estoque, nome, valorOriginal);
+            }
+            dttProdutosPromocao.Rows.Clear();
+        }
+
+        private void btnAplicar_Click(object sender, EventArgs e)
+        {
+            double valorOriginal;
+
+            if (cbbPorcentagem.Checked)
+            {
+                double p = double.Parse(tbPorcentagemDesconto.Text.Replace("%", ""));
+                for (int i = 0; i < dttProdutosPromocao.Rows.Count; i++)
+                {
+                    valorOriginal = double.Parse(dttProdutosPromocao.Rows[i][3].ToString());
+
+                    dttProdutosPromocao.Rows[i][3] = valorOriginal -((p / 100)*valorOriginal);
+                }
+            }
+            else
+            {
+                double v = double.Parse(tbValorDesconto.Text.Replace("R$ ", ""));
+                for (int i = 0; i < dttProdutosPromocao.Rows.Count; i++)
+                {
+                    valorOriginal = double.Parse(dttProdutosPromocao.Rows[i][3].ToString());
+                    dttProdutosPromocao.Rows[i][3] = valorOriginal - v;
+                }
+            }
+            
+            
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             bool isOk = true;
-            if(dtpInicio.Value > dtpFim.Value)
+            if (dtpInicio.Value.Date > dtpFim.Value.Date)
             {
-                MessageBox.Show("Data inicio maior que data final!");
                 isOk = false;
-            }   
+                MessageBox.Show("Data de inicial deve ser menor que data final");
+            }
 
-            if(tbNomePromo.Text.Count() == 0)
+            if(dttProdutosPromocao.Rows.Count == 0)
             {
-                MessageBox.Show("Insira um nome para promoção!");
                 isOk = false;
+                MessageBox.Show("A promoção deve ter pelo menos 1 item");
+            }
+            if (tbNomePromo.Text.Length == 0)
+            {
+                isOk = false;
+                MessageBox.Show("Informe o nome da promoção");
             }
 
             if (isOk)
             {
-                //controlPromocao.SalvarPromocao(dttProduto, dtpInicio.Value, dtpFim.Value, tbNameProduct.Text, idFunc);
+                controlPromocao.SalvarPromocao(dttProdutosPromocao, tbNomePromo.Text, dtpInicio.Value.Date, DateTime.Parse(dtpFim.Value.ToString("yyyy-MM-dd") + " 23:59:59"),idFunc);
+                limparForm();
             }
+        }
+        private void limparForm()
+        {
+            tbNomePromo.Text = "";
+            dttProdutosPromocao.Rows.Clear();
+            dttProduto = atualizarDGV();
+            limparProduto();
+            dgv_produtos.DataSource = dttProduto;
+        }
+        private void abrirFormBuscarPromocao()
+        {
+            FormBuscarPromocao f = new FormBuscarPromocao();
+            f.ShowDialog();
+
+            limparForm();
+
+        }
+
+        private void FormRegistrarPromocao_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -40,8 +40,9 @@ namespace sisVendas.Controllers
                 {
                     if(!controlItensVenda.SalvarItensVenda(
                             vendaSelecionada.Id,
-                            row["cod"].ToString(),
-                            double.Parse(row["amount"].ToString())
+                            row["codigo"].ToString(),
+                            double.Parse(row["quantidade"].ToString()),
+                            double.Parse(row["valor_un"].ToString().Replace("R$ ",""))
                     ))
                     {
 
@@ -210,6 +211,8 @@ namespace sisVendas.Controllers
             dataBase.Conecta();
             VendaDB bd = new VendaDB(dataBase);
             venda = (Vendas)bd.buscarVendaPorCod(idVenda);
+            //venda.ItensVenda = controlItensVenda.buscarItensVendaPorIDVenda(venda.Id);
+            venda.ParcelasVenda = controlParcelas.buscarParcelas(venda.Id);
 
             dataBase.Desconecta();
             return venda;

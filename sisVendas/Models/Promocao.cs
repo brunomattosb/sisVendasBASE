@@ -12,6 +12,7 @@ namespace sisVendas.Models
         private string nome;
         private DateTime dtInicio;
         private DateTime dtFim;
+        private int idFunc;
         private DateTime criado_em;
 
         public Promocao()
@@ -23,5 +24,6 @@ namespace sisVendas.Models
         public DateTime DtInicio { get => dtInicio; set => dtInicio = value; }
         public DateTime DtFim { get => dtFim; set => dtFim = value; }
         public DateTime Criado_em { get => criado_em; set => criado_em = value; }
+        public int IdFunc { get => idFunc; set => idFunc = value; }
     }
 }

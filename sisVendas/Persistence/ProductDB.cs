@@ -74,6 +74,26 @@ namespace sisVendas.Persistence
             return (produtos);
 
         }
+        public DataTable buscarParaPromocao()
+        {
+            DataTable dt = new DataTable();
+            
+            string SQL = @"select Produto.prod_id, Produto.prod_estoque, Produto.prod_nome, Produto.prod_valor from Produto  
+right join (
+SELECT prod_id FROM Produto WHERE prod_id not in (
+						select ItensPromocao.iten_idProduto from ItensPromocao
+						inner join Promocao on Promocao.promo_id = ItensPromocao.iten_idPromocao
+						where GETDATE() BETWEEN promo_inicio and promo_fim)) as tabela_itens_sem_promocao
+						on tabela_itens_sem_promocao.prod_id = Produto.prod_id
+order by prod_nome";
+            
+
+            db.ExecuteQuery(SQL, out dt);
+
+            
+            return (dt);
+
+        }
         public DataTable buscarParaRelatorio()
         {
             DataTable dt = new DataTable();
@@ -90,7 +110,7 @@ namespace sisVendas.Persistence
 							select compra_data, iten_valor as valor_base, ItenCompra.iten_idProduto from ItenCompra
 								inner join Compra on Compra.compra_id = ItenCompra.iten_idCompra
 				) as tab_ultimo_valor on tab_ultimo_valor.compra_data = tab_ultima_data.Data AND tab_ultimo_valor.iten_idProduto = tab_ultima_data.iten_idProduto
-				inner join Produto on Produto.prod_id = tab_ultima_data.iten_idProduto";
+				right join Produto on Produto.prod_id = tab_ultima_data.iten_idProduto";
 ;
 
             db.ExecuteQuery(SQL, out dt);
@@ -104,7 +124,12 @@ namespace sisVendas.Persistence
         {
             DataTable dt = new DataTable();
 
-            string SQL = @"SELECT * FROM Produto WHERE prod_id like @filtro";
+            string SQL = @"SELECT prod_id, prod_nome, prod_complemento, prod_estoque, prod_un, prod_marca,prod_categoria, prod_valor, prod_criado_em, iten_valor as valor_com_desconto FROM Produto 
+left join ( select iten_valor,iten_idProduto  from Promocao
+				inner join ItensPromocao on ItensPromocao.iten_idPromocao = Promocao.promo_id
+				where GETDATE() BETWEEN Promocao.promo_inicio and Promocao.promo_fim) as tabela_valores_promocao on tabela_valores_promocao.iten_idProduto = Produto.prod_id
+
+WHERE prod_id like @filtro";
 
             db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
             Produto prod = new Produto();
@@ -117,9 +142,19 @@ namespace sisVendas.Persistence
                 prod.Estoque = Convert.ToInt32(dt.Rows[0]["prod_estoque"]);
                 prod.Prod_Categoria = Convert.ToInt32(dt.Rows[0]["prod_categoria"]);
                 prod.Prod_Marca = Convert.ToInt32(dt.Rows[0]["prod_marca"]);
-                prod.Valor = Convert.ToDouble(dt.Rows[0]["prod_valor"].ToString());
+                
                 prod.Un = dt.Rows[0]["prod_un"].ToString();
                 prod.Criado_em = Convert.ToDateTime(dt.Rows[0]["prod_criado_em"].ToString());
+
+                double.TryParse(dt.Rows[0]["valor_com_desconto"].ToString(), out double valor);
+                if(valor > 0)
+                {
+                    prod.Valor = valor;
+                }
+                else
+                {
+                    prod.Valor = Convert.ToDouble(dt.Rows[0]["prod_valor"].ToString());
+                }
             }
             else
             {

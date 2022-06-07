@@ -46,7 +46,7 @@ namespace sisVendas.Controllers
 
             return (result);
         }
-        
+
         public DataTable searthProduct(string filter)
         {
 
@@ -78,9 +78,24 @@ namespace sisVendas.Controllers
                 line["prod_valor"] = prod.Valor;
                 line["prod_un"] = prod.Un;
                 line["prod_criado_em"] = prod.Criado_em;
-                
+
                 dtProduct.Rows.Add(line);
             }
+            dataBase.Desconecta();
+
+            return (dtProduct);
+        }
+        public DataTable buscarParaPromocao()
+        {
+
+            DataTable dtProduct = new DataTable();
+
+            
+
+            dataBase.Conecta();
+            ProductDB prodDB = new ProductDB(dataBase);
+            dtProduct = prodDB.buscarParaPromocao();
+            
             dataBase.Desconecta();
 
             return (dtProduct);

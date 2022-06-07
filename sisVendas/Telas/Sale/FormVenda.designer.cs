@@ -168,11 +168,10 @@
             this.dgvProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProducts.Size = new System.Drawing.Size(1198, 193);
             this.dgvProducts.TabIndex = 8;
-            this.dgvProducts.DoubleClick += new System.EventHandler(this.dgvProducts_DoubleClick);
             // 
             // cod
             // 
-            this.cod.DataPropertyName = "cod";
+            this.cod.DataPropertyName = "codigo";
             this.cod.HeaderText = "COD";
             this.cod.MinimumWidth = 150;
             this.cod.Name = "cod";
@@ -182,14 +181,14 @@
             // name
             // 
             this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.name.DataPropertyName = "name";
+            this.name.DataPropertyName = "nome";
             this.name.HeaderText = "NOME";
             this.name.Name = "name";
             this.name.ReadOnly = true;
             // 
             // amount
             // 
-            this.amount.DataPropertyName = "amount";
+            this.amount.DataPropertyName = "quantidade";
             this.amount.HeaderText = "QTDE";
             this.amount.MinimumWidth = 100;
             this.amount.Name = "amount";
@@ -205,7 +204,7 @@
             // 
             // valueUn
             // 
-            this.valueUn.DataPropertyName = "valueUn";
+            this.valueUn.DataPropertyName = "valor_un";
             this.valueUn.HeaderText = "VALOR UN";
             this.valueUn.MinimumWidth = 200;
             this.valueUn.Name = "valueUn";
@@ -214,7 +213,7 @@
             // 
             // valueTotal
             // 
-            this.valueTotal.DataPropertyName = "valueTotal";
+            this.valueTotal.DataPropertyName = "valor_total";
             this.valueTotal.HeaderText = "TOTAL";
             this.valueTotal.MinimumWidth = 200;
             this.valueTotal.Name = "valueTotal";
@@ -392,7 +391,6 @@
             this.mtbCpfClient.Size = new System.Drawing.Size(231, 31);
             this.mtbCpfClient.TabIndex = 3;
             this.mtbCpfClient.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.mtbCpfClient.Click += new System.EventHandler(this.mtbCpfClient_Click);
             this.mtbCpfClient.KeyUp += new System.Windows.Forms.KeyEventHandler(this.mtbCpfClient_KeyUp);
             this.mtbCpfClient.Leave += new System.EventHandler(this.mtbCpfClient_Leave);
             // 

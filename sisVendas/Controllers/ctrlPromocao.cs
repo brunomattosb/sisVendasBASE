@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace sisVendas.Controllers
 {
@@ -15,43 +16,41 @@ namespace sisVendas.Controllers
         private Promocao PromocaoSelecionada = new Promocao();
 
 
-        /*public bool SalvarPromocao(DataTable dttProdutos, DateTime inicio, DateTime fim, string nome, int idFuncionario)
+        public bool SalvarPromocao(DataTable dttProdutos, string nome, DateTime inicio, DateTime fim, int idFuncionario)
         {
-
-            // Verifica se existe um numero no tbCod
-            if (Int32.TryParse(id, out int number))
-                CurrentClient.Id = number;
-
-            CurrentClient.Nome = nome;
-            CurrentClient.Nome_fantasia = nome_fantasia;
-            CurrentClient.Cpf_cnpj = cpf_cnpj;
-            CurrentClient.Cep = cep;
-            CurrentClient.Endereco = endereco;
-            CurrentClient.Email = email;
-            CurrentClient.Rg_ie = rg_ie;
-            CurrentClient.Telefone = telefone;
-            CurrentClient.Cidade = cidade;
-            CurrentClient.DtNascimento = dtMascimento;
-            CurrentClient.Sexo = sexo;
-            CurrentClient.Saldo = saldo;
-            CurrentClient.Uf = uf;
-            CurrentClient.Bairro = bairro;
+            PromocaoSelecionada.IdFunc = idFuncionario;
+            PromocaoSelecionada.DtInicio = inicio;
+            PromocaoSelecionada.DtFim = fim;
+            PromocaoSelecionada.Nome = nome;
 
             dataBase.Conecta();
+            int idPromo = 0;
             bool res = false;
-            ClientDB cli = new ClientDB(dataBase);
-            if (number == 0)
+
+            PromocaoDB promoDB = new PromocaoDB(dataBase);
+            idPromo = promoDB.Gravar(PromocaoSelecionada);
+            if (idPromo!=0)
             {
-                res = cli.Gravar(CurrentClient);
-            }
+                ItemsPromocaoDB itemsPromoDB = new ItemsPromocaoDB(dataBase);
+                ItemsPromocao item = new ItemsPromocao();
+                foreach (DataRow prod in dttProdutos.Rows)
+                {
+                    item.Id_promocao = idPromo;
+                    item.Id_produto = int.Parse(prod["prod_id"].ToString());
+                    item.Valor = double.Parse(prod["prod_valor"].ToString());
+
+                    itemsPromoDB.Gravar(item);
+                }
+        }
             else
             {
-                res = cli.Atualizar(CurrentClient);
+                MessageBox.Show("Deu ruim");
             }
+
             dataBase.Desconecta();
 
             return (res);
-        }*/
+        }
 
 
         public DataTable Buscar(string filtro)
@@ -61,23 +60,25 @@ namespace sisVendas.Controllers
 
             dttPromocao.Columns.Add("promo_id", typeof(int));
             dttPromocao.Columns.Add("promo_nome");
-            dttPromocao.Columns.Add("promo_inicio", typeof(DateTime)); ;
+            dttPromocao.Columns.Add("promo_inicio", typeof(DateTime)); 
             dttPromocao.Columns.Add("promo_fim", typeof(DateTime));
+            dttPromocao.Columns.Add("promo_idFunc", typeof(int));
             dttPromocao.Columns.Add("promo_criado_em", typeof(DateTime));
             
 
             dataBase.Conecta();
-            PromocaoDB cliBDB = new PromocaoDB(dataBase);
-            foreach (Promocao promo in cliBDB.Buscar(filtro))
+            PromocaoDB promoDB = new PromocaoDB(dataBase);
+            foreach (Promocao promo in promoDB.Buscar(filtro))
             {
 
                 DataRow line = dttPromocao.NewRow();
 
                 line["promo_id"] = promo.Id;
                 line["promo_nome"] = promo.Nome;
-                line["promo_inicio"] = promo.DtInicio;
+                line["promo_inicio"] = promo.DtInicio.Date;
                 line["promo_fim"] = promo.DtFim;
                 line["promo_criado_em"] = promo.Criado_em;
+                line["promo_idFunc"] = promo.IdFunc;
 
 
                 dttPromocao.Rows.Add(line);
@@ -109,16 +110,16 @@ namespace sisVendas.Controllers
             dataBase.Desconecta();
             return cli;
 
-        }*
+        }*/
 
-        /*public bool removeClient(string cod)
+        public bool finalizarPromocao(int cod)
         {
             bool res = true;
             dataBase.Conecta();
-            ClientDB clidDB = new ClientDB(dataBase);
-            res = clidDB.Excluir(cod);
+            PromocaoDB promoDB = new PromocaoDB(dataBase);
+            res = promoDB.finalizar(cod);
             dataBase.Desconecta();
             return res;
-        }*/
+        }
     }
 }

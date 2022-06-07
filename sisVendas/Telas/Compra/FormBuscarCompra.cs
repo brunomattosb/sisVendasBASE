@@ -1,5 +1,6 @@
-﻿using sisVendas.Functions;
-using sisVendas.Notificacao;
+﻿using sisVendas.Funcoes;
+using sisVendas.Functions;
+
 using sisVendas.Persistence;
 using System;
 using System.Collections.Generic;
@@ -89,7 +90,7 @@ namespace sisVendas.Telas.Compra
             else
             {
                 tbValor.Text = "";
-                Function.Alert("Erro!", "Valor incorreto", popupClient.enmType.Error);
+                Alerta.notificacao("Erro!", "Valor incorreto", Alerta.enmType.Error);
             }
         }
 
@@ -127,7 +128,7 @@ namespace sisVendas.Telas.Compra
                 }
                 else
                 {
-                    Function.Alert("Alerta!", "Data Inicio maior que data Fim", popupClient.enmType.Warning);
+                    Alerta.notificacao("Alerta!", "Data Inicio maior que data Fim", Alerta.enmType.Warning);
                 }
             }
             Console.WriteLine(filtro);

@@ -195,6 +195,7 @@ CREATE TABLE [dbo].[ItenVenda] (
 	[iten_quantidade] 		NUMERIC (15,2) 		DEFAULT 0 NULL,
 	[iten_idVenda]         	INT					NOT NULL,
 	[iten_idProduto]        VARCHAR (40)		NOT NULL,
+	[iten_valor]			NUMERIC (15,2)  	DEFAULT 0 NULL,
 	
 	CONSTRAINT [FK_ID_PRODUTO_VENDA] FOREIGN KEY ([iten_idProduto]) references produto(prod_id),
 	CONSTRAINT [FK_ID_VENDA] FOREIGN KEY ([iten_idVenda]) references Venda(venda_id),
@@ -267,11 +268,11 @@ CREATE TABLE [dbo].[Despesa] (
 );
 CREATE TABLE [dbo].[Promocao] (
     [promo_id]           	INT             IDENTITY (1, 1) NOT NULL,
-	[promo_idFunc]           INT            NOT NULL,
+	[promo_idFunc]          INT            NOT NULL,
     [promo_nome]  			VARCHAR (50)   	NOT NULL,
 	[promo_inicio]   		DATETIME        NOT NULL,
 	[promo_fim]   			DATETIME        NOT NULL,
-	[promo_criado_em]   			DATETIME        NOT NULL,
+	[promo_criado_em]   	DATETIME         	DEFAULT (getdate()) ,
 	
     CONSTRAINT [PK_ID_PROMOCAO] PRIMARY KEY CLUSTERED ([promo_id] ASC),
 	CONSTRAINT [FK_ID_FUNCIONARIO_PROMOCAO] FOREIGN KEY ([promo_idFunc]) references Funcionario(func_id),
@@ -288,11 +289,19 @@ CREATE TABLE [dbo].[TransacaoCaixa] (
 	CONSTRAINT [PK_ID_TRANSACAO] PRIMARY KEY CLUSTERED ([transacao_id] ASC),
 	CONSTRAINT [FK_ID_TRANSACAO_CAIXA] FOREIGN KEY ([transacao_idCaixa]) references Caixa(caixa_id),
 );
+CREATE TABLE [dbo].[ItensPromocao] (
+	[iten_idPromocao]         INT					NOT NULL,
+	[iten_idProduto]        VARCHAR (40)		NOT NULL,
+	[iten_valor] 			NUMERIC (15,2) 		DEFAULT 0 NULL,
+	
+	CONSTRAINT [FK_ID_PRODUTOPROMOCAO] FOREIGN KEY ([iten_idProduto]) references Produto(prod_id),
+	CONSTRAINT [FK_ID_PROMOCAOID] FOREIGN KEY ([iten_idPromocao]) references Promocao(promo_id),
+);
+
 INSERT INTO Funcionario(func_nome,func_cpf,func_cep,func_endereco,func_bairro,func_cidade,func_telefone,func_rg,func_uf,func_dt_aniversario,
-                        func_sexo,func_email,func_salario_base,func_usuario,func_senha,func_licenca, func_admissao, func_demissao, func_ativo)
-                        VALUES ('Nome','99999999999','19470000','Endereço','Bairro','Epitácio','18998090748','9999999','SP',getdate(),
-                        'M','Email@Email',0,'admin','admin','Master', getdate(), getdate(), 1)
-";
+		func_sexo,func_email,func_salario_base,func_usuario,func_senha,func_licenca, func_admissao, func_demissao, func_ativo)
+		VALUES ('Nome','99999999999','19470000','Endereço','Bairro','Epitácio','18998090748','9999999','SP',getdate(),
+		'M','Email@Email',0,'admin','admin','Master', getdate(), getdate(), 1);";
 
 			res = db.ExecuteNonQuery(SQL);
             

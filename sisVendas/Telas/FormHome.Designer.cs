@@ -144,7 +144,7 @@
             // menuBtnEfetuarVenda
             // 
             this.menuBtnEfetuarVenda.Name = "menuBtnEfetuarVenda";
-            this.menuBtnEfetuarVenda.Size = new System.Drawing.Size(180, 22);
+            this.menuBtnEfetuarVenda.Size = new System.Drawing.Size(146, 22);
             this.menuBtnEfetuarVenda.Text = "Efetuar Venda";
             this.menuBtnEfetuarVenda.Click += new System.EventHandler(this.menuBtnEfetuarVenda_Click);
             // 
@@ -214,14 +214,12 @@
             // 
             this.promoçãoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuBtnRegistrarPromocao});
-            this.promoçãoToolStripMenuItem.Enabled = false;
             this.promoçãoToolStripMenuItem.Name = "promoçãoToolStripMenuItem";
             this.promoçãoToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.promoçãoToolStripMenuItem.Text = "Promoção";
             // 
             // menuBtnRegistrarPromocao
             // 
-            this.menuBtnRegistrarPromocao.Enabled = false;
             this.menuBtnRegistrarPromocao.Name = "menuBtnRegistrarPromocao";
             this.menuBtnRegistrarPromocao.Size = new System.Drawing.Size(178, 22);
             this.menuBtnRegistrarPromocao.Text = "Registrar Promoção";

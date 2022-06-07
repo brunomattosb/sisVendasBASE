@@ -1,7 +1,7 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
 using sisVendas.Functions;
-using sisVendas.Notificacao;
+
 using System;
 using System.Data;
 using System.Linq;
@@ -84,7 +84,7 @@ namespace sisVendas.Telas.Caixa
                 {
                     if (dtpInicio.Value.Date > dtpFim.Value.Date)
                     {
-                        Function.Alert("Alerta!", "Data Inicio maior que data Fim", popupClient.enmType.Warning);
+                        Alerta.notificacao("Alerta!", "Data Inicio maior que data Fim", Alerta.enmType.Warning);
                     }
 
                     if (filtro != "")

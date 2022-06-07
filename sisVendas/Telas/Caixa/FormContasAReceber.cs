@@ -1,7 +1,6 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
 using sisVendas.Functions;
-using sisVendas.Notificacao;
 using System;
 using System.Data;
 using System.Linq;
@@ -88,7 +87,7 @@ namespace sisVendas.Telas.Caixa
                 }
                 else
                 {
-                    Function.Alert("Alerta!", "Data Inicio maior que data Fim", popupClient.enmType.Warning);
+                    Alerta.notificacao("Erro!", "Valor incorreto", Alerta.enmType.Error);
                 }
             }
             return filtro;

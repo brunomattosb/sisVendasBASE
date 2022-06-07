@@ -2,7 +2,7 @@
 using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Models;
-using sisVendas.Notificacao;
+
 using System;
 using System.Data;
 using System.Drawing;
@@ -207,7 +207,7 @@ namespace sisVendas.Screens.Create
 			{
 				isOk = false;
 				lblCpf.ForeColor = Color.Red;
-				Function.Alert("Erro!", "CPF incorreto!", popupClient.enmType.Error);
+				Alerta.notificacao("Erro!", "CPF incorreto!", Alerta.enmType.Error);
 			}
 
 			if (tbName.Text.Count() < 2)
@@ -241,7 +241,7 @@ namespace sisVendas.Screens.Create
 					))
 				{
 
-					Function.Alert("Sucesso!", "Fornecedor salvo.", popupClient.enmType.Success);
+					Alerta.notificacao("Sucesso!", "Fornecedor salvo.", Alerta.enmType.Success);
 
 					updateDgv("");
 					activeForm();
@@ -250,7 +250,7 @@ namespace sisVendas.Screens.Create
 			}
 			else
 			{
-				//Function.Alert("Erro!", "Erro ao salvar funcionário.", popupClient.enmType.Error);
+				//Alerta.notificacao("Erro!", "Erro ao salvar funcionário.", Alerta.enmType.Error);
 			}
 		}
 		private void btnExcluir_Click(object sender, EventArgs e)
@@ -267,11 +267,11 @@ namespace sisVendas.Screens.Create
 						updateDgv("");
 
 						neutralForm();
-						Function.Alert("Sucesso!", "Fornecedor excluido.", popupClient.enmType.Success);
+						Alerta.notificacao("Sucesso!", "Fornecedor excluido.", Alerta.enmType.Success);
 					}
 					else
 					{
-						Function.Alert("Erro!", "Erro ao excluir fornecedor.", popupClient.enmType.Error);
+						Alerta.notificacao("Erro!", "Erro ao excluir fornecedor.", Alerta.enmType.Error);
 
 					}
 				}

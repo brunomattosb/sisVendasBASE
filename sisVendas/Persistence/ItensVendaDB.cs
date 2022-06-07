@@ -27,45 +27,33 @@ namespace sisVendas.Persistence
 
                 string SQL;
 
-                SQL = @"INSERT INTO ItenVenda (iten_quantidade,iten_idVenda,iten_idProduto)
-                        values (@iten_quantidade,@iten_idVenda,@iten_idProduto)";
+                SQL = @"INSERT INTO ItenVenda (iten_quantidade,iten_idVenda,iten_idProduto, iten_valor)
+                        values (@iten_quantidade,@iten_idVenda,@iten_idProduto, @iten_valor)";
 
 
                 res = db.ExecuteNonQuery(SQL, "@iten_quantidade", itensVenda.Quantidade,
                                                 "@iten_idVenda", itensVenda.Id_venda,
-                                                "@iten_idProduto", itensVenda.Id_produto);
+                                                "@iten_idProduto", itensVenda.Id_produto,
+                                                "@iten_valor", itensVenda.Valor);
 
 
 
             }
             return (res);
         }
-        public List<object> buscarPorIdVenda(int filtro)
+        public DataTable buscarPorIdVenda(int filtro)
         {
             DataTable dt = new DataTable();
-            List<object> clients = new List<object>();
 
-
-            string SQL = @"select * from ItenVenda where iten_idVenda = @filtro";
+            string SQL = @"select iten_quantidade, iten_idProduto, iten_valor, prod_nome, prod_un from ItenVenda
+left join produto on produto.prod_id = ItenVenda.iten_idProduto
+ where iten_idVenda = @filtro";
 
 
             db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
 
-            if (dt.Rows.Count > 0)
-            {
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    ItenVenda itens = new ItenVenda();
-
-                    itens.Quantidade = Convert.ToDouble(dt.Rows[i]["iten_quantidade"]);
-                    itens.Id_venda = Convert.ToInt32(dt.Rows[i]["iten_idVenda"]);
-                    itens.Id_produto = dt.Rows[i]["iten_idProduto"].ToString();
-
-
-                    clients.Add(itens);
-                }
-            }
-            return (clients);
+            
+            return (dt);
 
         }
         /*

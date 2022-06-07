@@ -15,86 +15,46 @@ namespace sisVendas.Persistence
         {
             this.db = db;
         }
-        /*
-        public bool Gravar(object Objeto)
+        
+        public int Gravar(object Objeto)
         {
             bool res = false;
+            int retorno = 0;
 
-            if (Objeto.GetType() == typeof(Cliente))
+            if (Objeto.GetType() == typeof(Promocao))
             {
-                Cliente cli = (Cliente)Objeto;
+                Promocao promo = (Promocao)Objeto;
 
                 string SQL;
 
-                SQL = @"INSERT INTO Cliente (cli_nome,cli_nome_fansasia,cli_cpf_cnpj,cli_cep,cli_endereco,cli_bairro,
-                                        cli_cidade,cli_telefone,cli_rg_ie,cli_uf,cli_dt_aniversario,cli_sexo,cli_saldo,cli_email)
-                        values (@cli_nome,@cli_nome_fansasia,@cli_cpf_cnpj,@cli_cep,@cli_endereco,@cli_bairro,
-                                        @cli_cidade,@cli_telefone,@cli_rg_ie,@cli_uf,@cli_dt_aniversario,@cli_sexo,@cli_saldo,@cli_email)";
+                SQL = @"INSERT INTO Promocao (promo_idFunc, promo_nome, promo_inicio, promo_fim)
+                        values (@promo_idFunc, @promo_nome, @promo_inicio, @promo_fim)";
 
+                res = db.ExecuteNonQuery(SQL, "@promo_idFunc", promo.IdFunc,
+                                                "@promo_nome", promo.Nome,
+                                                "@promo_inicio", promo.DtInicio,
+                                                "@promo_fim", promo.DtFim);
 
-                res = db.ExecuteNonQuery(SQL, "@cli_nome", cli.Nome,
-                                                "@cli_nome_fansasia", cli.Nome_fantasia,
-                                                "@cli_cpf_cnpj", cli.Cpf_cnpj,
-                                                "@cli_cep", cli.Cep,
-                                                "@cli_endereco", cli.Endereco,
-                                                "@cli_bairro", cli.Bairro,
-                                                "@cli_cidade", cli.Cidade,
-                                                "@cli_telefone", cli.Telefone,
-                                                "@cli_rg_ie", cli.Rg_ie,
-                                                "@cli_uf", cli.Uf,
-                                                "@cli_dt_aniversario", cli.DtNascimento,
-                                                "@cli_sexo", cli.Sexo,
-                                                "@cli_saldo", cli.Saldo,
-                                                "@cli_email", cli.Email);
-
-
-
+                if (res)
+                {
+                    retorno = db.GetIdentity();
+                }
             }
-            return (res);
-        }*/
-        /*
-        public bool Atualizar(object Objeto)
+            return (retorno);
+        }
+        
+        public bool finalizar(int id)
         {
 
             bool res = false;
-            if (Objeto.GetType() == typeof(Cliente))
-            {
-                Cliente cli = (Cliente)Objeto;
 
-                string SQL = @"UPDATE Cliente SET cli_nome = @cli_nome,
-                                            cli_nome_fansasia = @cli_nome_fansasia,
-                                            cli_cep = @cli_cep,
-                                            cli_endereco = @cli_endereco,
-                                            cli_bairro = @cli_bairro,
-                                            cli_cidade = @cli_cidade,
-                                            cli_telefone = @cli_telefone,
-                                            cli_rg_ie = @cli_rg_ie,
-                                            cli_uf = @cli_uf,
-                                            cli_dt_aniversario = @cli_dt_aniversario,
-                                            cli_sexo = @cli_sexo,
-                                            cli_saldo = @cli_saldo,
-                                            cli_email = @cli_email
-                            WHERE cli_id = @cli_id";
+            string SQL = @"UPDATE Promocao SET promo_fim = GETDATE()
+                        WHERE promo_id = @promo_id";
 
-                res = db.ExecuteNonQuery(SQL, "@cli_id", cli.Id,
-                                                "@cli_nome", cli.Nome,
-                                                "@cli_nome_fansasia", cli.Nome_fantasia,
-                                                "@cli_cep", cli.Cep,
-                                                "@cli_endereco", cli.Endereco,
-                                                "@cli_bairro", cli.Bairro,
-                                                "@cli_cidade", cli.Cidade,
-                                                "@cli_telefone", cli.Telefone,
-                                                "@cli_rg_ie", cli.Rg_ie,
-                                                "@cli_uf", cli.Uf,
-                                                "@cli_dt_aniversario", cli.DtNascimento,
-                                                "@cli_sexo", cli.Sexo,
-                                                "@cli_saldo", cli.Saldo,
-                                                "@cli_email", cli.Email);
-
-
-            }
+            res = db.ExecuteNonQuery(SQL, "promo_id", id);
+            
             return res;
-        }*/
+        }
         
         public List<object> Buscar(string filtro)
         {
@@ -115,6 +75,7 @@ namespace sisVendas.Persistence
 
 
                     promo.Id = Convert.ToInt32(dt.Rows[i]["promo_id"]);
+                    promo.IdFunc = Convert.ToInt32(dt.Rows[i]["promo_idFunc"]);
                     promo.Nome = dt.Rows[i]["promo_nome"].ToString();
                     promo.DtInicio = Convert.ToDateTime(dt.Rows[i]["promo_inicio"].ToString());
                     promo.DtFim = Convert.ToDateTime(dt.Rows[i]["promo_fim"].ToString());

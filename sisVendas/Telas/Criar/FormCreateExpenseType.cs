@@ -1,6 +1,7 @@
 ﻿using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Functions;
-using sisVendas.Notificacao;
+
 using System;
 using System.Data;
 using System.Drawing;
@@ -132,7 +133,7 @@ namespace sisVendas.Screens.Create
 						))
 					{
 
-						Function.Alert("Sucesso!", "Tipo de despesa salvo.", popupClient.enmType.Success);
+						Alerta.notificacao("Sucesso!", "Tipo de despesa salvo.", Alerta.enmType.Success);
 
 						updateDgv("");
 						activeForm();
@@ -141,7 +142,7 @@ namespace sisVendas.Screens.Create
 				}
 				else
 				{
-					Function.Alert("Erro!", "Erro ao salvar tipo de despesa.", popupClient.enmType.Error);
+					Alerta.notificacao("Erro!", "Erro ao salvar tipo de despesa.", Alerta.enmType.Error);
 				}
 			}
 		}
@@ -159,11 +160,11 @@ namespace sisVendas.Screens.Create
 						updateDgv("");
 
 						neutralForm();
-						Function.Alert("Sucesso!", "Tipo de despesa excluido.", popupClient.enmType.Success);
+						Alerta.notificacao("Sucesso!", "Tipo de despesa excluido.", Alerta.enmType.Success);
 					}
 					else
 					{
-						Function.Alert("Erro!", "Erro ao excluir tipo de despesa.", popupClient.enmType.Error);
+						Alerta.notificacao("Erro!", "Erro ao excluir tipo de despesa.", Alerta.enmType.Error);
 
 					}
 				}

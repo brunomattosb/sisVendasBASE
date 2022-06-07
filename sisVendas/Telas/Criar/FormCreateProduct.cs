@@ -2,7 +2,7 @@
 using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Models;
-using sisVendas.Notificacao;
+
 using System;
 using System.Data;
 using System.Drawing;
@@ -237,7 +237,7 @@ namespace sisVendas.Screens.Create
                     ))
                 {
 
-                    Function.Alert("Sucesso!", "Produto salvo.", popupClient.enmType.Success);
+                    Alerta.notificacao("Sucesso!", "Produto salvo.", Alerta.enmType.Success);
 
                     updateDgv("");
                     activeForm();
@@ -247,7 +247,7 @@ namespace sisVendas.Screens.Create
             else
             {
                 
-                //Function.Alert("Erro!", "Erro ao salvar Produto.", popupClient.enmType.Error);
+                //Alerta.notificacao("Erro!", "Erro ao salvar Produto.", Alerta.enmType.Error);
             }
         }
 
@@ -277,11 +277,11 @@ namespace sisVendas.Screens.Create
                         updateDgv("");
 
                         neutralForm();
-                        Function.Alert("Sucesso!", "Cliente excluido.", popupClient.enmType.Success);
+                        Alerta.notificacao("Sucesso!", "Cliente excluido.", Alerta.enmType.Success);
                     }
                     else
                     {
-                        Function.Alert("Erro!", "Erro ao excluir cliente.", popupClient.enmType.Error);
+                        Alerta.notificacao("Erro!", "Erro ao excluir cliente.", Alerta.enmType.Error);
 
                     }
                 }

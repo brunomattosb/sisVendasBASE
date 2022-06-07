@@ -34,6 +34,7 @@
             this.lblSaldo = new System.Windows.Forms.Label();
             this.cbbMN = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbPesquisarPorPeriodo = new System.Windows.Forms.CheckBox();
             this.dtpFim = new System.Windows.Forms.DateTimePicker();
             this.dtpInicio = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,7 +52,6 @@
             this.desconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.criado_em = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.venda_cancelada = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.cbPesquisarPorPeriodo = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_compra)).BeginInit();
@@ -135,6 +135,16 @@
             this.groupBox2.TabIndex = 55;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Periodo";
+            // 
+            // cbPesquisarPorPeriodo
+            // 
+            this.cbPesquisarPorPeriodo.AutoSize = true;
+            this.cbPesquisarPorPeriodo.Location = new System.Drawing.Point(26, 30);
+            this.cbPesquisarPorPeriodo.Name = "cbPesquisarPorPeriodo";
+            this.cbPesquisarPorPeriodo.Size = new System.Drawing.Size(246, 29);
+            this.cbPesquisarPorPeriodo.TabIndex = 58;
+            this.cbPesquisarPorPeriodo.Text = "Pesquisar Por Período";
+            this.cbPesquisarPorPeriodo.UseVisualStyleBackColor = true;
             // 
             // dtpFim
             // 
@@ -313,16 +323,6 @@
             this.venda_cancelada.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.venda_cancelada.Width = 150;
             // 
-            // cbPesquisarPorPeriodo
-            // 
-            this.cbPesquisarPorPeriodo.AutoSize = true;
-            this.cbPesquisarPorPeriodo.Location = new System.Drawing.Point(26, 30);
-            this.cbPesquisarPorPeriodo.Name = "cbPesquisarPorPeriodo";
-            this.cbPesquisarPorPeriodo.Size = new System.Drawing.Size(246, 29);
-            this.cbPesquisarPorPeriodo.TabIndex = 58;
-            this.cbPesquisarPorPeriodo.Text = "Pesquisar Por Período";
-            this.cbPesquisarPorPeriodo.UseVisualStyleBackColor = true;
-            // 
             // FormBuscarCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -333,6 +333,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "FormBuscarCompra";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormBuscarCompra";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

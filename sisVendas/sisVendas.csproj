@@ -80,10 +80,14 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tulpep.NotificationWindow, Version=1.1.38.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tulpep.NotificationWindow.1.1.38\lib\net40\Tulpep.NotificationWindow.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ctrlBanco.cs" />
     <Compile Include="Controllers\ctrlCaixa.cs" />
+    <Compile Include="Controllers\ctrlItensPromocao.cs" />
     <Compile Include="Controllers\ctrlItensCompra.cs" />
     <Compile Include="Controllers\ctrlParcelasCompra.cs" />
     <Compile Include="Controllers\ctrlPromocao.cs" />
@@ -99,6 +103,7 @@
     <Compile Include="Controllers\ctrlProdutoCategoria.cs" />
     <Compile Include="Controllers\ctrlVenda.cs" />
     <Compile Include="Controllers\ctrlFornecedor.cs" />
+    <Compile Include="Funcoes\Alerta.cs" />
     <Compile Include="Funcoes\Functions.cs" />
     <Compile Include="dbSisDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -112,6 +117,7 @@
     <Compile Include="Models\Funcionario.cs" />
     <Compile Include="Models\Despesa.cs" />
     <Compile Include="Models\DespesaTipo.cs" />
+    <Compile Include="Models\ItemsPromocao.cs" />
     <Compile Include="Models\ItenCompra.cs" />
     <Compile Include="Models\ParcelaCompra.cs" />
     <Compile Include="Models\ParcelaVenda.cs" />
@@ -123,17 +129,12 @@
     <Compile Include="Models\Promocao.cs" />
     <Compile Include="Models\Vendas.cs" />
     <Compile Include="Models\TransacaoCaixa.cs" />
-    <Compile Include="Notification\popupClient.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Notification\popupClient.designer.cs">
-      <DependentUpon>popupClient.cs</DependentUpon>
-    </Compile>
     <Compile Include="Persistence\Banco.cs" />
     <Compile Include="Persistence\BancoDB.cs" />
     <Compile Include="Persistence\CaixaDB.cs" />
     <Compile Include="Controllers\ctrlCompra.cs" />
     <Compile Include="Persistence\CompraDB.cs" />
+    <Compile Include="Persistence\ItemsPromocaoDB.cs" />
     <Compile Include="Persistence\ItensCompraDB.cs" />
     <Compile Include="Persistence\ParcelaCompraDB.cs" />
     <Compile Include="Persistence\PromocaoDB.cs" />
@@ -294,6 +295,12 @@
     <Compile Include="Telas\Produto\FormBuscarProduto.Designer.cs">
       <DependentUpon>FormBuscarProduto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Telas\Promocao\FormBuscarPromocao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Promocao\FormBuscarPromocao.Designer.cs">
+      <DependentUpon>FormBuscarPromocao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Telas\Promocao\FormRegistrarPromocao.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -342,9 +349,6 @@
     <Compile Include="Telas\Sale\FormCalcularTroco.Designer.cs">
       <DependentUpon>FormCalcularTroco.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Notification\popupClient.resx">
-      <DependentUpon>popupClient.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Telas\Caixa\FormConsultarAnteriores.resx">
       <DependentUpon>FormConsultarAnteriores.cs</DependentUpon>
     </EmbeddedResource>
@@ -418,6 +422,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Produto\FormBuscarProduto.resx">
       <DependentUpon>FormBuscarProduto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Promocao\FormBuscarPromocao.resx">
+      <DependentUpon>FormBuscarPromocao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Promocao\FormRegistrarPromocao.resx">
       <DependentUpon>FormRegistrarPromocao.cs</DependentUpon>

@@ -1,6 +1,7 @@
 ﻿using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Functions;
-using sisVendas.Notificacao;
+
 using System;
 using System.Data;
 using System.Drawing;
@@ -135,11 +136,11 @@ namespace sisVendas.Screens.Create
 						updateDgv("");
 
 						neutralForm();
-						Function.Alert("Sucesso!", "Marca excluida.", popupClient.enmType.Success);
+						Alerta.notificacao("Sucesso!", "Marca excluida.", Alerta.enmType.Success);
 					}
 					else
 					{
-						Function.Alert("Erro!", "Erro ao excluir marca.", popupClient.enmType.Error);
+						Alerta.notificacao("Erro!", "Erro ao excluir marca.", Alerta.enmType.Error);
 
 					}
 				}
@@ -176,7 +177,7 @@ namespace sisVendas.Screens.Create
 						))
 					{
 
-						Function.Alert("Sucesso!", "Marca salva.", popupClient.enmType.Success);
+						Alerta.notificacao("Sucesso!", "Marca salva.", Alerta.enmType.Success);
 
 						updateDgv("");
 						activeForm();
@@ -185,7 +186,7 @@ namespace sisVendas.Screens.Create
 				}
 				else
 				{
-					Function.Alert("Erro!", "Erro ao salvar marca.", popupClient.enmType.Error);
+					Alerta.notificacao("Erro!", "Erro ao salvar marca.", Alerta.enmType.Error);
 				}
 			}
 		}

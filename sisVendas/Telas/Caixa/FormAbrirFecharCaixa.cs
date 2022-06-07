@@ -1,6 +1,7 @@
 ﻿using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Functions;
-using sisVendas.Notificacao;
+
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -354,7 +355,7 @@ namespace sisVendas.Telas.Caixa
                 if (res > saldoCaixaAnterior)
                 {
                     tbSaida.Text = "R$ 0,00";
-                    Function.Alert("Erro!", "Sangria maior que saldo anterior.", popupClient.enmType.Error);
+                    Alerta.notificacao("Erro!", "Sangria maior que saldo anterior.", Alerta.enmType.Error);
                 }
             }
             else

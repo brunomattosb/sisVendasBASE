@@ -1,5 +1,6 @@
-﻿using sisVendas.Functions;
-using sisVendas.Notificacao;
+﻿using sisVendas.Funcoes;
+using sisVendas.Functions;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -102,7 +103,7 @@ namespace sisVendas.Telas.Compra
                 else
                 {
                     tbValor.Text = "";
-                    Function.Alert("Erro!", "Valor incorreto", popupClient.enmType.Error);
+                    Alerta.notificacao("Erro!", "Valor incorreto", Alerta.enmType.Error);
                 }
         }
         public void inserir(double valor, string tipo, DateTime data)
@@ -144,7 +145,7 @@ namespace sisVendas.Telas.Compra
                     }
                     else
                     {
-                        Function.Alert("Alerta!", "Valor a ser pago maior que saldo devedor e diferente de zero", popupClient.enmType.Warning);
+                        Alerta.notificacao("Alerta!", "Valor a ser pago maior que saldo devedor e diferente de zero", Alerta.enmType.Warning);
                     }
                 }
             }

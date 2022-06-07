@@ -18,13 +18,14 @@ namespace sisVendas.Controllers
         private ItenVenda ItensVendaSelecionado = new ItenVenda();
         private ctrlProduct controlProduto = new ctrlProduct();
 
-        public bool SalvarItensVenda(int id_venda, string id_produto,double quantidade)
+        public bool SalvarItensVenda(int id_venda, string id_produto,double quantidade, double valorUn)
         {
             
 
             ItensVendaSelecionado.Quantidade = quantidade;
             ItensVendaSelecionado.Id_produto = id_produto;
             ItensVendaSelecionado.Id_venda = id_venda;
+            ItensVendaSelecionado.Valor = valorUn;
 
             dataBase.Conecta();
             bool result = false;
@@ -45,31 +46,16 @@ namespace sisVendas.Controllers
         public DataTable buscarItensVendaPorIDVenda(int filter)
         {
 
-            DataTable dtClient = new DataTable();
-
-            dtClient.Columns.Add("iten_quantidade", typeof(double));
-            dtClient.Columns.Add("iten_idVenda", typeof(int));
-            dtClient.Columns.Add("iten_idProduto");
-
-
+            DataTable dtItemsVenda = new DataTable();
 
             dataBase.Conecta();
             ItensVendaDB itensDB= new ItensVendaDB(dataBase);
-            foreach (ItenVenda itens in itensDB.buscarPorIdVenda(filter))
-            {
-                
-                DataRow line = dtClient.NewRow();
-
-                line["iten_quantidade"] = itens.Quantidade;
-                line["iten_idVenda"] = itens.Id_venda;
-                line["iten_idProduto"] = itens.Id_produto;
+            dtItemsVenda = itensDB.buscarPorIdVenda(filter);
 
 
-                dtClient.Rows.Add(line);
-            }
             dataBase.Desconecta();
 
-            return (dtClient);
+            return (dtItemsVenda);
         }
 
         /*public Cliente buscarClientePorCpf(string filter)

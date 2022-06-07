@@ -1,7 +1,8 @@
 ﻿using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Models;
-using sisVendas.Notificacao;
+
 using sisVendas.Persistence;
 using sisVendas.Screens.Product;
 using sisVendas.Telas.Fornecedor;
@@ -221,20 +222,20 @@ namespace sisVendas.Telas.Compra
 
                     if (isOk)
                     {
-                        Function.Alert("Sucesso!", "Compra finalizada!", popupClient.enmType.Success);
+                        Alerta.notificacao("Sucesso!", "Compra finalizada!", Alerta.enmType.Success);
 
                         resetarForm();
                     }
                     else
                     {
-                        Function.Alert("Erro!", "Não foi possivel gravar a compra!", popupClient.enmType.Error);
+                        Alerta.notificacao("Erro!", "Não foi possivel gravar a compra!", Alerta.enmType.Error);
                     }
                 }
                 
             }
             else
             {
-                Function.Alert("Erro!", "Não foi possivel gravar a compra!", popupClient.enmType.Error);
+                Alerta.notificacao("Erro!", "Não foi possivel gravar a compra!", Alerta.enmType.Error);
             }
 
         }
@@ -341,12 +342,12 @@ namespace sisVendas.Telas.Compra
                 }
                 else
                 {
-                    Function.Alert("Atenção!", "Valor inválida!", popupClient.enmType.Warning);
+                    Alerta.notificacao("Atenção!", "Valor inválida!", Alerta.enmType.Warning);
                 }
             }
             else
             {
-                Function.Alert("Atenção!", "Quantidade inválida!", popupClient.enmType.Warning);
+                Alerta.notificacao("Atenção!", "Quantidade inválida!", Alerta.enmType.Warning);
             }
         }
         private void adicionarProdutoDataTable(double amount, double valor,Produto prod)
@@ -410,7 +411,7 @@ namespace sisVendas.Telas.Compra
 
             if (row == null) // se não tiver vai inserir
             {
-                Function.Alert("Atenção!", "Não é possivel remover um produto que não está na compra!", popupClient.enmType.Warning);
+                Alerta.notificacao("Atenção!", "Não é possivel remover um produto que não está na compra!", Alerta.enmType.Warning);
             }
             else //caso ja exista no dt
             {
@@ -434,7 +435,7 @@ namespace sisVendas.Telas.Compra
                     }
                 }
                 else
-                    Function.Alert("Atenção!", "Não é possivel deixar a quantidade negativa!", popupClient.enmType.Warning);
+                    Alerta.notificacao("Atenção!", "Não é possivel deixar a quantidade negativa!", Alerta.enmType.Warning);
             }
 
 
@@ -468,7 +469,7 @@ namespace sisVendas.Telas.Compra
                 }
                 else
                 {
-                    Function.Alert("Atenção!", "Código de produto inexistente ou não informado!", popupClient.enmType.Warning);
+                    Alerta.notificacao("Atenção!", "Código de produto inexistente ou não informado!", Alerta.enmType.Warning);
 
                     resetarProduto();
 
@@ -525,7 +526,7 @@ namespace sisVendas.Telas.Compra
             else
             {
                 tbValorUn.Text = "R$ 0,00";
-                //Function.Alert("Erro!", "Valor incorreto", popupClient.enmType.Error);
+                //Alerta.notificacao("Erro!", "Valor incorreto", Alerta.enmType.Error);
             }
         }
 
@@ -706,7 +707,7 @@ namespace sisVendas.Telas.Compra
                         {
                             controlCompra.restabelecerCompra(compraSelecionada.Id, dttProduto);
                             resetarForm();
-                            Function.Alert("Sucesso!", "compra restaurada!", popupClient.enmType.Success);
+                            Alerta.notificacao("Sucesso!", "compra restaurada!", Alerta.enmType.Success);
                         }
                     }
                     else 
@@ -715,7 +716,7 @@ namespace sisVendas.Telas.Compra
                         {
                             controlCompra.removerCompra(compraSelecionada.Id, dttProduto);
                             resetarForm();
-                            Function.Alert("Sucesso!", "compra removida!", popupClient.enmType.Success);
+                            Alerta.notificacao("Sucesso!", "compra removida!", Alerta.enmType.Success);
                         }
                     }
                 }

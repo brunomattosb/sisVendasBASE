@@ -2,7 +2,7 @@
 using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Models;
-using sisVendas.Notificacao;
+
 using System;
 using System.Data;
 using System.Linq;
@@ -16,7 +16,6 @@ namespace sisVendas.Telas.Sale
         private ctrlVenda controlVenda = new ctrlVenda();
         private int vendaSelecionada = 0;
         private DataTable dttVenda;
-        private string filtro = "";
 
         public FormBuscarVenda()
         {
@@ -102,7 +101,7 @@ namespace sisVendas.Telas.Sale
                 }
                 else
                 {
-                    Function.Alert("Alerta!", "Data Inicio maior que data Fim", popupClient.enmType.Warning);
+                    Alerta.notificacao("Alerta!", "Data Inicio maior que data Fim", Alerta.enmType.Warning);
                 }
             }
             return filtro;

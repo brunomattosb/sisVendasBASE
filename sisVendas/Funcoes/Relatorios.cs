@@ -5,10 +5,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace sisVendas.Funcoes
 {
@@ -17,7 +13,7 @@ namespace sisVendas.Funcoes
         static BaseFont fontBase = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, false);
         public static void gerarRelatorio(string nomeArquivo, string titulo, DataTable dt, float[] largurasColunas)
         {
-            MessageBox.Show(largurasColunas.Length + "-" + dt.Columns.Count);
+            
             if(largurasColunas.Length == dt.Columns.Count)
             {
                 int totalPaginas = 1;

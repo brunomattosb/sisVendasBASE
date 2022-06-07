@@ -2,7 +2,7 @@
 using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Models;
-using sisVendas.Notificacao;
+
 using System;
 using System.Data;
 using System.Drawing;
@@ -230,7 +230,7 @@ namespace sisVendas.Screens.Create
 			{
 				isOk = false;
 				lblCpf.ForeColor = Color.Red;
-				Function.Alert("Erro!", "CPF incorreto!", popupClient.enmType.Error);
+				Alerta.notificacao("Erro!", "CPF incorreto!", Alerta.enmType.Error);
 			}
 
 			if (tbName.Text.Count() < 2)
@@ -271,7 +271,7 @@ namespace sisVendas.Screens.Create
 			{
 				if (!DateTime.TryParseExact(dtpDtNasc.Text, "dd/MM/yyyy", null, DateTimeStyles.None, out dateNascValue))
 				{
-					Function.Alert("Erro!", "Data de nascimento inválida.", popupClient.enmType.Error);
+					Alerta.notificacao("Erro!", "Data de nascimento inválida.", Alerta.enmType.Error);
 					isOk = false;
 					lblNascimento.ForeColor = Color.Red;
 				}
@@ -288,7 +288,7 @@ namespace sisVendas.Screens.Create
 			{
 				if (!DateTime.TryParseExact(dtp.Text, "dd/MM/yyyy", null, DateTimeStyles.None, out dateAdmissionValue))
 				{
-					Function.Alert("Erro!", "Data de Admissão inválida.", popupClient.enmType.Error);
+					Alerta.notificacao("Erro!", "Data de Admissão inválida.", Alerta.enmType.Error);
 					isOk = false;
 					lblAdmissao.ForeColor = Color.Red;
 				}
@@ -306,7 +306,7 @@ namespace sisVendas.Screens.Create
 			{
 				if (!DateTime.TryParseExact(mtbDemissao.Text, "dd/MM/yyyy", null, DateTimeStyles.None, out dateResignationValue))
 				{
-					Function.Alert("Erro!", "Data de Demissão inválida.", popupClient.enmType.Error);
+					Alerta.notificacao("Erro!", "Data de Demissão inválida.", Alerta.enmType.Error);
 					isOk = false;
 					lblDemissao.ForeColor = Color.Red;
 				}
@@ -362,7 +362,7 @@ namespace sisVendas.Screens.Create
 				))
 				{
 
-					Function.Alert("Sucesso!", "Cliente salvo.", popupClient.enmType.Success);
+					Alerta.notificacao("Sucesso!", "Cliente salvo.", Alerta.enmType.Success);
 
 					updateDgv("");
 					activeForm();
@@ -371,7 +371,7 @@ namespace sisVendas.Screens.Create
 			}
 			else
 			{
-				//Function.Alert("Erro!", "Erro ao salvar cliente.", popupClient.enmType.Error);
+				//Alerta.notificacao("Erro!", "Erro ao salvar cliente.", Alerta.enmType.Error);
 			}
 
 		}
@@ -391,11 +391,11 @@ namespace sisVendas.Screens.Create
 							updateDgv("");
 
 							neutralForm();
-							Function.Alert("Sucesso!", "Funcionário excluido.", popupClient.enmType.Success);
+							Alerta.notificacao("Sucesso!", "Funcionário excluido.", Alerta.enmType.Success);
 						}
 						else
 						{
-							Function.Alert("Erro!", "Erro ao excluir funcionário.", popupClient.enmType.Error);
+							Alerta.notificacao("Erro!", "Erro ao excluir funcionário.", Alerta.enmType.Error);
 
 						}
 					}
@@ -505,7 +505,7 @@ namespace sisVendas.Screens.Create
 			else
 			{
 				tbBaseSalary.Text = "R$ 0,00";
-				Function.Alert("Erro!", "Valor incorreto", popupClient.enmType.Error);
+				Alerta.notificacao("Erro!", "Valor incorreto", Alerta.enmType.Error);
 			}
 
 

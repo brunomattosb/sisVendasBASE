@@ -2,7 +2,7 @@
 using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Models;
-using sisVendas.Notificacao;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -164,7 +164,6 @@ namespace sisVendas.Telas.Caixa
 			double.TryParse(tbDesconto.Text.Replace("R$ ", ""), out double desconto);
 			double.TryParse(tbValor.Text.Replace("R$", ""), out double valor);
 
-			string status = "DEVE";
 			if (valor <= 0)
 			{
 				isOk = false;
@@ -176,7 +175,7 @@ namespace sisVendas.Telas.Caixa
 			{
 				isOk = false;
 				lblDesconto.ForeColor = Color.Red;
-				Function.Alert("Alerta!", "Valor de desconto maior que valor da despesa.", popupClient.enmType.Info);
+				Alerta.notificacao("Alerta!", "Valor de desconto maior que valor da despesa.", Alerta.enmType.Info);
 			}
 
 			if (valor - desconto == 0)
@@ -184,7 +183,7 @@ namespace sisVendas.Telas.Caixa
 				isOk = false;
 				lblValor.ForeColor = Color.Red;
 				lblDesconto.ForeColor = Color.Red;
-				Function.Alert("Alerta!", "Valor total deve ser maior que zero.", popupClient.enmType.Info);
+				Alerta.notificacao("Alerta!", "Valor total deve ser maior que zero.", Alerta.enmType.Info);
 			}
 
 			if(cbbTiposDespesas.SelectedIndex == -1)
@@ -209,7 +208,7 @@ namespace sisVendas.Telas.Caixa
 					))
 				{
 
-					Function.Alert("Sucesso!", "Despesa salva.", popupClient.enmType.Success);
+					Alerta.notificacao("Sucesso!", "Despesa salva.", Alerta.enmType.Success);
 
 					btnBuscar.PerformClick();
 					activeForm();
@@ -300,11 +299,11 @@ namespace sisVendas.Telas.Caixa
                         updateDgv("");
 
                         neutralForm();
-                        Function.Alert("Sucesso!", "Despesa excluida.", popupClient.enmType.Success);
+                        Alerta.notificacao("Sucesso!", "Despesa excluida.", Alerta.enmType.Success);
                     }
                     else
                     {
-                        Function.Alert("Erro!", "Erro ao excluir despesa.", popupClient.enmType.Error);
+                        Alerta.notificacao("Erro!", "Erro ao excluir despesa.", Alerta.enmType.Error);
 
                     }
                 }
@@ -454,7 +453,7 @@ namespace sisVendas.Telas.Caixa
 				}
 				else
 				{
-					Function.Alert("Alerta!", "Data final maior que data inicial", popupClient.enmType.Warning);
+					Alerta.notificacao("Alerta!", "Data final maior que data inicial", Alerta.enmType.Warning);
 				}
 			}
 			return filtro;

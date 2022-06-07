@@ -4,7 +4,7 @@ using sisVendas.Controllers;
 using sisVendas.Funcoes;
 using sisVendas.Functions;
 using sisVendas.Models;
-using sisVendas.Notificacao;
+
 using System;
 using System.Data;
 using System.Diagnostics;
@@ -147,7 +147,7 @@ namespace sisVendas.Screens.Create
 
                  if (!DateTime.TryParseExact(mtbDtNasc.Text, "dd/MM/yyyy", null, DateTimeStyles.None, out dateValue))
                  {
-                     Function.Alert("Erro!", "Data inválida.", popupClient.enmType.Error);
+                     Alerta.notificacao("Erro!", "Data inválida.", Alerta.enmType.Error);
                      isOk = false;
                  }
              }
@@ -159,7 +159,7 @@ namespace sisVendas.Screens.Create
             int lenghtCpf = Function.replaceAll(mtbCpf.Text).Length;
             if (isOk && lenghtCpf == 0)//&& isValidCpf
             {
-                Function.Alert("Erro!", "CPF/CNPJ obrigatório.", popupClient.enmType.Error);
+                Alerta.notificacao("Erro!", "CPF/CNPJ obrigatório.", Alerta.enmType.Error);
                 isOk = false;
             }
             else
@@ -167,7 +167,7 @@ namespace sisVendas.Screens.Create
                 if(lenghtCpf==11)
                 if (!(Function.isCpfValid(mtbCpf.Text)))//&& isValidCpf
                 {
-                    Function.Alert("Erro!", "CPF incorreto.", popupClient.enmType.Error);
+                    Alerta.notificacao("Erro!", "CPF incorreto.", Alerta.enmType.Error);
                     isOk = false;
                 }
             }
@@ -201,7 +201,7 @@ namespace sisVendas.Screens.Create
                     ))
                 {
 
-                    Function.Alert("Sucesso!", "Cliente salvo.", popupClient.enmType.Success);
+                    Alerta.notificacao("Sucesso!", "Cliente salvo.", Alerta.enmType.Success);
 
                     updateDgv("");
                     activeForm();
@@ -210,7 +210,7 @@ namespace sisVendas.Screens.Create
             }
             else
             {
-                //Function.Alert("Erro!", "Erro ao salvar cliente.", popupClient.enmType.Error);
+                //Alerta.notificacao("Erro!", "Erro ao salvar cliente.", Alerta.enmType.Error);
             }
             
         }
@@ -243,11 +243,11 @@ namespace sisVendas.Screens.Create
                         updateDgv("");
 
                         neutralForm();
-                        Function.Alert("Sucesso!", "Cliente excluido.", popupClient.enmType.Success);
+                        Alerta.notificacao("Sucesso!", "Cliente excluido.", Alerta.enmType.Success);
                     }
                     else
                     {
-                        Function.Alert("Erro!", "Erro ao excluir cliente.", popupClient.enmType.Error);
+                        Alerta.notificacao("Erro!", "Erro ao excluir cliente.", Alerta.enmType.Error);
 
                     }
                 }

@@ -1,23 +1,9 @@
-﻿using sisVendas.Notificacao;
-
+﻿
 
 namespace sisVendas.Functions
 {
     class Function
     {
-        public enum enmType
-        {
-            Success,
-            Warning,
-            Error,
-            Info
-        }
-
-        public static void Alert(string title, string text, popupClient.enmType type)
-        {
-            popupClient f = new popupClient();
-            f.showAlert(title, text, type);
-        }
         public static bool isCpfValid(string cpf)
         {
             cpf = replaceAll(cpf);

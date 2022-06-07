@@ -1,4 +1,5 @@
 ﻿using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Models;
 using sisVendas.Screens.Create;
 using sisVendas.Screens.Sale;
@@ -6,7 +7,6 @@ using sisVendas.Telas;
 using sisVendas.Telas.Caixa;
 using sisVendas.Telas.Compra;
 using sisVendas.Telas.Promocao;
-using sisVendas.Telas.Sale;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -25,7 +25,6 @@ namespace sisVendas
         {
             InitializeComponent();
 
-            
         }
 
         public bool validaLogin()
@@ -51,61 +50,56 @@ namespace sisVendas
 
         #region OpenForm
         
-        private void openForm(Form f)
-        {
-            f.MaximizeBox = false;
-            f.MinimizeBox = false;
-            f.ShowDialog();
-        }
+        
         private void menuBtnFuncionario_Click(object sender, EventArgs e)
         {
                 
             FormCriarFuncionario f = new FormCriarFuncionario();
-            openForm(f);
+            f.ShowDialog();
         }
 
 
         private void menuBtnClient_Click(object sender, EventArgs e)
         {
             FormCriarCliente f = new FormCriarCliente();
-            openForm(f);
+            f.ShowDialog();
         }
 
         private void menuBtnProvider_Click(object sender, EventArgs e)
         {
             FormCreiarFornecedor f = new FormCreiarFornecedor();
-            openForm(f); ;
+            f.ShowDialog();
         }
 
         private void menuBtnProduct_Click(object sender, EventArgs e)
         {
             FormCreateProduct f = new FormCreateProduct();
-            openForm(f);
+            f.ShowDialog();
         }
 
         private void menuBtnProductCategory_Click(object sender, EventArgs e)
         {
             FormCreateProductCategory f = new FormCreateProductCategory();
-            openForm(f);
+            f.ShowDialog();
         }
 
         private void menuBtnProductBrand_Click(object sender, EventArgs e)
         {
             FormCreateProductBrand f = new FormCreateProductBrand();
-            openForm(f);
+            f.ShowDialog();
         }
 
 
         private void menuBtnExpenseType_Click(object sender, EventArgs e)
         {
             FormCreateExpenseType f = new FormCreateExpenseType();
-            openForm(f);
+            f.ShowDialog();
         }
 
         private void menuBtnParameterization_Click(object sender, EventArgs e)
         {
             FormParameterization f = new FormParameterization();
-            openForm(f);
+            f.ShowDialog();
         }
 
         private void menuBtnEfetuarVenda_Click(object sender, EventArgs e)
@@ -119,13 +113,13 @@ namespace sisVendas
                 FormVenda f = new FormVenda(caixaSelecionado.Id, caixaSelecionado.IdFunc);
                 f.WindowState = FormWindowState.Maximized;
                 f.FormBorderStyle = FormBorderStyle.None;
-                openForm(f);
+                f.ShowDialog();
             }            
         }
         private void menuBtnAbrirFecharCaixa_Click(object sender, EventArgs e)
         {
             FormAbrirFecharCaixa f = new FormAbrirFecharCaixa(funcLogado.Id);
-            openForm(f);
+            f.ShowDialog();
 
             caixaSelecionado = f.retornaCaixa();
 
@@ -137,11 +131,13 @@ namespace sisVendas
         {
             if(validaLogin())
             {
+                
                 // Se o login for true, busca o caixa logado aberto.
                 buscarCaixaAberto(funcLogado.Id);
             }
             else
             {
+
                 Close();
             }
         }
@@ -187,7 +183,7 @@ namespace sisVendas
             {
 
                 FormLancarDespesas f = new FormLancarDespesas(caixaSelecionado.Id);
-                openForm(f);
+                f.ShowDialog();
             }
         }
 
@@ -200,8 +196,7 @@ namespace sisVendas
             else
             {
                 FormLancarCompra f = new FormLancarCompra(caixaSelecionado.Id);
-                
-                openForm(f);
+                f.ShowDialog();
             }
         }
 
@@ -215,7 +210,7 @@ namespace sisVendas
             else
             {
                 FormContasAReceber f = new FormContasAReceber(caixaSelecionado.Id);
-                openForm(f);
+                f.ShowDialog();
             }
         }
 
@@ -228,7 +223,7 @@ namespace sisVendas
             else
             {
                 FormContasAPagar f = new FormContasAPagar(caixaSelecionado.Id);
-                openForm(f);
+                f.ShowDialog();
             }
         }
 
@@ -236,15 +231,10 @@ namespace sisVendas
         {
 
             FormRegistrarPromocao f = new FormRegistrarPromocao(funcLogado.Id);
-            openForm(f);
-            
+            f.ShowDialog();
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ctrlCliente controlcliente = new ctrlCliente();
-            
-        }
 
     }
 }

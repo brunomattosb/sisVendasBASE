@@ -1,6 +1,7 @@
-﻿using sisVendas.Functions;
+﻿using sisVendas.Funcoes;
+using sisVendas.Functions;
 using sisVendas.Models;
-using sisVendas.Notificacao;
+
 using System;
 using System.Data;
 using System.Linq;
@@ -107,7 +108,7 @@ namespace sisVendas.Screens.Sale
                     }
                     else
                     {
-                        Function.Alert("Alerta!", "Valor a ser pago maior que saldo devedor e diferente de zero", popupClient.enmType.Warning);
+                        Alerta.notificacao("Alerta!", "Valor a ser pago maior que saldo devedor", Alerta.enmType.Warning);
                     }
                 }
             }
@@ -134,7 +135,7 @@ namespace sisVendas.Screens.Sale
                 else
                 {
                     tbValor.Text = "";
-                    Function.Alert("Erro!", "Valor incorreto", popupClient.enmType.Error);
+                    Alerta.notificacao("Erro!", "Valor incorreto", Alerta.enmType.Error);
                 }
         }
         public DataTable getLparcela()

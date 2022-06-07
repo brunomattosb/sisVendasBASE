@@ -1,6 +1,7 @@
 ﻿using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Functions;
-using sisVendas.Notificacao;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -66,7 +67,7 @@ namespace sisVendas.Telas.Caixa
                 else
                 {
                     tbValor.Text = "R$ 0,00";
-                    Function.Alert("Erro!", "Valor incorreto", popupClient.enmType.Error);
+                    Alerta.notificacao("Erro!", "Valor incorreto", Alerta.enmType.Error);
                 }
         }
 
