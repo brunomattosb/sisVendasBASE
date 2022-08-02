@@ -61,28 +61,15 @@
             this.lblFantasyName = new System.Windows.Forms.Label();
             this.lblCpf = new System.Windows.Forms.Label();
             this.dgv_Provider = new System.Windows.Forms.DataGridView();
-            this.forn_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.forn_nome_fantasia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.forn_email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.forn_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.forn_cep = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.forn_endereco = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.forn_bairro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.forn_cidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.forn_uf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prov_created_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.forn_telefone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.forn_cpf_cnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.forn_rg_ie = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblFornecedor = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.gerarPdf = new System.Windows.Forms.Button();
+            this.forn_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.forn_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.forn_cpf_cnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GbpPesquisa.SuspendLayout();
             this.gbCad.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Provider)).BeginInit();
-            this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,7 +78,7 @@
             this.GbpPesquisa.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.GbpPesquisa.Controls.Add(this.tbSearch);
             this.GbpPesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GbpPesquisa.Location = new System.Drawing.Point(12, 355);
+            this.GbpPesquisa.Location = new System.Drawing.Point(12, 241);
             this.GbpPesquisa.Name = "GbpPesquisa";
             this.GbpPesquisa.Size = new System.Drawing.Size(345, 57);
             this.GbpPesquisa.TabIndex = 7;
@@ -115,7 +102,6 @@
             this.gbCad.Controls.Add(this.lblEmail);
             this.gbCad.Controls.Add(this.tbEmail);
             this.gbCad.Controls.Add(this.lblRg);
-            this.gbCad.Controls.Add(this.tableLayoutPanel1);
             this.gbCad.Controls.Add(this.mtbTelephone);
             this.gbCad.Controls.Add(this.lblId);
             this.gbCad.Controls.Add(this.lblTelefone);
@@ -134,9 +120,9 @@
             this.gbCad.Controls.Add(this.tbFantasyName);
             this.gbCad.Controls.Add(this.lblFantasyName);
             this.gbCad.Controls.Add(this.lblCpf);
-            this.gbCad.Location = new System.Drawing.Point(12, 69);
+            this.gbCad.Location = new System.Drawing.Point(12, 12);
             this.gbCad.Name = "gbCad";
-            this.gbCad.Size = new System.Drawing.Size(651, 280);
+            this.gbCad.Size = new System.Drawing.Size(651, 223);
             this.gbCad.TabIndex = 0;
             this.gbCad.TabStop = false;
             // 
@@ -199,35 +185,35 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.Controls.Add(this.btnNew, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnSave, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnRemove, 2, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(19, 230);
+            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnRemove, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 463);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(612, 33);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(651, 33);
             this.tableLayoutPanel1.TabIndex = 14;
             // 
             // btnNew
             // 
             this.btnNew.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnNew.Location = new System.Drawing.Point(39, 5);
+            this.btnNew.Location = new System.Drawing.Point(17, 4);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(75, 23);
+            this.btnNew.Size = new System.Drawing.Size(127, 24);
             this.btnNew.TabIndex = 1;
-            this.btnNew.Text = "Novo";
+            this.btnNew.Text = "[F1] - Novo";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCancel.Location = new System.Drawing.Point(192, 5);
+            this.btnCancel.Location = new System.Drawing.Point(341, 4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(127, 24);
             this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.Text = "[F4] - Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
@@ -235,22 +221,22 @@
             // 
             this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnSave.Location = new System.Drawing.Point(498, 5);
+            this.btnSave.Location = new System.Drawing.Point(505, 4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(127, 24);
             this.btnSave.TabIndex = 0;
-            this.btnSave.Text = "Salvar";
+            this.btnSave.Text = "[F12] - Salvar";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
             // btnRemove
             // 
             this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnRemove.Location = new System.Drawing.Point(345, 5);
+            this.btnRemove.Location = new System.Drawing.Point(179, 4);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnRemove.Size = new System.Drawing.Size(127, 24);
             this.btnRemove.TabIndex = 3;
-            this.btnRemove.Text = "Excluir";
+            this.btnRemove.Text = "[F2] - Excluir";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
@@ -459,159 +445,22 @@
             this.dgv_Provider.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Provider.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.forn_nome,
-            this.forn_nome_fantasia,
-            this.forn_email,
             this.forn_id,
-            this.forn_cep,
-            this.forn_endereco,
-            this.forn_bairro,
-            this.forn_cidade,
-            this.forn_uf,
-            this.prov_created_at,
-            this.forn_telefone,
-            this.forn_cpf_cnpj,
-            this.forn_rg_ie});
-            this.dgv_Provider.Location = new System.Drawing.Point(12, 417);
+            this.forn_cpf_cnpj});
+            this.dgv_Provider.Location = new System.Drawing.Point(12, 304);
             this.dgv_Provider.MultiSelect = false;
             this.dgv_Provider.Name = "dgv_Provider";
             this.dgv_Provider.ReadOnly = true;
             this.dgv_Provider.RowHeadersVisible = false;
             this.dgv_Provider.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_Provider.Size = new System.Drawing.Size(651, 166);
+            this.dgv_Provider.Size = new System.Drawing.Size(651, 153);
             this.dgv_Provider.TabIndex = 0;
             this.dgv_Provider.DoubleClick += new System.EventHandler(this.dgv_Provider_DoubleClick);
-            // 
-            // forn_nome
-            // 
-            this.forn_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.forn_nome.DataPropertyName = "forn_nome";
-            this.forn_nome.HeaderText = "Nome";
-            this.forn_nome.Name = "forn_nome";
-            this.forn_nome.ReadOnly = true;
-            // 
-            // forn_nome_fantasia
-            // 
-            this.forn_nome_fantasia.DataPropertyName = "forn_nome_fantasia";
-            this.forn_nome_fantasia.HeaderText = "Fantazy Name";
-            this.forn_nome_fantasia.Name = "forn_nome_fantasia";
-            this.forn_nome_fantasia.ReadOnly = true;
-            this.forn_nome_fantasia.Visible = false;
-            // 
-            // forn_email
-            // 
-            this.forn_email.DataPropertyName = "forn_email";
-            this.forn_email.HeaderText = "Email";
-            this.forn_email.Name = "forn_email";
-            this.forn_email.ReadOnly = true;
-            this.forn_email.Visible = false;
-            // 
-            // forn_id
-            // 
-            this.forn_id.DataPropertyName = "forn_id";
-            this.forn_id.HeaderText = "Código";
-            this.forn_id.Name = "forn_id";
-            this.forn_id.ReadOnly = true;
-            this.forn_id.Visible = false;
-            // 
-            // forn_cep
-            // 
-            this.forn_cep.DataPropertyName = "forn_cep";
-            this.forn_cep.HeaderText = "CEP";
-            this.forn_cep.Name = "forn_cep";
-            this.forn_cep.ReadOnly = true;
-            this.forn_cep.Visible = false;
-            // 
-            // forn_endereco
-            // 
-            this.forn_endereco.DataPropertyName = "forn_endereco";
-            this.forn_endereco.HeaderText = "Endereço";
-            this.forn_endereco.Name = "forn_endereco";
-            this.forn_endereco.ReadOnly = true;
-            this.forn_endereco.Visible = false;
-            // 
-            // forn_bairro
-            // 
-            this.forn_bairro.DataPropertyName = "forn_bairro";
-            this.forn_bairro.HeaderText = "Bairro";
-            this.forn_bairro.Name = "forn_bairro";
-            this.forn_bairro.ReadOnly = true;
-            this.forn_bairro.Visible = false;
-            // 
-            // forn_cidade
-            // 
-            this.forn_cidade.DataPropertyName = "forn_cidade";
-            this.forn_cidade.HeaderText = "Cidade";
-            this.forn_cidade.Name = "forn_cidade";
-            this.forn_cidade.ReadOnly = true;
-            this.forn_cidade.Visible = false;
-            // 
-            // forn_uf
-            // 
-            this.forn_uf.DataPropertyName = "forn_uf";
-            this.forn_uf.HeaderText = "Estado";
-            this.forn_uf.Name = "forn_uf";
-            this.forn_uf.ReadOnly = true;
-            this.forn_uf.Visible = false;
-            // 
-            // prov_created_at
-            // 
-            this.prov_created_at.DataPropertyName = "forn_criado_em";
-            this.prov_created_at.HeaderText = "Cadastro";
-            this.prov_created_at.Name = "prov_created_at";
-            this.prov_created_at.ReadOnly = true;
-            this.prov_created_at.Visible = false;
-            // 
-            // forn_telefone
-            // 
-            this.forn_telefone.DataPropertyName = "forn_telefone";
-            this.forn_telefone.DividerWidth = 2;
-            this.forn_telefone.HeaderText = "Telefone";
-            this.forn_telefone.Name = "forn_telefone";
-            this.forn_telefone.ReadOnly = true;
-            this.forn_telefone.Visible = false;
-            // 
-            // forn_cpf_cnpj
-            // 
-            this.forn_cpf_cnpj.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.forn_cpf_cnpj.DataPropertyName = "forn_cpf_cnpj";
-            this.forn_cpf_cnpj.HeaderText = "CPF/CNPJ";
-            this.forn_cpf_cnpj.MinimumWidth = 200;
-            this.forn_cpf_cnpj.Name = "forn_cpf_cnpj";
-            this.forn_cpf_cnpj.ReadOnly = true;
-            this.forn_cpf_cnpj.Width = 200;
-            // 
-            // forn_rg_ie
-            // 
-            this.forn_rg_ie.DataPropertyName = "forn_rg_ie";
-            this.forn_rg_ie.HeaderText = "RG";
-            this.forn_rg_ie.Name = "forn_rg_ie";
-            this.forn_rg_ie.ReadOnly = true;
-            this.forn_rg_ie.Visible = false;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.panel1.Controls.Add(this.lblFornecedor);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(678, 63);
-            this.panel1.TabIndex = 10;
-            // 
-            // lblFornecedor
-            // 
-            this.lblFornecedor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFornecedor.AutoSize = true;
-            this.lblFornecedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFornecedor.Location = new System.Drawing.Point(135, 9);
-            this.lblFornecedor.Name = "lblFornecedor";
-            this.lblFornecedor.Size = new System.Drawing.Size(384, 42);
-            this.lblFornecedor.TabIndex = 5;
-            this.lblFornecedor.Text = "Cadastrar Fornecedor";
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.gerarPdf);
-            this.groupBox2.Location = new System.Drawing.Point(364, 355);
+            this.groupBox2.Location = new System.Drawing.Point(364, 241);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(299, 57);
             this.groupBox2.TabIndex = 14;
@@ -628,30 +477,54 @@
             this.gerarPdf.UseVisualStyleBackColor = true;
             this.gerarPdf.Click += new System.EventHandler(this.gerarPdf_Click);
             // 
+            // forn_nome
+            // 
+            this.forn_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.forn_nome.DataPropertyName = "forn_nome";
+            this.forn_nome.HeaderText = "Nome";
+            this.forn_nome.Name = "forn_nome";
+            this.forn_nome.ReadOnly = true;
+            // 
+            // forn_id
+            // 
+            this.forn_id.DataPropertyName = "forn_id";
+            this.forn_id.HeaderText = "Código";
+            this.forn_id.Name = "forn_id";
+            this.forn_id.ReadOnly = true;
+            this.forn_id.Visible = false;
+            // 
+            // forn_cpf_cnpj
+            // 
+            this.forn_cpf_cnpj.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.forn_cpf_cnpj.DataPropertyName = "forn_cpf_cnpj";
+            this.forn_cpf_cnpj.HeaderText = "CPF/CNPJ";
+            this.forn_cpf_cnpj.MinimumWidth = 200;
+            this.forn_cpf_cnpj.Name = "forn_cpf_cnpj";
+            this.forn_cpf_cnpj.ReadOnly = true;
+            this.forn_cpf_cnpj.Width = 200;
+            // 
             // FormCreiarFornecedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(675, 595);
+            this.ClientSize = new System.Drawing.Size(675, 508);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.dgv_Provider);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.GbpPesquisa);
             this.Controls.Add(this.gbCad);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(691, 634);
-            this.MinimumSize = new System.Drawing.Size(691, 634);
             this.Name = "FormCreiarFornecedor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Cadastrar Fornecedor";
+            this.Text = "Automações Brasil - Cadastrar fornecedor";
             this.GbpPesquisa.ResumeLayout(false);
             this.GbpPesquisa.PerformLayout();
             this.gbCad.ResumeLayout(false);
             this.gbCad.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Provider)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -691,22 +564,10 @@
         private System.Windows.Forms.Label lblCpf;
         private System.Windows.Forms.DataGridView dgv_Provider;
         private System.Windows.Forms.TextBox tbRg;
-        private System.Windows.Forms.DataGridViewTextBoxColumn forn_nome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn forn_nome_fantasia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn forn_email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn forn_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn forn_cep;
-        private System.Windows.Forms.DataGridViewTextBoxColumn forn_endereco;
-        private System.Windows.Forms.DataGridViewTextBoxColumn forn_bairro;
-        private System.Windows.Forms.DataGridViewTextBoxColumn forn_cidade;
-        private System.Windows.Forms.DataGridViewTextBoxColumn forn_uf;
-        private System.Windows.Forms.DataGridViewTextBoxColumn prov_created_at;
-        private System.Windows.Forms.DataGridViewTextBoxColumn forn_telefone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn forn_cpf_cnpj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn forn_rg_ie;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lblFornecedor;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button gerarPdf;
+        private System.Windows.Forms.DataGridViewTextBoxColumn forn_nome;
+        private System.Windows.Forms.DataGridViewTextBoxColumn forn_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn forn_cpf_cnpj;
     }
 }

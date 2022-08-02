@@ -73,9 +73,6 @@ namespace sisVendas.Telas.Promocao
 
         private void btnFinalizarPromo_Click(object sender, EventArgs e)
         {
-
-            
-            
             if (MessageBox.Show("Deseja finalizar a promoção selecionada ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 controlPromocao.finalizarPromocao(int.Parse(dgv_promocao.Rows[dgv_promocao.CurrentRow.Index].Cells[0].Value.ToString()));

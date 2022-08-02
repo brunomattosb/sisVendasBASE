@@ -1,12 +1,7 @@
 ﻿using sisVendas.Models;
 using sisVendas.Persistence;
-using System; 
-using System.Collections.Generic;
+using System;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace sisVendas.Controllers
 {
@@ -79,7 +74,7 @@ namespace sisVendas.Controllers
         {
 
             DataTable dtExpense = new DataTable();
-            
+
             dtExpense.Columns.Add("desp_id", typeof(int));
             dtExpense.Columns.Add("desp_descricao");
             dtExpense.Columns.Add("desp_idTipo", typeof(int));
@@ -121,14 +116,14 @@ namespace sisVendas.Controllers
                 line["desp_descricao"] = exp.Descricao;
                 line["desp_valor"] = exp.Valor;
                 line["desp_idTipo"] = exp.IdTipo;
-                
+
                 line["desp_idCaixa"] = exp.IdCaixa;
                 line["desp_dataReferencia"] = exp.DataReferencia;
                 line["desp_desconto"] = exp.Desconto;
                 line["desp_tipo"] = exp.Tipo;
                 line["desp_dataVencimento"] = exp.DataVencimento;
 
-                if(exp.DataPagamento == null)
+                if (exp.DataPagamento == null)
                 {
                     line["desp_dataPagamento"] = DBNull.Value;
                 }
@@ -153,8 +148,8 @@ namespace sisVendas.Controllers
             DespesaDB expDB = new DespesaDB(dataBase);
 
             dtExpense = expDB.buscarParaRelatorio(filtro);
-            
-            
+
+
             dataBase.Desconecta();
 
             return (dtExpense);
@@ -221,7 +216,7 @@ namespace sisVendas.Controllers
         {
 
             DataTable dtExpense = new DataTable();
-            
+
             dtExpense.Columns.Add("id", typeof(int));
             dtExpense.Columns.Add("dtPagamento", typeof(DateTime));
             dtExpense.Columns.Add("dtVencimento", typeof(DateTime));
@@ -262,9 +257,9 @@ namespace sisVendas.Controllers
                 line["idVenda"] = 0;
                 line["caixaId"] = exp.IdCaixa;
                 line["dtVencimento"] = exp.DataVencimento;
-                
 
-                if(exp.DataPagamento == null)
+
+                if (exp.DataPagamento == null)
                 {
                     line["dtPagamento"] = DBNull.Value;
                 }
@@ -275,7 +270,7 @@ namespace sisVendas.Controllers
 
                 dtExpense.Rows.Add(line);
             }
-            
+
             dataBase.Desconecta();
 
             return (dtExpense);

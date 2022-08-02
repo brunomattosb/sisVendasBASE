@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLogin));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnEntrar = new System.Windows.Forms.Button();
             this.tbUsuario = new System.Windows.Forms.TextBox();
@@ -42,7 +42,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.panel1.SuspendLayout();
@@ -50,15 +50,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pictureBoxLogo
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(62, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(162, 161);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pictureBoxLogo.Location = new System.Drawing.Point(62, 12);
+            this.pictureBoxLogo.Name = "pictureBoxLogo";
+            this.pictureBoxLogo.Size = new System.Drawing.Size(162, 161);
+            this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxLogo.TabIndex = 0;
+            this.pictureBoxLogo.TabStop = false;
             // 
             // label3
             // 
@@ -195,13 +194,13 @@
             this.Controls.Add(this.tbUsuario);
             this.Controls.Add(this.btnEntrar);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBoxLogo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormLogin";
             this.Load += new System.EventHandler(this.FormLogin_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -214,7 +213,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnEntrar;
         private System.Windows.Forms.TextBox tbUsuario;

@@ -1,6 +1,5 @@
 ﻿
-
-namespace sisVendas.Functions
+namespace sisVendas.Funcoes
 {
     class Function
     {
@@ -49,21 +48,9 @@ namespace sisVendas.Functions
         {
             return str.Trim().Replace(".", "").Replace(",", "").Replace("-", "").Replace("/", "").Replace(")", "").Replace("(", "").Replace(" ", "").Replace("(  )     -", "");
         }
-        /*
-        public static void labelBlack(Form FormClienteAdicionar)
-        {
-            foreach (Control lbl in FormClienteAdicionar.Controls)
-            {
-                if (lbl.GetType() == typeof(GroupBox))
-                {
-                    lbl.ForeColor = Color.FromArgb(255,0,0) ;
-                    //lbl.ForeColor = Color.Gainsboro;
-                    //lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                }
-            }
-        }*/
-
         
+
+
 
     }
 }

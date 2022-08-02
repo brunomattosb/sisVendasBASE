@@ -1,16 +1,12 @@
-﻿using sisVendas.Models.Venda;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sisVendas.Models
 {
     public class Vendas
     {
         private int id;
+        private int id_nf;
         private int id_cliente;
         private int id_funcionario;
         private DataTable itensVenda;
@@ -32,5 +28,6 @@ namespace sisVendas.Models
         public DateTime Created_at { get => created_at; set => created_at = value; }
         public bool Venda_cancelada { get => venda_cancelada; set => venda_cancelada = value; }
         public int Id_funcionario { get => id_funcionario; set => id_funcionario = value; }
+        public int Id_nf { get => id_nf; set => id_nf = value; }
     }
 }

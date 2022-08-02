@@ -62,27 +62,27 @@ namespace sisVendas.Telas.Sale
 
         private void button1_Click(object sender, EventArgs e)
         {
-            bool res = false;
-            if (MessageBox.Show("Confirmar exclusão ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            {
-                res = controlVenda.removerVenda(idVenda, dttProduto);
-            }
+            //bool res = false;
+            //if (MessageBox.Show("Confirmar exclusão ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            //{
+            //    res = controlVenda.removerVenda(idVenda, dttProduto);
+            //}
 
-            if (res && somaParcelasPagas > 0)
-            {
-                if (cbAddSaldo.Checked) // adicionar saldo
-                {
-                    res = controlCliente.adicionarSaldo(idCliente, somaParcelasPagas);
-                }
-                else //adicionar transacao no caixa
-                {
-                    res = controlTransacaoCaixa.salvarTransacao(idCaixa, "Venda cancelada!", '*', somaParcelasPagas);
-                }
+            //if (res && somaParcelasPagas > 0)
+            //{
+            //    if (cbAddSaldo.Checked) // adicionar saldo
+            //    {
+            //        res = controlCliente.adicionarSaldo(idCliente, somaParcelasPagas);
+            //    }
+            //    else //adicionar transacao no caixa
+            //    {
+            //        res = controlTransacaoCaixa.salvarTransacao(idCaixa, "Venda cancelada!", '*', somaParcelasPagas);
+            //    }
                 
-            }
-            MessageBox.Show("Venda excluida!", "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //MessageBox.Show("Venda excluida!", "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            Close();
+            //Close();
 
         }
 

@@ -1,11 +1,7 @@
 ﻿using sisVendas.Models;
 using sisVendas.Persistence;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sisVendas.Controllers
 {
@@ -38,6 +34,7 @@ namespace sisVendas.Controllers
 
             return (result);
         }
+
         public DataTable buscar(string filter)
         {
 

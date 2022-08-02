@@ -1,14 +1,13 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
+﻿
+using DFe.Classes.Entidades;
+using DFe.Utils;
 using sisVendas.Controllers;
 using sisVendas.Funcoes;
-using sisVendas.Functions;
 using sisVendas.Models;
-
 using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
-using System.IO;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -17,15 +16,21 @@ namespace sisVendas.Screens.Create
     public partial class FormCriarCliente : Form
     {
         private ctrlCliente controlCliente = new ctrlCliente();
+        private ctrlMunicipio controlMunicipio = new ctrlMunicipio();
+        private IList<Estado> lEstado;
+        private Estado estadoSelecionado;
 
         public FormCriarCliente()
         {
             InitializeComponent();
 
-            dgv_client.Columns["cli_saldo"].DefaultCellStyle.Format = "C";
-            //Columns["cli_created_at"].DefaultCellStyle.Format = "dd/MM/yyyy";
-            
 
+            lEstado = EnumParaLista.EnumToList<Estado>();
+            CarregandoComboBox();
+
+
+
+            dgv_client.Columns["cli_saldo"].DefaultCellStyle.Format = "C";
             neutralForm();
             updateDgv("");
         }
@@ -36,8 +41,8 @@ namespace sisVendas.Screens.Create
                 case Keys.Escape:
                     Close();
                     break;
-                case Keys.Control | Keys.Enter:
-                    if(tbCod.Text == "")
+                case Keys.F12:
+                    if (tbCod.Text == "")
                     {
                         if (!isExistsClient())
                             btnSave.PerformClick();
@@ -47,11 +52,13 @@ namespace sisVendas.Screens.Create
                         btnSave.PerformClick();
                     }
                     break;
-                case Keys.Control | Keys.E:
-                    
-                        btnCancel.PerformClick();
+                case Keys.F4:
+                    btnCancel.PerformClick();
                     break;
-                case Keys.Control | Keys.N:
+                case Keys.F2:
+                    btnRemove.PerformClick();
+                    break;
+                case Keys.F1:
                     btnNew.PerformClick();
                     break;
 
@@ -59,152 +66,171 @@ namespace sisVendas.Screens.Create
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        public void updateDgv(string filtro)
-        {
-            dgv_client.DataSource = controlCliente.Buscar(filtro);
-        }
-
         public void cleanForm()
         {
+            tbNumero.Text =
+            tbComplemento.Text =
             mtbCpf.Text =
             tbName.Text =
             tbFantasyName.Text =
             tbAddres.Text =
-            tbCity.Text =
             tbDistrict.Text =
             mtbCep.Text =
-            cbbEstado.Text =
             tbRg.Text =
             tbEmail.Text =
             mtbTelephone.Text =
             tbCod.Text = "";
             dtpDtNascimento.Value = DateTime.Now;
-            cbbEstado.SelectedIndex = -1;
+            cbbEstado.Text = "SP";
+            cbbMunicipio.Text = "Presidente Epitácio";
             cbbSex.SelectedIndex = -1;
         }
         public void neutralForm()
         {
             cleanForm();
 
-            mtbCpf.Enabled = false;
-            tbName.Enabled = false;
-            tbFantasyName.Enabled = false;
-            tbAddres.Enabled = false;
-            cbbSex.Enabled = false;
-            tbCity.Enabled = false;
-            tbDistrict.Enabled = false;
-            mtbCep.Enabled = false;
-            cbbEstado.Enabled = false;
-            dtpDtNascimento.Enabled = false;
-            tbRg.Enabled = false;
-            tbEmail.Enabled = false;
-            mtbTelephone.Enabled = false;
-
-            btnSave.Enabled = false;
-            btnCancel.Enabled = false;
+            mtbCpf.Enabled =
+            tbName.Enabled = 
+            tbFantasyName.Enabled = 
+            tbAddres.Enabled = 
+            cbbSex.Enabled = 
+            cbbMunicipio.Enabled = 
+            tbDistrict.Enabled = 
+            mtbCep.Enabled = 
+            cbbEstado.Enabled = 
+            dtpDtNascimento.Enabled = 
+            tbRg.Enabled = 
+            tbEmail.Enabled = 
+            mtbTelephone.Enabled = 
+            btnSave.Enabled = 
+            btnCancel.Enabled = 
+            tbNumero.Enabled =
+            tbComplemento.Enabled =
+            cbDtNascimento.Enabled =
             btnRemove.Enabled = false;
             btnNew.Enabled = true;
 
 
             tbSearch.Focus();
         }
+
         public void activeForm()
         {
-            cleanForm();
-            mtbCpf.Enabled = true;
-            tbName.Enabled = true;
-            tbAddres.Enabled = true;
-            cbbSex.Enabled = true;
-            tbCity.Enabled = true;
-            tbDistrict.Enabled = true;
-            mtbCep.Enabled = true;
-            cbbEstado.Enabled = true;
-            dtpDtNascimento.Enabled = false;
-            tbRg.Enabled = true;
-            tbEmail.Enabled = true;
-            mtbTelephone.Enabled = true;
+            mtbCpf.Enabled =
+            tbName.Enabled =
+            tbFantasyName.Enabled =
+            tbAddres.Enabled =
+            cbbSex.Enabled =
+            cbbMunicipio.Enabled =
+            tbDistrict.Enabled =
+            mtbCep.Enabled =
+            cbbEstado.Enabled =
+            dtpDtNascimento.Enabled =
+            tbRg.Enabled =
+            tbEmail.Enabled =
+            mtbTelephone.Enabled =
+            btnSave.Enabled =
+            btnCancel.Enabled =
+            tbNumero.Enabled =
+            tbComplemento.Enabled =
+            cbDtNascimento.Enabled =
+
+            tbSearch.Focus();
 
             btnNew.Enabled = false;
             btnRemove.Enabled = false;
             btnSave.Enabled = true;
             btnCancel.Enabled = true;
 
-            cbbEstado.SelectedIndex = 25;
+            cbbEstado.Text = "SP";
+            cbbMunicipio.Text = "Presidente Epitácio";
             cbbSex.SelectedIndex = 0;
+
             cbDtNascimento.Checked = false;
         }
-        
+        public void updateDgv(string filtro)
+        {
+            dgv_client.DataSource = controlCliente.BuscarParaDGV(filtro);
+        }
+        private void CarregandoComboBox()
+        {            
+            //Carregar Estados com descrição
+            foreach (Estado status in lEstado)
+            {
+                cbbEstado.Items.Add(status.ToString());
+            }
+            
+        }
 
-
-        private void btnSalvar_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
             bool isOk = true;
             Nullable<DateTime> dtNascimento;
-            /*
-            DateTime dateValue = new DateTime();
-             if (Function.replaceAll(mtbDtNasc.Text).Length > 0) //caso tenha dado
-             {
 
-                 if (!DateTime.TryParseExact(mtbDtNasc.Text, "dd/MM/yyyy", null, DateTimeStyles.None, out dateValue))
-                 {
-                     Alerta.notificacao("Erro!", "Data inválida.", Alerta.enmType.Error);
-                     isOk = false;
-                 }
-             }
-             else
-             {
-                 dateValue = DateTime.MaxValue;
-             }*/
+            lblCpf.ForeColor = Color.Black;
 
             int lenghtCpf = Function.replaceAll(mtbCpf.Text).Length;
-            if (isOk && lenghtCpf == 0)//&& isValidCpf
+            if (lenghtCpf != 11 && lenghtCpf != 14)
             {
-                Alerta.notificacao("Erro!", "CPF/CNPJ obrigatório.", Alerta.enmType.Error);
+                Alerta.notificacao("Erro!", "CPF/CNPJ incorreto!", Alerta.enmType.Error);
                 isOk = false;
+                lblCpf.ForeColor = Color.Red;
             }
             else
             {
-                if(lenghtCpf==11)
-                if (!(Function.isCpfValid(mtbCpf.Text)))//&& isValidCpf
-                {
-                    Alerta.notificacao("Erro!", "CPF incorreto.", Alerta.enmType.Error);
-                    isOk = false;
-                }
+                if (lenghtCpf == 11)
+                    if (!(Function.isCpfValid(mtbCpf.Text)))//&& isValidCpf
+                    {
+                        Alerta.notificacao("Erro!", "CPF incorreto.", Alerta.enmType.Error);
+                        isOk = false;
+                        lblCpf.ForeColor = Color.Red;
+                    }
             }
+
+            
             if (!cbDtNascimento.Checked)
             {
                 dtNascimento = null;
             }
             else
             {
-                dtNascimento = dtpDtNascimento.Value;
+                dtNascimento = dtpDtNascimento.Value.Date;
             }
+            string CEP = mtbCep.Text.Replace("-", "").Replace("     ","");
+            if (CEP.Length > 0 && CEP.Length < 8)
+            {
 
+                Alerta.notificacao("Erro!", string.Format(@"CEP deve ter 8 números. Tamanho informado: {0}!", CEP.Length), Alerta.enmType.Error);
+                isOk = false;
+            }
             if (isOk)
             {
-                if(controlCliente.SalvarCliete(
+                if (controlCliente.SalvarCliete(
                     tbCod.Text,
                     tbName.Text,
-                    Function.replaceAll(mtbCpf.Text),
-                    mtbCep.Text.Replace("     -", ""),
-                    tbAddres.Text,
-                    tbDistrict.Text,
-                    tbEmail.Text,
-                    Function.replaceAll(tbRg.Text),
-                    Function.replaceAll(mtbTelephone.Text),
-                    cbbEstado.SelectedItem.ToString(),
-                    tbCity.Text,
                     tbFantasyName.Text,
+                    Function.replaceAll(mtbCpf.Text),
+                    CEP,
+                    tbAddres.Text,
+                    tbNumero.Text,
+                    tbDistrict.Text,
+                    cbbMunicipio.Text,
+                    long.Parse(cbbMunicipio.SelectedValue+""),
+                    Function.replaceAll(mtbTelephone.Text),
+                    Function.replaceAll(tbRg.Text),
+                    cbbEstado.SelectedItem.ToString(),
                     dtNascimento,
                     Convert.ToChar(cbbSex.SelectedItem.ToString()),
-                    Convert.ToDouble(tbSaldo.Text.Replace("R$ ", ""))
+                    Convert.ToDouble(tbSaldo.Text.Replace("R$ ", "")),
+                    tbEmail.Text,
+                    tbComplemento.Text
                     ))
                 {
 
                     Alerta.notificacao("Sucesso!", "Cliente salvo.", Alerta.enmType.Success);
 
                     updateDgv("");
-                    activeForm();
+                    neutralForm();
                     mtbCpf.Focus();
                 }
             }
@@ -212,50 +238,79 @@ namespace sisVendas.Screens.Create
             {
                 //Alerta.notificacao("Erro!", "Erro ao salvar cliente.", Alerta.enmType.Error);
             }
-            
-        }
-        
-
-        private void btnNew_Click(object sender, EventArgs e)
-        {
-
-            activeForm();
-            mtbCpf.Focus();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void cbbEstado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            neutralForm();
-            
+            estadoSelecionado = (Estado)Enum.Parse(typeof(Estado), cbbEstado.SelectedItem.ToString());
+            //Cbb Minicipio
+            cbbMunicipio.DataSource = controlMunicipio.Buscar((int)estadoSelecionado);
+            cbbMunicipio.DisplayMember = "muni_nome";
+            cbbMunicipio.ValueMember = "muni_cod";
         }
 
-        private void btnRemove_Click(object sender, EventArgs e)
+        private void mtbCpf_Click(object sender, EventArgs e)
         {
-            if (tbCod.Text != "")
+            if (Function.replaceAll(mtbCpf.Text).Length == 0)
+                mtbCpf.Select(0, 0);
+        }
+
+        private void mtbCep_Click(object sender, EventArgs e)
+        {
+            if (Function.replaceAll(mtbCep.Text).Length == 0)
+                mtbCep.Select(0, 0);
+        }
+
+        private void mtbTelephone_Click(object sender, EventArgs e)
+        {
+            if (Function.replaceAll(mtbTelephone.Text).Length == 0)
+                mtbTelephone.Select(0, 0);
+        }
+
+        private void gerarPdf_Click(object sender, EventArgs e)
+        {
+            //DataTable dtClientes = controlCliente.buscarCpfNome();
+
+            //if (dtClientes.Rows.Count > 0) // se existir pessoas
+            //{
+            //    float[] largurasColunas = { 0.5f, 1.5f };
+            //    Relatorios.gerarRelatorio($"RelatórioSisVendas.Clientes.pdf", "Clientes Cadastrados!", dtClientes, largurasColunas);
+            //}
+        }
+
+        private void cbDtNascimento_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbDtNascimento.Checked)
             {
-                if (MessageBox.Show("Deseja excluir o cliente selecionado ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                {
-                    string cod = tbCod.Text;
-
-
-                    if (controlCliente.removeClient(cod) == true)
-                    {
-                        updateDgv("");
-
-                        neutralForm();
-                        Alerta.notificacao("Sucesso!", "Cliente excluido.", Alerta.enmType.Success);
-                    }
-                    else
-                    {
-                        Alerta.notificacao("Erro!", "Erro ao excluir cliente.", Alerta.enmType.Error);
-
-                    }
-                }
+                dtpDtNascimento.Enabled = true;
             }
             else
-                MessageBox.Show("Selecione o Cliente", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            {
+                dtpDtNascimento.Enabled = false;
+            }
         }
 
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            updateDgv(tbSearch.Text);
+        }
+
+        private void mtbCpf_TextChanged(object sender, EventArgs e)
+        {
+            if (Function.replaceAll(mtbCpf.Text).Count() == 10)
+            {
+                changeCpfCnpj(Function.replaceAll(mtbCpf.Text).Count());
+            }
+        }
+
+        private void mtbCpf_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsNumber(e.KeyChar))
+            {
+                int count = Function.replaceAll(mtbCpf.Text).Count();
+                changeCpfCnpj(count);
+            }
+        }
         public void changeCpfCnpj(int qtde)
         {
             //MessageBox.Show(qtde + "");
@@ -280,55 +335,61 @@ namespace sisVendas.Screens.Create
                 tbFantasyName.Enabled = true;
                 lblCpf.Text = "*CNPJ:";
                 lblRg.Text = "IE:";
-                
+
             }
 
         }
-        private void mtbCpf_KeyPress(object sender, KeyPressEventArgs e)
-        {
 
-            if (char.IsNumber(e.KeyChar))
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            activeForm();
+            mtbCpf.Focus();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            neutralForm();
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (tbCod.Text != "")
             {
-                int count = Function.replaceAll(mtbCpf.Text).Count();
-                changeCpfCnpj(count);
+                if (MessageBox.Show("Deseja excluir o cliente selecionado ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    string cod = tbCod.Text;
+
+
+                    if (controlCliente.RemoverCliente(cod) == true)
+                    {
+                        updateDgv("");
+
+                        neutralForm();
+                        Alerta.notificacao("Sucesso!", "Cliente excluido.", Alerta.enmType.Success);
+                    }
+                    else
+                    {
+                        Alerta.notificacao("Erro!", "Erro ao excluir cliente.", Alerta.enmType.Error);
+
+                    }
+                }
             }
-            
-            
+            else
+                MessageBox.Show("Selecione o Cliente", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void mtbCpf_Click(object sender, EventArgs e)
+        private void dgv_client_DoubleClick(object sender, EventArgs e)
         {
+           if (dgv_client.SelectedRows.Count == 1)
+           {
+                activeForm();
+                Cliente cli = controlCliente.buscarClientePorCpf(dgv_client.Rows[dgv_client.CurrentRow.Index].Cells[2].Value.ToString());
 
-            if (Function.replaceAll(mtbCpf.Text).Length == 0)
-                mtbCpf.Select(0, 0);
-            
-        }
-
-        private void mtbCpf_TextChanged(object sender, EventArgs e)
-        {
-            
-            if (Function.replaceAll(mtbCpf.Text).Count() == 10)
-            {
-                changeCpfCnpj(Function.replaceAll(mtbCpf.Text).Count());
+                fillForm(cli);
             }
-           
         }
-
-        private void mtbCep_Click(object sender, EventArgs e)
-        {
-            if (Function.replaceAll(mtbCep.Text).Length == 0)
-                mtbCep.Select(0, 0);
-        }
-
-        private void mtbTelephone_Click(object sender, EventArgs e)
-        {
-            if (Function.replaceAll(mtbTelephone.Text).Length == 0)
-                mtbTelephone.Select(0, 0);
-        }
-
         private void fillForm(Cliente cli)
         {
-
             int qtdeCpf = Function.replaceAll(cli.Cpf_cnpj).Count() - 1;
 
             changeCpfCnpj(qtdeCpf);
@@ -346,16 +407,18 @@ namespace sisVendas.Screens.Create
             tbName.Text = cli.Nome;
             tbFantasyName.Text = cli.Nome_fantasia;
             mtbCpf.Text = cli.Cpf_cnpj;
-            mtbCep.Text = cli.Cep;
-            tbAddres.Text = cli.Endereco;
+            mtbCep.Text = cli.Endereco.CEP;
+            tbAddres.Text = cli.Endereco.xLgr;
             tbEmail.Text = cli.Email;
             tbRg.Text = cli.Rg_ie;
-            mtbTelephone.Text = cli.Telefone;
-            tbCity.Text = cli.Cidade;
-            cbbSex.Text = cli.Sexo+"";
-            cbbEstado.Text = cli.Uf;
-            tbDistrict.Text = cli.Bairro;
+            mtbTelephone.Text = cli.Endereco.fone.ToString();
+            cbbMunicipio.Text = cli.Endereco.xMun;
+            cbbSex.Text = cli.Sexo.ToString();
+            cbbEstado.Text = cli.Endereco.UF;
+            tbDistrict.Text = cli.Endereco.xBairro;
             tbSaldo.Text = cli.Saldo.ToString("C");
+            tbComplemento.Text = cli.Endereco.xCpl;
+            tbNumero.Text = cli.Endereco.nro;
 
             
             if (!DateTime.TryParse(cli.DtNascimento.ToString(), out DateTime result))
@@ -374,46 +437,12 @@ namespace sisVendas.Screens.Create
 
             btnRemove.Enabled = true;
             mtbCpf.Enabled = false;
-
         }
 
-        private void dgv_client_DoubleClick(object sender, EventArgs e)
+        private void mtbCpf_Leave(object sender, EventArgs e)
         {
-            
-            if (dgv_client.SelectedRows.Count == 1)
-            {
-                activeForm();
-                DataGridViewCellCollection linha = dgv_client.Rows[dgv_client.CurrentRow.Index].Cells;
-
-                Cliente cli = new Cliente();
-
-                cli.Id = int.Parse(linha[0].Value.ToString());
-                cli.Nome = linha[1].Value.ToString();
-                cli.Email = linha[6].Value.ToString();
-                cli.Nome_fantasia = linha[2].Value.ToString();
-                cli.Rg_ie = linha[7].Value.ToString();
-                cli.Telefone = linha[8].Value.ToString();
-                cli.Cpf_cnpj = linha[3].Value.ToString();
-                cli.Cep = linha[4].Value.ToString();
-                cli.Endereco= linha[5].Value.ToString();
-                cli.Bairro = (linha[15].Value.ToString());
-                cli.Uf = (linha[14].Value.ToString());
-                cli.Cidade = linha[9].Value.ToString();
-                cli.Sexo = char.Parse(linha[12].Value.ToString());
-                cli.Saldo = Double.Parse(linha[13].Value.ToString());
-
-
-                if (!DateTime.TryParse(linha[10].Value.ToString(), out DateTime result))
-                    cli.DtNascimento = null;
-                else
-                    cli.DtNascimento = result;
-
-
-                fillForm(cli);
-
-            }
+            isExistsClient();
         }
-
         private bool isExistsClient()
         {
             string cpf = Function.replaceAll(mtbCpf.Text);
@@ -429,39 +458,6 @@ namespace sisVendas.Screens.Create
                 }
             }
             return false;
-        }
-        private void mtbCpf_Leave(object sender, EventArgs e)
-        {
-            isExistsClient();
-        }
-
-        private void tbSearch_TextChanged(object sender, EventArgs e)
-        {
-            updateDgv(tbSearch.Text);
-        }
-
-        private void cbDtNascimento_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbDtNascimento.Checked)
-            {
-                dtpDtNascimento.Enabled = true;
-            }
-            else
-            {
-                dtpDtNascimento.Enabled = false;
-            }
-        }
-
-        private void gerarPdf_Click(object sender, EventArgs e)
-        {
-            
-            DataTable dtClientes = controlCliente.buscarCpfNome();
-
-            if (dtClientes.Rows.Count > 0) // se existir pessoas
-            {
-                float[] largurasColunas = { 0.5f, 1.5f };
-                Relatorios.gerarRelatorio($"RelatórioSisVendas.Clientes.pdf", "Clientes Cadastrados!", dtClientes, largurasColunas);
-            }
         }
     }
 }

@@ -230,17 +230,14 @@ select cli_nome as 'Ciente', cli_cpf_cnpj as 'CPF/CNPJ',
             return (dt);
 
         }
-        public List<object> buscarParcelasPorIdCaixa(int idCaixa)
+        public List<object> BuscarParcelas(string filtro)
         {
             DataTable dt = new DataTable();
             List<object> parcelas = new List<object>();
+            string SQL = @"select parcela_id, parcela_idVenda, parcela_valor, parcela_tipo, parcela_dataPagamento, parcela_dataVencimento, parcela_idcaixa, venda_cancelada from ParcelaVenda
+                            inner join venda on venda.venda_id = parcelaVenda.parcela_idVenda " + filtro;
 
-
-            string SQL = @"select * from ParcelaVenda
-	inner join venda on venda.venda_id = parcelaVenda.parcela_idVenda
-	where parcela_idcaixa = @filtro AND parcela_dataPagamento is not null AND venda.venda_cancelada = 0 AND parcela_tipo != 'S'";
-
-            db.ExecuteQuery(SQL, out dt, "@filtro", idCaixa);
+            db.ExecuteQuery(SQL, out dt);
 
             if (dt.Rows.Count > 0)
             {

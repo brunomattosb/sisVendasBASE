@@ -1,11 +1,7 @@
 ﻿using sisVendas.Models;
 using sisVendas.Persistence;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Controllers
@@ -29,7 +25,7 @@ namespace sisVendas.Controllers
 
             PromocaoDB promoDB = new PromocaoDB(dataBase);
             idPromo = promoDB.Gravar(PromocaoSelecionada);
-            if (idPromo!=0)
+            if (idPromo != 0)
             {
                 ItemsPromocaoDB itemsPromoDB = new ItemsPromocaoDB(dataBase);
                 ItemsPromocao item = new ItemsPromocao();
@@ -41,10 +37,10 @@ namespace sisVendas.Controllers
 
                     itemsPromoDB.Gravar(item);
                 }
-        }
+            }
             else
             {
-                MessageBox.Show("Deu ruim");
+
             }
 
             dataBase.Desconecta();
@@ -60,11 +56,11 @@ namespace sisVendas.Controllers
 
             dttPromocao.Columns.Add("promo_id", typeof(int));
             dttPromocao.Columns.Add("promo_nome");
-            dttPromocao.Columns.Add("promo_inicio", typeof(DateTime)); 
+            dttPromocao.Columns.Add("promo_inicio", typeof(DateTime));
             dttPromocao.Columns.Add("promo_fim", typeof(DateTime));
             dttPromocao.Columns.Add("promo_idFunc", typeof(int));
             dttPromocao.Columns.Add("promo_criado_em", typeof(DateTime));
-            
+
 
             dataBase.Conecta();
             PromocaoDB promoDB = new PromocaoDB(dataBase);

@@ -1,22 +1,44 @@
-﻿CREATE TABLE [dbo].[Cliente] (
+﻿CREATE TABLE [dbo].[Municipio] (
+    [muni_cod]          INT,
+    [muni_nome]         VARCHAR (50),
+	[muni_cod_uf]   	INT,
+);
+CREATE TABLE [dbo].[NF] 
+(
+	[nf_chnf] VARCHAR(44) NOT NULL,
+    [nf_nprot] bigint NOT NULL,
+    [nf_cstat] int NOT NULL,
+    [nf_xmotivo] VARCHAR(255) NOT NULL,
+    [nf_nrec] bigint NOT NULL,
+    [nf_xml] VARBINARY(MAX),
+	[nf_dir] VARCHAR(255) NOT NULL,
+    [nf_num] int NOT NULL,
+    [nf_lote] int NOT NULL,
+
+    CONSTRAINT [PK_NUM_NF] PRIMARY KEY CLUSTERED ([nf_num] ASC) 
+);
+CREATE TABLE [dbo].[Cliente] (
     [cli_id]           		INT             IDENTITY (1, 1) NOT NULL,
     [cli_nome]         		VARCHAR (50)    DEFAULT ('Sem nome') NULL,
     [cli_nome_fansasia] 	VARCHAR (50)    NULL,
     [cli_cpf_cnpj]     		VARCHAR (19)    UNIQUE NOT NULL,
     [cli_cep]     			VARCHAR (10)    NULL,
-    [cli_endereco]      	VARCHAR (50)    NULL,
+    [cli_logradouro]      	VARCHAR (50)    NULL,
+	[cli_numero]    	 	VARCHAR (6)    NULL,
     [cli_bairro]    		VARCHAR (50)    NULL,
-    [cli_cidade]         	VARCHAR (30)    NULL,
+    [cli_cod_municipio]     VARCHAR (7)    NULL,
     [cli_telefone]    		VARCHAR (15)    NULL,
     [cli_rg_ie]        		VARCHAR (19)    NULL,
-    [cli_uf]           		VARCHAR (3)     NULL,
+    [cli_uf]	       		VARCHAR (3)     NULL,
     [cli_dt_aniversario]    DATETIME        NULL,
     [cli_sexo]          	CHAR (2)        NULL,
     [cli_saldo]      		NUMERIC (15, 2) DEFAULT ((0)) NULL,
-    [cli_email]        		VARCHAR (100)   NULL,
+    [cli_email]       		VARCHAR (100)   NULL,
+	[cli_complemento]   	VARCHAR (50)   NULL,
+		
 	[cli_created_at]   		DATETIME        DEFAULT (getdate()) NULL,
 	
-    CONSTRAINT [PK_ID_CLIENTE] PRIMARY KEY CLUSTERED ([cli_id] ASC)
+    CONSTRAINT [PK_ID_CLIENTE] PRIMARY KEY CLUSTERED ([cli_id] ASC) 
 );
 CREATE TABLE [dbo].[Funcionario] (
     [func_id]           	INT             IDENTITY (1, 1) NOT NULL,
@@ -30,7 +52,7 @@ CREATE TABLE [dbo].[Funcionario] (
     [func_rg]           	VARCHAR (19)    NULL,
     [func_uf]           	VARCHAR (3)     NULL,
     [func_dt_aniversario]   DATETIME        NULL,
-	[func_sexo]          	CHAR (2)        NULL,
+	[func_sexo]          	CHAR 	(2)        NULL,
     [func_email]        	VARCHAR (100)   NULL,
 	[func_salario_base]		NUMERIC (15,2) 	DEFAULT 0 NULL,
 	[func_usuario]      	VARCHAR (50)   	NULL,
@@ -51,6 +73,7 @@ CREATE TABLE [dbo].[Fornecedor] (
     [forn_nome]        		VARCHAR (50)    DEFAULT ('Sem nome'),
 	[forn_nome_fantasia] 	VARCHAR (50)    NULL,
 	[forn_endereco]       	VARCHAR (50)    NULL,
+	[forn_end_numero]       	VARCHAR (10)    NULL,
 	[forn_cidade]         	VARCHAR (30)    NULL,
 	[forn_bairro]     		VARCHAR (50)    NULL,
 	[forn_cep]     			VARCHAR (10)    NULL,
@@ -84,19 +107,34 @@ CREATE TABLE [dbo].[ProdutoCategoria] (
     CONSTRAINT [PK_ID_PRODUTO_CATEGORIA] PRIMARY KEY CLUSTERED ([prod_categoria_id] ASC)
 );
 CREATE TABLE [dbo].[Produto] (
-    [prod_id]           VARCHAR (40)    NOT NULL,
-    [prod_nome]         VARCHAR (40)    DEFAULT ('Sem nome') NULL,
-    [prod_complemento]   VARCHAR (200)   NOT NULL,
-	[prod_estoque]    NUMERIC (15,2)  DEFAULT 0 NULL,
-	[prod_un]           VARCHAR (3)    	NOT NULL,
-	[prod_marca]        INT             NOT NULL,
-	[prod_categoria]     INT             NOT NULL,
-	[prod_valor]    	NUMERIC (15,2)  DEFAULT 0 NULL,
-	[prod_criado_em]   DATETIME        DEFAULT (getdate()) NULL,
+    [prod_id]           			INT             IDENTITY (1, 1) NOT NULL,
+	[prod_codigo_barras]			VARCHAR (13)    UNIQUE,
+    [prod_nome]         			VARCHAR (40)    DEFAULT ('Sem nome'),
+    [prod_valor]    				NUMERIC (15,2)  DEFAULT 0,
+	[prod_un]           			VARCHAR (3)    	NOT NULL,
+	[prod_id_marca]       		 	INT             NOT NULL,
+	[prod_id_categoria] 		   	INT             NOT NULL,
+	[prod_complemento]  			VARCHAR (200),
+	[prod_estoque]    				NUMERIC (15,2)  DEFAULT 0,
+	[prod_estoque_min] 			   	NUMERIC (15,2)  DEFAULT 0,
+	[prod_localizacao]  			VARCHAR (50),
+	[prod_ativo]   					BIT,
+	[prod_balanca] 					BIT,
+	[prod_ncm]  					VARCHAR (8),
+	[prod_cest]  					VARCHAR (7), 
+	[prod_origem]  					INT,
+	[prod_grupo_tributacao]			INT,
+	[prod_situacao_tributaria]		INT,
+	[prod_aliq_icms]  				NUMERIC (15,2),
+	[prod_cfop_venda_dentro_estado]	INT,
+	[prod_cfop_venda_fora_estado]	INT,
+	[prod_cfop_compra_dentro_estado]INT,
+	[prod_cfop_compra_fora_estado]	INT,
+	[prod_criado_em]   				DATETIME        DEFAULT (getdate()),
 	
     CONSTRAINT [PK_ID_PRODUTO] PRIMARY KEY CLUSTERED ([prod_id] ASC),
-	CONSTRAINT [FK_ID_PRODUCTBRAND] FOREIGN KEY ([prod_marca]) references ProdutoMarca(prod_marca_id),
-	CONSTRAINT [FK_ID_PRODUCTCATEGORY	] FOREIGN KEY ([prod_categoria]) references ProdutoCategoria(prod_categoria_id)
+	CONSTRAINT [FK_ID_PRODUCTBRAND] FOREIGN KEY ([prod_id_marca]) references ProdutoMarca(prod_marca_id),
+	CONSTRAINT [FK_ID_PRODUCTCATEGORY	] FOREIGN KEY ([prod_id_categoria]) references ProdutoCategoria(prod_categoria_id)
 );
 CREATE TABLE [dbo].[Caixa] (
 	[caixa_id]       		INT					IDENTITY (1, 1) NOT NULL,
@@ -117,15 +155,17 @@ CREATE TABLE [dbo].[Venda] (
 	[venda_desconto] 	 	NUMERIC (15,2) 		DEFAULT 0 NULL,
 	[venda_cancelada] 	 	BIT 				DEFAULT 0,
 	[venda_criado_em]  	 	DATETIME         	DEFAULT (getdate()),
+	[venda_num_nf]       	INT   	 			NULL,
 	
     CONSTRAINT [PK_ID_VENDA] PRIMARY KEY CLUSTERED ([venda_id] ASC),
 	CONSTRAINT [FK_ID_VENDA_CLIENT] FOREIGN KEY ([venda_idCliente]) references Cliente(cli_id),
 	CONSTRAINT [FK_ID_VENDA_FUNC] FOREIGN KEY ([venda_idFunc]) references Funcionario(func_id),
+	CONSTRAINT [FK_ID_VENDA_NF] FOREIGN KEY ([venda_num_nf]) references NF(nf_num),
 );
 CREATE TABLE [dbo].[ItenVenda] (
 	[iten_quantidade] 		NUMERIC (15,2) 		DEFAULT 0 NULL,
 	[iten_idVenda]         	INT					NOT NULL,
-	[iten_idProduto]        VARCHAR (40)		NOT NULL,
+	[iten_idProduto]        INT		NOT NULL,
 	[iten_valor]			NUMERIC (15,2)  	DEFAULT 0 NULL,
 	
 	CONSTRAINT [FK_ID_PRODUTO_VENDA] FOREIGN KEY ([iten_idProduto]) references produto(prod_id),
@@ -161,7 +201,7 @@ CREATE TABLE [dbo].[Compra] (
 CREATE TABLE [dbo].[ItenCompra] (
 	[iten_quantidade] 		NUMERIC (15,2) 		DEFAULT 0 NULL,
 	[iten_idCompra]         INT					NOT NULL,
-	[iten_idProduto]        VARCHAR (40)		NOT NULL,
+	[iten_idProduto]        INT		NOT NULL,
 	[iten_valor] 			NUMERIC (15,2) 		DEFAULT 0 NULL,
 	
 	CONSTRAINT [FK_ID_PRODUTOCOMPRA] FOREIGN KEY ([iten_idProduto]) references Produto(prod_id),
@@ -222,7 +262,7 @@ CREATE TABLE [dbo].[TransacaoCaixa] (
 );
 CREATE TABLE [dbo].[ItensPromocao] (
 	[iten_idPromocao]         INT					NOT NULL,
-	[iten_idProduto]        VARCHAR (40)		NOT NULL,
+	[iten_idProduto]        INT		NOT NULL,
 	[iten_valor] 			NUMERIC (15,2) 		DEFAULT 0 NULL,
 	
 	CONSTRAINT [FK_ID_PRODUTOPROMOCAO] FOREIGN KEY ([iten_idProduto]) references Produto(prod_id),
@@ -232,47 +272,8 @@ CREATE TABLE [dbo].[ItensPromocao] (
 INSERT INTO Funcionario(func_nome,func_cpf,func_cep,func_endereco,func_bairro,func_cidade,func_telefone,func_rg,func_uf,func_dt_aniversario,
 		func_sexo,func_email,func_salario_base,func_usuario,func_senha,func_licenca, func_admissao, func_demissao, func_ativo)
 		VALUES ('Nome','99999999999','19470000','Endereço','Bairro','Epitácio','18998090748','9999999','SP',getdate(),
-		'M','Email@Email',0,'admin','admin','Master', getdate(), getdate(), 1)
+		'M','Email@Email',0,'admin','admin','Master', getdate(), getdate(), 1);
 		
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Alice Simões lima', '37915250850', null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('ANA CRISTINA TAVARES VILAR', '09500449897', null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Ana Paula Gonçalves Mantena', '31656429829' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Antonio do Carmo Filho', '08962489848', null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Cibele Janicia Helman de Oliveira', '14013547884', null, 'M'); 
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Cíntia Schleder do Carmo', '08944906807', null, 'M'); 
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Cleiton da Silva', '14748935898' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Cristiane Lins da Silva', '01161484469' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('DANILO CAVALLINI RIBEIRO', '31794863842', null, 'M'); 
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Erenci José Rocha', '11953212875' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Gislene Gomes dos Santos', '32299309837' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Heloisa Helena da Silva', '05599029808' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('José do Egito Pereira', '01878307460' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Jussara Fagundes Rodrigues', '27845705845' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Lilian Ferreira de Souza', '36481603896' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Luciana Gitti Lopes', '33224077808' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Luciana Oliveira Domingues', '25082962876' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Luciana Rocha Luquete De Paiva', '25421279804' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('lucineia miliana da silva', '02863150413' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Marcos Adriano da Silva', '21268840823' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Maria Clara Stacco Oliva', '32384951866' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Maria da Penha do Carmo sousa', '80693679620' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Maria dos Réus Viana', '13991500817' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Maria Eliana de Souza Leite Galdini', '18023139827' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Noeme Gomes da Silva', '96790113304' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Normezia Brandão de Oliveira Almeida', '18627482845' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Nubia Romeiro Costa', '37805830894' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Patricia Júlia da Silva', '29390835844' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Rosângela Maria Vieira', '12447243863' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('SANDRA CRISTINA ZORFANETTI', '15266883871' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Simone Regina Fontes', '17659052810' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Vanessa Carla Garcia Mota', '12931534862' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Vânia Efigênia Marins Perazzolo', '25761707810' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Vinicius Alcântara Marafioti', '39016295801' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('Vinícius Santos Thomazelli', '33713902844' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('walkiria bartelina vieira da silva', '17234725814' , null, 'M');
-insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) values ('William Oliveira Tolentino', '31843287838', null, 'M');
-
-
 	
 	-- Basicas
 	--[] Não deixar excluir Cliente e Produto que exista Venda realizada
@@ -301,7 +302,62 @@ insert into cliente (cli_nome, cli_cpf_cnpj, cli_dt_aniversario, cli_sexo) value
 	-- excluir fisicamente a compra caso seja no mesmo caixa.
 	
 	-- não deixar adicionar usuarios com o mesmo login
-	
-	
-	-- arrumar os maximize e minimize
-	
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\xmldsig-core-schema_v1.01.xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\nfe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+
+
+
+
+
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\consReciNFe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\consSitNFe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\consStatServ_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\enviNFe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\inutNFe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\leiauteConsSitNFe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\leiauteConsStatServ_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\leiauteInutNFe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\leiauteNFe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\nfe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\procInutNFe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\procNFe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\retConsReciNFe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\retConsSitNFe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\retConsStatServ_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\retEnviNFe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\retInutNFe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\tiposBasico_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes
+xsd C:\Users\Bruno\Desktop\PL_009i_NT2021_004_v100d\xmldsig-core-schema_v1.01.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classes	
+
+
+NFe
+8
+NFCe
+3
+Cancelamento
+1
+
+Simples Nacional
+Simples Nacional – excesso de sublimite da receita bruta
+Regime Normal
+
+
+CSC: 35586973-1cea-4f34-9c83-3a7760ff365f
+
+
+execute sp_MSforeachtable 'execute sp_spaceused [?]'
+
+
+InvalidOperationException: Tipos 'NFe.Classes.Informacoes.Observacoes.obsCont' e
+							     'NFe.Classes.Informacoes.Detalhe.Observacao.obsCont' usam nome tipo XML, 'obsCont', no espaço para nomes
+'http://www.portalfiscal.inf.br/nfe'. Use atributos XML para especificar um espaço para nome e/ou nome XML para o tipo.
+
+
+
+
+- NFC-e/NF-e/CT-e https://github.com/ZeusAutomacao/DFe.NET
+- Tributação https://github.com/AutomacaoNet/MotorTributarioNet
+- Impressão EscPos SAT/NFC-e https://github.com/marcosgerene/Gerene.DFe.EscPos
+- Integração Balanças https://github.com/marcosgerene/Gerene.Balanca
+- Ciot eFrete https://github.com/marcosgerene/CiotEFrete
+- Sped Fiscal https://github.com/osamueloliveira/fiscalbr.net
+- NFS-e https://github.com/ACBrNet/ACBr.Net.NFSe 

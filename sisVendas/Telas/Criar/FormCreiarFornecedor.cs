@@ -1,8 +1,6 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
-using sisVendas.Functions;
 using sisVendas.Models;
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -30,11 +28,11 @@ namespace sisVendas.Screens.Create
 				case Keys.Escape:
 					Close();
 					break;
-				case Keys.Control | Keys.Enter:
-					// Verificar se existe para evitar erro de cadastrar CPF já existente.
+				case Keys.F12:
+					//Verificar se existe para evitar erro de cadastrar CPF já existente.
 					if (tbCod.Text == "")
 					{
-						if (!isExistsClient())
+						if (!isExistsForn())
 							btnSave.PerformClick();
 					}
 					else
@@ -42,10 +40,13 @@ namespace sisVendas.Screens.Create
 						btnSave.PerformClick();
 					}
 					break;
-				case Keys.Control | Keys.E:
+				case Keys.F4:
 					btnCancel.PerformClick();
 					break;
-				case Keys.Control | Keys.N:
+				case Keys.F2:
+					btnRemove.PerformClick();
+					break;
+				case Keys.F1:
 					btnNew.PerformClick();
 					break;
 
@@ -146,29 +147,28 @@ namespace sisVendas.Screens.Create
 			btnRemove.Enabled = true;
 			mtbCpf.Enabled = false;
 		}
-		private bool isExistsClient()
+		private bool isExistsForn()
 		{
-			string cpf = Function.replaceAll(mtbCpf.Text);
+            string cnpj = Function.replaceAll(mtbCpf.Text);
 
-			if (cpf.Count() == 11 || cpf.Count() == 14)
-			{
-				Fornecedor forn = controlProvider.buscarForneceodrPorCpfCnpj(cpf);
-				if (forn != null)
-				{
-					fillForm(forn);
+            if (cnpj.Count() == 11 || cnpj.Count() == 14)
+            {
+                Fornecedor forn = controlProvider.BuscarFornecedorPorCnpj(cnpj);
+                if (forn != null)
+                {
+                    fillForm(forn);
 
-					return true;
-				}
-			}
-			return false;
+                    return true;
+                }
+            }
+            return false;
 		}
 		public void updateDgv(string filtro)
 		{
-			dgv_Provider.DataSource = controlProvider.buscar(filtro);
+			dgv_Provider.DataSource = controlProvider.BuscarParaDGV(filtro);
 		}
 		public void changeCpfCnpj(int qtde)
 		{
-			//MessageBox.Show(qtde + "");
 			if (mtbCpf.Mask != "000.000.000-00" && qtde < 11)
 			{
 				mtbCpf.Mask = "000.000.000-00";
@@ -193,92 +193,97 @@ namespace sisVendas.Screens.Create
 		}
 		private void btnSalvar_Click(object sender, EventArgs e)
 		{
-			resetColor();
+            resetColor();
 
-			bool isOk = true;
+            bool isOk = true;
+			int cpf_lenght = Function.replaceAll(mtbCpf.Text).Length;
 
-			if (!(Function.replaceAll(mtbCpf.Text).Length > 0))
-			{
-				isOk = false;
-				lblCpf.ForeColor = Color.Red;
-
-			}
-			if (isOk && !(Function.isCpfValid(mtbCpf.Text)) && Function.replaceAll(mtbCpf.Text).Count() <= 11)
-			{
-				isOk = false;
-				lblCpf.ForeColor = Color.Red;
-				Alerta.notificacao("Erro!", "CPF incorreto!", Alerta.enmType.Error);
-			}
-
-			if (tbName.Text.Count() < 2)
-			{
-				lblName.ForeColor = Color.Red;
-				isOk = false;
-			}
-
-			if (Function.replaceAll(mtbTelephone.Text).Count() < 2)
-			{
-				lblTelefone.ForeColor = Color.Red;
-				isOk = false;
-			}
-
-			if (isOk)
-			{
-				if(controlProvider.SaveProvider(
-
-					tbCod.Text,
-					Function.replaceAll(mtbCpf.Text),
-					Function.replaceAll(tbRg.Text),
-					tbName.Text,
-					tbFantasyName.Text,
-					tbAddres.Text,
-					tbCity.Text,
-					tbDistrict.Text,
-					mtbCep.Text.Replace("     -", ""),
-					cbbUF.SelectedItem.ToString(),
-					Function.replaceAll(mtbTelephone.Text),
-					tbEmail.Text
-					))
-				{
-
-					Alerta.notificacao("Sucesso!", "Fornecedor salvo.", Alerta.enmType.Success);
-
-					updateDgv("");
-					activeForm();
-					mtbCpf.Focus();
+			if (cpf_lenght != 11 || cpf_lenght != 14)
+            {
+                isOk = false;
+                lblCpf.ForeColor = Color.Red;
+				if(cpf_lenght == 11)
+                {
+					if (!(Function.isCpfValid(mtbCpf.Text)))
+					{
+						isOk = false;
+						lblCpf.ForeColor = Color.Red;
+						Alerta.notificacao("Erro!", "CPF incorreto!", Alerta.enmType.Error);
+					}
 				}
-			}
-			else
-			{
-				//Alerta.notificacao("Erro!", "Erro ao salvar funcionário.", Alerta.enmType.Error);
-			}
-		}
+
+            }
+            
+
+            if (tbName.Text.Count() < 2)
+            {
+                lblName.ForeColor = Color.Red;
+                isOk = false;
+            }
+
+            if (Function.replaceAll(mtbTelephone.Text).Count() < 2)
+            {
+                lblTelefone.ForeColor = Color.Red;
+                isOk = false;
+            }
+
+            if (isOk)
+            {
+                if (controlProvider.SalvarFornecedor(
+
+                    tbCod.Text,
+                    Function.replaceAll(mtbCpf.Text),
+                    Function.replaceAll(tbRg.Text),
+                    tbName.Text,
+                    tbFantasyName.Text,
+                    tbAddres.Text,
+                    tbCity.Text,
+                    tbDistrict.Text,
+                    mtbCep.Text.Replace("     -", ""),
+                    cbbUF.SelectedItem.ToString(),
+                    Function.replaceAll(mtbTelephone.Text),
+                    tbEmail.Text
+                    ))
+                {
+
+                    Alerta.notificacao("Sucesso!", "Fornecedor salvo.", Alerta.enmType.Success);
+
+                    updateDgv("");
+                    activeForm();
+                    mtbCpf.Focus();
+                }
+            }
+            else
+            {
+                Alerta.notificacao("Erro!", "Erro ao salvar funcionário.", Alerta.enmType.Error);
+            }
+        }
 		private void btnExcluir_Click(object sender, EventArgs e)
         {
-			
-			if (tbCod.Text != "")
-			{
-				if (MessageBox.Show("Deseja excluir o fornecedor selecionado ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-				{
-					string cod = tbCod.Text;
 
-					if (controlProvider.removerFornecedor(cod) == true)
-					{
-						updateDgv("");
+            if (tbCod.Text != "")
+            {
+                if (MessageBox.Show("Deseja excluir o fornecedor selecionado ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    string cod = tbCod.Text;
 
-						neutralForm();
-						Alerta.notificacao("Sucesso!", "Fornecedor excluido.", Alerta.enmType.Success);
-					}
-					else
-					{
-						Alerta.notificacao("Erro!", "Erro ao excluir fornecedor.", Alerta.enmType.Error);
+                    if (controlProvider.removerFornecedor(cod) == true)
+                    {
+                        updateDgv("");
 
-					}
-				}
-			}
-			else
-				MessageBox.Show("Selecione o Cliente", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
-		}
+                        neutralForm();
+                        Alerta.notificacao("Sucesso!", "Fornecedor excluido.", Alerta.enmType.Success);
+                    }
+                    else
+                    {
+                        Alerta.notificacao("Erro!", "Erro ao excluir fornecedor.", Alerta.enmType.Error);
+
+                    }
+                }
+            }
+            else
+                MessageBox.Show("Selecione o Cliente", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -311,22 +316,7 @@ namespace sisVendas.Screens.Create
 			if (dgv_Provider.SelectedRows.Count == 1)
 			{
 				activeForm();
-				DataGridViewCellCollection linha = dgv_Provider.Rows[dgv_Provider.CurrentRow.Index].Cells;
-
-				Fornecedor forn = new Fornecedor();
-
-				forn.Id = int.Parse( linha[0].Value.ToString());
-				forn.Cpf_cnpj = linha[1].Value.ToString();
-				forn.Rg_ie = linha[2].Value.ToString();
-				forn.Nome = linha[3].Value.ToString();
-				forn.Nome_fantasia = linha[4].Value.ToString();
-				forn.Endereco = linha[5].Value.ToString();
-				forn.Cidade = linha[6].Value.ToString();
-				forn.Cep = linha[7].Value.ToString();
-				forn.Bairro = (linha[8].Value.ToString());
-				forn.Uf = (linha[9].Value.ToString());
-				forn.Telefone = linha[11].Value.ToString();
-				forn.Email = linha[12].Value.ToString();
+				Fornecedor forn = controlProvider.BuscarFornecedorPorCnpj(dgv_Provider.Rows[dgv_Provider.CurrentRow.Index].Cells[1].Value.ToString());
 
 				fillForm(forn);
 				
@@ -335,7 +325,7 @@ namespace sisVendas.Screens.Create
 
         private void mtbCpf_Leave(object sender, EventArgs e)
         {
-			isExistsClient();
+			isExistsForn();
 		}
 
         private void btnNew_Click(object sender, EventArgs e)
@@ -374,13 +364,13 @@ namespace sisVendas.Screens.Create
         {
 			
 			
-			DataTable dtFornecedor = controlProvider.BuscarCpfNome();
+			//DataTable dtFornecedor = controlProvider.BuscarCpfNome();
 
-			if (dtFornecedor.Rows.Count > 0) // se existir pessoas
-			{
-				float[] largurasColunas = { 0.5f, 1.5f };
-				Relatorios.gerarRelatorio($"RelatórioSisVendas.Fornecedor.pdf", "Fornecedores Cadastrados!", dtFornecedor, largurasColunas);
-			}
+			//if (dtFornecedor.Rows.Count > 0) // se existir pessoas
+			//{
+			//	float[] largurasColunas = { 0.5f, 1.5f };
+			//	Relatorios.gerarRelatorio($"RelatórioSisVendas.Fornecedor.pdf", "Fornecedores Cadastrados!", dtFornecedor, largurasColunas);
+			//}
 			
 		}
 	}

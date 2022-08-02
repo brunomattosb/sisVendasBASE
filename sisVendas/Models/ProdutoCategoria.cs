@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;       
 
 namespace sisVendas.Models
 {
@@ -14,6 +10,17 @@ namespace sisVendas.Models
 
         public ProdutoCategoria()
         {
+        }
+
+        public ProdutoCategoria(int id)
+        {
+            this.id = id;
+        }
+
+        public ProdutoCategoria(int id, string nome)
+        {
+            this.id = id;
+            this.nome = nome;
         }
 
         public int Id { get => id; set => id = value; }

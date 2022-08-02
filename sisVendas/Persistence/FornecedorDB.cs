@@ -43,13 +43,13 @@ namespace sisVendas.Persistence
             }
             return (res);
         }
-        public Fornecedor buscarPorCpfCnpj(string filtro)
+        public Fornecedor BuscarFornecedor(string filtro)
         {
             DataTable dt = new DataTable();
 
-            string SQL = @"SELECT * FROM Fornecedor WHERE forn_cpf_cnpj like @filtro";
+            string SQL = @"SELECT * FROM Fornecedor " + filtro;
 
-            db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
+            db.ExecuteQuery(SQL, out dt);
             Fornecedor forn = new Fornecedor();
 
             if (dt.Rows.Count > 0)
@@ -75,6 +75,7 @@ namespace sisVendas.Persistence
             return (forn);
 
         }
+        /*
         public DataTable BuscarCpfNome()
         {
             DataTable dt = new DataTable();
@@ -86,46 +87,15 @@ namespace sisVendas.Persistence
            
             return (dt);
 
-        }
-        public Fornecedor buscarPorCod(int filtro)
-        {
-            DataTable dt = new DataTable();
-
-            string SQL = @"SELECT * FROM Fornecedor WHERE forn_id like @filtro";
-
-            db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
-            Fornecedor forn = new Fornecedor();
-
-            if (dt.Rows.Count > 0)
-            {
-                forn.Id = Convert.ToInt32(dt.Rows[0]["forn_id"]);
-                forn.Nome = dt.Rows[0]["forn_nome"].ToString();
-                forn.Nome_fantasia = dt.Rows[0]["forn_nome_fantasia"].ToString();
-                forn.Cpf_cnpj = dt.Rows[0]["forn_cpf_cnpj"].ToString();
-                forn.Rg_ie = dt.Rows[0]["forn_rg_ie"].ToString();
-                forn.Endereco = dt.Rows[0]["forn_endereco"].ToString();
-                forn.Cidade = dt.Rows[0]["forn_cidade"].ToString();
-                forn.Bairro = dt.Rows[0]["forn_bairro"].ToString();
-                forn.Cep = dt.Rows[0]["forn_cep"].ToString();
-                forn.Uf = dt.Rows[0]["forn_uf"].ToString();
-                forn.Telefone = dt.Rows[0]["forn_telefone"].ToString();
-                forn.Email = dt.Rows[0]["forn_email"].ToString();
-                forn.Criado_em = Convert.ToDateTime(dt.Rows[0]["forn_criado_em"].ToString());
-            }
-            else
-            {
-                return null;
-            }
-            return (forn);
-
-        }
-        public List<object> buscar(string filtro)
+        }*/
+        
+        public List<object> BuscarParaDGV(string filtro)
         {
             DataTable dt = new DataTable();
             List<object> providers = new List<object>();
 
 
-            string SQL = @"SELECT * FROM Fornecedor WHERE forn_nome like @filtro OR forn_cpf_cnpj like @filtro order by forn_nome";
+            string SQL = @"SELECT forn_id, forn_nome, forn_cpf_cnpj FROM Fornecedor WHERE forn_nome like @filtro OR forn_cpf_cnpj like @filtro order by forn_nome";
             filtro = "%" + filtro + "%";
 
             db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
@@ -139,17 +109,7 @@ namespace sisVendas.Persistence
 
                     forn.Id = Convert.ToInt32(dt.Rows[i]["forn_id"]);
                     forn.Nome = dt.Rows[i]["forn_nome"].ToString();
-                    forn.Nome_fantasia = dt.Rows[i]["forn_nome_fantasia"].ToString();
                     forn.Cpf_cnpj = dt.Rows[i]["forn_cpf_cnpj"].ToString();
-                    forn.Rg_ie = dt.Rows[i]["forn_rg_ie"].ToString();
-                    forn.Endereco = dt.Rows[i]["forn_endereco"].ToString();
-                    forn.Cidade = dt.Rows[i]["forn_cidade"].ToString();
-                    forn.Bairro = dt.Rows[i]["forn_bairro"].ToString();
-                    forn.Cep = dt.Rows[i]["forn_cep"].ToString();
-                    forn.Uf = dt.Rows[i]["forn_uf"].ToString();
-                    forn.Telefone = dt.Rows[i]["forn_telefone"].ToString();
-                    forn.Email = dt.Rows[i]["forn_email"].ToString();
-                    forn.Criado_em = Convert.ToDateTime(dt.Rows[i]["forn_criado_em"].ToString());
 
                     providers.Add(forn);
                 }

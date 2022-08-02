@@ -41,15 +41,16 @@ namespace sisVendas.Persistence
             }
             return (res);
         }
-        public List<object> buscar(int filtro)
+        public List<object> BuscarTransacoes(string filtro)
         {
             DataTable dt = new DataTable();
             List<object> transacoes = new List<object>();
 
 
-            string SQL = @"SELECT * FROM TransacaoCaixa WHERE transacao_idcaixa = @filtro";
+            string SQL = @"SELECT transacao_criado_em,transacao_id,transacao_idcaixa,transacao_tipo,
+                                    transacao_descricao,transacao_valor FROM TransacaoCaixa " + filtro;
 
-            db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
+            db.ExecuteQuery(SQL, out dt);
 
             if (dt.Rows.Count > 0)
             {

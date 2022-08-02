@@ -38,6 +38,7 @@
             this.idVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnGerarRelatorio = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cbDespesas = new System.Windows.Forms.CheckBox();
             this.cbParcelasCompra = new System.Windows.Forms.CheckBox();
@@ -53,7 +54,6 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.tbFornNome = new System.Windows.Forms.TextBox();
             this.lblFornecedor = new System.Windows.Forms.Label();
-            this.btnGerarRelatorio = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_despesas)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -173,6 +173,17 @@
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
+            // 
+            // btnGerarRelatorio
+            // 
+            this.btnGerarRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGerarRelatorio.Location = new System.Drawing.Point(539, 154);
+            this.btnGerarRelatorio.Name = "btnGerarRelatorio";
+            this.btnGerarRelatorio.Size = new System.Drawing.Size(125, 35);
+            this.btnGerarRelatorio.TabIndex = 64;
+            this.btnGerarRelatorio.Text = "Gerar Relatório";
+            this.btnGerarRelatorio.UseVisualStyleBackColor = true;
+            this.btnGerarRelatorio.Click += new System.EventHandler(this.btnGerarRelatorio_Click);
             // 
             // groupBox4
             // 
@@ -334,17 +345,6 @@
             this.lblFornecedor.TabIndex = 49;
             this.lblFornecedor.Text = "Fornecedor:";
             // 
-            // btnGerarRelatorio
-            // 
-            this.btnGerarRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGerarRelatorio.Location = new System.Drawing.Point(539, 154);
-            this.btnGerarRelatorio.Name = "btnGerarRelatorio";
-            this.btnGerarRelatorio.Size = new System.Drawing.Size(125, 35);
-            this.btnGerarRelatorio.TabIndex = 64;
-            this.btnGerarRelatorio.Text = "Gerar Relatório";
-            this.btnGerarRelatorio.UseVisualStyleBackColor = true;
-            this.btnGerarRelatorio.Click += new System.EventHandler(this.btnGerarRelatorio_Click);
-            // 
             // FormContasAPagar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -353,9 +353,10 @@
             this.Controls.Add(this.dgv_despesas);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormContasAPagar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Contas a Pagar";
+            this.Text = "Automações Brasil - Contas a pagar";
             this.Load += new System.EventHandler(this.FormContasAPagar_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_despesas)).EndInit();
             this.groupBox1.ResumeLayout(false);

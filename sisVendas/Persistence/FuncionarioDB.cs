@@ -54,7 +54,7 @@ namespace sisVendas.Persistence
             return (res);
         }
         
-        public List<object> Buscar(string filtro)
+        public List<object> BuscarParaDGV(string filtro)
         {
             
             DataTable dt = new DataTable();
@@ -75,23 +75,7 @@ namespace sisVendas.Persistence
                     emp.Id = Convert.ToInt32(dt.Rows[i]["func_id"]);
                     emp.Nome = dt.Rows[i]["func_nome"].ToString();
                     emp.Cpf = dt.Rows[i]["func_cpf"].ToString();
-                    emp.Cep = dt.Rows[i]["func_cep"].ToString();
-                    emp.Endereco = dt.Rows[i]["func_endereco"].ToString();
-                    emp.Bairro = dt.Rows[i]["func_bairro"].ToString();
-                    emp.Cidade = dt.Rows[i]["func_cidade"].ToString();
-                    emp.Telefone = dt.Rows[i]["func_telefone"].ToString();
-                    emp.Rg = dt.Rows[i]["func_rg"].ToString();
-                    emp.Uf = dt.Rows[i]["func_uf"].ToString();
-                    emp.DtNascimento = Convert.ToDateTime(dt.Rows[i]["func_dt_aniversario"].ToString());
-                    emp.Criado_em = Convert.ToDateTime(dt.Rows[i]["func_criado_em"].ToString());
-                    emp.Email = dt.Rows[i]["func_email"].ToString();
-                    emp.Sexo = Convert.ToChar(dt.Rows[i]["func_sexo"].ToString()[0]);
-                    emp.Base_salario = Convert.ToDouble(dt.Rows[i]["func_salario_base"].ToString());
                     emp.Usuario = dt.Rows[i]["func_usuario"].ToString();
-                    emp.Senha = dt.Rows[i]["func_senha"].ToString();
-                    emp.Licenca = dt.Rows[i]["func_licenca"].ToString();
-                    emp.Admissao = Convert.ToDateTime(dt.Rows[i]["func_admissao"].ToString());
-                    emp.Demissao = Convert.ToDateTime(dt.Rows[i]["func_demissao"].ToString());
                     emp.Ativo = Convert.ToBoolean(dt.Rows[i]["func_ativo"].ToString());
 
                     employees.Add(emp);
@@ -99,7 +83,9 @@ namespace sisVendas.Persistence
             }
             return (employees);
 
+
         }
+        /*
         public DataTable BuscarCpfNome()
         {
 
@@ -112,7 +98,7 @@ namespace sisVendas.Persistence
             
             return (dt);
 
-        }
+        }*/
         public List<object> BuscarParaComboBox()
         {
 
@@ -140,12 +126,12 @@ namespace sisVendas.Persistence
 
         }
 
-        public Funcionario buscarPorUsername(string filtro)
+        public Funcionario BuscarPorFiltro(string filtro)
         {
 
             DataTable dt = new DataTable();
 
-            string SQL = @"SELECT * FROM Funcionario where func_usuario like @filtro and func_ativo = 1";
+            string SQL = @"SELECT * FROM Funcionario " + filtro;
 
             db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
             Funcionario emp = new Funcionario();

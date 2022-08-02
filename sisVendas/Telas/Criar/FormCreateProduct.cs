@@ -1,13 +1,14 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
-using sisVendas.Functions;
 using sisVendas.Models;
-
 using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using GenCode128;
+using DFe.Utils;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 
 namespace sisVendas.Screens.Create
 {
@@ -17,189 +18,296 @@ namespace sisVendas.Screens.Create
         private ctrlProdutoMarca controlProdBrand = new ctrlProdutoMarca();
         private ctrlProdutoCategoria controlProdCategory = new ctrlProdutoCategoria();
 
-        private DataTable dtBrand;
-        private DataTable dtCategory;
+        private DataTable dttMarca;
+        private DataTable dttCategoria;
+
+        private ConfiguracaoApp _config = new ConfiguracaoApp();
         public FormCreateProduct()
         {
             InitializeComponent();
+
+            CarregarImpressoras();
+            CarregandoComboBox();
+
             neutralForm();
 
-            dtBrand = controlProdBrand.buscar("");
-            dtCategory = controlProdCategory.Buscar("");
-            updateCbb(dtBrand, dtCategory);
-            dgv_product.Columns["prod_valor"].DefaultCellStyle.Format = "C";
-            dgv_product.Columns["prod_estoque"].DefaultCellStyle.Format = "N2";
+            dgv_produto.Columns["prod_valor"].DefaultCellStyle.Format = "C";
+            dgv_produto.Columns["prod_estoque"].DefaultCellStyle.Format = "N2";
 
+            //Exitando que o f4 execute o evento dropDown do combobox
+            this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(KeyF4Down);
+            
             updateDgv("");
+
         }
+        public void updateDgv(string filtro)
+        {
+            dgv_produto.DataSource = controlProduct.buscarProdutosParaDGV(filtro);
+        }
+        void KeyF4Down(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F4)
+            {
+                e.Handled = true;
+            }
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             switch (keyData)
             {
-                case Keys.Escape:
-                    Close();
-                    break;
-                case Keys.Control | Keys.Enter:
-                    //Verificar se existe para evitar erro de cadastrar CPF já existente.
-                    btnSave.PerformClick();
-                    break;
-                case Keys.Control | Keys.E:
-                    btnCancel.PerformClick();
-                    break;
-                case Keys.Control | Keys.N:
-                    btnNew.PerformClick();
-                    break;
 
+                case Keys.Escape:
+                    this.Close();
+                    break;
+                case Keys.F12:
+                    if (btnSalvar.Enabled)
+                    {
+                        
+                        btnSalvar.PerformClick();
+                    }
+                    break;
+                case Keys.F1:
+                    if (btnNovo.Enabled)
+                        btnNovo.PerformClick();
+                    break;
+                case Keys.F2:
+                    if (btnExcluir.Enabled)
+                        btnExcluir.PerformClick();
+                    break;
+                case Keys.F4:
+                    if (btnCancel.Enabled)
+                        btnCancel.PerformClick();
+                    break;
 
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        public void updateDgv(string filtro)
+        public void clearForm()
         {
-            dgv_product.DataSource = controlProduct.searthProduct(filtro);
-        }
-        public void updateCbb(DataTable dtBrand, DataTable dtCategory)
-        {
-
-            cbbBrand.DataSource = dtBrand;
-            cbbBrand.DisplayMember = "prod_marca_nome";
-            cbbBrand.ValueMember = "prod_marca_id";
-            cbbBrand.SelectedIndex = -1;
-
-            cbbCategory.DataSource = dtCategory;
-            cbbCategory.DisplayMember = "prod_categoria_nome";
-            cbbCategory.ValueMember = "prod_categoria_id";
-            cbbCategory.SelectedIndex = -1;
-
-        }
-
-        public void cleanForm()
-        {
-            tbCod.Text=
+            tbCod.Text =
+            tbCodBarras.Text =
             tbName.Text =
-            tbInventory.Text =
-            cbbBrand.Text =
-            cbbCategory.Text =
-            mtbValue.Text =
+            tbComplemento.Text =
+            tbLocalizacao.Text =
+            tbNcm.Text =
+            tbCest.Text =
             tbComplemento.Text = "";
 
-            cbbCategory.SelectedIndex = -1;
-            cbbBrand.SelectedIndex = -1;
-            cbbUn.SelectedIndex = -1;
+            mtbValor.Text = "R$ 0,00";
+            tbEstoque.Text =
+            tbEstoqueMin.Text = "0,00";
+
+            cbAtivo.Checked = true;
+            cbBalancaAtiva.Checked = false;
+
+            //Marca/Categoria/Unidade
+            if (dttMarca.Rows.Count > 0)
+                cbbMarca.SelectedIndex = 0;
+            if (dttCategoria.Rows.Count > 0)
+                cbbCategory.SelectedIndex = 0;
+            cbbUn.SelectedIndex = 4;
+            //Origem/ST/GrupoT
+            cbbSituacaoTrib.SelectedIndex = 0;
+            cbbOrigem.SelectedIndex = 0;
+            cbbGrupoTributacao.SelectedIndex = 0;
+            //CFOP
+            tbCfopVendaDentro.Text = "5102";
+            tbCfopVendaFora.Text = "6102";
+            tbCfopEntradaDentro.Text = "1102";
+            tbCfopEntradaFora.Text = "2102";
+
+            //ICMS
+            tbAliquotaIcms.Text = "0,00%";
         }
         public void neutralForm()
         {
-            
-            cleanForm();
-            resetColor();
+            clearForm();
+
+            tbCodBarras.Enabled =
             tbName.Enabled =
-            cbbUn.Enabled =
-            tbInventory.Enabled = 
-            cbbBrand.Enabled = 
-            cbbCategory.Enabled = 
-            mtbValue.Enabled = 
+            mtbValor.Enabled =
+            tbEstoque.Enabled =
+            tbEstoqueMin.Enabled =
             tbComplemento.Enabled =
-            tbCod.Enabled = false;
-
-            btnSave.Enabled = false;
-            btnCancel.Enabled = false;
-            btnRemove.Enabled = false;
-            btnNew.Enabled = true;
-
-
-            tbSearch.Focus();
-        }
-        public void activeForm()
-        {
-            
-            cleanForm();
-            resetColor();
-            tbName.Enabled =
-            cbbUn.Enabled =
-            tbInventory.Enabled =
-            cbbBrand.Enabled =
+            tbLocalizacao.Enabled =
+            tbNcm.Enabled =
+            tbCest.Enabled =
+            cbAtivo.Enabled =
+            cbBalancaAtiva.Enabled =
+            tbComplemento.Enabled =
             cbbCategory.Enabled =
-            tbCod.Enabled =
-            mtbValue.Enabled =
-            tbComplemento.Enabled = true;
+            cbbMarca.Enabled =
+            cbbSituacaoTrib.Enabled =
+            cbbOrigem.Enabled =
+            cbbGrupoTributacao.Enabled =
+            tbCfopVendaDentro.Enabled =
+            tbCfopVendaFora.Enabled =
+            tbCfopEntradaDentro.Enabled =
+            tbCfopEntradaFora.Enabled =
+            cbbUn.Enabled =
+            tbAliquotaIcms.Enabled = false;
 
 
-            btnNew.Enabled = false;
-            btnRemove.Enabled = false;
-            btnSave.Enabled = true;
-            btnCancel.Enabled = true;
-
-            cbbBrand.SelectedIndex = -1;
-            cbbCategory.SelectedIndex = -1;
-            mtbValue.Text = "R$ 0,00";
+            btnNovo.Enabled = true;
+            btnSalvar.Enabled =
+            btnCancel.Enabled =
+            btnExcluir.Enabled =
+            btnGerarCodBarras.Enabled =
+            btnImprimirCodBarras.Enabled = false;
         }
-        public void resetColor()
+
+        private void CarregandoComboBox()
         {
-            lblValue.ForeColor =
+            //Carregar Origem com descrição
+            foreach (OrigemMercadoria status in EnumParaLista.EnumToList<OrigemMercadoria>())
+            {
+                this.cbbOrigem.Items.Add(status.GetDescription());
+            }
+            
+
+            //Carregar SituaçãoTrib com descrição
+            foreach (Csticms status in EnumParaLista.EnumToList<Csticms>())
+            {
+                this.cbbSituacaoTrib.Items.Add(status.GetDescription());
+            }
+            
+            //Carregar GrupoTrib com descrição
+            foreach (Csosnicms status in EnumParaLista.EnumToList<Csosnicms>())
+            {
+                this.cbbGrupoTributacao.Items.Add(status.GetDescription());
+            }
+            
+
+            //ComboBox MARCA
+            dttMarca = controlProdBrand.buscar("");
+            cbbMarca.DataSource = dttMarca;
+            cbbMarca.DisplayMember = "prod_marca_nome";
+            cbbMarca.ValueMember = "prod_marca_id";
+            
+
+            //ComboBox PRODUTO
+            dttCategoria = controlProdCategory.Buscar("");
+            cbbCategory.DataSource = dttCategoria;
+            cbbCategory.DisplayMember = "prod_categoria_nome";
+            cbbCategory.ValueMember = "prod_categoria_id";
+            
+        }
+        private void CarregarImpressoras()
+        {
+            //Buscar impressoras instaladas
+            foreach (var impressora in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+            {
+                cbbImpressora.Items.Add(impressora);
+            }
+            //importar Config
+            if (_config.ImpressoraCodBarras.NomeImpressora == "")
+            {
+                if (cbbImpressora.Items.Count > 0)
+                    cbbImpressora.SelectedIndex = 0;
+            }else
+            {
+                cbbImpressora.Text = _config.ImpressoraCodBarras.NomeImpressora;
+            }
+            numericCodBarrasX.Value = _config.ImpressoraCodBarras.XCodigo;
+            numericCodBarrasY.Value = _config.ImpressoraCodBarras.YCodigo;
+            numericTextoX.Value = _config.ImpressoraCodBarras.XTexto;
+            numericTextoY.Value = _config.ImpressoraCodBarras.YTexto;
+            try
+            {
+                numericAltura.Value = _config.ImpressoraCodBarras.Altura;
+            }
+            catch { }
+        }
+        private void btnGerarCodBarras_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnImprimirCodBarras.Enabled = true;
+                Image codigoBarras = Code128Rendering.MakeBarcodeImage(tbCodBarras.Text, int.Parse(numericAltura.Value.ToString()), true);
+
+                picCodBarras.Image = codigoBarras;
+
+            }catch(Exception err)
+            {
+                Alerta.notificacao("Erro!", err.Message, Alerta.enmType.Error);
+            }
+
+        }
+
+        private void btnImprimirCodBarras_Click(object sender, EventArgs e)
+        {
+            using (var pd = new System.Drawing.Printing.PrintDocument())
+            {
+
+                pd.PrinterSettings.PrinterName = cbbImpressora.SelectedItem.ToString();
+                pd.PrintPage += printDocument1_PrintPage;
+                pd.Print();
+            }
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            using (var g = e.Graphics)
+            {
+                using (var fonte = new Font("Courier New", 16))
+                {
+                    g.DrawImage(this.picCodBarras.Image, int.Parse(numericCodBarrasX.Value.ToString()), int.Parse(numericCodBarrasY.Value.ToString()));
+
+                    var caption = tbCodBarras.Text;
+                    g.DrawString(caption, fonte, Brushes.Black, int.Parse(numericTextoX.Value.ToString()), int.Parse(numericTextoY.Value.ToString()) );
+                    
+
+                }
+            }
+        }
+
+        private void resetaCor()
+        {
+            lblNcm.ForeColor = 
+            lblCfop.ForeColor = 
+            lblCodBarras.ForeColor =
+            lblCod.ForeColor =
             lblNome.ForeColor =
             lblMarca.ForeColor =
-            lblFuncionario.ForeColor =
-            lblEstoque.ForeColor =
-            lblComplemento.ForeColor =
-            lblCod.ForeColor =
             lblUn.ForeColor =
-            lblCategoria.ForeColor = Color.Black;
-            
-
+            lblCategoria.ForeColor =
+            lblValue.ForeColor =
+            lblCfopVendaDentro.ForeColor =
+            lblCfopVendaFora.ForeColor =
+            lblCfopEntradaDentro.ForeColor =
+            lblCfopEntradaFora.ForeColor = Color.Black;
         }
-        private void fillForm(DataGridViewCellCollection linha)
-        {
-
-            //tbCod.Text = linha[0].Value.ToString();
-            //tbName.Text = linha[1].Value.ToString();
-            //tbComplemento.Text = linha[2].Value.ToString();
-            //cbbUn.Text = (linha[3].Value.ToString());
-
-            //tbInventory.Text = linha[3].Value.ToString();
-
-            //cbbCategory.SelectedIndex = Convert.ToInt32(linha[4].Value);
-            //cbbBrand.SelectedValue = Convert.ToInt32(linha[5].Value);
-
-            //
-            tbCod.Text = linha[0].Value.ToString();
-            tbName.Text = linha[1].Value.ToString();
-            tbComplemento.Text = linha[2].Value.ToString();
-            cbbUn.Text = (linha[3].Value.ToString());
-            tbInventory.Text = linha[4].Value.ToString();
-            cbbCategory.SelectedValue = Convert.ToInt32(linha[5].Value);
-            cbbBrand.SelectedValue = Convert.ToInt32(linha[6].Value);
-            mtbValue.Text = double.Parse(linha[7].Value.ToString()).ToString("C");
-            
-
-
-            //cbbSexo.SelectedIndex = cbbSexo.FindString(linha["pac_sexo"].ToString());
-            // --------------------------------------------------------------------
-
-
-            resetColor();
-        }
-
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            resetColor();
-            bool isOk = true;
 
-            if(tbCod.Text.Count() == 0)
+            bool isOk = true;
+            resetaCor();
+
+            if (tbNcm.Text.Count() == 0)
             {
-                lblCod.ForeColor = Color.Red;
+                lblNcm.ForeColor = Color.Red;
                 isOk = false;
             }
+            if (tbCest.Text.Count() == 0)
+            {
+                lblCfop.ForeColor = Color.Red;
+                isOk = false;
+            }
+            if (tbCodBarras.Text.Count() == 0)
+            {
+                lblCodBarras.ForeColor = Color.Red;
+                isOk = false;
+            }
+
             if (tbName.Text.Count() == 0)
             {
                 lblNome.ForeColor = Color.Red;
                 isOk = false;
             }
-            if (tbInventory.Text.Count() == 0)
-            {
-                lblEstoque.ForeColor = Color.Red;
-                isOk = false;
-            }
-            if (cbbBrand.SelectedIndex == -1)
+
+            if (cbbMarca.SelectedIndex == -1)
             {
                 lblMarca.ForeColor = Color.Red;
                 isOk = false;
@@ -214,54 +322,319 @@ namespace sisVendas.Screens.Create
                 lblCategoria.ForeColor = Color.Red;
                 isOk = false;
             }
-            if (mtbValue.Text.ToString().Replace("R$", "").Count() == 0)
+            if (mtbValor.Text.ToString().Replace("R$", "").Count() == 0)
             {
                 lblValue.ForeColor = Color.Red;
                 isOk = false;
             }
+            if (tbCfopVendaDentro.Text.Length == 0)
+            {
+                lblCfopVendaDentro.ForeColor = Color.Red;
+                isOk = false;
+            }
+            if (tbCfopVendaFora.Text.Length == 0)
+            {
+                lblCfopVendaFora.ForeColor = Color.Red;
+                isOk = false;
+            }
+            if (tbCfopEntradaDentro.Text.Length == 0)
+            {
+                lblCfopEntradaDentro.ForeColor = Color.Red;
+                isOk = false;
+            }
+            if (tbCfopEntradaFora.Text.Length == 0)
+            {
+                lblCfopEntradaFora.ForeColor = Color.Red;
+                isOk = false;
+            }
 
-            
             if (isOk)
             {
+                
+                 if (!controlProduct.verificarSeCodigoDeBarrasExiste(tbCodBarras.Text, tbCod.Text) )
+                 {
+                        if (controlProduct.Salvar(
+                                            tbCod.Text,
+                                            tbCodBarras.Text,
+                                            tbName.Text,
+                                            mtbValor.Text,
+                                            cbbMarca.SelectedValue.ToString(),
+                                            cbbCategory.SelectedValue.ToString(),
+                                            cbbUn.Text,
+                                            tbComplemento.Text,
+                                            tbEstoque.Text,
+                                            tbEstoqueMin.Text,
+                                            tbLocalizacao.Text,
+                                            cbAtivo.Checked,
+                                            cbBalancaAtiva.Checked,
+                                            tbNcm.Text,
+                                            tbCest.Text,
+                                            cbbOrigem.SelectedItem,
+                                            cbbSituacaoTrib.SelectedItem,
+                                            cbbGrupoTributacao.SelectedItem,
+                                            tbCfopVendaDentro.Text,
+                                            tbCfopVendaFora.Text,
+                                            tbCfopEntradaDentro.Text,
+                                            tbCfopEntradaFora.Text,
+                                            tbAliquotaIcms.Text
+                                            ))
+                        {
 
-                if (controlProduct.SaveProduct(
-
-                    tbCod.Text,
-                    tbName.Text,
-                    tbComplemento.Text, 
-                    Convert.ToInt32(tbInventory.Text),
-                    Convert.ToInt32(cbbCategory.SelectedValue),
-                    Convert.ToInt32(cbbBrand.SelectedValue),
-                    Convert.ToDouble(mtbValue.Text.Replace("R$", "")),
-                    cbbUn.Text.ToString()
-                    ))
-                {
-
-                    Alerta.notificacao("Sucesso!", "Produto salvo.", Alerta.enmType.Success);
-
-                    updateDgv("");
-                    activeForm();
-                    tbCod.Focus();
-                }
+                                Alerta.notificacao("Sucesso!", "Produto salvo.", Alerta.enmType.Success);
+                                updateDgv("");
+                        neutralForm();
+                        tbCodBarras.Focus();
+                        }
+                 }
+                 else
+                 {
+                     Alerta.notificacao("Erro!", "Código se barras ja cadastrado!" , Alerta.enmType.Error);
+                 }                
             }
             else
             {
-                
-                //Alerta.notificacao("Erro!", "Erro ao salvar Produto.", Alerta.enmType.Error);
+                Alerta.notificacao("Erro!", "Preencha os campos obrigatórios!", Alerta.enmType.Error);
+            }
+
+        }
+
+        private void tbAliquotaIcms_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)44 && e.KeyChar != (char)08)
+            {
+                e.Handled = true;
             }
         }
 
+        private void tbAliquotaIcms_Leave(object sender, EventArgs e)
+        {
+            string text = tbAliquotaIcms.Text.Replace("%", "");
+            if (double.TryParse(text, out double res))
+            {
+                tbAliquotaIcms.Text = String.Format("{0:f}", res) + "%";
+            }
+            else
+            {
+                tbAliquotaIcms.Text = "0,00%";
+            }
+        }
+
+        private void tbAliquotaIcms_Click(object sender, EventArgs e)
+        {
+            if(tbAliquotaIcms.Text == "0,00%")
+            {
+                tbAliquotaIcms.Text = "";
+            }
+        }
+
+        private void mtbValor_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)44 && e.KeyChar != (char)08)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void mtbValor_Leave(object sender, EventArgs e)
+        {
+            string text = mtbValor.Text.Replace("R$", "");
+            if (double.TryParse(text, out double res))
+                mtbValor.Text = String.Format("{0:c}", res);
+            else
+            {
+                mtbValor.Text = "R$ 0,00";
+            }
+        }
+
+        private void mtbValor_Enter(object sender, EventArgs e)
+        {
+            if (mtbValor.Text == "R$ 0,00")
+            {
+                mtbValor.Text = "";
+            }
+        }
+
+        private void tbLocalizacao_TextChanged(object sender, EventArgs e)
+        {
+            lblLenghtLocalizacao.Text = tbLocalizacao.Text.Length + "/50";
+        }
+
+        private void tbEstoque_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)44 && e.KeyChar != (char)08)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbEstoqueMin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)44 && e.KeyChar != (char)08)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbEstoque_Leave(object sender, EventArgs e)
+        {
+            string text = tbEstoque.Text;
+            if (double.TryParse(text, out double res))
+                tbEstoque.Text = String.Format("{0:f}", res);
+            else
+            {
+                tbEstoque.Text = "0,00";
+            }
+        }
+
+        private void tbEstoqueMin_Leave(object sender, EventArgs e)
+        {
+            string text = tbEstoqueMin.Text;
+            if (double.TryParse(text, out double res))
+                tbEstoqueMin.Text = String.Format("{0:f}", res);
+            else
+            {
+                tbEstoqueMin.Text = "0,00";
+            }
+        }
+
+        public void activeForm()
+        {
+
+            tbCodBarras.Enabled =
+            tbName.Enabled =
+            mtbValor.Enabled =
+            tbEstoque.Enabled =
+            tbEstoqueMin.Enabled =
+            tbComplemento.Enabled =
+            tbLocalizacao.Enabled =
+            tbNcm.Enabled =
+            tbCest.Enabled =
+            cbAtivo.Enabled =
+            cbBalancaAtiva.Enabled =
+            tbComplemento.Enabled =
+            cbbCategory.Enabled =
+            cbbMarca.Enabled =
+            cbbSituacaoTrib.Enabled =
+            cbbOrigem.Enabled =
+            cbbGrupoTributacao.Enabled =
+            tbCfopVendaDentro.Enabled =
+            tbCfopVendaFora.Enabled =
+            tbCfopEntradaDentro.Enabled =
+            tbCfopEntradaFora.Enabled =
+            cbbUn.Enabled =
+            tbAliquotaIcms.Enabled = true;
+
+
+            btnNovo.Enabled =
+            btnImprimirCodBarras.Enabled =
+            btnExcluir.Enabled = false;
+            btnSalvar.Enabled =
+            btnCancel.Enabled =
+            btnGerarCodBarras.Enabled = true;
+        }
         private void btnNovo_Click(object sender, EventArgs e)
         {
             activeForm();
-            tbCod.Enabled = true;
-            tbCod.Focus();
-
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             neutralForm();
+        }
+
+        private void btnFehar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void tbComplemento_TextChanged_1(object sender, EventArgs e)
+        {
+            lblLenghtDescricao.Text = tbComplemento.Text.Length + "/200";
+        }
+
+        private void keypressApenasNumeros(KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)8)
+            {
+                e.Handled = true;
+            }
+        }
+        private void tbNcm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            keypressApenasNumeros(e);
+        }
+
+        private void tbCest_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            keypressApenasNumeros(e);
+        }
+
+        private void tbCfopVendaDentro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            keypressApenasNumeros(e);
+        }
+
+        private void tbCfopEntradaDentro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            keypressApenasNumeros(e);
+        }
+
+        private void tbCfopVendaFora_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            keypressApenasNumeros(e);
+        }
+
+        private void tbCfopEntradaFora_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            keypressApenasNumeros(e);
+        }
+
+        private void preencherForm(Produto prod)
+        {
+            tbCod.Text = prod.Id.ToString();
+            tbCodBarras.Text = prod.Codigo_barras;
+            tbName.Text = prod.Nome;
+            mtbValor.Text = prod.Valor.ToString("C");
+            cbbUn.Text = prod.Un;
+            tbComplemento.Text = prod.Complemento;
+            tbEstoque.Text = prod.Estoque.ToString("F");
+            tbEstoqueMin.Text = prod.Estoque_min.ToString("F");
+            tbLocalizacao.Text = prod.Localizacao;
+            cbAtivo.Checked = prod.Ativo;
+            cbBalancaAtiva.Checked = prod.Balanca;
+            tbNcm.Text = prod.Ncm;
+            tbCest.Text = prod.Cest;
+            tbCfopVendaDentro.Text = prod.Cfop_venda_dentro_estado.ToString();
+            tbCfopVendaFora.Text = prod.Cfop_venda_fora_estado.ToString();
+            tbCfopEntradaDentro.Text = prod.Cfop_compra_dentro_estado.ToString();
+            tbCfopEntradaFora.Text = prod.Cfop_compra_fora_estado.ToString();
+            tbAliquotaIcms.Text = prod.Aliq_icms.ToString("F");
+            cbbCategory.SelectedValue = prod.Categoria.Id;
+            cbbMarca.SelectedValue = prod.Marca.Id;
+
+            cbbOrigem.SelectedItem = prod.Origem.GetDescription();
+            cbbSituacaoTrib.SelectedItem = prod.Situacao_tributaria.GetDescription();
+            cbbGrupoTributacao.SelectedItem = prod.Grupo_tributacao.GetDescription();
+
+        }
+        private void dgv_produto_DoubleClick(object sender, EventArgs e)
+        {
+
+            if (dgv_produto.SelectedRows.Count == 1)
+            {
+                activeForm();
+               
+                Produto prod = controlProduct.buscarProdutoPorCodigo(dgv_produto.Rows[dgv_produto.CurrentRow.Index].Cells[0].Value.ToString());
+                preencherForm(prod);
+                tbCod.Enabled = false;
+                btnExcluir.Enabled = true;
+            }
+            
+        }
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            updateDgv(tbSearch.Text);
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
@@ -272,7 +645,7 @@ namespace sisVendas.Screens.Create
                 {
                     string cod = tbCod.Text;
 
-                    if (controlProduct.removeProduct(cod) == true)
+                    if (controlProduct.RemoverProduto(tbCod.Text) == true)
                     {
                         updateDgv("");
 
@@ -289,118 +662,25 @@ namespace sisVendas.Screens.Create
             else
                 MessageBox.Show("Selecione o Cliente", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
-        private void dgv_productCategory_DoubleClick(object sender, EventArgs e)
-        {
-            if (dgv_product.SelectedRows.Count == 1)
-            {
-                activeForm();
-
-                DataGridViewCellCollection linha = dgv_product.Rows[dgv_product.CurrentRow.Index].Cells;
-
-                fillForm(linha);
-                tbCod.Enabled = false;
-                btnRemove.Enabled = true;
-            }
-        }
-
-        private void tbInventory_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)8)
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void mtbValue_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)44 && e.KeyChar != (char)08)
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void mtbValue_Leave(object sender, EventArgs e)
-        {
-            string text = mtbValue.Text.Replace("R$", "");
-            if (double.TryParse(text, out double res))
-                mtbValue.Text = String.Format("{0:c}", res);
-            else
-            {
-                mtbValue.Text = "R$ 0,00";
-            }
-        }
-        private Produto isExistsCod(string cod)
-        {
-            Produto dt = controlProduct.buscarProdutoPorCod(cod);
-
-            return dt;
-
-        }
-        private void tbCod_Leave(object sender, EventArgs e)
-        {
-
-            string cod = tbCod.Text;
-            
-            if(cod.Count() != 0)
-            {
-                Produto prod = isExistsCod(cod);
-
-                if (prod  != null)
-                {
-                    if (MessageBox.Show("Deseja alterar o produto com o código inserido ?", "Código existente!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                    {
-                        resetColor();
-                        tbCod.Text = prod.Id.ToString();
-                        tbName.Text = prod.Nome;
-                        tbComplemento.Text = prod.Descricao;
-                        tbInventory.Text = prod.Estoque.ToString();
-                        cbbBrand.SelectedValue = prod.Prod_Marca;
-                        cbbCategory.SelectedValue = prod.Prod_Categoria;
-                        cbbUn.SelectedValue = prod.Un;
-                        mtbValue.Text = prod.Valor.ToString();
-                        tbCod.Enabled = false;
-                        cbbUn.SelectedValue = prod.Un;
-
-
-                    }
-                    else
-                    {
-                        activeForm();
-                        tbCod.Focus();
-                    }
-                }
-            }
-            
-            
-
-
-
-            
-        }
-
-        private void tbSearch_TextChanged(object sender, EventArgs e)
-        {
-            updateDgv(tbSearch.Text);
-        }
-
-        private void mtbValue_Enter(object sender, EventArgs e)
-        {
-            if (mtbValue.Text == "R$ 0,00")
-            {
-                mtbValue.Text = "";
-            }
-        }
-
-        private void gerarPdf_Click(object sender, EventArgs e)
-        {
-            DataTable dtProdutos = controlProduct.buscarParaRelatorio();
-            //select prod_nome as Nome, prod_estoque as Estoque, prod_un as Unidade, prod_valor as Valor from Produto order by Nome
-            if (dtProdutos.Rows.Count > 0) // se existir pessoas
-            {
-                float[] largurasColunas = { 1.5f, 1f, 1f, 1f, 1f, 1f};
-                Relatorios.gerarRelatorio($"RelatórioSisVendas.Produtos.pdf", "Produtos Cadastrados!", dtProdutos, largurasColunas);
-            }
-        }
     }
 }
+
+
+/*
+//Buscando pela descrição
+OrigemMercadoria statusByDescription =
+EnumParaLista.GetEnumByDescription<OrigemMercadoria>(
+this.cbbOrigem.SelectedItem.ToString());
+            
+
+
+//OrigemMercadoria status = (OrigemMercadoria)Enum.Parse(typeof(OrigemMercadoria), statusByDescription.ToString());
+//MessageBox.Show(status.ToString());
+
+//cbbOrigem.Text = OrigemMercadoria.OmNacionalConteudoImportacaoSuperior70.GetDescription();
+            
+//Buscando pela descrição
+//OrigemMercadoria statusByDescription =
+//EnumParaLista.GetEnumByDescription<OrigemMercadoria>(
+//this.cbbOrigem.SelectedItem.ToString());
+ */

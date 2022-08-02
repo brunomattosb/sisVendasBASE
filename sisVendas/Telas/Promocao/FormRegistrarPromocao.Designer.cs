@@ -498,9 +498,10 @@
             this.Controls.Add(this.dtpInicio);
             this.Controls.Add(this.label8);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormRegistrarPromocao";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Cadastrar Promoção";
+            this.Text = "Automações Brasil - Cadastrar promoção";
             this.Load += new System.EventHandler(this.FormRegistrarPromocao_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

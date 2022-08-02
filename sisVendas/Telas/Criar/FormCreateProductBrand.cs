@@ -1,7 +1,5 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
-using sisVendas.Functions;
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -26,23 +24,24 @@ namespace sisVendas.Screens.Create
 		{
 			switch (keyData)
 			{
-				case Keys.Escape:
-					Close();
-					break;
-				case Keys.Control | Keys.Enter:
-					// Verificar se existe para evitar erro de cadastrar CPF já existente.
-					if (!isExistsProductBrand())
-					    btnSave.PerformClick();
-					break;
-				case Keys.Control | Keys.E:
-					btnCancel.PerformClick();
-					break;
-				case Keys.Control | Keys.N:
-					btnNew.PerformClick();
-					break;
+                case Keys.Escape:
+                    Close();
+                    break;
+                case Keys.F12:
+                    btnSave.PerformClick();
+                    break;
+                case Keys.F4:
+                    btnCancel.PerformClick();
+                    break;
+                case Keys.F1:
+                    btnNew.PerformClick();
+                    break;
+                case Keys.F2:
+                    btnRemove.PerformClick();
+                    break;
 
 
-			}
+            }
 			return base.ProcessCmdKey(ref msg, keyData);
 		}
 		public void cleanForm()
@@ -88,17 +87,17 @@ namespace sisVendas.Screens.Create
 
 		private bool isExistsProductBrand()
 		{
-			string name = Function.replaceAll(tbName.Text);
+            string name = Function.replaceAll(tbName.Text);
 
-			if (name.Count() > 0)
-			{
-				DataTable dt = controlProductBrand.buscar(name);
-				if (dt.Rows.Count > 0)
-				{
-					return true;
-				}
-			}
-			return false;
+            if (name.Count() > 0)
+            {
+                DataTable dt = controlProductBrand.buscar(name);
+                if (dt.Rows.Count > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
 		}
 		public void updateDgv(string filtro)
 		{
@@ -125,71 +124,70 @@ namespace sisVendas.Screens.Create
         private void btnRemove_Click(object sender, EventArgs e)
         {
 
-			if (tbId.Text != "")
-			{
-				if (MessageBox.Show("Deseja excluir a marca de produto ? ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-				{
-					string cod = tbId.Text;
+            if (tbId.Text != "")
+            {
+                if (MessageBox.Show("Deseja excluir a marca de produto ? ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    string cod = tbId.Text;
 
-					if (controlProductBrand.remover(cod) == true)
-					{
-						updateDgv("");
+                    if (controlProductBrand.remover(cod) == true)
+                    {
+                        updateDgv("");
 
-						neutralForm();
-						Alerta.notificacao("Sucesso!", "Marca excluida.", Alerta.enmType.Success);
-					}
-					else
-					{
-						Alerta.notificacao("Erro!", "Erro ao excluir marca.", Alerta.enmType.Error);
-
-					}
-				}
-			}
-			else
-				MessageBox.Show("Selecione a marca", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
-		}
+                        neutralForm();
+                        Alerta.notificacao("Sucesso!", "Marca excluida.", Alerta.enmType.Success);
+                    }
+                    else
+                    {
+                        Alerta.notificacao("Erro!", "Erro ao excluir marca.", Alerta.enmType.Error);
+                    }
+                }
+            }
+            else
+                MessageBox.Show("Selecione a marca", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-			resetColor();
+            resetColor();
 
-			bool isOk = true;
-			if (tbName.Text.Count() < 2)
-			{
-				isOk = false;
-				lblName.ForeColor = Color.Red;
-			}
-			else
-			{
-				if (isExistsProductBrand())
-				{
-					if (MessageBox.Show("Existe uma marca muito semelhante a que deseja inserir, deseja continuar ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
-					{
-						isOk = false;
-					}
-				}
-				if (isOk)
-				{
-					if (controlProductBrand.salvarProdutoMarca(
-						tbId.Text,
-						tbName.Text
+            bool isOk = true;
+            if (tbName.Text.Count() < 2)
+            {
+                isOk = false;
+                lblName.ForeColor = Color.Red;
+            }
+            else
+            {
+                if (isExistsProductBrand())
+                {
+                    if (MessageBox.Show("Existe uma marca muito semelhante a que deseja inserir, deseja continuar ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                    {
+                        isOk = false;
+                    }
+                }
+                if (isOk)
+                {
+                    if (controlProductBrand.salvarProdutoMarca(
+                        tbId.Text,
+                        tbName.Text
 
-						))
-					{
+                        ))
+                    {
 
-						Alerta.notificacao("Sucesso!", "Marca salva.", Alerta.enmType.Success);
+                        Alerta.notificacao("Sucesso!", "Marca salva.", Alerta.enmType.Success);
 
-						updateDgv("");
-						activeForm();
-					}
-					tbName.Focus();
-				}
-				else
-				{
-					Alerta.notificacao("Erro!", "Erro ao salvar marca.", Alerta.enmType.Error);
-				}
-			}
-		}
+                        updateDgv("");
+                        activeForm();
+                    }
+                    tbName.Focus();
+                }
+                else
+                {
+                    Alerta.notificacao("Erro!", "Erro ao salvar marca.", Alerta.enmType.Error);
+                }
+            }
+        }
 
 
 

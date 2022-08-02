@@ -1,7 +1,5 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
-using sisVendas.Functions;
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -26,23 +24,24 @@ namespace sisVendas.Screens.Create
 		{
 			switch (keyData)
 			{
-				case Keys.Escape:
-					Close();
-					break;
-				case Keys.Control | Keys.Enter:
-					// Verificar se existe para evitar erro de cadastrar CPF já existente.
-					if (!isExistsProductCategory())
-					    btnSave.PerformClick();
-					break;
-				case Keys.Control | Keys.E:
-					btnCancel.PerformClick();
-					break;
-				case Keys.Control | Keys.N:
-					btnNew.PerformClick();
-					break;
+                case Keys.Escape:
+                    Close();
+                    break;
+                case Keys.F12:
+                    btnSave.PerformClick();
+                    break;
+                case Keys.F4:
+                    btnCancel.PerformClick();
+                    break;
+                case Keys.F1:
+                    btnNew.PerformClick();
+                    break;
+                case Keys.F2:
+                    btnRemove.PerformClick();
+                    break;
 
 
-			}
+            }
 			return base.ProcessCmdKey(ref msg, keyData);
 		}
 		public void cleanForm()
@@ -86,17 +85,17 @@ namespace sisVendas.Screens.Create
 		}
 		private bool isExistsProductCategory()
 		{
-			string name = Function.replaceAll(tbName.Text);
+            string name = Function.replaceAll(tbName.Text);
 
-			if (name.Count() > 0)
-			{
-				DataTable dt = controlProductCategory.Buscar(name);
-				if (dt.Rows.Count > 0)
-				{
-					return true;
-				}
-			}
-			return false;
+            if (name.Count() > 0)
+            {
+                DataTable dt = controlProductCategory.Buscar(name);
+                if (dt.Rows.Count > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
 		}
 
 		public void updateDgv(string filtro)
@@ -110,71 +109,72 @@ namespace sisVendas.Screens.Create
 		}
 		private void btnSave_Click(object sender, EventArgs e)
         {
-			resetColor();
+            resetColor();
 
-			bool isOk = true;
-			if (tbName.Text.Count() < 2)
-			{
-				isOk = false;
-				lblName.ForeColor = Color.Red;
-			}
-			else
-			{
-                if (isExistsProductCategory()) {
-					if (MessageBox.Show("Existe uma categoria muito semelhante a que deseja inserir, deseja continuar ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+            bool isOk = true;
+            if (tbName.Text.Count() < 2)
+            {
+                isOk = false;
+                lblName.ForeColor = Color.Red;
+            }
+            else
+            {
+                if (isExistsProductCategory())
+                {
+                    if (MessageBox.Show("Existe uma categoria muito semelhante a que deseja inserir, deseja continuar ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
                     {
-						isOk = false;
+                        isOk = false;
                     }
-				}
-				if (isOk)
-				{
-					if (controlProductCategory.SalvarCategoriaProduto(
-						tbId.Text,
-						tbName.Text
+                }
+                if (isOk)
+                {
+                    if (controlProductCategory.SalvarCategoriaProduto(
+                        tbId.Text,
+                        tbName.Text
 
-						))
-					{
+                        ))
+                    {
 
-						Alerta.notificacao("Sucesso!", "Categoria salva.", Alerta.enmType.Success);
+                        Alerta.notificacao("Sucesso!", "Categoria salva.", Alerta.enmType.Success);
 
-						updateDgv("");
-						activeForm();
-					}
-					tbName.Focus();
-				}
-				else
-				{
-					Alerta.notificacao("Erro!", "Erro ao salvar categoria.", Alerta.enmType.Error);
-				}
-			}
-		}
+                        updateDgv("");
+                        activeForm();
+                    }
+                    tbName.Focus();
+                }
+                else
+                {
+                    Alerta.notificacao("Erro!", "Erro ao salvar categoria.", Alerta.enmType.Error);
+                }
+            }
+        }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
 
-			if (tbId.Text != "")
-			{
-				if (MessageBox.Show("Deseja excluir a categoria de produto ? ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-				{
-					string cod = tbId.Text;
+            if (tbId.Text != "")
+            {
+                if (MessageBox.Show("Deseja excluir a categoria de produto ? ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    string cod = tbId.Text;
 
-					if (controlProductCategory.Remover(cod) == true)
-					{
-						updateDgv("");
+                    if (controlProductCategory.Remover(cod) == true)
+                    {
+                        updateDgv("");
 
-						neutralForm();
-						Alerta.notificacao("Sucesso!", "Categoria excluida.", Alerta.enmType.Success);
-					}
-					else
-					{
-						Alerta.notificacao("Erro!", "Erro ao excluir categoria.", Alerta.enmType.Error);
+                        neutralForm();
+                        Alerta.notificacao("Sucesso!", "Categoria excluida.", Alerta.enmType.Success);
+                    }
+                    else
+                    {
+                        Alerta.notificacao("Erro!", "Erro ao excluir categoria.", Alerta.enmType.Error);
 
-					}
-				}
-			}
-			else
-				MessageBox.Show("Selecione a categoria", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
-		}
+                    }
+                }
+            }
+            else
+                MessageBox.Show("Selecione a categoria", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {

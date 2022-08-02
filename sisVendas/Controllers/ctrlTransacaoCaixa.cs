@@ -2,12 +2,7 @@
 using sisVendas.Models;
 using sisVendas.Persistence;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace sisVendas.Controllers
 {
@@ -23,25 +18,25 @@ namespace sisVendas.Controllers
             TransacaoSelecionada.Descricao = descricao;
             TransacaoSelecionada.Tipo = tipo;
             TransacaoSelecionada.Valor = valor;
-            
+
             dataBase.Conecta();
             bool result = false;
             TransacaoCaixaDB transacao = new TransacaoCaixaDB(dataBase);
 
             result = transacao.Gravar(TransacaoSelecionada);
-            
+
 
             dataBase.Desconecta();
 
             return (result);
         }
-        
-        public DataTable buscarPorIdCaixa(int filter)
+
+        public DataTable BuscarTransacoesPorIdCaixa(int idCaixa)
         {
 
             DataTable dtTransacao = new DataTable();
 
-            dtTransacao.Columns.Add("transacao_id", typeof(int));
+            dtTransacao.Columns.Add("transacao_id", typeof(int)); 
             dtTransacao.Columns.Add("transacao_idcaixa", typeof(int));
             dtTransacao.Columns.Add("transacao_tipo");
             dtTransacao.Columns.Add("transacao_descricao");
@@ -49,10 +44,10 @@ namespace sisVendas.Controllers
             dtTransacao.Columns.Add("transacao_criado_em", typeof(DateTime));
 
             dataBase.Conecta();
-            TransacaoCaixaDB transacaoDB= new TransacaoCaixaDB(dataBase);
-            foreach (TransacaoCaixa transacao in transacaoDB.buscar(filter))
+            TransacaoCaixaDB transacaoDB = new TransacaoCaixaDB(dataBase);
+            foreach (TransacaoCaixa transacao in transacaoDB.BuscarTransacoes("WHERE transacao_idcaixa = "+idCaixa))
             {
-                
+
                 DataRow line = dtTransacao.NewRow();
 
                 line["transacao_id"] = transacao.Id;
@@ -94,5 +89,5 @@ namespace sisVendas.Controllers
         }*/
     }
 
-    
+
 }

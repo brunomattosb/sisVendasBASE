@@ -31,6 +31,7 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lblResumoDinheiro = new System.Windows.Forms.Label();
             this.lvlTotalCancelamento = new System.Windows.Forms.GroupBox();
+            this.lblTotalCancelamento = new System.Windows.Forms.Label();
             this.lblResumoDespesas = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblResumoDebito = new System.Windows.Forms.Label();
@@ -71,7 +72,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cbbFuncionario = new System.Windows.Forms.ComboBox();
-            this.lblTotalCancelamento = new System.Windows.Forms.Label();
             this.groupBox5.SuspendLayout();
             this.lvlTotalCancelamento.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -119,6 +119,16 @@
             this.lvlTotalCancelamento.TabIndex = 51;
             this.lvlTotalCancelamento.TabStop = false;
             this.lvlTotalCancelamento.Text = "Despesas: ";
+            // 
+            // lblTotalCancelamento
+            // 
+            this.lblTotalCancelamento.AutoSize = true;
+            this.lblTotalCancelamento.Location = new System.Drawing.Point(6, 72);
+            this.lblTotalCancelamento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTotalCancelamento.Name = "lblTotalCancelamento";
+            this.lblTotalCancelamento.Size = new System.Drawing.Size(45, 13);
+            this.lblTotalCancelamento.TabIndex = 6;
+            this.lblTotalCancelamento.Text = "R$ 0,00";
             // 
             // lblResumoDespesas
             // 
@@ -545,16 +555,6 @@
             this.cbbFuncionario.Size = new System.Drawing.Size(260, 26);
             this.cbbFuncionario.TabIndex = 6;
             // 
-            // lblTotalCancelamento
-            // 
-            this.lblTotalCancelamento.AutoSize = true;
-            this.lblTotalCancelamento.Location = new System.Drawing.Point(6, 72);
-            this.lblTotalCancelamento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTotalCancelamento.Name = "lblTotalCancelamento";
-            this.lblTotalCancelamento.Size = new System.Drawing.Size(45, 13);
-            this.lblTotalCancelamento.TabIndex = 6;
-            this.lblTotalCancelamento.Text = "R$ 0,00";
-            // 
             // FormConsultarAnteriores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -567,9 +567,10 @@
             this.Controls.Add(this.lvl);
             this.Controls.Add(this.groupBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormConsultarAnteriores";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormConsultarAnteriores";
+            this.Text = "Automações Brasil - Consultar caixas anteriores";
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.lvlTotalCancelamento.ResumeLayout(false);

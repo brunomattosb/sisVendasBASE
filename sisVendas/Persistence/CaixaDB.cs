@@ -25,12 +25,32 @@ namespace sisVendas.Persistence
                         values (@caixa_idFunc, @caixa_saldoAnterior, null)";
 
 
-                res = db.ExecuteNonQuery(SQL, "@caixa_idFunc", caixa.IdFunc,
+                res = db.ExecuteNonQuery(SQL, "@caixa_idFunc", caixa.Funcionario.Id,
                                                 "@caixa_saldoAnterior", caixa.SaldoAnterior);
 
             }
 
             return (res);
+        } 
+        public DataTable BuscarResumoHome()
+        {
+            DataTable dt = new DataTable();
+
+            string SQL = @"select * from (select sum(parcela_valor) as valorAReceber from parcelaVenda
+inner join Venda on venda_id = parcela_idVenda where venda_cancelada = 0 
+and  parcela_dataPagamento is null AND parcelaVenda.parcela_dataVencimento = CONVERT (date, GETDATE())) as tabParcelaVenda,
+
+(select sum(desp_valor) as valorDespAPagar from Despesa
+where Despesa.desp_dataPagamento is null AND Despesa.desp_dataVencimento = CONVERT (date, GETDATE()) ) as tabDespesa,
+
+(select sum(ParcelaCompra.parcela_valor) as valorParcelaVenda from ParcelaCompra
+inner join Compra on compra_id = parcela_idCompra where compra_cancelada = 0 
+and  parcela_dataPagamento is null AND ParcelaCompra.parcela_dataVencimento = CONVERT (date, GETDATE())) as tabParcelaCompra
+";
+
+            db.ExecuteQuery(SQL, out dt);
+
+            return (dt);
         }
         public bool GravarFecharCaixa(object Objeto)
         {
@@ -91,7 +111,7 @@ namespace sisVendas.Persistence
                     caixa.Dtfechamento = null;
 
                 caixa.Id = Convert.ToInt32(dt.Rows[0]["caixa_id"]);
-                caixa.IdFunc = Convert.ToInt32(dt.Rows[0]["caixa_idFunc"]);
+                caixa.Funcionario.Id = Convert.ToInt32(dt.Rows[0]["caixa_idFunc"]);
                 caixa.DtAbertura = Convert.ToDateTime(dt.Rows[0]["caixa_dtAbertura"].ToString());
                 
                 caixa.SaldoAnterior = Convert.ToDouble(dt.Rows[0]["caixa_saldoAnterior"].ToString());

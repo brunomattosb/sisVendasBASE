@@ -79,43 +79,24 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.dgv_employee = new System.Windows.Forms.DataGridView();
-            this.func_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_rg = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_senha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_licenca = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.func_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_cep = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_endereco = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_bairro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_cidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_uf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_dt_aniversario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_criado_em = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_telefone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_sexo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_salario_base = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_admissao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_demissao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.func_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.func_cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.func_usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.func_email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.func_ativo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.lblFuncionario = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.GbpPesquisa.SuspendLayout();
             this.gbCad.SuspendLayout();
             this.gbAdmission.SuspendLayout();
             this.gbAccess.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_employee)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // GbpPesquisa
             // 
             this.GbpPesquisa.Controls.Add(this.tbSearch);
             this.GbpPesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GbpPesquisa.Location = new System.Drawing.Point(12, 433);
+            this.GbpPesquisa.Location = new System.Drawing.Point(12, 339);
             this.GbpPesquisa.Name = "GbpPesquisa";
             this.GbpPesquisa.Size = new System.Drawing.Size(336, 57);
             this.GbpPesquisa.TabIndex = 2;
@@ -163,7 +144,7 @@
             this.gbCad.Controls.Add(this.tbName);
             this.gbCad.Controls.Add(this.lblName);
             this.gbCad.Controls.Add(this.lblCpf);
-            this.gbCad.Location = new System.Drawing.Point(12, 69);
+            this.gbCad.Location = new System.Drawing.Point(12, 12);
             this.gbCad.Name = "gbCad";
             this.gbCad.Size = new System.Drawing.Size(647, 321);
             this.gbCad.TabIndex = 0;
@@ -613,10 +594,10 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.Controls.Add(this.btnNew, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnSave, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnRemove, 2, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 397);
+            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnRemove, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 587);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -626,44 +607,44 @@
             // btnNew
             // 
             this.btnNew.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnNew.Location = new System.Drawing.Point(43, 4);
+            this.btnNew.Location = new System.Drawing.Point(17, 3);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(75, 23);
+            this.btnNew.Size = new System.Drawing.Size(127, 24);
             this.btnNew.TabIndex = 0;
-            this.btnNew.Text = "Novo";
+            this.btnNew.Text = "[F1] - Novo";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNovo_Click);
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCancel.Location = new System.Drawing.Point(204, 4);
+            this.btnCancel.Location = new System.Drawing.Point(339, 3);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(127, 24);
             this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.Text = "[F4] - Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnSave
             // 
             this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSave.Location = new System.Drawing.Point(527, 4);
+            this.btnSave.Location = new System.Drawing.Point(501, 3);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(127, 24);
             this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "Salvar";
+            this.btnSave.Text = "[F12] - Salvar";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
             // btnRemove
             // 
             this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnRemove.Location = new System.Drawing.Point(365, 4);
+            this.btnRemove.Location = new System.Drawing.Point(178, 3);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnRemove.Size = new System.Drawing.Size(127, 24);
             this.btnRemove.TabIndex = 2;
-            this.btnRemove.Text = "Excluir";
+            this.btnRemove.Text = "[F2] - Excluir";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
@@ -673,36 +654,28 @@
             this.dgv_employee.AllowUserToDeleteRows = false;
             this.dgv_employee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_employee.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.func_nome,
-            this.func_rg,
-            this.func_cpf,
-            this.func_senha,
-            this.func_licenca,
             this.func_id,
-            this.func_cep,
-            this.func_endereco,
-            this.func_bairro,
-            this.func_cidade,
-            this.func_uf,
-            this.func_dt_aniversario,
-            this.func_criado_em,
-            this.func_telefone,
-            this.func_sexo,
-            this.func_salario_base,
-            this.func_admissao,
-            this.func_demissao,
+            this.func_nome,
+            this.func_cpf,
             this.func_usuario,
-            this.func_email,
             this.func_ativo});
-            this.dgv_employee.Location = new System.Drawing.Point(12, 496);
+            this.dgv_employee.Location = new System.Drawing.Point(12, 402);
             this.dgv_employee.MultiSelect = false;
             this.dgv_employee.Name = "dgv_employee";
             this.dgv_employee.ReadOnly = true;
             this.dgv_employee.RowHeadersVisible = false;
             this.dgv_employee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_employee.Size = new System.Drawing.Size(647, 148);
+            this.dgv_employee.Size = new System.Drawing.Size(647, 179);
             this.dgv_employee.TabIndex = 0;
             this.dgv_employee.DoubleClick += new System.EventHandler(this.dgv_employee_DoubleClick);
+            // 
+            // func_id
+            // 
+            this.func_id.DataPropertyName = "func_id";
+            this.func_id.HeaderText = "Código";
+            this.func_id.Name = "func_id";
+            this.func_id.ReadOnly = true;
+            this.func_id.Visible = false;
             // 
             // func_nome
             // 
@@ -711,14 +684,6 @@
             this.func_nome.HeaderText = "Nome";
             this.func_nome.Name = "func_nome";
             this.func_nome.ReadOnly = true;
-            // 
-            // func_rg
-            // 
-            this.func_rg.DataPropertyName = "func_rg";
-            this.func_rg.HeaderText = "RG";
-            this.func_rg.Name = "func_rg";
-            this.func_rg.ReadOnly = true;
-            this.func_rg.Visible = false;
             // 
             // func_cpf
             // 
@@ -730,142 +695,12 @@
             this.func_cpf.ReadOnly = true;
             this.func_cpf.Width = 200;
             // 
-            // func_senha
-            // 
-            this.func_senha.DataPropertyName = "func_senha";
-            this.func_senha.HeaderText = "Senha";
-            this.func_senha.Name = "func_senha";
-            this.func_senha.ReadOnly = true;
-            this.func_senha.Visible = false;
-            // 
-            // func_licenca
-            // 
-            this.func_licenca.DataPropertyName = "func_licenca";
-            this.func_licenca.HeaderText = "Licença";
-            this.func_licenca.Name = "func_licenca";
-            this.func_licenca.ReadOnly = true;
-            this.func_licenca.Visible = false;
-            // 
-            // func_id
-            // 
-            this.func_id.DataPropertyName = "func_id";
-            this.func_id.HeaderText = "Código";
-            this.func_id.Name = "func_id";
-            this.func_id.ReadOnly = true;
-            this.func_id.Visible = false;
-            // 
-            // func_cep
-            // 
-            this.func_cep.DataPropertyName = "func_cep";
-            this.func_cep.HeaderText = "CEP";
-            this.func_cep.Name = "func_cep";
-            this.func_cep.ReadOnly = true;
-            this.func_cep.Visible = false;
-            // 
-            // func_endereco
-            // 
-            this.func_endereco.DataPropertyName = "func_endereco";
-            this.func_endereco.HeaderText = "Endereço";
-            this.func_endereco.Name = "func_endereco";
-            this.func_endereco.ReadOnly = true;
-            this.func_endereco.Visible = false;
-            // 
-            // func_bairro
-            // 
-            this.func_bairro.DataPropertyName = "func_bairro";
-            this.func_bairro.HeaderText = "Bairro";
-            this.func_bairro.Name = "func_bairro";
-            this.func_bairro.ReadOnly = true;
-            this.func_bairro.Visible = false;
-            // 
-            // func_cidade
-            // 
-            this.func_cidade.DataPropertyName = "func_cidade";
-            this.func_cidade.HeaderText = "Cidade";
-            this.func_cidade.Name = "func_cidade";
-            this.func_cidade.ReadOnly = true;
-            this.func_cidade.Visible = false;
-            // 
-            // func_uf
-            // 
-            this.func_uf.DataPropertyName = "func_uf";
-            this.func_uf.HeaderText = "Estado";
-            this.func_uf.Name = "func_uf";
-            this.func_uf.ReadOnly = true;
-            this.func_uf.Visible = false;
-            // 
-            // func_dt_aniversario
-            // 
-            this.func_dt_aniversario.DataPropertyName = "func_dt_aniversario";
-            this.func_dt_aniversario.HeaderText = "Nascimento";
-            this.func_dt_aniversario.Name = "func_dt_aniversario";
-            this.func_dt_aniversario.ReadOnly = true;
-            this.func_dt_aniversario.Visible = false;
-            // 
-            // func_criado_em
-            // 
-            this.func_criado_em.DataPropertyName = "func_criado_em";
-            this.func_criado_em.HeaderText = "Cadastro";
-            this.func_criado_em.Name = "func_criado_em";
-            this.func_criado_em.ReadOnly = true;
-            this.func_criado_em.Visible = false;
-            // 
-            // func_telefone
-            // 
-            this.func_telefone.DataPropertyName = "func_telefone";
-            this.func_telefone.DividerWidth = 2;
-            this.func_telefone.HeaderText = "Telefone";
-            this.func_telefone.Name = "func_telefone";
-            this.func_telefone.ReadOnly = true;
-            this.func_telefone.Visible = false;
-            // 
-            // func_sexo
-            // 
-            this.func_sexo.DataPropertyName = "func_sexo";
-            this.func_sexo.HeaderText = "Sexo";
-            this.func_sexo.Name = "func_sexo";
-            this.func_sexo.ReadOnly = true;
-            this.func_sexo.Visible = false;
-            // 
-            // func_salario_base
-            // 
-            this.func_salario_base.DataPropertyName = "func_salario_base";
-            this.func_salario_base.HeaderText = "Salario";
-            this.func_salario_base.Name = "func_salario_base";
-            this.func_salario_base.ReadOnly = true;
-            this.func_salario_base.Visible = false;
-            // 
-            // func_admissao
-            // 
-            this.func_admissao.DataPropertyName = "func_admissao";
-            this.func_admissao.HeaderText = "Admissao";
-            this.func_admissao.MinimumWidth = 100;
-            this.func_admissao.Name = "func_admissao";
-            this.func_admissao.ReadOnly = true;
-            this.func_admissao.Visible = false;
-            // 
-            // func_demissao
-            // 
-            this.func_demissao.DataPropertyName = "func_demissao";
-            this.func_demissao.HeaderText = "demissao";
-            this.func_demissao.Name = "func_demissao";
-            this.func_demissao.ReadOnly = true;
-            this.func_demissao.Visible = false;
-            // 
             // func_usuario
             // 
             this.func_usuario.DataPropertyName = "func_usuario";
             this.func_usuario.HeaderText = "Usuário";
             this.func_usuario.Name = "func_usuario";
             this.func_usuario.ReadOnly = true;
-            // 
-            // func_email
-            // 
-            this.func_email.DataPropertyName = "func_email";
-            this.func_email.HeaderText = "Email";
-            this.func_email.Name = "func_email";
-            this.func_email.ReadOnly = true;
-            this.func_email.Visible = false;
             // 
             // func_ativo
             // 
@@ -876,40 +711,20 @@
             this.func_ativo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.func_ativo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // lblFuncionario
-            // 
-            this.lblFuncionario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFuncionario.AutoSize = true;
-            this.lblFuncionario.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFuncionario.Location = new System.Drawing.Point(143, 9);
-            this.lblFuncionario.Name = "lblFuncionario";
-            this.lblFuncionario.Size = new System.Drawing.Size(388, 42);
-            this.lblFuncionario.TabIndex = 0;
-            this.lblFuncionario.Text = "Cadastrar Funcionário";
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.panel1.Controls.Add(this.lblFuncionario);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(676, 63);
-            this.panel1.TabIndex = 11;
-            // 
             // FormCriarFuncionario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(671, 656);
-            this.Controls.Add(this.dgv_employee);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(671, 630);
             this.Controls.Add(this.gbCad);
+            this.Controls.Add(this.dgv_employee);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.GbpPesquisa);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormCriarFuncionario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Cadastrar Funcionário";
+            this.Text = "Automações Brasil - Cadastrar funcionário";
             this.GbpPesquisa.ResumeLayout(false);
             this.GbpPesquisa.PerformLayout();
             this.gbCad.ResumeLayout(false);
@@ -920,8 +735,6 @@
             this.gbAccess.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_employee)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -959,7 +772,6 @@
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblCpf;
         private System.Windows.Forms.DataGridView dgv_employee;
-        private System.Windows.Forms.Label lblFuncionario;
         private System.Windows.Forms.Label lblRg;
         private System.Windows.Forms.Label lblAdmissao;
         private System.Windows.Forms.Label lblDemissao;
@@ -979,27 +791,10 @@
         private System.Windows.Forms.DateTimePicker dtpDemissao;
         private System.Windows.Forms.DateTimePicker dtpAdmissao;
         private System.Windows.Forms.CheckBox cbAtivo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_nome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_rg;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_cpf;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_senha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_licenca;
         private System.Windows.Forms.DataGridViewTextBoxColumn func_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_cep;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_endereco;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_bairro;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_cidade;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_uf;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_dt_aniversario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_criado_em;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_telefone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_sexo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_salario_base;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_admissao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_demissao;
+        private System.Windows.Forms.DataGridViewTextBoxColumn func_nome;
+        private System.Windows.Forms.DataGridViewTextBoxColumn func_cpf;
         private System.Windows.Forms.DataGridViewTextBoxColumn func_usuario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn func_email;
         private System.Windows.Forms.DataGridViewCheckBoxColumn func_ativo;
-        private System.Windows.Forms.Panel panel1;
     }
 }

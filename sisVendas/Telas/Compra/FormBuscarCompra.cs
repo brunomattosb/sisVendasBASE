@@ -1,15 +1,7 @@
 ﻿using sisVendas.Funcoes;
-using sisVendas.Functions;
-
 using sisVendas.Persistence;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Telas.Compra
@@ -29,8 +21,8 @@ namespace sisVendas.Telas.Compra
         }
         private void updateDgv(string filtro)
         {
-            dttCompra = controlCompra.buscarCompra(filtro);
-            dgv_compra.DataSource = dttCompra;
+            //dttCompra = controlCompra.buscarCompra(filtro);
+            //dgv_compra.DataSource = dttCompra;
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {

@@ -1,15 +1,7 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
-using sisVendas.Functions;
-
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Telas.Caixa
@@ -73,12 +65,12 @@ namespace sisVendas.Telas.Caixa
 
         private void btnQuitar_Click(object sender, EventArgs e)
         {
-            if(double.TryParse(tbValor.Text.Replace("R$ ",""), out double valorPago))
+            if (double.TryParse(tbValor.Text.Replace("R$ ", ""), out double valorPago))
             {
-                if(cbbTipo.SelectedIndex != -1)
+                if (cbbTipo.SelectedIndex != -1)
                 {
 
-                    if(valorPago > 0)
+                    if (valorPago > 0)
                     {
                         if (valorPago <= ValorParcela)
                         {

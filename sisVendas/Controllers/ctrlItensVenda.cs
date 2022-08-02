@@ -1,14 +1,6 @@
-﻿
-using sisVendas.Models;
-using sisVendas.Models.Venda;
+﻿using sisVendas.Models.Venda;
 using sisVendas.Persistence;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace sisVendas.Controllers
 {
@@ -18,9 +10,9 @@ namespace sisVendas.Controllers
         private ItenVenda ItensVendaSelecionado = new ItenVenda();
         private ctrlProduct controlProduto = new ctrlProduct();
 
-        public bool SalvarItensVenda(int id_venda, string id_produto,double quantidade, double valorUn)
+        public bool SalvarItensVenda(int id_venda, string id_produto, double quantidade, double valorUn)
         {
-            
+
 
             ItensVendaSelecionado.Quantidade = quantidade;
             ItensVendaSelecionado.Id_produto = id_produto;
@@ -37,7 +29,7 @@ namespace sisVendas.Controllers
                 //subtrair estoque
                 controlProduto.removerEstoque(id_produto, quantidade);
             }
-            
+
             dataBase.Desconecta();
 
             return (result);
@@ -49,7 +41,7 @@ namespace sisVendas.Controllers
             DataTable dtItemsVenda = new DataTable();
 
             dataBase.Conecta();
-            ItensVendaDB itensDB= new ItensVendaDB(dataBase);
+            ItensVendaDB itensDB = new ItensVendaDB(dataBase);
             dtItemsVenda = itensDB.buscarPorIdVenda(filter);
 
 
@@ -70,7 +62,7 @@ namespace sisVendas.Controllers
             return cli;
  
         }*/
-        
+
         public bool removerItensVenda(int cod)
         {
             bool res = true;
@@ -80,7 +72,7 @@ namespace sisVendas.Controllers
             dataBase.Desconecta();
             return res;
         }
-        
+
     }
 
     

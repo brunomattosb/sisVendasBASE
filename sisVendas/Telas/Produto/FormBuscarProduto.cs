@@ -9,7 +9,7 @@ namespace sisVendas.Screens.Product
     public partial class FormBuscarProduto : Form
     {
         private ctrlProduct controlProduct = new ctrlProduct();
-        private DataRow produtoSelecionado;
+        private string cod_produto = "";
         private DataTable dttProduct;
         public FormBuscarProduto()
         {
@@ -21,7 +21,7 @@ namespace sisVendas.Screens.Product
         }
         private void updateDgv(string filtro)
         {
-            dttProduct = controlProduct.searthProduct(filtro);
+            dttProduct = controlProduct.buscarProdutosParaDGV(filtro);
             dgv_product.DataSource = dttProduct;
 
         }
@@ -54,22 +54,21 @@ namespace sisVendas.Screens.Product
         {
             if (dgv_product.CurrentRow != null)
             {
-                produtoSelecionado = dttProduct.Rows[dgv_product.CurrentRow.Index];
+                cod_produto = dgv_product.Rows[dgv_product.CurrentRow.Index].Cells[0].Value.ToString();
                 Close();
             }
 
         }
         internal Produto returnProduto()
         {
-            if(produtoSelecionado != null)
+            if (cod_produto != "")
             {
-                return controlProduct.buscarProdutoPorCod(produtoSelecionado["prod_id"].ToString());
+                return controlProduct.buscarProdutoPorCodigo(cod_produto);
             }
             else
             {
                 return null;
             }
-            
         }
     }
 }

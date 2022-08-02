@@ -1,15 +1,12 @@
-﻿using sisVendas.Controllers;
-using sisVendas.Functions;
+﻿
+using NFe.Utils;
+using sisVendas.Controllers;
+using sisVendas.Funcoes;
 using sisVendas.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Telas
@@ -19,9 +16,11 @@ namespace sisVendas.Telas
         private ctrlFuncionario controlFunc = new ctrlFuncionario();
         private ctrlBanco controlBanco = new ctrlBanco();
         private Funcionario funcAtual;
-        public FormLogin()
+        private string dir_img;
+        public FormLogin(string dir_img)
         {
             InitializeComponent();
+            this.dir_img = dir_img;
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -50,9 +49,10 @@ namespace sisVendas.Telas
         }
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-            if(tbUsuario.Text.Count() > 0)
+
+            if (tbUsuario.Text.Count() > 0)
             {
-                Funcionario emp = controlFunc.BuscarPorUsuario(tbUsuario.Text);
+                Funcionario emp = controlFunc.BuscarFuncionarioPorUsuario(tbUsuario.Text);
                 if (emp != null)
                 {
                     if (tbSenha.Text == emp.Senha)
@@ -91,20 +91,32 @@ namespace sisVendas.Telas
             {
                 //Caso não exista
                 // criar um DB
-                if (MessageBox.Show("O Banco de Dados não foi encontrado! \n Deseja criar um nono ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (MessageBox.Show("O Banco de Dados não foi encontrado! \n Deseja criar um novo ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
 
                     controlBanco.CriarDB();
                 }
             }
             
-         }
+            // apagar
+            funcAtual = controlFunc.BuscarFuncionarioPorUsuario("admin");
+            Close();
+            //apagar até aqui
+        }
         private void FormLogin_Load(object sender, EventArgs e)
         {
+            try
+            {
+                pictureBoxLogo.Image = Image.FromFile(dir_img);
+                
+            }
+            catch
+            {
+                Alerta.notificacao( "Alerta!", "Imagem não encontrada!", Alerta.enmType.Warning);
+            }
             verificarSeExisteBanco();
 
-            funcAtual = controlFunc.BuscarPorUsuario("admin");
-            Close();
+            
         }
 
         private void pictureBox4_Click(object sender, EventArgs e)
@@ -126,8 +138,5 @@ namespace sisVendas.Telas
             }
         }
 
-   
-
-        
     }
 }

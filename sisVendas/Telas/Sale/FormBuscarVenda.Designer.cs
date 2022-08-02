@@ -28,16 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv_venda = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cpf_cnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.desconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.criado_em = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.venda_cancelada = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tbValor = new System.Windows.Forms.TextBox();
             this.cbbMN = new System.Windows.Forms.ComboBox();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -51,23 +49,42 @@
             this.mtbCpf = new System.Windows.Forms.MaskedTextBox();
             this.lblCpf = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cpf_cnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.desconto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nf_num = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nf_xmotivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nf_cstat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.criado_em = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.venda_cancelada = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_venda)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv_venda
             // 
             this.dgv_venda.AllowUserToAddRows = false;
             this.dgv_venda.AllowUserToDeleteRows = false;
+            this.dgv_venda.AllowUserToResizeColumns = false;
+            this.dgv_venda.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.dgv_venda.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_venda.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_venda.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgv_venda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_venda.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -75,6 +92,9 @@
             this.nome,
             this.total,
             this.desconto,
+            this.nf_num,
+            this.nf_xmotivo,
+            this.nf_cstat,
             this.criado_em,
             this.venda_cancelada});
             this.dgv_venda.Location = new System.Drawing.Point(15, 219);
@@ -83,75 +103,11 @@
             this.dgv_venda.Name = "dgv_venda";
             this.dgv_venda.ReadOnly = true;
             this.dgv_venda.RowHeadersVisible = false;
+            this.dgv_venda.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgv_venda.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_venda.Size = new System.Drawing.Size(1085, 417);
             this.dgv_venda.TabIndex = 6;
             this.dgv_venda.DoubleClick += new System.EventHandler(this.dgv_venda_DoubleClick);
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "Id";
-            this.id.MinimumWidth = 120;
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            this.id.Width = 120;
-            // 
-            // cpf_cnpj
-            // 
-            this.cpf_cnpj.DataPropertyName = "cpf_cnpj";
-            this.cpf_cnpj.HeaderText = "CPF/CNPJ";
-            this.cpf_cnpj.MinimumWidth = 180;
-            this.cpf_cnpj.Name = "cpf_cnpj";
-            this.cpf_cnpj.ReadOnly = true;
-            this.cpf_cnpj.Width = 180;
-            // 
-            // nome
-            // 
-            this.nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nome.DataPropertyName = "nome";
-            this.nome.HeaderText = "Nome";
-            this.nome.Name = "nome";
-            this.nome.ReadOnly = true;
-            // 
-            // total
-            // 
-            this.total.DataPropertyName = "total";
-            this.total.HeaderText = "Total";
-            this.total.MinimumWidth = 200;
-            this.total.Name = "total";
-            this.total.ReadOnly = true;
-            this.total.Width = 200;
-            // 
-            // desconto
-            // 
-            this.desconto.DataPropertyName = "desconto";
-            this.desconto.HeaderText = "Desconto";
-            this.desconto.MinimumWidth = 150;
-            this.desconto.Name = "desconto";
-            this.desconto.ReadOnly = true;
-            this.desconto.Width = 150;
-            // 
-            // criado_em
-            // 
-            this.criado_em.DataPropertyName = "criado_em";
-            this.criado_em.HeaderText = "Data";
-            this.criado_em.MinimumWidth = 200;
-            this.criado_em.Name = "criado_em";
-            this.criado_em.ReadOnly = true;
-            this.criado_em.Width = 200;
-            // 
-            // venda_cancelada
-            // 
-            this.venda_cancelada.DataPropertyName = "venda_cancelada";
-            this.venda_cancelada.HeaderText = "Cancelada";
-            this.venda_cancelada.MinimumWidth = 150;
-            this.venda_cancelada.Name = "venda_cancelada";
-            this.venda_cancelada.ReadOnly = true;
-            this.venda_cancelada.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.venda_cancelada.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.venda_cancelada.Width = 150;
             // 
             // groupBox1
             // 
@@ -172,6 +128,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.button1);
+            this.groupBox4.Location = new System.Drawing.Point(872, 98);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(204, 84);
+            this.groupBox4.TabIndex = 61;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Relatório";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(29, 41);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(145, 37);
+            this.button1.TabIndex = 62;
+            this.button1.Text = "Gerar PDF";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label1);
@@ -183,6 +159,16 @@
             this.groupBox3.TabIndex = 60;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Valor da Compra";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 83);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(62, 25);
+            this.label1.TabIndex = 58;
+            this.label1.Text = "Valor";
             // 
             // tbValor
             // 
@@ -323,35 +309,97 @@
             this.label2.TabIndex = 49;
             this.label2.Text = "Nome:";
             // 
-            // label1
+            // id
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 83);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 25);
-            this.label1.TabIndex = 58;
-            this.label1.Text = "Valor";
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "Id";
+            this.id.MinimumWidth = 120;
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            this.id.Width = 120;
             // 
-            // groupBox4
+            // cpf_cnpj
             // 
-            this.groupBox4.Controls.Add(this.button1);
-            this.groupBox4.Location = new System.Drawing.Point(872, 98);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(204, 84);
-            this.groupBox4.TabIndex = 61;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Relatório";
+            this.cpf_cnpj.DataPropertyName = "cpf_cnpj";
+            this.cpf_cnpj.HeaderText = "CPF/CNPJ";
+            this.cpf_cnpj.MinimumWidth = 120;
+            this.cpf_cnpj.Name = "cpf_cnpj";
+            this.cpf_cnpj.ReadOnly = true;
+            this.cpf_cnpj.Width = 120;
             // 
-            // button1
+            // nome
             // 
-            this.button1.Location = new System.Drawing.Point(29, 41);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(145, 37);
-            this.button1.TabIndex = 62;
-            this.button1.Text = "Gerar PDF";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nome.DataPropertyName = "nome";
+            this.nome.HeaderText = "Nome";
+            this.nome.MinimumWidth = 10;
+            this.nome.Name = "nome";
+            this.nome.ReadOnly = true;
+            // 
+            // total
+            // 
+            this.total.DataPropertyName = "total";
+            this.total.HeaderText = "Total";
+            this.total.MinimumWidth = 100;
+            this.total.Name = "total";
+            this.total.ReadOnly = true;
+            // 
+            // desconto
+            // 
+            this.desconto.DataPropertyName = "desconto";
+            this.desconto.HeaderText = "Desc.";
+            this.desconto.MinimumWidth = 100;
+            this.desconto.Name = "desconto";
+            this.desconto.ReadOnly = true;
+            // 
+            // nf_num
+            // 
+            this.nf_num.DataPropertyName = "nf_num";
+            this.nf_num.HeaderText = "NF";
+            this.nf_num.MinimumWidth = 65;
+            this.nf_num.Name = "nf_num";
+            this.nf_num.ReadOnly = true;
+            this.nf_num.Width = 65;
+            // 
+            // nf_xmotivo
+            // 
+            this.nf_xmotivo.DataPropertyName = "nf_xmotivo";
+            this.nf_xmotivo.HeaderText = "Situação";
+            this.nf_xmotivo.MinimumWidth = 250;
+            this.nf_xmotivo.Name = "nf_xmotivo";
+            this.nf_xmotivo.ReadOnly = true;
+            this.nf_xmotivo.Width = 250;
+            // 
+            // nf_cstat
+            // 
+            this.nf_cstat.DataPropertyName = "nf_cstat";
+            this.nf_cstat.HeaderText = "Status";
+            this.nf_cstat.MinimumWidth = 130;
+            this.nf_cstat.Name = "nf_cstat";
+            this.nf_cstat.ReadOnly = true;
+            this.nf_cstat.Visible = false;
+            this.nf_cstat.Width = 130;
+            // 
+            // criado_em
+            // 
+            this.criado_em.DataPropertyName = "criado_em";
+            this.criado_em.HeaderText = "Data";
+            this.criado_em.MinimumWidth = 120;
+            this.criado_em.Name = "criado_em";
+            this.criado_em.ReadOnly = true;
+            this.criado_em.Width = 120;
+            // 
+            // venda_cancelada
+            // 
+            this.venda_cancelada.DataPropertyName = "venda_cancelada";
+            this.venda_cancelada.HeaderText = "Canc.";
+            this.venda_cancelada.MinimumWidth = 75;
+            this.venda_cancelada.Name = "venda_cancelada";
+            this.venda_cancelada.ReadOnly = true;
+            this.venda_cancelada.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.venda_cancelada.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.venda_cancelada.Width = 75;
             // 
             // FormBuscarVenda
             // 
@@ -363,17 +411,18 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(6);
+            this.MaximizeBox = false;
             this.Name = "FormBuscarVenda";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Buscar Venda";
+            this.Text = "Automações Brasil - Buscar venda";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_venda)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -395,15 +444,18 @@
         private System.Windows.Forms.DateTimePicker dtpInicio;
         private System.Windows.Forms.CheckBox cbPesquisarPeriodo;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn cpf_cnpj;
         private System.Windows.Forms.DataGridViewTextBoxColumn nome;
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
         private System.Windows.Forms.DataGridViewTextBoxColumn desconto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nf_num;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nf_xmotivo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nf_cstat;
         private System.Windows.Forms.DataGridViewTextBoxColumn criado_em;
         private System.Windows.Forms.DataGridViewCheckBoxColumn venda_cancelada;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
     }
 }

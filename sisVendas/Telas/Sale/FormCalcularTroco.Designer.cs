@@ -123,9 +123,10 @@
             this.ClientSize = new System.Drawing.Size(382, 196);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MinimizeBox = false;
             this.Name = "FormCalcularTroco";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Calcular Troco";
+            this.Text = "Automações Brasil - Calcular troco";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

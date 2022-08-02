@@ -62,7 +62,8 @@ namespace sisVendas.Funcoes
 
             popup.Popup();
 
-            
+            if (mensagem.Length > 150)
+                MessageBox.Show(mensagem);
            
 
         }

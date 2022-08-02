@@ -1,8 +1,6 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
-using sisVendas.Functions;
 using sisVendas.Models;
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -18,6 +16,7 @@ namespace sisVendas.Screens.Create
 		public FormCriarFuncionario()
 		{
 			InitializeComponent();
+			
 			neutralForm();
 			updateDgv("");
 		}
@@ -28,7 +27,7 @@ namespace sisVendas.Screens.Create
 				case Keys.Escape:
 					Close();
 					break;
-				case Keys.Control | Keys.Enter:
+				case Keys.F12:
 					//Verificar se existe para evitar erro de cadastrar CPF já existente.
 					if (tbCod.Text == "")
 					{
@@ -40,10 +39,13 @@ namespace sisVendas.Screens.Create
 						btnSave.PerformClick();
 					}
 					break;
-				case Keys.Control | Keys.E:
+				case Keys.F4:
 					btnCancel.PerformClick();
 					break;
-				case Keys.Control | Keys.N:
+				case Keys.F2:
+					btnRemove.PerformClick();
+					break;
+				case Keys.F1:
 					btnNew.PerformClick();
 					break;
 
@@ -80,21 +82,7 @@ namespace sisVendas.Screens.Create
 		{
 			cleanForm();
 
-			mtbCpf.Enabled = false;
-			tbRg.Enabled = false;
-			tbName.Enabled = false;
-			tbAddres.Enabled = false;
-			cbbSex.Enabled = false;
-			tbCity.Enabled = false;
-			tbDistrict.Enabled = false;
-			mtbCep.Enabled = false;
-			cbbUF.Enabled = false;
-			dtpDtNasc.Enabled = false;
-			tbEmail.Enabled = false;
-			mtbTelephone.Enabled = false;
-			tbBaseSalary.Enabled = false;
-			gbAccess.Enabled = false;
-			gbAdmission.Enabled = false;
+			gbCad.Enabled = false;
 			cbAtivo.Checked = cbAccces.Checked = true;
 			btnSave.Enabled = false;
 			btnCancel.Enabled = false;
@@ -107,21 +95,7 @@ namespace sisVendas.Screens.Create
 		public void activeForm()
 		{
 			cleanForm();
-			mtbCpf.Enabled =
-			tbName.Enabled =
-			tbAddres.Enabled =
-			cbbSex.Enabled =
-			tbCity.Enabled =
-			tbDistrict.Enabled =
-			mtbCep.Enabled =
-			cbbUF.Enabled =
-			dtpDtNasc.Enabled =
-			tbRg.Enabled =
-			tbEmail.Enabled =
-			mtbTelephone.Enabled =
-			tbBaseSalary.Enabled =
-			gbAccess.Enabled =
-			gbAdmission.Enabled = true;
+			gbCad.Enabled = true;
 			cbAtivo.Checked = true;
 			cbAccces.Checked = false;
 			btnNew.Enabled = false;
@@ -177,7 +151,7 @@ namespace sisVendas.Screens.Create
 
 			if (cpf.Count() == 11)
 			{
-				Funcionario func = controlFuncionario.BuscarPorCPF(cpf);
+				Funcionario func = controlFuncionario.BuscarFuncionarioPorCPF(cpf);
 				if (func != null)
 				{
 					fillForm(func);
@@ -190,7 +164,7 @@ namespace sisVendas.Screens.Create
 		}
 		public void updateDgv(string filtro)
 		{
-			dgv_employee.DataSource = controlFuncionario.Buscar(filtro);
+			dgv_employee.DataSource = controlFuncionario.BuscarParaDGV(filtro);
 		}
 
 		public void resetColor()
@@ -218,195 +192,150 @@ namespace sisVendas.Screens.Create
 		{
 			resetColor();
 
-			bool isOk = true;
+            bool isOk = true;
 
-			if (!(Function.replaceAll(mtbCpf.Text).Length > 0))
+			int lenghtCpf = Function.replaceAll(mtbCpf.Text).Length;
+			if (lenghtCpf != 11 && lenghtCpf != 14)
 			{
+				Alerta.notificacao("Erro!", "CPF/CNPJ incorreto!", Alerta.enmType.Error);
 				isOk = false;
 				lblCpf.ForeColor = Color.Red;
-
 			}
-			if (isOk && !(Function.isCpfValid(mtbCpf.Text)))
+			else
 			{
-				isOk = false;
-				lblCpf.ForeColor = Color.Red;
-				Alerta.notificacao("Erro!", "CPF incorreto!", Alerta.enmType.Error);
+				if (lenghtCpf == 11)
+					if (!(Function.isCpfValid(mtbCpf.Text)))//&& isValidCpf
+					{
+						Alerta.notificacao("Erro!", "CPF incorreto.", Alerta.enmType.Error);
+						isOk = false;
+						lblCpf.ForeColor = Color.Red;
+					}
 			}
 
 			if (tbName.Text.Count() < 2)
-			{
-				lblName.ForeColor = Color.Red;
-				isOk = false;
-			}
+            {
+                lblName.ForeColor = Color.Red;
+                isOk = false;
+            }
 
-			if (tbAddres.Text.Count() < 2)
-			{
-				lblEnd.ForeColor = Color.Red;
-				isOk = false;
-			}
-			if (tbCity.Text.Count() < 2)
-			{
-				lblCidade.ForeColor = Color.Red;
-				isOk = false;
-			}
-			if (dtpDtNasc.Text.Count() < 2)
-			{
-				lblNascimento.ForeColor = Color.Red;
-				isOk = false;
-			}
-			if (tbEmail.Text.Count() < 2)
-			{
-				lblEmail.ForeColor = Color.Red;
-				isOk = false;
-			}
-			if (Function.replaceAll(mtbTelephone.Text).Count() < 2)
-			{
-				lblTelefone.ForeColor = Color.Red;
-				isOk = false;
-			}
+            if (tbAddres.Text.Count() < 2)
+            {
+                lblEnd.ForeColor = Color.Red;
+                isOk = false;
+            }
+            if (tbCity.Text.Count() < 2)
+            {
+                lblCidade.ForeColor = Color.Red;
+                isOk = false;
+            }
+            if (dtpDtNasc.Text.Count() < 2)
+            {
+                lblNascimento.ForeColor = Color.Red;
+                isOk = false;
+            }
+            if (tbEmail.Text.Count() < 2)
+            {
+                lblEmail.ForeColor = Color.Red;
+                isOk = false;
+            }
+            if (Function.replaceAll(mtbTelephone.Text).Count() < 2)
+            {
+                lblTelefone.ForeColor = Color.Red;
+                isOk = false;
+            }
 
-			/*
-			DateTime dateNascValue;
-			if (Function.replaceAll(dtpDtNasc.Text).Length > 0) //caso tenha dado
-			{
-				if (!DateTime.TryParseExact(dtpDtNasc.Text, "dd/MM/yyyy", null, DateTimeStyles.None, out dateNascValue))
-				{
-					Alerta.notificacao("Erro!", "Data de nascimento inválida.", Alerta.enmType.Error);
-					isOk = false;
-					lblNascimento.ForeColor = Color.Red;
-				}
-			}
-			else
-			{
-				isOk = false;
-				lblNascimento.ForeColor = Color.Red;
-				dateNascValue = DateTime.MaxValue;
-			}*/
-			/*
-			DateTime dateAdmissionValue;
-			if (Function.replaceAll(dtpAdmissao.Text).Length > 0) //caso tenha dado
-			{
-				if (!DateTime.TryParseExact(dtp.Text, "dd/MM/yyyy", null, DateTimeStyles.None, out dateAdmissionValue))
-				{
-					Alerta.notificacao("Erro!", "Data de Admissão inválida.", Alerta.enmType.Error);
-					isOk = false;
-					lblAdmissao.ForeColor = Color.Red;
-				}
-			}
-			else
-			{
-				isOk = false;
-				lblAdmissao.ForeColor = Color.Red;
-				dateAdmissionValue = DateTime.MaxValue;
-			}*/
+            if (cbAccces.Checked)
+            {
+                if (tbPassword.Text.Count() < 2)
+                {
+                    lblPassword.ForeColor = Color.Red;
+                    isOk = false;
+                }
+                if (tbUsername.Text.Count() < 2)
+                {
+                    lblUser.ForeColor = Color.Red;
+                    isOk = false;
+                }
+                if (cbbLicence.SelectedIndex == -1)
+                {
+                    lblLicenca.ForeColor = Color.Red;
+                    isOk = false;
+                }
 
-			/*
-			DateTime dateResignationValue;
-			if (Function.replaceAll(mtbDemissao.Text).Length > 0) //caso tenha dado
-			{
-				if (!DateTime.TryParseExact(mtbDemissao.Text, "dd/MM/yyyy", null, DateTimeStyles.None, out dateResignationValue))
-				{
-					Alerta.notificacao("Erro!", "Data de Demissão inválida.", Alerta.enmType.Error);
-					isOk = false;
-					lblDemissao.ForeColor = Color.Red;
-				}
-			}
-			else
-			{
-				dateResignationValue = DateTime.MaxValue;
-			}*/
+            }
 
-			if (cbAccces.Checked)
-			{
-				if (tbPassword.Text.Count() < 2)
-				{
-					lblPassword.ForeColor = Color.Red;
-					isOk = false;
-				}
-				if (tbUsername.Text.Count() < 2)
-				{
-					lblUser.ForeColor = Color.Red;
-					isOk = false;
-				}
-				if (cbbLicence.SelectedIndex == -1)
-				{
-					lblLicenca.ForeColor = Color.Red;
-					isOk = false;
-				}
+            if (isOk)
+            {
+                if (controlFuncionario.SalvarFuncionario(
+                    tbCod.Text,
+                    Function.replaceAll(mtbCpf.Text),
+                    Function.replaceAll(tbRg.Text),
+                    tbName.Text,
+                    tbAddres.Text,
+                    Convert.ToChar(cbbSex.SelectedItem.ToString()),
+                    tbCity.Text,
+                    tbDistrict.Text,
+                    mtbCep.Text.Replace("     -", ""),
+                    cbbUF.SelectedItem.ToString(),
+                    dtpDtNasc.Value,
+                    Function.replaceAll(mtbTelephone.Text),
+                    tbEmail.Text,
+                    Convert.ToDouble(tbBaseSalary.Text.Replace("R$", "")),
+                    tbUsername.Text,
+                    tbPassword.Text,
+                    cbbLicence.SelectedItem.ToString(),
+                    dtpAdmissao.Value,
+                    dtpDemissao.Value,
+                    cbAtivo.Checked
+                ))
+                {
 
-			}
+                    Alerta.notificacao("Sucesso!", "Cliente salvo.", Alerta.enmType.Success);
 
-			if (isOk)
-			{
-				if (controlFuncionario.salvarFuncionario(
-					tbCod.Text,
-					Function.replaceAll(mtbCpf.Text),
-					Function.replaceAll(tbRg.Text),
-					tbName.Text,
-					tbAddres.Text,
-					Convert.ToChar(cbbSex.SelectedItem.ToString()),
-					tbCity.Text,
-					tbDistrict.Text,
-					mtbCep.Text.Replace("     -", ""),
-					cbbUF.SelectedItem.ToString(),
-					dtpDtNasc.Value,
-					Function.replaceAll(mtbTelephone.Text),
-					tbEmail.Text,
-					Convert.ToDouble(tbBaseSalary.Text.Replace("R$", "")),
-					tbUsername.Text,
-					tbPassword.Text,
-					cbbLicence.SelectedItem.ToString(),
-					dtpAdmissao.Value,
-					dtpDemissao.Value,
-					cbAtivo.Checked
-				))
-				{
+                    updateDgv("");
+                    activeForm();
+                    mtbCpf.Focus();
+                }
+            }
+            else
+            {
+                //Alerta.notificacao("Erro!", "Erro ao salvar cliente.", Alerta.enmType.Error);
+            }
 
-					Alerta.notificacao("Sucesso!", "Cliente salvo.", Alerta.enmType.Success);
-
-					updateDgv("");
-					activeForm();
-					mtbCpf.Focus();
-				}
-			}
-			else
-			{
-				//Alerta.notificacao("Erro!", "Erro ao salvar cliente.", Alerta.enmType.Error);
-			}
-
-		}
+        }
 
 		private void btnExcluir_Click(object sender, EventArgs e)
 		{
-			if (tbCod.Text != "1")
+            if (tbCod.Text != "1")
             {
-				if (tbCod.Text != "")
-				{
-					if (MessageBox.Show("Deseja excluir o funcionário selecionado ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-					{
-						string cod = tbCod.Text;
+                if (tbCod.Text != "")
+                {
+                    if (MessageBox.Show("Deseja excluir o funcionário selecionado ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+                        string cod = tbCod.Text;
 
-						if (controlFuncionario.Remover(cod) == true)
-						{
-							updateDgv("");
+                        if (controlFuncionario.Remover(cod) == true)
+                        {
+                            updateDgv("");
 
-							neutralForm();
-							Alerta.notificacao("Sucesso!", "Funcionário excluido.", Alerta.enmType.Success);
-						}
-						else
-						{
-							Alerta.notificacao("Erro!", "Erro ao excluir funcionário.", Alerta.enmType.Error);
+                            neutralForm();
+                            Alerta.notificacao("Sucesso!", "Funcionário excluido.", Alerta.enmType.Success);
+                        }
+                        else
+                        {
+                            Alerta.notificacao("Erro!", "Erro ao excluir funcionário.", Alerta.enmType.Error);
 
-						}
-					}
-				}
-				else
-					MessageBox.Show("Selecione o Cliente", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }else
-				MessageBox.Show("A conta principal não pode ser excluida!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                else
+                    MessageBox.Show("Selecione o Cliente", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                MessageBox.Show("A conta principal não pode ser excluida!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
-		}
+        }
 
 		private void btnCancelar_Click(object sender, EventArgs e)
 		{
@@ -444,43 +373,22 @@ namespace sisVendas.Screens.Create
 		private void dgv_employee_DoubleClick(object sender, EventArgs e)
 		{
 			if (dgv_employee.SelectedRows.Count == 1)
-			{
-				activeForm();
-				DataGridViewCellCollection linha = dgv_employee.Rows[dgv_employee.CurrentRow.Index].Cells;
+            {
+				Funcionario func = controlFuncionario.BuscarFuncionarioPorCPF(dgv_employee.Rows[dgv_employee.CurrentRow.Index].Cells[2].Value.ToString());
 
-				Funcionario func = new Funcionario();
-
-				func.Id = int.Parse(linha[0].Value.ToString());
-				func.Nome = linha[1].Value.ToString();
-				func.Cpf = linha[2].Value.ToString();
-				func.Cep = linha[3].Value.ToString();
-				func.Endereco = linha[4].Value.ToString();
-				func.Bairro = (linha[5].Value.ToString());
-				func.Cidade = linha[6].Value.ToString();
-				func.Telefone = linha[7].Value.ToString();
-				func.Rg = linha[8].Value.ToString();
-				func.Uf = (linha[9].Value.ToString());
-				func.Usuario = linha[10].Value.ToString();
-				func.Senha = linha[11].Value.ToString();
-				func.Licenca = linha[12].Value.ToString();
-				func.DtNascimento = DateTime.Parse(linha[13].Value.ToString());
-				func.Admissao = DateTime.Parse(linha[15].Value.ToString());
-				func.Demissao = DateTime.Parse(linha[16].Value.ToString());
-				func.Sexo = char.Parse(linha[17].Value.ToString());
-				func.Email = linha[18].Value.ToString();
-
-				func.Ativo = bool.Parse(linha[20].Value.ToString());
-				func.Base_salario = double.Parse(linha[19].Value.ToString());
-
+				activeForm(); 
 				fillForm(func);
-
-				btnRemove.Enabled = true;
 
 				if (mtbCpf.Text == "999.999.999-99")
 					mtbCpf.Enabled = true;
 				else
 					mtbCpf.Enabled = false;
+
+				btnRemove.Enabled = true;
+				
 			}
+			
+			
 		}
 
 		private void mtbCpf_Leave(object sender, EventArgs e)
@@ -499,13 +407,13 @@ namespace sisVendas.Screens.Create
 
 		private void tbBaseSalary_Leave(object sender, EventArgs e)
 		{
-			string text = tbBaseSalary.Text.Replace("R$", "");
+			string text = tbBaseSalary.Text.Replace("R$ ", "");
 			if (double.TryParse(text, out double res))
 				tbBaseSalary.Text = String.Format("{0:c}", res);
 			else
 			{
 				tbBaseSalary.Text = "R$ 0,00";
-				Alerta.notificacao("Erro!", "Valor incorreto", Alerta.enmType.Error);
+				Alerta.notificacao("Erro!!", "Valor incorreto", Alerta.enmType.Error);
 			}
 
 

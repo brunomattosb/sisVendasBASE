@@ -1,11 +1,7 @@
 ﻿using sisVendas.Models;
 using sisVendas.Persistence;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sisVendas.Controllers
 {
@@ -28,7 +24,7 @@ namespace sisVendas.Controllers
 
             dataBase.Desconecta();
         }*/
-        public bool salvarFuncionario(string id, string cpf, string rg, string nome, string endereco, char sexo, string cidade, string bairro, string cep,
+        public bool SalvarFuncionario(string id, string cpf, string rg, string nome, string endereco, char sexo, string cidade, string bairro, string cep,
             string uf, DateTime dtNascimento, string telefone, string email, double baseSalario, string usuario, string senha, string licenca,
             DateTime admission, DateTime resignation, bool ativo)
         {
@@ -73,101 +69,80 @@ namespace sisVendas.Controllers
             return (result);
         }
 
-        public Funcionario BuscarPorUsuario(string usuario)
+        public Funcionario BuscarFuncionarioPorUsuario(string usuario)
         {
 
             Funcionario func = new Funcionario();
             dataBase.Conecta();
 
             FuncionarioDB bd = new FuncionarioDB(dataBase);
-            func = (Funcionario)bd.buscarPorUsername(usuario);
+            func = (Funcionario)bd.BuscarPorFiltro(string.Format("where func_usuario like '{0}' and func_ativo = 1", usuario));
 
             dataBase.Desconecta();
             return func;
 
         }
-        public Funcionario BuscarPorCPF(string usuario)
+        public Funcionario BuscarFuncionarioPorCPF(string cpf)
         {
 
             Funcionario func = new Funcionario();
             dataBase.Conecta();
 
             FuncionarioDB bd = new FuncionarioDB(dataBase);
-            func = (Funcionario)bd.buscarPorCPF(usuario);
+            func = (Funcionario)bd.BuscarPorFiltro(string.Format("where func_cpf like '{0}' and func_ativo = 1", cpf));
 
             dataBase.Desconecta();
             return func;
 
         }
-        public DataTable BuscarCpfNome()
+
+        //public Funcionario BuscarPorCPF(string usuario)
+        //{
+
+        //    Funcionario func = new Funcionario();
+        //    dataBase.Conecta();
+
+        //    FuncionarioDB bd = new FuncionarioDB(dataBase);
+        //    func = (Funcionario)bd.buscarPorCPF(usuario);
+
+        //    dataBase.Desconecta();
+        //    return func;
+
+        //}
+        //public DataTable BuscarCpfNome()
+        //{
+
+        //    DataTable dtFunc = new DataTable();
+
+        //    dataBase.Conecta();
+        //    FuncionarioDB empDB = new FuncionarioDB(dataBase);
+        //    dtFunc = empDB.BuscarCpfNome();
+
+        //    dataBase.Desconecta();
+
+        //    return (dtFunc);
+
+        //}
+        public DataTable BuscarParaDGV(string filter)
         {
-
-            DataTable dtFunc = new DataTable();
-
-            dataBase.Conecta();
-            FuncionarioDB empDB = new FuncionarioDB(dataBase);
-            dtFunc = empDB.BuscarCpfNome();
-            
-            dataBase.Desconecta();
-
-            return (dtFunc);
-
-        }
-        public DataTable Buscar(string filter)
-        {
-
             DataTable dtEmployee = new DataTable();
 
             dtEmployee.Columns.Add("func_id", typeof(int));
             dtEmployee.Columns.Add("func_nome");
             dtEmployee.Columns.Add("func_cpf");
-            dtEmployee.Columns.Add("func_cep");
-            dtEmployee.Columns.Add("func_endereco");
-            dtEmployee.Columns.Add("func_bairro");
-            dtEmployee.Columns.Add("func_cidade");
-            dtEmployee.Columns.Add("func_telefone");
-            dtEmployee.Columns.Add("func_rg");
-            dtEmployee.Columns.Add("func_uf");
             dtEmployee.Columns.Add("func_usuario");
-            dtEmployee.Columns.Add("func_senha");
-            dtEmployee.Columns.Add("func_licenca");
-            dtEmployee.Columns.Add("func_dt_aniversario", typeof(DateTime));
-            dtEmployee.Columns.Add("func_criado_em", typeof(DateTime));
-            dtEmployee.Columns.Add("func_admissao", typeof(DateTime));
-            dtEmployee.Columns.Add("func_demissao", typeof(DateTime));
-            dtEmployee.Columns.Add("func_sexo");
-            dtEmployee.Columns.Add("func_email");
-            dtEmployee.Columns.Add("func_salario_base", typeof(double));
             dtEmployee.Columns.Add("func_ativo", typeof(bool));
-
 
             dataBase.Conecta();
             FuncionarioDB empDB = new FuncionarioDB(dataBase);
-            foreach (Funcionario emp in empDB.Buscar(filter))
+            foreach (Funcionario emp in empDB.BuscarParaDGV(filter))
             {
-
                 DataRow line = dtEmployee.NewRow();
 
                 line["func_id"] = emp.Id;
                 line["func_nome"] = emp.Nome;
                 line["func_cpf"] = emp.Cpf;
-                line["func_cep"] = emp.Cep;
-                line["func_endereco"] = emp.Endereco ;
-                line["func_bairro"] = emp.Bairro;
-                line["func_cidade"] = emp.Cidade;
-                line["func_telefone"] = emp.Telefone;
-                line["func_uf"] = emp.Uf;
-                line["func_rg"] = emp.Rg;
-                line["func_dt_aniversario"] = emp.DtNascimento;
-                line["func_criado_em"] = emp.Criado_em;
-                line["func_sexo"] = emp.Sexo;
-                line["func_email"] = emp.Email;
-                line["func_salario_base"] = emp.Base_salario;
                 line["func_usuario"] = emp.Usuario;
-                line["func_senha"] = emp.Senha;
-                line["func_licenca"] = emp.Licenca;
-                line["func_admissao"] = emp.Admissao;
-                line["func_demissao"] = emp.Demissao;
                 line["func_ativo"] = emp.Ativo;
 
                 dtEmployee.Rows.Add(line);
@@ -176,30 +151,30 @@ namespace sisVendas.Controllers
 
             return (dtEmployee);
         }
-        public DataTable BuscarParaComboBox()
-        {
+        //public DataTable BuscarParaComboBox()
+        //{
 
-            DataTable dtEmployee = new DataTable();
+        //    DataTable dtEmployee = new DataTable();
 
-            dtEmployee.Columns.Add("func_id", typeof(int));
-            dtEmployee.Columns.Add("func_nome");
+        //    dtEmployee.Columns.Add("func_id", typeof(int));
+        //    dtEmployee.Columns.Add("func_nome");
 
-            dataBase.Conecta();
-            FuncionarioDB empDB = new FuncionarioDB(dataBase);
-            foreach (Funcionario emp in empDB.BuscarParaComboBox())
-            {
+        //    dataBase.Conecta();
+        //    FuncionarioDB empDB = new FuncionarioDB(dataBase);
+        //    foreach (Funcionario emp in empDB.BuscarParaComboBox())
+        //    {
 
-                DataRow line = dtEmployee.NewRow();
+        //        DataRow line = dtEmployee.NewRow();
 
-                line["func_id"] = emp.Id;
-                line["func_nome"] = emp.Nome;
+        //        line["func_id"] = emp.Id;
+        //        line["func_nome"] = emp.Nome;
 
-                dtEmployee.Rows.Add(line);
-            }
-            dataBase.Desconecta();
+        //        dtEmployee.Rows.Add(line);
+        //    }
+        //    dataBase.Desconecta();
 
-            return (dtEmployee);
-        }
+        //    return (dtEmployee);
+        //}
 
         public bool Remover(string cod)
         {

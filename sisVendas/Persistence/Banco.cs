@@ -83,8 +83,7 @@ namespace sisVendas.Persistence
             }
             catch (Exception e)
             {
-                Console.Out.WriteLine("Erro execute query" + e.Message);
-                MessageBox.Show("Erro execute nonquery: " + e.Message, "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Erro ao executar o comando SQL: " + e.Message, "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
         }
@@ -111,7 +110,7 @@ namespace sisVendas.Persistence
             }
             catch (Exception e)
             {
-                MessageBox.Show("Erro execute nonquery: " + e.Message, "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Erro ao executar o comando SQL: " + e.Message, "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
         }

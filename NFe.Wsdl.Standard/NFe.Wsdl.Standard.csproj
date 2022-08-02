@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1655B378-C905-480E-A80E-5BFE8B412740}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NFe.Wsdl.Standard</RootNamespace>
+    <AssemblyName>NFe.Wsdl.Standard</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdmCsc\NfceCsc.cs" />
+    <Compile Include="Autorizacao\AN\NFeAutorizacao4AN.cs" />
+    <Compile Include="Autorizacao\AN\NfeRetAutorizacao4AN.cs" />
+    <Compile Include="Autorizacao\NfeAutorizacao.cs" />
+    <Compile Include="Autorizacao\NfeAutorizacao3.cs" />
+    <Compile Include="Autorizacao\NfeAutorizacao4.cs" />
+    <Compile Include="Autorizacao\NfeRetAutorizacao.cs" />
+    <Compile Include="Autorizacao\NfeRetAutorizacao3.cs" />
+    <Compile Include="Autorizacao\NfeRetAutorizacao4.cs" />
+    <Compile Include="Autorizacao\SVAN\NFeAutorizacao4SVAN.cs" />
+    <Compile Include="Autorizacao\SVAN\NfeRetAutorizacao4SVAN.cs" />
+    <Compile Include="Autorizacao\SVCAN\NFeAutorizacao4SVCAN.cs" />
+    <Compile Include="Autorizacao\SVCAN\NfeRetAutorizacao4SVCAN.cs" />
+    <Compile Include="ConsultaCadastro\CE\CadConsultaCadastro2.cs" />
+    <Compile Include="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro2.cs" />
+    <Compile Include="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro4.cs" />
+    <Compile Include="ConsultaProtocolo\AN\NfeConsultaProtocolo4AN.cs" />
+    <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo.cs" />
+    <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo2.cs" />
+    <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo3.cs" />
+    <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo4.cs" />
+    <Compile Include="ConsultaProtocolo\SVAN\NfeConsultaProtocolo4SVAN.cs" />
+    <Compile Include="ConsultaProtocolo\SVCAN\NfeConsultaProtocolo4SVCAN.cs" />
+    <Compile Include="DistribuicaoDFe\NfeDistDFeInteresse.cs" />
+    <Compile Include="Download\NfeDownloadNF.cs" />
+    <Compile Include="Evento\AN\RecepcaoEvento4AN.cs" />
+    <Compile Include="Evento\AN\RecepcaoEvento4ANSVBase.cs" />
+    <Compile Include="Evento\AN\RecepcaoEventoManifestacaoDestinatario4AN.cs" />
+    <Compile Include="Evento\RecepcaoEPEC.cs" />
+    <Compile Include="Evento\RecepcaoEvento.cs" />
+    <Compile Include="Evento\RecepcaoEvento4.cs" />
+    <Compile Include="Evento\SVAN\RecepcaoEvento4SVAN.cs" />
+    <Compile Include="Evento\SVCAN\RecepcaoEvento4SVCAN.cs" />
+    <Compile Include="Inutilizacao\NfeInutilizacao.cs" />
+    <Compile Include="Inutilizacao\NfeInutilizacao2.cs" />
+    <Compile Include="Inutilizacao\NfeInutilizacao3.cs" />
+    <Compile Include="Inutilizacao\NFeInutilizacao4.cs" />
+    <Compile Include="Inutilizacao\SVAN\NFeInutilizacao4SVAN.cs" />
+    <Compile Include="nfeCabecMsg.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recepcao\NfeRecepcao2.cs" />
+    <Compile Include="Recepcao\NfeRetRecepcao2.cs" />
+    <Compile Include="Status\AN\NfeStatusServico4NFeAN.cs" />
+    <Compile Include="Status\NfeStatusServico.cs" />
+    <Compile Include="Status\NfeStatusServico2.cs" />
+    <Compile Include="Status\NFeStatusServico3.cs" />
+    <Compile Include="Status\NfeStatusServico4.cs" />
+    <Compile Include="Status\SVAN\NfeStatusServico4NFeSVAN.cs" />
+    <Compile Include="Status\SVCAN\NfeStatusServico4NFeSVCAN.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
+      <Project>{9603A1E4-0F81-4A44-950B-3072A183CA37}</Project>
+      <Name>DFe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFe.Wsdl\DFe.Wsdl.csproj">
+      <Project>{105678DF-A411-4F17-ADBC-2E1FF7BDD6D7}</Project>
+      <Name>DFe.Wsdl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+  </Target>
+</Project>

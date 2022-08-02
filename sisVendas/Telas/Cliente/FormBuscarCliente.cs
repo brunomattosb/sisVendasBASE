@@ -9,7 +9,7 @@ namespace sisVendas.Screens.Client
     public partial class FormBuscarCliente : Form
     {
         private ctrlCliente controlClient = new ctrlCliente();
-        private DataRow clientSelected;
+        private string cpfCliente = "";
         private DataTable dttClient;
         public FormBuscarCliente()
         {
@@ -22,7 +22,7 @@ namespace sisVendas.Screens.Client
         }
         public void updateDgv(string filtro)
         {
-            dttClient = controlClient.Buscar(filtro);
+            dttClient = controlClient.BuscarParaDGV(filtro);
             dgv_client.DataSource = dttClient;
             
         }
@@ -54,18 +54,20 @@ namespace sisVendas.Screens.Client
         {
             if (dgv_client.CurrentRow != null)
             {
-                clientSelected = dttClient.Rows[dgv_client.CurrentRow.Index];
+
+                cpfCliente = dgv_client.Rows[dgv_client.CurrentRow.Index].Cells[2].Value.ToString();
                 Close();
             }
         }
         public Cliente returnClient()
         {
-            if(clientSelected != null)
+            if (cpfCliente != "")
             {
-                return controlClient.buscarClientePorCpf(clientSelected["cli_cpf_cnpj"].ToString());
+                return controlClient.buscarClientePorCpf(cpfCliente);
             }
-            else { 
-                return null; 
+            else
+            {
+                return null;
             }
 
         }

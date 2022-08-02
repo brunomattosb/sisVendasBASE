@@ -32,14 +32,13 @@
             this.tbSearth = new System.Windows.Forms.TextBox();
             this.dgv_product = new System.Windows.Forms.DataGridView();
             this.prod_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prod_codigo_barras = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prod_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prod_criado_em = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prod_complemento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prod_estoque = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prod_marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prod_marca_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prod_valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prod_un = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prod_categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prod_categoria_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_product)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,14 +76,13 @@
             this.dgv_product.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_product.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.prod_id,
+            this.prod_codigo_barras,
             this.prod_nome,
-            this.prod_criado_em,
-            this.prod_complemento,
             this.prod_estoque,
-            this.prod_marca,
+            this.prod_marca_nome,
             this.prod_valor,
             this.prod_un,
-            this.prod_categoria});
+            this.prod_categoria_nome});
             this.dgv_product.Location = new System.Drawing.Point(16, 83);
             this.dgv_product.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.dgv_product.MultiSelect = false;
@@ -103,6 +101,15 @@
             this.prod_id.Name = "prod_id";
             this.prod_id.ReadOnly = true;
             // 
+            // prod_codigo_barras
+            // 
+            this.prod_codigo_barras.DataPropertyName = "prod_codigo_barras";
+            this.prod_codigo_barras.HeaderText = "Código de Barras";
+            this.prod_codigo_barras.MinimumWidth = 150;
+            this.prod_codigo_barras.Name = "prod_codigo_barras";
+            this.prod_codigo_barras.ReadOnly = true;
+            this.prod_codigo_barras.Width = 150;
+            // 
             // prod_nome
             // 
             this.prod_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -111,22 +118,6 @@
             this.prod_nome.Name = "prod_nome";
             this.prod_nome.ReadOnly = true;
             // 
-            // prod_criado_em
-            // 
-            this.prod_criado_em.DataPropertyName = "prod_criado_em";
-            this.prod_criado_em.HeaderText = "Cadastro";
-            this.prod_criado_em.Name = "prod_criado_em";
-            this.prod_criado_em.ReadOnly = true;
-            this.prod_criado_em.Visible = false;
-            // 
-            // prod_complemento
-            // 
-            this.prod_complemento.DataPropertyName = "prod_complemento";
-            this.prod_complemento.HeaderText = "Complemento";
-            this.prod_complemento.Name = "prod_complemento";
-            this.prod_complemento.ReadOnly = true;
-            this.prod_complemento.Visible = false;
-            // 
             // prod_estoque
             // 
             this.prod_estoque.DataPropertyName = "prod_estoque";
@@ -134,13 +125,13 @@
             this.prod_estoque.Name = "prod_estoque";
             this.prod_estoque.ReadOnly = true;
             // 
-            // prod_marca
+            // prod_marca_nome
             // 
-            this.prod_marca.DataPropertyName = "prod_marca";
-            this.prod_marca.HeaderText = "Marca";
-            this.prod_marca.Name = "prod_marca";
-            this.prod_marca.ReadOnly = true;
-            this.prod_marca.Visible = false;
+            this.prod_marca_nome.DataPropertyName = "prod_marca_nome";
+            this.prod_marca_nome.HeaderText = "Marca";
+            this.prod_marca_nome.Name = "prod_marca_nome";
+            this.prod_marca_nome.ReadOnly = true;
+            this.prod_marca_nome.Visible = false;
             // 
             // prod_valor
             // 
@@ -159,13 +150,13 @@
             this.prod_un.Name = "prod_un";
             this.prod_un.ReadOnly = true;
             // 
-            // prod_categoria
+            // prod_categoria_nome
             // 
-            this.prod_categoria.DataPropertyName = "prod_categoria";
-            this.prod_categoria.HeaderText = "Categoria";
-            this.prod_categoria.Name = "prod_categoria";
-            this.prod_categoria.ReadOnly = true;
-            this.prod_categoria.Visible = false;
+            this.prod_categoria_nome.DataPropertyName = "prod_categoria_nome";
+            this.prod_categoria_nome.HeaderText = "Categoria";
+            this.prod_categoria_nome.Name = "prod_categoria_nome";
+            this.prod_categoria_nome.ReadOnly = true;
+            this.prod_categoria_nome.Visible = false;
             // 
             // FormBuscarProduto
             // 
@@ -176,10 +167,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbSearth);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.Name = "FormBuscarProduto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Buscar Produto";
+            this.Text = "Automações Brasil - Buscar produto";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_product)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -192,13 +184,12 @@
         private System.Windows.Forms.TextBox tbSearth;
         private System.Windows.Forms.DataGridView dgv_product;
         private System.Windows.Forms.DataGridViewTextBoxColumn prod_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prod_codigo_barras;
         private System.Windows.Forms.DataGridViewTextBoxColumn prod_nome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn prod_criado_em;
-        private System.Windows.Forms.DataGridViewTextBoxColumn prod_complemento;
         private System.Windows.Forms.DataGridViewTextBoxColumn prod_estoque;
-        private System.Windows.Forms.DataGridViewTextBoxColumn prod_marca;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prod_marca_nome;
         private System.Windows.Forms.DataGridViewTextBoxColumn prod_valor;
         private System.Windows.Forms.DataGridViewTextBoxColumn prod_un;
-        private System.Windows.Forms.DataGridViewTextBoxColumn prod_categoria;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prod_categoria_nome;
     }
 }

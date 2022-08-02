@@ -1,4 +1,6 @@
-﻿using sisVendas.Models;
+﻿using DFe.Utils;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
+using sisVendas.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,6 +18,61 @@ namespace sisVendas.Persistence
         {
             this.db = db;
         }
+        public Produto BuscarProduto(string filtro)
+        {
+            DataTable dt = new DataTable();
+
+            string SQL = @"select prod_id,prod_codigo_barras,prod_nome,prod_valor, prod_un,prod_complemento,prod_estoque,prod_estoque_min, prod_localizacao,
+                prod_ativo,prod_balanca,prod_ncm,prod_cest,prod_origem,prod_grupo_tributacao,prod_situacao_tributaria,prod_aliq_icms,prod_cfop_venda_dentro_estado,
+                prod_cfop_venda_fora_estado,prod_cfop_compra_dentro_estado,prod_cfop_compra_fora_estado,prod_criado_em, m.prod_marca_id, m.prod_marca_nome,
+                c.prod_categoria_id, c.prod_categoria_nome
+                from produto
+                inner join ProdutoMarca m on m.prod_marca_id = Produto.prod_id_marca 
+                inner join ProdutoCategoria c on c.prod_categoria_id = Produto.prod_id_categoria ";
+
+            if (filtro != "")
+                SQL = SQL + filtro;
+            db.ExecuteQuery(SQL, out dt);
+            Produto prod = new Produto();
+            
+            if (dt.Rows.Count > 0)
+            {
+                prod.Id = int.Parse(dt.Rows[0]["prod_id"].ToString());
+                prod.Codigo_barras = dt.Rows[0]["prod_codigo_barras"].ToString();
+                prod.Nome = dt.Rows[0]["prod_nome"].ToString();
+                prod.Valor = double.Parse(dt.Rows[0]["prod_valor"].ToString());
+                prod.Un = dt.Rows[0]["prod_un"].ToString();
+                prod.Complemento = dt.Rows[0]["prod_complemento"].ToString();
+                prod.Estoque = double.Parse(dt.Rows[0]["prod_estoque"].ToString());
+                prod.Estoque_min = double.Parse(dt.Rows[0]["prod_estoque_min"].ToString());
+                prod.Localizacao = dt.Rows[0]["prod_localizacao"].ToString();
+                prod.Ativo = bool.Parse(dt.Rows[0]["prod_ativo"].ToString());
+                prod.Balanca = bool.Parse(dt.Rows[0]["prod_balanca"].ToString());
+                prod.Ncm = dt.Rows[0]["prod_ncm"].ToString();
+                prod.Cest = dt.Rows[0]["prod_cest"].ToString();
+                prod.Origem = (OrigemMercadoria)Enum.Parse(typeof(OrigemMercadoria), dt.Rows[0]["prod_origem"].ToString());
+                prod.Situacao_tributaria = (Csticms)Enum.Parse(typeof(OrigemMercadoria), dt.Rows[0]["prod_situacao_tributaria"].ToString());
+                prod.Grupo_tributacao = (Csosnicms)Enum.Parse(typeof(OrigemMercadoria), dt.Rows[0]["prod_grupo_tributacao"].ToString());                
+                prod.Aliq_icms = double.Parse(dt.Rows[0]["prod_aliq_icms"].ToString());
+                prod.Cfop_venda_dentro_estado = int.Parse(dt.Rows[0]["prod_cfop_venda_dentro_estado"].ToString());
+                prod.Cfop_venda_fora_estado = int.Parse(dt.Rows[0]["prod_cfop_venda_fora_estado"].ToString());
+                prod.Cfop_compra_dentro_estado = int.Parse(dt.Rows[0]["prod_cfop_compra_dentro_estado"].ToString());
+                prod.Cfop_compra_fora_estado = int.Parse(dt.Rows[0]["prod_cfop_compra_fora_estado"].ToString());
+                prod.Criado_em = DateTime.Parse(dt.Rows[0]["prod_criado_em"].ToString());
+                prod.Marca = new ProdutoMarca(int.Parse(dt.Rows[0]["prod_marca_id"].ToString()), dt.Rows[0]["prod_marca_nome"].ToString());
+                prod.Categoria = new ProdutoCategoria(int.Parse(dt.Rows[0]["prod_categoria_id"].ToString()), dt.Rows[0]["prod_categoria_nome"].ToString());
+                prod.Un = dt.Rows[0]["prod_un"].ToString();
+                prod.Criado_em = Convert.ToDateTime(dt.Rows[0]["prod_criado_em"].ToString());
+
+
+            }
+            else
+            {
+                return null;
+            }
+            return prod;
+        }
+        
         public bool Gravar(object Objeto)
         {
             bool res = false;
@@ -26,20 +83,57 @@ namespace sisVendas.Persistence
 
                 string SQL;
 
-                SQL = @"INSERT INTO Produto (prod_id,prod_nome,prod_complemento,prod_estoque,prod_categoria,prod_marca,prod_valor, prod_un)
-                        values (@prod_id,@prod_nome,@prod_complemento,@prod_estoque,@prod_categoria,@prod_marca,@prod_valor,@prod_un)";
+                SQL = @"INSERT INTO Produto (prod_codigo_barras,prod_nome,prod_valor, prod_un,prod_complemento,prod_estoque,prod_estoque_min, prod_localizacao,
+                            prod_ativo,prod_balanca,prod_ncm,prod_cest,prod_origem,prod_grupo_tributacao,prod_situacao_tributaria,prod_aliq_icms,prod_cfop_venda_dentro_estado,
+                            prod_cfop_venda_fora_estado,prod_cfop_compra_dentro_estado,prod_cfop_compra_fora_estado, prod_id_marca, prod_id_categoria)
+                        values (@prod_codigo_barras,@prod_nome,@prod_valor, @prod_un,@prod_complemento,@prod_estoque,@prod_estoque_min, @prod_localizacao,
+                @prod_ativo,@prod_balanca,@prod_ncm,@prod_cest,@prod_origem,@prod_grupo_tributacao,@prod_situacao_tributaria,@prod_aliq_icms,@prod_cfop_venda_dentro_estado,
+                @prod_cfop_venda_fora_estado,@prod_cfop_compra_dentro_estado,@prod_cfop_compra_fora_estado, @prod_id_marca, @prod_id_categoria)";
 
-                res = db.ExecuteNonQuery(SQL, "@prod_nome", prod.Nome,
-                                                "@prod_id", prod.Id,
-                                                "@prod_un", prod.Un,
-                                                "@prod_complemento", prod.Descricao,
-                                                "@prod_estoque", prod.Estoque,
-                                                "@prod_categoria", prod.Prod_Categoria,
-                                                "@prod_marca", prod.Prod_Marca,
-                                                "@prod_valor", prod.Valor);
+                res = db.ExecuteNonQuery(SQL,"@prod_codigo_barras", prod.Codigo_barras,
+                                            "@prod_nome", prod.Nome ,
+                                            "@prod_valor", prod.Valor,
+                                            "@prod_un", prod.Un,
+                                            "@prod_complemento", prod.Complemento,
+                                            "@prod_estoque", prod.Estoque,
+                                            "@prod_estoque_min", prod.Estoque_min,
+                                            "@prod_localizacao", prod.Localizacao,
+                                            "@prod_ativo", prod.Ativo,
+                                            "@prod_balanca", prod.Balanca,
+                                            "@prod_ncm", prod.Ncm,
+                                            "@prod_cest", prod.Cest,
+                                            "@prod_origem", (int)prod.Origem,
+                                            "@prod_grupo_tributacao", (int)prod.Grupo_tributacao,
+                                            "@prod_situacao_tributaria", (int)prod.Situacao_tributaria,
+                                            "@prod_aliq_icms", prod.Aliq_icms,
+                                            "@prod_cfop_venda_dentro_estado", prod.Cfop_venda_dentro_estado,
+                                            "@prod_cfop_venda_fora_estado", prod.Cfop_venda_fora_estado,
+                                            "@prod_cfop_compra_dentro_estado", prod.Cfop_compra_dentro_estado,
+                                            "@prod_cfop_compra_fora_estado", prod.Cfop_compra_fora_estado,
+                                            "@prod_id_marca", prod.Marca.Id,
+                                            "@prod_id_categoria", prod.Categoria.Id);
             }
             return (res);
         }
+        public DataTable BuscarParaDGV(string filtro)
+        {
+            DataTable dt = new DataTable();
+            List<object> produtos = new List<object>();
+
+
+            string SQL = @"select prod_codigo_barras, prod_id, prod_nome, prod_estoque, prod_un, prod_valor, prod_marca_nome, prod_categoria_nome from Produto
+                        inner join ProdutoMarca m on m.prod_marca_id = Produto.prod_id_marca 
+                        inner join ProdutoCategoria c on c.prod_categoria_id = Produto.prod_id_categoria
+                        WHERE Produto.prod_nome like @filtro order by prod_nome";
+            filtro = "%" + filtro + "%";
+
+            db.ExecuteQuery(SQL, out dt, "@filtro", filtro);
+
+            
+            return (dt);
+
+        }
+        /*
         public List<object> Buscar(string filtro)
         {
             DataTable dt = new DataTable();
@@ -163,11 +257,15 @@ WHERE prod_id like @filtro";
             return (prod);
         }
 
-        public bool Remover(string id)
+        
+        
+        */
+        public bool incrementarEstoque(string idProd, double quantidade)
         {
             bool res = false;
-            string SQL = @"DELETE FROM Produto WHERE prod_id = @id";
-            res = db.ExecuteNonQuery(SQL, "@id", id);
+            string SQL = @"update produto set prod_estoque = produto.prod_estoque + @quantidade
+                        where prod_id = @idProd;";
+            res = db.ExecuteNonQuery(SQL, "@idProd", idProd, "@quantidade", quantidade);
             return res;
         }
         
@@ -179,15 +277,6 @@ WHERE prod_id like @filtro";
             res = db.ExecuteNonQuery(SQL, "@idProd", idProd, "@quantidade", quantidade);
             return res;
         }
-        public bool incrementarEstoque(string idProd, double quantidade)
-        {
-            bool res = false;
-            string SQL = @"update produto set prod_estoque = produto.prod_estoque + @quantidade
-                        where prod_id = @idProd;";
-            res = db.ExecuteNonQuery(SQL, "@idProd", idProd, "@quantidade", quantidade);
-            return res;
-        }
-
         public bool Atualizar(object Objeto)
         {
             
@@ -195,26 +284,62 @@ WHERE prod_id like @filtro";
             if (Objeto.GetType() == typeof(Produto))
             {
                 Produto prod = (Produto)Objeto;
-                string SQL = @"UPDATE Produto SET prod_nome = @prod_nome,
-                                            prod_complemento = @prod_complemento,
-                                            prod_estoque = @prod_estoque,
-                                            prod_categoria = @prod_categoria,
-                                            prod_marca = @prod_marca,
-                                            prod_valor = @prod_valor,
-                                            prod_un = @prod_un
-                            WHERE prod_id = @id";
+                string SQL = @"UPDATE Produto SET prod_codigo_barras = @prod_codigo_barras,
+                                                    prod_nome = @prod_nome,
+                                                    prod_valor = @prod_valor,
+                                                    prod_un = @prod_un,
+                                                    prod_complemento = @prod_complemento,
+                                                    prod_estoque = @prod_estoque,
+                                                    prod_estoque_min = @prod_estoque_min,
+                                                    prod_localizacao = @prod_localizacao,
+                                                    prod_ativo = @prod_ativo,
+                                                    prod_balanca = @prod_balanca,
+                                                    prod_ncm = @prod_ncm,
+                                                    prod_cest = @prod_cest,
+                                                    prod_origem = @prod_origem,
+                                                    prod_grupo_tributacao = @prod_grupo_tributacao,
+                                                    prod_situacao_tributaria = @prod_situacao_tributaria,
+                                                    prod_aliq_icms = @prod_aliq_icms,
+                                                    prod_cfop_venda_dentro_estado = @prod_cfop_venda_dentro_estado,
+                                                    prod_cfop_venda_fora_estado = @prod_cfop_venda_fora_estado,
+                                                    prod_cfop_compra_dentro_estado = @prod_cfop_compra_dentro_estado,
+                                                    prod_cfop_compra_fora_estado = @prod_cfop_compra_fora_estado,
+                                                    prod_id_marca = @prod_id_marca,
+                                                    prod_id_categoria = @prod_id_categoria
+                                            WHERE prod_id = @prod_id";
 
-                res = db.ExecuteNonQuery(SQL, "@id", prod.Id,
-                                                "@prod_nome", prod.Nome,
-                                                "@prod_un", prod.Un,
-                                                "@prod_complemento", prod.Descricao,
-                                                "@prod_estoque", prod.Estoque,
-                                                "@prod_categoria", prod.Prod_Categoria,
-                                                "@prod_marca", prod.Prod_Marca,
-                                                "@prod_valor", prod.Valor);
-
+                res = db.ExecuteNonQuery(SQL, "@prod_id", prod.Id,
+                                            "@prod_codigo_barras", prod.Codigo_barras,
+                                            "@prod_nome", prod.Nome,
+                                            "@prod_valor", prod.Valor,
+                                            "@prod_un", prod.Un,
+                                            "@prod_complemento", prod.Complemento,
+                                            "@prod_estoque", prod.Estoque,
+                                            "@prod_estoque_min", prod.Estoque_min,
+                                            "@prod_localizacao", prod.Localizacao,
+                                            "@prod_ativo", prod.Ativo,
+                                            "@prod_balanca", prod.Balanca,
+                                            "@prod_ncm", prod.Ncm,
+                                            "@prod_cest", prod.Cest,
+                                            "@prod_origem", (int)prod.Origem,
+                                            "@prod_grupo_tributacao", (int)prod.Grupo_tributacao,
+                                            "@prod_situacao_tributaria", (int)prod.Situacao_tributaria,
+                                            "@prod_aliq_icms", prod.Aliq_icms,
+                                            "@prod_cfop_venda_dentro_estado", prod.Cfop_venda_dentro_estado,
+                                            "@prod_cfop_venda_fora_estado", prod.Cfop_venda_fora_estado,
+                                            "@prod_cfop_compra_dentro_estado", prod.Cfop_compra_dentro_estado,
+                                            "@prod_cfop_compra_fora_estado", prod.Cfop_compra_fora_estado,
+                                            "@prod_id_marca", prod.Marca.Id,
+                                            "@prod_id_categoria", prod.Categoria.Id);
 
             }
+            return res;
+        }
+        public bool Remover(string id)
+        {
+            bool res = false;
+            string SQL = @"DELETE FROM Produto WHERE prod_id = @id";
+            res = db.ExecuteNonQuery(SQL, "@id", id);
             return res;
         }
     }

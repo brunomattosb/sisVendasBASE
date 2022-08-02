@@ -117,9 +117,10 @@
             this.ClientSize = new System.Drawing.Size(380, 191);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormQuitarContasAPagar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Quitar Contas A Pagar";
+            this.Text = "Automações Brasil - Quitar contas a pagar";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

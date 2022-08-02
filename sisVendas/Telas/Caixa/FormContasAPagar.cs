@@ -1,7 +1,5 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
-using sisVendas.Functions;
-
 using System;
 using System.Data;
 using System.Linq;
@@ -43,11 +41,11 @@ namespace sisVendas.Telas.Caixa
         {
             if (cbParcelasCompra.Checked)
             {
-                dttDespesas = controlParcelas.buscarParcelasAPagar(filtro); 
+                dttDespesas = controlParcelas.buscarParcelasAPagar(filtro);
             }
             else
             {
-                dttDespesas = controlDespesa.buscarDespesasAPagar(filtro); 
+                dttDespesas = controlDespesa.buscarDespesasAPagar(filtro);
             }
             dgv_despesas.DataSource = dttDespesas;
         }
@@ -157,11 +155,11 @@ namespace sisVendas.Telas.Caixa
             5 valor
             6 idCompra
             7 desc*/
-            
+
             if (dgv_despesas.SelectedRows.Count == 1)
             {
                 if (linha[1].Value.ToString() == "")
-                {                                                
+                {
                     FormQuitarContasAPagar f = new FormQuitarContasAPagar(double.Parse(linha[5].Value.ToString()),
                                                     int.Parse(linha[0].Value.ToString()), idCaixa, int.Parse(linha[6].Value.ToString()), despesa);
                     f.ShowDialog();
@@ -171,7 +169,7 @@ namespace sisVendas.Telas.Caixa
                 }
                 else
                 {
-                    
+
                     if (int.Parse(linha[4].Value.ToString()) == idCaixa)
                     {
                         if (MessageBox.Show("Deseja estornar a parcela selecionada?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
@@ -182,7 +180,7 @@ namespace sisVendas.Telas.Caixa
                             //
                             if (cbParcelasCompra.Checked)
                             {
-                                
+
                                 //onerar parcelas
                                 controlParcelas.estornarParcela(int.Parse(linha[0].Value.ToString()));
                             }
@@ -211,7 +209,7 @@ namespace sisVendas.Telas.Caixa
         private void btnGerarRelatorio_Click(object sender, EventArgs e)
         {
             DataTable dt;
-            
+
             if (cbParcelasCompra.Checked)
             {
                 dt = controlParcelas.buscarParaRelatorio(getFiltro());
@@ -232,8 +230,8 @@ namespace sisVendas.Telas.Caixa
                     Relatorios.gerarRelatorio($"RelatórioSisVendas.ContasAPagr.pdf", "Contas a Pagar!", dt, largurasColunas);
                 }
             }
-                       
-            
+
+
         }
     }
 }

@@ -41,8 +41,8 @@ namespace sisVendas.Telas.Fornecedor
         }
         public void updateDgv(string filtro)
         {
-            dttFornecedor = controlFornecedor.buscarFornecedorResumido(filtro);
-            dgv_fornecedor.DataSource = dttFornecedor;
+            //dttFornecedor = controlFornecedor.buscarFornecedorResumido(filtro);
+            //dgv_fornecedor.DataSource = dttFornecedor;
 
         }
 

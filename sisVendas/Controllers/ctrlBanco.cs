@@ -1,9 +1,4 @@
 ﻿using sisVendas.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sisVendas.Controllers
 {
@@ -16,7 +11,7 @@ namespace sisVendas.Controllers
             //caixaSelecionado.IdFunc = codFunc;
             //caixaSelecionado.SaldoAnterior = (saldoAnterior);
 
-            
+
             bool result = false;
             BancoDB bancoDB = new BancoDB(dataBase);
 
@@ -31,7 +26,7 @@ namespace sisVendas.Controllers
 
             }
 
-           
+
 
             return result;
         }

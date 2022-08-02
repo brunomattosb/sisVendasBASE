@@ -1,7 +1,5 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
-using sisVendas.Functions;
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -27,18 +25,21 @@ namespace sisVendas.Screens.Create
 				case Keys.Escape:
 					Close();
 					break;
-				case Keys.Control | Keys.Enter:
+				case Keys.F12:
 					btnSave.PerformClick();
 					break;
-				case Keys.Control | Keys.E:
+				case Keys.F4:
 					btnCancel.PerformClick();
 					break;
-				case Keys.Control | Keys.N:
-					btnNew.PerformClick();
-					break;
+                case Keys.F1:
+                    btnNew.PerformClick();
+                    break;
+                case Keys.F2:
+                    btnRemove.PerformClick();
+                    break;
 
 
-			}
+            }
 			return base.ProcessCmdKey(ref msg, keyData);
 		}
 		public void cleanForm()
@@ -83,7 +84,7 @@ namespace sisVendas.Screens.Create
 		
 		public void updateDgv(string filtro)
 		{
-			dgv_ProductBrand.DataSource = controlExpenseType.BuscarDespesaTipo(filtro);
+		    dgv_ProductBrand.DataSource = controlExpenseType.BuscarDespesaTipo(filtro);
 		}
 
 		public void resetColor()
@@ -94,84 +95,84 @@ namespace sisVendas.Screens.Create
 		}
 		private bool isExistsExpenseType()
 		{
-			string name = Function.replaceAll(tbName.Text);
+            string name = Function.replaceAll(tbName.Text);
 
-			if (name.Count() > 0)
-			{
-				DataTable dt = controlExpenseType.BuscarDespesaTipo(name);
-				if (dt.Rows.Count > 0)
-				{
-					return true;
-				}
-			}
-			return false;
+            if (name.Count() > 0)
+            {
+                DataTable dt = controlExpenseType.BuscarDespesaTipo(name);
+                if (dt.Rows.Count > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
 		}
 		private void btnSave_Click(object sender, EventArgs e)
         {
-			resetColor();
+            resetColor();
 
-			bool isOk = true;
-			if (tbName.Text.Count() < 2)
-			{
-				isOk = false;
-				lblName.ForeColor = Color.Red;
-			}
-			else
-			{
-				if (isExistsExpenseType())
-				{
-					if (MessageBox.Show("Existe uma despesa muito semelhante a que deseja inserir, deseja continuar ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
-					{
-						isOk = false;
-					}
-				}
-				if (isOk)
-				{
-					if (controlExpenseType.SalvarDespesaTipo(
-						tbId.Text,
-						tbName.Text
-						))
-					{
+            bool isOk = true;
+            if (tbName.Text.Count() < 2)
+            {
+                isOk = false;
+                lblName.ForeColor = Color.Red;
+            }
+            else
+            {
+                if (isExistsExpenseType())
+                {
+                    if (MessageBox.Show("Existe uma despesa muito semelhante a que deseja inserir, deseja continuar ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                    {
+                        isOk = false;
+                    }
+                }
+                if (isOk)
+                {
+                    if (controlExpenseType.SalvarDespesaTipo(
+                        tbId.Text,
+                        tbName.Text
+                        ))
+                    {
 
-						Alerta.notificacao("Sucesso!", "Tipo de despesa salvo.", Alerta.enmType.Success);
+                        Alerta.notificacao("Sucesso!", "Tipo de despesa salvo.", Alerta.enmType.Success);
 
-						updateDgv("");
-						activeForm();
-					}
-					tbName.Focus();
-				}
-				else
-				{
-					Alerta.notificacao("Erro!", "Erro ao salvar tipo de despesa.", Alerta.enmType.Error);
-				}
-			}
-		}
+                        updateDgv("");
+                        activeForm();
+                    }
+                    tbName.Focus();
+                }
+                else
+                {
+                    Alerta.notificacao("Erro!", "Erro ao salvar tipo de despesa.", Alerta.enmType.Error);
+                }
+            }
+        }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-			if (tbId.Text != "")
-			{
-				if (MessageBox.Show("Deseja excluir o tipo de despesa ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-				{
-					string cod = tbId.Text;
+            if (tbId.Text != "")
+            {
+                if (MessageBox.Show("Deseja excluir o tipo de despesa ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    string cod = tbId.Text;
 
-					if (controlExpenseType.RemoverDespesaTipo(cod) == true)
-					{
-						updateDgv("");
+                    if (controlExpenseType.RemoverDespesaTipo(cod) == true)
+                    {
+                        updateDgv("");
 
-						neutralForm();
-						Alerta.notificacao("Sucesso!", "Tipo de despesa excluido.", Alerta.enmType.Success);
-					}
-					else
-					{
-						Alerta.notificacao("Erro!", "Erro ao excluir tipo de despesa.", Alerta.enmType.Error);
+                        neutralForm();
+                        Alerta.notificacao("Sucesso!", "Tipo de despesa excluido.", Alerta.enmType.Success);
+                    }
+                    else
+                    {
+                        Alerta.notificacao("Erro!", "Erro ao excluir tipo de despesa.", Alerta.enmType.Error);
 
-					}
-				}
-			}
-			else
-				MessageBox.Show("Selecione a categoria", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
-		}
+                    }
+                }
+            }
+            else
+                MessageBox.Show("Selecione a categoria", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {

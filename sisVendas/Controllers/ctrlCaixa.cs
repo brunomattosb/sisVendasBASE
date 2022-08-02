@@ -1,13 +1,6 @@
-﻿
-using sisVendas.Models;
+﻿using sisVendas.Models;
 using sisVendas.Persistence;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace sisVendas.Controllers
 {
@@ -18,7 +11,7 @@ namespace sisVendas.Controllers
 
         public bool AbrirCaixa(int codFunc, double saldoAnterior)
         {
-            caixaSelecionado.IdFunc = codFunc;
+            caixaSelecionado.Funcionario.Id  = codFunc;
             caixaSelecionado.SaldoAnterior = (saldoAnterior);
 
             dataBase.Conecta();
@@ -31,9 +24,9 @@ namespace sisVendas.Controllers
 
             return (result);
         }
-        public bool FecharCaixa(int id,double entradas, double saidas) { 
 
-
+        public bool FecharCaixa(int id, double entradas, double saidas)
+        {
             caixaSelecionado.Id = id;
             caixaSelecionado.Entradas = entradas;
             caixaSelecionado.Saidas = saidas;
@@ -49,21 +42,21 @@ namespace sisVendas.Controllers
             return (result);
         }
 
-        
-        public DataTable Buscar(string filter)
-        {
 
-            DataTable dt;
+        //public DataTable Buscar(string filter)
+        //{
 
-            dataBase.Conecta();
-            CaixaDB caixaDB= new CaixaDB(dataBase);
+        //    DataTable dt;
 
-            dt = caixaDB.Buscar(filter);
+        //    dataBase.Conecta();
+        //    CaixaDB caixaDB= new CaixaDB(dataBase);
 
-            dataBase.Desconecta();
+        //    dt = caixaDB.Buscar(filter);
 
-            return (dt);
-        }
+        //    dataBase.Desconecta();
+
+        //    return (dt);
+        //}
         public Caixa buscarCaixaAberto(int idFunc)
         {
             Caixa caixa = new Caixa();
@@ -76,19 +69,33 @@ namespace sisVendas.Controllers
             return caixa;
 
         }
-        public double buscarSaldoCaixaAnterior(int filter)
+        public DataTable BuscarResumoFormHome()
         {
-            double saldo;
-            dataBase.Conecta();
+            DataTable dt;
 
-            CaixaDB bd = new CaixaDB(dataBase);
-            saldo = bd.buscarSaldoCaixaAnterior(filter);
+            dataBase.Conecta();
+            CaixaDB caixaDB = new CaixaDB(dataBase);
+
+            dt = caixaDB.BuscarResumoHome();
 
             dataBase.Desconecta();
-            return saldo;
+
+            return (dt);
 
         }
-        
+        //public double buscarSaldoCaixaAnterior(int filter)
+        //{
+        //    double saldo;
+        //    dataBase.Conecta();
+
+        //    CaixaDB bd = new CaixaDB(dataBase);
+        //    saldo = bd.buscarSaldoCaixaAnterior(filter);
+
+        //    dataBase.Desconecta();
+        //    return saldo;
+
+        //}
+
         /*
         
         public bool removeClient(string cod)

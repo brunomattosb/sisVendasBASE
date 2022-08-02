@@ -1,8 +1,5 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
-using sisVendas.Functions;
-using sisVendas.Models;
-
 using System;
 using System.Data;
 using System.Linq;
@@ -14,7 +11,7 @@ namespace sisVendas.Telas.Sale
     {
         
         private ctrlVenda controlVenda = new ctrlVenda();
-        private int vendaSelecionada = 0;
+        private string id_venda = "0";
         private DataTable dttVenda;
 
         public FormBuscarVenda()
@@ -28,7 +25,7 @@ namespace sisVendas.Telas.Sale
          
         private void updateDgv(string filtro)
         {
-            dttVenda = controlVenda.buscarVendas(filtro);
+            dttVenda = controlVenda.buscarVendasDGV(filtro);
             dgv_venda.DataSource = dttVenda;
         }
         
@@ -49,11 +46,11 @@ namespace sisVendas.Telas.Sale
         
         private void selecionarVenda()
         {
+            
             if (dgv_venda.CurrentRow != null)
             {
-                DataRow row = dttVenda.Rows[dgv_venda.CurrentRow.Index];
 
-                vendaSelecionada = Convert.ToInt32(row[0]);
+                id_venda = dttVenda.Rows[dgv_venda.CurrentRow.Index][0].ToString();
 
                 Close();
             }
@@ -66,6 +63,7 @@ namespace sisVendas.Telas.Sale
 
         private string getFiltro()
         {
+            
             string filtro = "";
 
             if (cbbMN.SelectedIndex > 0)
@@ -116,6 +114,7 @@ namespace sisVendas.Telas.Sale
 
         private void tbValor_Leave(object sender, EventArgs e)
         {
+            
             string text = tbValor.Text.Replace("R$", "");
 
             if (double.TryParse(text, out double res))
@@ -128,6 +127,7 @@ namespace sisVendas.Telas.Sale
 
         private void tbValor_KeyPress(object sender, KeyPressEventArgs e)
         {
+            
             if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)44 && e.KeyChar != (char)08)
             {
                 e.Handled = true;
@@ -142,12 +142,13 @@ namespace sisVendas.Telas.Sale
 
         public int retornaVenda()
         {
-             return vendaSelecionada;
+            int.TryParse(id_venda, out int id);
+            return id;
         }
 
         private void tbValor_Enter(object sender, EventArgs e)
         {
-            if(tbValor.Text == "R$ 0,00")
+            if (tbValor.Text == "R$ 0,00")
             {
                 tbValor.Text = "";
             }
@@ -194,11 +195,11 @@ namespace sisVendas.Telas.Sale
         private void button1_Click(object sender, EventArgs e)
         {
             DataTable dttVendasRelatorio = controlVenda.buscarParaRelatorio(getFiltro());
-            
+
             if (dttVenda.Rows.Count > 0) // se existir pessoas
             {
                 float[] largurasColunas = { 1f, 1f, 1f, 1f, 1f };
-                
+
                 Relatorios.gerarRelatorio($"RelatórioSisVendas.Produtos.pdf", "Vendas Cadastradas!", dttVendasRelatorio, largurasColunas);
             }
         }

@@ -1,8 +1,6 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
-using sisVendas.Functions;
 using sisVendas.Models;
-
 using sisVendas.Persistence;
 using sisVendas.Screens.Product;
 using sisVendas.Telas.Fornecedor;
@@ -177,66 +175,66 @@ namespace sisVendas.Telas.Compra
         }
         public void formFinalizarCompra()
         {
-            bool isOk = true;
+            //bool isOk = true;
 
-            string cpf = Function.replaceAll(mtbCpfFornecedor.Text);
+            //string cpf = Function.replaceAll(mtbCpfFornecedor.Text);
 
-            if (fornecedorSelecionado == null)
-            {
-                isOk = false;
-                MessageBox.Show("Fornecedor não selecionado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            //if (fornecedorSelecionado == null)
+            //{
+            //    isOk = false;
+            //    MessageBox.Show("Fornecedor não selecionado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
 
 
-            //verificar se existe produtos
-            if (dttProduto.Rows.Count == 0)
-            {
-                isOk = false;
-                MessageBox.Show("Não existe produtos cadastrados!", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                //verificar se foi quitado
+            ////verificar se existe produtos
+            //if (dttProduto.Rows.Count == 0)
+            //{
+            //    isOk = false;
+            //    MessageBox.Show("Não existe produtos cadastrados!", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //else
+            //{
+            //    //verificar se foi quitado
                 
 
-                if (totalPago != (totalCompra - totalDesconto))
-                {
-                    isOk = false;
-                    MessageBox.Show("Lance as parcelas antes de finalizar a compra!", "Não foi quitado!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
+            //    if (totalPago != (totalCompra - totalDesconto))
+            //    {
+            //        isOk = false;
+            //        MessageBox.Show("Lance as parcelas antes de finalizar a compra!", "Não foi quitado!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    }
+            //}
 
-            if(tbChaveNF.Text.Length < 20)
-            {
-                isOk = false;
-                MessageBox.Show("Confira a chave da NF!", "Chave incorreta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            //if(tbChaveNF.Text.Length < 20)
+            //{
+            //    isOk = false;
+            //    MessageBox.Show("Confira a chave da NF!", "Chave incorreta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
 
-            if (isOk)
-            {
-                if (compraSelecionada == null)
-                {
+            //if (isOk)
+            //{
+            //    if (compraSelecionada == null)
+            //    {
 
-                    isOk = controlCompra.SalvarCompra(dttParcela, dttProduto, fornecedorSelecionado.Id, totalDesconto, tbChaveNF.Text,dtpDtCompra.Value , idCaixa);
+            //        isOk = controlCompra.SalvarCompra(dttParcela, dttProduto, fornecedorSelecionado.Id, totalDesconto, tbChaveNF.Text,dtpDtCompra.Value.Date , idCaixa);
                     
 
-                    if (isOk)
-                    {
-                        Alerta.notificacao("Sucesso!", "Compra finalizada!", Alerta.enmType.Success);
+            //        if (isOk)
+            //        {
+            //            Alerta.notificacao("Sucesso!", "Compra finalizada!", Alerta.enmType.Success);
 
-                        resetarForm();
-                    }
-                    else
-                    {
-                        Alerta.notificacao("Erro!", "Não foi possivel gravar a compra!", Alerta.enmType.Error);
-                    }
-                }
+            //            resetarForm();
+            //        }
+            //        else
+            //        {
+            //            Alerta.notificacao("Erro!", "Não foi possivel gravar a compra!", Alerta.enmType.Error);
+            //        }
+            //    }
                 
-            }
-            else
-            {
-                Alerta.notificacao("Erro!", "Não foi possivel gravar a compra!", Alerta.enmType.Error);
-            }
+            //}
+            //else
+            //{
+            //    Alerta.notificacao("Erro!", "Não foi possivel gravar a compra!", Alerta.enmType.Error);
+            //}
 
         }
         public void resetarForm()
@@ -486,13 +484,13 @@ namespace sisVendas.Telas.Compra
         private Produto buscarProduto(string cod)
         {
 
-            if (cod.Count() != 0)
-            {
-                Produto prod = controlProduct.buscarProdutoPorCod(cod);
+            //if (cod.Count() != 0)
+            //{
+            //    Produto prod = controlProduct.buscarProdutoPorCod(cod);
 
-                return prod;
+            //    return prod;
 
-            }
+            //}
             return null;
 
         }
@@ -593,143 +591,145 @@ namespace sisVendas.Telas.Compra
         private bool verificarSeFornecedorExiste(string cpf)
         {
 
-            cpf = Function.replaceAll(cpf);
-            int countCpf = cpf.Count();
-            
-            if (countCpf == 11 || countCpf == 14)
-            {
+            //cpf = Function.replaceAll(cpf);
+            //int countCpf = cpf.Count();
 
-                fornecedorSelecionado = controlProvider.buscarForneceodrPorCpfCnpj(cpf);
-                if (fornecedorSelecionado != null)
-                {
-                        
-                    //lblWarningCpf.Visible = false;
-                    return true;
-                }
-                //lblWarningCpf.Text = "** CPF não encontrado! será inserido um novo cliente com o CFP e o NOME informado! **";
+            //if (countCpf == 11 || countCpf == 14)
+            //{
 
-                
-                //else
-                //{
-                    //lblWarningCpf.Text = "** CPF incorreto **";
-                //}
+            //    fornecedorSelecionado = controlProvider.buscarForneceodrPorCpfCnpj(cpf);
+            //    if (fornecedorSelecionado != null)
+            //    {
 
-            }
-            else if (countCpf == 0)
-            {
-                //lblWarningCpf.Visible = false;
-                return false;
-            }
-            else
-            {
-                //lblWarningCpf.Text = "** CPF incorreto **";
-            }
+            //        //lblWarningCpf.Visible = false;
+            //        return true;
+            //    }
+            //    //lblWarningCpf.Text = "** CPF não encontrado! será inserido um novo cliente com o CFP e o NOME informado! **";
 
-            tbNomeFornecedor.Text = "";
-            fornecedorSelecionado = null;
-            //lblWarningCpf.Visible = true;
+
+            //    //else
+            //    //{
+            //        //lblWarningCpf.Text = "** CPF incorreto **";
+            //    //}
+
+            //}
+            //else if (countCpf == 0)
+            //{
+            //    //lblWarningCpf.Visible = false;
+            //    return false;
+            //}
+            //else
+            //{
+            //    //lblWarningCpf.Text = "** CPF incorreto **";
+            //}
+
+            //tbNomeFornecedor.Text = "";
+            //fornecedorSelecionado = null;
+            ////lblWarningCpf.Visible = true;
+            //return false;
+
+
             return false;
-
 
         }
         public void formBuscarCompra()
         {
 
-            FormBuscarCompra f = new FormBuscarCompra();
-            f.ShowDialog();
+            //FormBuscarCompra f = new FormBuscarCompra();
+            //f.ShowDialog();
 
-            int idCompra = f.retornaCompra();
-            resetarForm();
+            //int idCompra = f.retornaCompra();
+            //resetarForm();
 
-            if (idCompra != 0)
-            {
+            //if (idCompra != 0)
+            //{
 
-                compraSelecionada = controlCompra.buscarCompra(idCompra);
-                totalDesconto = compraSelecionada.Desconto;
+            //    compraSelecionada = controlCompra.buscarCompra(idCompra);
+            //    totalDesconto = compraSelecionada.Desconto;
 
-                dttParcela.Rows.Clear();
-                foreach (DataRow prod in compraSelecionada.DttParcelas.Rows)
-                {
-                    DataRow parcela = dttParcela.NewRow();
+            //    dttParcela.Rows.Clear();
+            //    foreach (DataRow prod in compraSelecionada.DttParcelas.Rows)
+            //    {
+            //        DataRow parcela = dttParcela.NewRow();
 
-                    parcela["tipo_pagamento"] = prod["tipo_pagamento"].ToString();
-                    parcela["valor"] = double.Parse(prod["valor"].ToString().Replace("R$ ",""));
-                    parcela["data"] = prod["dataVencimento"].ToString();
-
-
-                    dttParcela.Rows.Add(parcela);
-                }
-
-                foreach (DataRow prod in compraSelecionada.DttItens.Rows)
-                {
-                    produtoSelecionado = buscarProduto(prod["iten_idProduto"].ToString());
-                    adicionarProduto(prod["iten_quantidade"].ToString(), prod["iten_valor"].ToString());
-                }
-
-                fornecedorSelecionado = controlProvider.buscarForneceodrPorCod(compraSelecionada.Id_fornecedor);
-                tbNomeFornecedor.Text = fornecedorSelecionado.Nome;
-                mtbCpfFornecedor.Text = fornecedorSelecionado.Cpf_cnpj;
-                tbDesconto.Text = compraSelecionada.Desconto.ToString("C");
-                tbChaveNF.Text = compraSelecionada.Chave;
-                dtpDtCompra.Text = compraSelecionada.Data.Date.ToString();
+            //        parcela["tipo_pagamento"] = prod["tipo_pagamento"].ToString();
+            //        parcela["valor"] = double.Parse(prod["valor"].ToString().Replace("R$ ",""));
+            //        parcela["data"] = prod["dataVencimento"].ToString();
 
 
-                if (compraSelecionada.Cancelada) // se venda cancelada
-                {
-                    //lblCancelada.Visible = true;
-                    btnCancelarCompra.Text = "F6 - Restaurar Compra";
-                }
-                else
-                {
-                    //lblCancelada.Visible = false;
-                    btnCancelarCompra.Text = "F6 - Cancela Compra";
+            //        dttParcela.Rows.Add(parcela);
+            //    }
+
+            //    foreach (DataRow prod in compraSelecionada.DttItens.Rows)
+            //    {
+            //        produtoSelecionado = buscarProduto(prod["iten_idProduto"].ToString());
+            //        adicionarProduto(prod["iten_quantidade"].ToString(), prod["iten_valor"].ToString());
+            //    }
+
+            //    fornecedorSelecionado = controlProvider.buscarForneceodrPorCod(compraSelecionada.Id_fornecedor);
+            //    tbNomeFornecedor.Text = fornecedorSelecionado.Nome;
+            //    mtbCpfFornecedor.Text = fornecedorSelecionado.Cpf_cnpj;
+            //    tbDesconto.Text = compraSelecionada.Desconto.ToString("C");
+            //    tbChaveNF.Text = compraSelecionada.Chave;
+            //    dtpDtCompra.Text = compraSelecionada.Data.Date.ToString();
+
+
+            //    if (compraSelecionada.Cancelada) // se venda cancelada
+            //    {
+            //        //lblCancelada.Visible = true;
+            //        btnCancelarCompra.Text = "F6 - Restaurar Compra";
+            //    }
+            //    else
+            //    {
+            //        //lblCancelada.Visible = false;
+            //        btnCancelarCompra.Text = "F6 - Cancela Compra";
 
                     
-                }
-                btnPesquisarForn.Visible =
-                btnPesquisarProd.Visible =
-                btnFinalizar.Visible = false;
+            //    }
+            //    btnPesquisarForn.Visible =
+            //    btnPesquisarProd.Visible =
+            //    btnFinalizar.Visible = false;
 
-                gbNf.Enabled = false;
-            }
+            //    gbNf.Enabled = false;
+            //}
         }
         private void cancelarCompra()
         {
-            //MessageBox.Show("IDCAIXA " + idCaixa);
-            if (compraSelecionada != null)
-            {
-                //inserir idCaixa na compra e comparar com o caixa atual
-                if (compraSelecionada.Id_caixa == idCaixa)
-                {
-                    if (compraSelecionada.Cancelada) // venda cancelada
-                    {
-                        if (MessageBox.Show("Deseja restaurar a compra selecionada ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                        {
-                            controlCompra.restabelecerCompra(compraSelecionada.Id, dttProduto);
-                            resetarForm();
-                            Alerta.notificacao("Sucesso!", "compra restaurada!", Alerta.enmType.Success);
-                        }
-                    }
-                    else 
-                    {
-                        if (MessageBox.Show("Deseja excluir a compra selecionada ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                        {
-                            controlCompra.removerCompra(compraSelecionada.Id, dttProduto);
-                            resetarForm();
-                            Alerta.notificacao("Sucesso!", "compra removida!", Alerta.enmType.Success);
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Para que a compra possa ser excluida, ela deve pertencer ao caixa atual!", "Compra não pertence ao caixa atual!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            else
-            {
+        //    //MessageBox.Show("IDCAIXA " + idCaixa);
+        //    if (compraSelecionada != null)
+        //    {
+        //        //inserir idCaixa na compra e comparar com o caixa atual
+        //        if (compraSelecionada.Id_caixa == idCaixa)
+        //        {
+        //            if (compraSelecionada.Cancelada) // venda cancelada
+        //            {
+        //                if (MessageBox.Show("Deseja restaurar a compra selecionada ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+        //                {
+        //                    controlCompra.restabelecerCompra(compraSelecionada.Id, dttProduto);
+        //                    resetarForm();
+        //                    Alerta.notificacao("Sucesso!", "compra restaurada!", Alerta.enmType.Success);
+        //                }
+        //            }
+        //            else 
+        //            {
+        //                if (MessageBox.Show("Deseja excluir a compra selecionada ?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+        //                {
+        //                    controlCompra.removerCompra(compraSelecionada.Id, dttProduto);
+        //                    resetarForm();
+        //                    Alerta.notificacao("Sucesso!", "compra removida!", Alerta.enmType.Success);
+        //                }
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Para que a compra possa ser excluida, ela deve pertencer ao caixa atual!", "Compra não pertence ao caixa atual!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
+        //    }
+        //    else
+        //    {
 
-                MessageBox.Show("Selecione a compra para continuar!", "Compra não selecionada!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+        //        MessageBox.Show("Selecione a compra para continuar!", "Compra não selecionada!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    }
         }
 
         private void tbValorUn_Click(object sender, EventArgs e)
@@ -802,9 +802,9 @@ namespace sisVendas.Telas.Compra
                 {
                     //achar a POS
                     int pos = dgvProducts.CurrentRow.Index;
-                    
+
                     //atualizar totais
-                    totalCompra = totalCompra - double.Parse(Function.replaceAll(dgvProducts[5, pos].Value.ToString()));
+                    totalCompra = totalCompra - double.Parse(dgvProducts[5, pos].Value.ToString().Replace("R$ ", ""));
                     subtotalCompra = totalCompra - totalPago - totalDesconto;
                     lblTotal.Text = totalCompra.ToString("C"); ;
                     lblSubtotal.Text = subtotalCompra.ToString("C");
@@ -814,6 +814,7 @@ namespace sisVendas.Telas.Compra
                     
 
                 }
+                
 
             }
         }

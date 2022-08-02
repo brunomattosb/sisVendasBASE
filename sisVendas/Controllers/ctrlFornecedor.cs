@@ -1,11 +1,7 @@
 ﻿using sisVendas.Models;
 using sisVendas.Persistence;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sisVendas.Controllers
 {
@@ -14,7 +10,7 @@ namespace sisVendas.Controllers
         private Banco dataBase = new Banco();
         private Fornecedor CurrentProvider= new Fornecedor();
 
-        public bool SaveProvider(string id, string cpf_cnpj, string rg_ie, string nome, string nome_fantasia, string endereco,
+        public bool SalvarFornecedor(string id, string cpf_cnpj, string rg_ie, string nome, string nome_fantasia, string endereco,
             string cidade, string bairro, string cep, string uf, string telefone, string email)
         {
 
@@ -49,71 +45,50 @@ namespace sisVendas.Controllers
 
             return (result);
         }
-        public Fornecedor buscarForneceodrPorCpfCnpj(string filter)
-        {
-
-            Fornecedor prov = new Fornecedor(); 
-
-            dataBase.Conecta();
-            FornecedorDB bd = new FornecedorDB(dataBase);
-            prov = (Fornecedor)bd.buscarPorCpfCnpj(filter);
-
-            dataBase.Desconecta();
-            return prov;
-        }
-        public Fornecedor buscarForneceodrPorCod(int filter)
+        public Fornecedor BuscarFornecedorPorCnpj(string cnpj)
         {
 
             Fornecedor prov = new Fornecedor();
 
             dataBase.Conecta();
             FornecedorDB bd = new FornecedorDB(dataBase);
-            prov = (Fornecedor)bd.buscarPorCod(filter);
+            prov = (Fornecedor)bd.BuscarFornecedor("WHERE forn_cpf_cnpj like '"+cnpj+"'");
 
             dataBase.Desconecta();
             return prov;
         }
-        
-        public DataTable buscar(string filter)
+        public Fornecedor BuscarForneceodrPorCod(int cod)
+        {
+
+            Fornecedor prov = new Fornecedor();
+
+            dataBase.Conecta();
+            FornecedorDB bd = new FornecedorDB(dataBase);
+            prov = (Fornecedor)bd.BuscarFornecedor("WHERE forn_id = " + cod );
+
+            dataBase.Desconecta();
+            return prov;
+        }
+
+        public DataTable BuscarParaDGV(string filter)
         {
 
             DataTable diProvider = new DataTable();
 
             diProvider.Columns.Add("forn_id", typeof(int));
             diProvider.Columns.Add("forn_cpf_cnpj");
-            diProvider.Columns.Add("forn_rg_ie");
             diProvider.Columns.Add("forn_nome");
-            diProvider.Columns.Add("forn_nome_fantasia");
-            diProvider.Columns.Add("forn_endereco");
-            diProvider.Columns.Add("forn_cidade");
-            diProvider.Columns.Add("forn_cep");
-            diProvider.Columns.Add("forn_bairro");
-            diProvider.Columns.Add("forn_uf");
-            diProvider.Columns.Add("forn_criado_em", typeof(DateTime));
-            diProvider.Columns.Add("forn_telefone");
-            diProvider.Columns.Add("forn_email");
-
 
             dataBase.Conecta();
             FornecedorDB fornDB = new FornecedorDB(dataBase);
-            foreach (Fornecedor pro in fornDB.buscar(filter))
+            foreach (Fornecedor pro in fornDB.BuscarParaDGV(filter))
             {
 
                 DataRow line = diProvider.NewRow();
 
                 line["forn_id"] = pro.Id;
                 line["forn_nome"] = pro.Nome;
-                line["forn_nome_fantasia"] = pro.Nome_fantasia;
                 line["forn_cpf_cnpj"] = pro.Cpf_cnpj;
-                line["forn_cep"] = pro.Cep;
-                line["forn_endereco"] = pro.Endereco;
-                line["forn_email"] = pro.Email;
-                line["forn_rg_ie"] = pro.Rg_ie;
-                line["forn_telefone"] = pro.Telefone;
-                line["forn_cidade"] = pro.Cidade;
-                line["forn_criado_em"] = pro.Criado_em;
-                line["forn_uf"] = pro.Uf;
-                line["forn_bairro"] = pro.Bairro;
 
                 diProvider.Rows.Add(line);
             }
@@ -121,50 +96,21 @@ namespace sisVendas.Controllers
 
             return (diProvider);
         }
-        public DataTable BuscarCpfNome()
-        {
+        //public DataTable BuscarCpfNome()
+        //{
 
-            DataTable diProvider = new DataTable();
-
-
-            dataBase.Conecta();
-            FornecedorDB fornDB = new FornecedorDB(dataBase);
-            diProvider = fornDB.BuscarCpfNome();
-            
-            dataBase.Desconecta();
-
-            return (diProvider);
-        }
-        public DataTable buscarFornecedorResumido(string filter)
-        {
-
-            DataTable dtFornecedor = new DataTable();
-
-            dtFornecedor.Columns.Add("forn_id", typeof(int));
-            dtFornecedor.Columns.Add("forn_cpf_cnpj");
-            dtFornecedor.Columns.Add("forn_nome");
-            dtFornecedor.Columns.Add("forn_nome_fantasia");
+        //    DataTable diProvider = new DataTable();
 
 
-            dataBase.Conecta();
-            FornecedorDB fornDB = new FornecedorDB(dataBase);
-            foreach (Fornecedor pro in fornDB.buscarResumido(filter))
-            {
+        //    dataBase.Conecta();
+        //    FornecedorDB fornDB = new FornecedorDB(dataBase);
+        //    diProvider = fornDB.BuscarCpfNome();
 
-                DataRow line = dtFornecedor.NewRow();
+        //    dataBase.Desconecta();
 
-                line["forn_id"] = pro.Id;
-                line["forn_nome"] = pro.Nome;
-                line["forn_nome_fantasia"] = pro.Nome_fantasia;
-                line["forn_cpf_cnpj"] = pro.Cpf_cnpj;
-
-
-                dtFornecedor.Rows.Add(line);
-            }
-            dataBase.Desconecta();
-
-            return (dtFornecedor);
-        }
+        //    return (diProvider);
+        //}
+        
         public bool removerFornecedor(string cod)
         {
             bool res = true;

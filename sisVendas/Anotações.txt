@@ -1,0 +1,2 @@
+Comando no CMD para transformar o xsl em Classe C#
+C:\Users\Bruno\Downloads\PL_009i_NT2021_004_v100d\xmldsig-core-schema_v1.01.xsd C:\Users\Bruno\Downloads\PL_009i_NT2021_004_v100d\nfe_v4.00.xsd /c /l:CS /o:C:\Users\Bruno\Desktop\Classe

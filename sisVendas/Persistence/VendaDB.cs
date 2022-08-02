@@ -27,19 +27,20 @@ namespace sisVendas.Persistence
 
                 string SQL;
 
-                SQL = @"INSERT INTO Venda (venda_idCliente, venda_desconto, venda_idFunc)
-                        values (@venda_idCliente, @venda_desconto, @venda_idFunc)";
+                SQL = @"INSERT INTO Venda (venda_idCliente, venda_desconto, venda_idFunc, venda_num_nf)
+                        values (@venda_idCliente, @venda_desconto, @venda_idFunc, @venda_num_nf)";
 
 
                 //grava null caso idCliente seja zero
                 if (venda.Id_cliente == 0)
                 {
-                    SQL = @"INSERT INTO Venda (venda_idCliente, venda_desconto, venda_idFunc)
-                        values (null, @venda_desconto, @venda_idFunc)";
+                    SQL = @"INSERT INTO Venda (venda_idCliente, venda_desconto, venda_num_nf)
+                        values (null, @venda_desconto, @venda_idFunc, @venda_num_nf)";
                 }
 
                 res = db.ExecuteNonQuery(SQL, "@venda_idCliente", venda.Id_cliente,
                                                     "@venda_desconto", venda.Desconto,
+                                                    "@venda_num_nf", venda.Id_nf,
                                                     "@venda_idFunc", venda.Id_funcionario);
 
                 if (res)
@@ -63,15 +64,19 @@ namespace sisVendas.Persistence
             dtVenda.Columns.Add("venda_cancelada", typeof(bool));
             dtVenda.Columns.Add("nome");
 
-            string SQL = @"select * from (      
-	                        select venda_id, venda_desconto,venda_desconto + soma as total_venda, venda_criado_em, cli_nome, cli_cpf_cnpj, venda_cancelada
+            dtVenda.Columns.Add("nf_num", typeof(int));
+            dtVenda.Columns.Add("nf_xmotivo");
+            dtVenda.Columns.Add("nf_cstat", typeof(int));
+
+            string SQL = @"select venda_id, venda_desconto,venda_desconto + soma as total_venda, venda_criado_em, cli_nome, cli_cpf_cnpj, venda_cancelada, nf_num, nf_cstat, nf_xmotivo
                                                                                                                                     from venda 
-                            left join cliente on venda.venda_idCliente = cliente.cli_id
-                            inner join (
-                                            select parcela_idVenda, sum(parcela_valor) as soma from ParcelaVenda 
-                                                                            group by parcela_idVenda) as parcelas 
-							                on venda.venda_id = parcela_idVenda
-                            ) as teste ";
+            left join cliente on venda.venda_idCliente = cliente.cli_id
+
+            left join (
+                            select parcela_idVenda, sum(parcela_valor) as soma from ParcelaVenda 
+                                                            group by parcela_idVenda) as parcelas 
+							on venda.venda_id = parcelas.parcela_idVenda
+            left join NF on nf.nf_num = venda.venda_num_nf";
 
             Console.WriteLine(SQL);
             if (filtro != "")
@@ -98,6 +103,11 @@ namespace sisVendas.Persistence
                     linha["criado_em"] = Convert.ToDateTime(dt.Rows[i]["venda_criado_em"].ToString());
                     linha["venda_cancelada"] = Convert.ToBoolean(dt.Rows[i]["venda_cancelada"].ToString());
 
+                    int.TryParse(dt.Rows[i]["nf_num"].ToString(), out int num);
+                    linha["nf_num"] = num;
+                    linha["nf_xmotivo"] = dt.Rows[i]["nf_xmotivo"].ToString();
+                    int.TryParse(dt.Rows[i]["nf_cstat"].ToString(), out int stat);
+                    linha["nf_cstat"] = stat;
 
                     dtVenda.Rows.Add(linha);
 
@@ -185,11 +195,12 @@ venda_desconto as 'Desconto',venda_criado_em as 'Data' from (
             if (dt.Rows.Count > 0)
             {
                 venda.Id = int.Parse(dt.Rows[0]["venda_id"].ToString());
-
+                venda.Id_funcionario = int.Parse(dt.Rows[0]["venda_idFunc"].ToString());
+                venda.Id_nf = int.TryParse(dt.Rows[0]["venda_num_nf"].ToString(), out int nf)? nf:0;
                 venda.Desconto = double.Parse(dt.Rows[0]["venda_desconto"].ToString());
                 venda.Created_at = Convert.ToDateTime(dt.Rows[0]["venda_criado_em"]);
                 venda.Venda_cancelada = bool.Parse(dt.Rows[0]["venda_cancelada"].ToString());
-
+                
                 if (dt.Rows[0]["venda_idCliente"].ToString() == "")
                 {
                     venda.Id_cliente = 0;

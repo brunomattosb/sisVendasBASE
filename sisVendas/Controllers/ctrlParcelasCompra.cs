@@ -1,19 +1,14 @@
 ﻿using sisVendas.Models;
 using sisVendas.Persistence;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace sisVendas.Controllers
 {
     internal class ctrlParcelasCompra
     {
         private Banco dataBase = new Banco();
-     
+
         private ParcelaCompra parcelaSelecionada = new ParcelaCompra();
 
 
@@ -33,7 +28,7 @@ namespace sisVendas.Controllers
             else if (tipo == "Débito")
             {
                 parcelaSelecionada.Tipo_pagamento = 'D';
-                
+
             }
             else if (tipo == "Crédito")
             {
@@ -103,7 +98,7 @@ namespace sisVendas.Controllers
         {
             dataBase.Conecta();
             bool result = false;
-            
+
             char tipoPagamento;
             if (tipo == "Dinheiro")
             {
@@ -146,7 +141,7 @@ namespace sisVendas.Controllers
             ParcelaCompraDB parcDB = new ParcelaCompraDB(dataBase);
 
             DataTable dtExpense = parcDB.buscarParcelasAPagarParaRelatorio(filtro);
-            
+
             dataBase.Desconecta();
 
             return (dtExpense);
@@ -214,7 +209,7 @@ namespace sisVendas.Controllers
 
             return (dtExpense);
         }
-        public DataTable buscarParcelas(int codVenda)
+        public DataTable BuscarParcelasAVistaPorIdCaixa(int codVenda)
         {
 
             DataTable dtParcelas = new DataTable();
@@ -225,45 +220,29 @@ namespace sisVendas.Controllers
             dtParcelas.Columns.Add("valor", typeof(double));
             dtParcelas.Columns.Add("tipo_pagamento");
             dtParcelas.Columns.Add("dataPagamento", typeof(DateTime));
-            dtParcelas.Columns.Add("dataVencimento", typeof(DateTime));
 
             dataBase.Conecta();
             ParcelaCompraDB parcelaDB = new ParcelaCompraDB(dataBase);
-            foreach (ParcelaCompra parcela in parcelaDB.buscarParcelasPorIdCompra(codVenda))
+            foreach (ParcelaCompra parcela in parcelaDB.BuscarParcelas(String.Format("where parcela_idcaixa = {0} AND parcela_dataPagamento is not null AND compra_cancelada = 0 AND parcela_tipo = 'C' ", codVenda)))
             {
 
                 DataRow line = dtParcelas.NewRow();
                 line["id"] = parcela.Id;
                 line["idCompra"] = parcela.IdCompra;
                 line["valor"] = parcela.Valor;
-                if(parcela.DataPagamento == null)
+                if (parcela.DataPagamento == null)
                 {
                     line["dataPagamento"] = DBNull.Value;
                 }
-                else {
-                    line["dataPagamento"] = parcela.DataPagamento; 
+                else
+                {
+                    line["dataPagamento"] = parcela.DataPagamento;
                 }
-                line["dataVencimento"] = parcela.DataVencimento;
-                
-                
-                
+
                 line["idCaixa"] = parcela.IdCaixa;
+
+                line["tipo_pagamento"] = "Dinheiro";
                 
-                char tipo = parcela.Tipo_pagamento;
-                if (tipo == 'M')
-                {
-                    line["tipo_pagamento"] = "Dinheiro";
-                }
-                else if( tipo == 'D')
-                {
-                    line["tipo_pagamento"] = "Débito";
-                }else if(tipo == 'C')
-                {
-                    line["tipo_pagamento"] = "Crédito";
-                }else
-                {
-                    line["tipo_pagamento"] = "A Pagar";
-                }
 
                 dtParcelas.Rows.Add(line);
             }

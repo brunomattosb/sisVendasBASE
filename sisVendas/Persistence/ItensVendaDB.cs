@@ -46,8 +46,8 @@ namespace sisVendas.Persistence
             DataTable dt = new DataTable();
 
             string SQL = @"select iten_quantidade, iten_idProduto, iten_valor, prod_nome, prod_un from ItenVenda
-left join produto on produto.prod_id = ItenVenda.iten_idProduto
- where iten_idVenda = @filtro";
+                                                left join produto on produto.prod_id = ItenVenda.iten_idProduto
+                                                 where iten_idVenda = @filtro";
 
 
             db.ExecuteQuery(SQL, out dt, "@filtro", filtro);

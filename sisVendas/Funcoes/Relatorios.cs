@@ -29,7 +29,7 @@ namespace sisVendas.Funcoes
 
 
                 //criar a pasta Rekatorios caso não exista
-                string caminhoPasta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "relatorios");
+                string caminhoPasta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Relatorios");
                 if (!Directory.Exists(caminhoPasta))
                 {
                     Directory.CreateDirectory(caminhoPasta);

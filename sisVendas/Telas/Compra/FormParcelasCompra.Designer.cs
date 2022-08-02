@@ -297,9 +297,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(824, 545);
             this.Controls.Add(this.gbFormPrincipal);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormParcelasCompra";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Parcelas Compra";
+            this.Text = "Automações Brasil - Parcelas compra";
             this.gbFormPrincipal.ResumeLayout(false);
             this.gbFormPrincipal.PerformLayout();
             this.groupBox2.ResumeLayout(false);

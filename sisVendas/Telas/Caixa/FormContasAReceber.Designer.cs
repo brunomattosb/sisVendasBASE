@@ -33,18 +33,6 @@
             this.lblCpf = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dgv_parcelas = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cbQuitada = new System.Windows.Forms.CheckBox();
-            this.cbAberto = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cbPesquisarPorPeriodo = new System.Windows.Forms.CheckBox();
-            this.dtpFim = new System.Windows.Forms.DateTimePicker();
-            this.dtpInicio = new System.Windows.Forms.DateTimePicker();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.btnGerarRelatorio = new System.Windows.Forms.Button();
             this.cli_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.parcela_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cli_cpf_cnpj = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,6 +44,18 @@
             this.parcela_idcaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.parcela_idVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.parcela_tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnGerarRelatorio = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cbQuitada = new System.Windows.Forms.CheckBox();
+            this.cbAberto = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbPesquisarPorPeriodo = new System.Windows.Forms.CheckBox();
+            this.dtpFim = new System.Windows.Forms.DateTimePicker();
+            this.dtpInicio = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnBuscar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_parcelas)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -139,6 +139,98 @@
             this.dgv_parcelas.TabIndex = 8;
             this.dgv_parcelas.DoubleClick += new System.EventHandler(this.dgv_parcelas_DoubleClick);
             // 
+            // cli_nome
+            // 
+            this.cli_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cli_nome.DataPropertyName = "cli_nome";
+            this.cli_nome.HeaderText = "Nome";
+            this.cli_nome.Name = "cli_nome";
+            this.cli_nome.ReadOnly = true;
+            // 
+            // parcela_id
+            // 
+            this.parcela_id.DataPropertyName = "parcela_id";
+            this.parcela_id.HeaderText = "ID";
+            this.parcela_id.Name = "parcela_id";
+            this.parcela_id.ReadOnly = true;
+            this.parcela_id.Visible = false;
+            // 
+            // cli_cpf_cnpj
+            // 
+            this.cli_cpf_cnpj.DataPropertyName = "cli_cpf_cnpj";
+            this.cli_cpf_cnpj.HeaderText = "CPF/CNPJ";
+            this.cli_cpf_cnpj.MinimumWidth = 150;
+            this.cli_cpf_cnpj.Name = "cli_cpf_cnpj";
+            this.cli_cpf_cnpj.ReadOnly = true;
+            this.cli_cpf_cnpj.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.cli_cpf_cnpj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.cli_cpf_cnpj.Width = 150;
+            // 
+            // venda_criado_em
+            // 
+            this.venda_criado_em.DataPropertyName = "venda_criado_em";
+            this.venda_criado_em.HeaderText = "Data Venda";
+            this.venda_criado_em.MinimumWidth = 150;
+            this.venda_criado_em.Name = "venda_criado_em";
+            this.venda_criado_em.ReadOnly = true;
+            this.venda_criado_em.Width = 150;
+            // 
+            // parcela_valor
+            // 
+            this.parcela_valor.DataPropertyName = "parcela_valor";
+            this.parcela_valor.HeaderText = "Valor";
+            this.parcela_valor.MinimumWidth = 150;
+            this.parcela_valor.Name = "parcela_valor";
+            this.parcela_valor.ReadOnly = true;
+            this.parcela_valor.Width = 150;
+            // 
+            // parcela_dataPagamento
+            // 
+            this.parcela_dataPagamento.DataPropertyName = "parcela_dataPagamento";
+            this.parcela_dataPagamento.HeaderText = "Data Pagamento";
+            this.parcela_dataPagamento.MinimumWidth = 150;
+            this.parcela_dataPagamento.Name = "parcela_dataPagamento";
+            this.parcela_dataPagamento.ReadOnly = true;
+            this.parcela_dataPagamento.Width = 150;
+            // 
+            // parcela_dataVencimento
+            // 
+            this.parcela_dataVencimento.DataPropertyName = "parcela_dataVencimento";
+            this.parcela_dataVencimento.HeaderText = "Data Vencimento";
+            this.parcela_dataVencimento.Name = "parcela_dataVencimento";
+            this.parcela_dataVencimento.ReadOnly = true;
+            // 
+            // venda_cancelada
+            // 
+            this.venda_cancelada.DataPropertyName = "venda_cancelada";
+            this.venda_cancelada.HeaderText = "venda_cancelada";
+            this.venda_cancelada.Name = "venda_cancelada";
+            this.venda_cancelada.ReadOnly = true;
+            this.venda_cancelada.Visible = false;
+            // 
+            // parcela_idcaixa
+            // 
+            this.parcela_idcaixa.DataPropertyName = "parcela_idcaixa";
+            this.parcela_idcaixa.HeaderText = "idCaixa";
+            this.parcela_idcaixa.Name = "parcela_idcaixa";
+            this.parcela_idcaixa.ReadOnly = true;
+            this.parcela_idcaixa.Visible = false;
+            // 
+            // parcela_idVenda
+            // 
+            this.parcela_idVenda.DataPropertyName = "parcela_idVenda";
+            this.parcela_idVenda.HeaderText = "idVenda";
+            this.parcela_idVenda.Name = "parcela_idVenda";
+            this.parcela_idVenda.ReadOnly = true;
+            this.parcela_idVenda.Visible = false;
+            // 
+            // parcela_tipo
+            // 
+            this.parcela_tipo.DataPropertyName = "parcela_tipo";
+            this.parcela_tipo.HeaderText = "Forma Pgmto";
+            this.parcela_tipo.Name = "parcela_tipo";
+            this.parcela_tipo.ReadOnly = true;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnGerarRelatorio);
@@ -158,6 +250,17 @@
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
+            // 
+            // btnGerarRelatorio
+            // 
+            this.btnGerarRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGerarRelatorio.Location = new System.Drawing.Point(737, 81);
+            this.btnGerarRelatorio.Name = "btnGerarRelatorio";
+            this.btnGerarRelatorio.Size = new System.Drawing.Size(125, 35);
+            this.btnGerarRelatorio.TabIndex = 63;
+            this.btnGerarRelatorio.Text = "Gerar Relatório";
+            this.btnGerarRelatorio.UseVisualStyleBackColor = true;
+            this.btnGerarRelatorio.Click += new System.EventHandler(this.btnGerarRelatorio_Click);
             // 
             // groupBox3
             // 
@@ -261,109 +364,6 @@
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
-            // btnGerarRelatorio
-            // 
-            this.btnGerarRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGerarRelatorio.Location = new System.Drawing.Point(737, 81);
-            this.btnGerarRelatorio.Name = "btnGerarRelatorio";
-            this.btnGerarRelatorio.Size = new System.Drawing.Size(125, 35);
-            this.btnGerarRelatorio.TabIndex = 63;
-            this.btnGerarRelatorio.Text = "Gerar Relatório";
-            this.btnGerarRelatorio.UseVisualStyleBackColor = true;
-            this.btnGerarRelatorio.Click += new System.EventHandler(this.btnGerarRelatorio_Click);
-            // 
-            // cli_nome
-            // 
-            this.cli_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cli_nome.DataPropertyName = "cli_nome";
-            this.cli_nome.HeaderText = "Nome";
-            this.cli_nome.Name = "cli_nome";
-            this.cli_nome.ReadOnly = true;
-            // 
-            // parcela_id
-            // 
-            this.parcela_id.DataPropertyName = "parcela_id";
-            this.parcela_id.HeaderText = "ID";
-            this.parcela_id.Name = "parcela_id";
-            this.parcela_id.ReadOnly = true;
-            this.parcela_id.Visible = false;
-            // 
-            // cli_cpf_cnpj
-            // 
-            this.cli_cpf_cnpj.DataPropertyName = "cli_cpf_cnpj";
-            this.cli_cpf_cnpj.HeaderText = "CPF/CNPJ";
-            this.cli_cpf_cnpj.MinimumWidth = 150;
-            this.cli_cpf_cnpj.Name = "cli_cpf_cnpj";
-            this.cli_cpf_cnpj.ReadOnly = true;
-            this.cli_cpf_cnpj.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.cli_cpf_cnpj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.cli_cpf_cnpj.Width = 150;
-            // 
-            // venda_criado_em
-            // 
-            this.venda_criado_em.DataPropertyName = "venda_criado_em";
-            this.venda_criado_em.HeaderText = "Data Venda";
-            this.venda_criado_em.MinimumWidth = 150;
-            this.venda_criado_em.Name = "venda_criado_em";
-            this.venda_criado_em.ReadOnly = true;
-            this.venda_criado_em.Width = 150;
-            // 
-            // parcela_valor
-            // 
-            this.parcela_valor.DataPropertyName = "parcela_valor";
-            this.parcela_valor.HeaderText = "Valor";
-            this.parcela_valor.MinimumWidth = 150;
-            this.parcela_valor.Name = "parcela_valor";
-            this.parcela_valor.ReadOnly = true;
-            this.parcela_valor.Width = 150;
-            // 
-            // parcela_dataPagamento
-            // 
-            this.parcela_dataPagamento.DataPropertyName = "parcela_dataPagamento";
-            this.parcela_dataPagamento.HeaderText = "Data Pagamento";
-            this.parcela_dataPagamento.MinimumWidth = 150;
-            this.parcela_dataPagamento.Name = "parcela_dataPagamento";
-            this.parcela_dataPagamento.ReadOnly = true;
-            this.parcela_dataPagamento.Width = 150;
-            // 
-            // parcela_dataVencimento
-            // 
-            this.parcela_dataVencimento.DataPropertyName = "parcela_dataVencimento";
-            this.parcela_dataVencimento.HeaderText = "Data Vencimento";
-            this.parcela_dataVencimento.Name = "parcela_dataVencimento";
-            this.parcela_dataVencimento.ReadOnly = true;
-            // 
-            // venda_cancelada
-            // 
-            this.venda_cancelada.DataPropertyName = "venda_cancelada";
-            this.venda_cancelada.HeaderText = "venda_cancelada";
-            this.venda_cancelada.Name = "venda_cancelada";
-            this.venda_cancelada.ReadOnly = true;
-            this.venda_cancelada.Visible = false;
-            // 
-            // parcela_idcaixa
-            // 
-            this.parcela_idcaixa.DataPropertyName = "parcela_idcaixa";
-            this.parcela_idcaixa.HeaderText = "idCaixa";
-            this.parcela_idcaixa.Name = "parcela_idcaixa";
-            this.parcela_idcaixa.ReadOnly = true;
-            this.parcela_idcaixa.Visible = false;
-            // 
-            // parcela_idVenda
-            // 
-            this.parcela_idVenda.DataPropertyName = "parcela_idVenda";
-            this.parcela_idVenda.HeaderText = "idVenda";
-            this.parcela_idVenda.Name = "parcela_idVenda";
-            this.parcela_idVenda.ReadOnly = true;
-            this.parcela_idVenda.Visible = false;
-            // 
-            // parcela_tipo
-            // 
-            this.parcela_tipo.DataPropertyName = "parcela_tipo";
-            this.parcela_tipo.HeaderText = "Forma Pgmto";
-            this.parcela_tipo.Name = "parcela_tipo";
-            this.parcela_tipo.ReadOnly = true;
-            // 
             // FormContasAReceber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -374,9 +374,10 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.Name = "FormContasAReceber";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Contas a Receber";
+            this.Text = "Automações Brasil - Contas a receber";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_parcelas)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

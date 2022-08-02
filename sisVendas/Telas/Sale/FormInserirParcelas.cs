@@ -1,7 +1,4 @@
 ﻿using sisVendas.Funcoes;
-using sisVendas.Functions;
-using sisVendas.Models;
-
 using System;
 using System.Data;
 using System.Linq;

@@ -124,8 +124,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbSearth);
             this.Controls.Add(this.dgv_fornecedor);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormBuscarFornecedor";
-            this.Text = "Buscar Fornecedor";
+            this.Text = "Automações Brasil - Buscar fornecedor";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_fornecedor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

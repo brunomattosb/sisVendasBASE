@@ -1,15 +1,7 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
-using sisVendas.Functions;
-
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sisVendas.Telas.Caixa
@@ -84,7 +76,7 @@ namespace sisVendas.Telas.Caixa
             {
                 if (cbbTipo.SelectedIndex != -1)
                 {
-                        
+
                     controlParcelas.quitarParcela(idParcela, ValorParcela, valorPago, idCaixa, idVenda, cbbTipo.Text, despesa);//, cbbTipo.Text, );
                     res = true;
                     Close();

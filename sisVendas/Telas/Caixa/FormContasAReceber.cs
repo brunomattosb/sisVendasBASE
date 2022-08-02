@@ -1,6 +1,5 @@
 ﻿using sisVendas.Controllers;
 using sisVendas.Funcoes;
-using sisVendas.Functions;
 using System;
 using System.Data;
 using System.Linq;
@@ -100,54 +99,54 @@ namespace sisVendas.Telas.Caixa
 
         private void dgv_parcelas_DoubleClick(object sender, EventArgs e)
         {
-            
-           if (dgv_parcelas.SelectedRows.Count == 1)
-           {
 
-               //activeForm();
-               DataGridViewCellCollection linha = dgv_parcelas.Rows[dgv_parcelas.CurrentRow.Index].Cells;
-               
-               /*
-                   0     parcela_id
-                   1     idCaixa
-                   2     idVenda
-                   3     Valor
-                   4     dtPagamento
-                   5     criado_em / Data venda
-                   6     nome
-                   7     cpf
-                   8     cancelada
-                   9     dtVencimento
-               */
+            if (dgv_parcelas.SelectedRows.Count == 1)
+            {
 
-               if (linha[4].Value.ToString() == "") // é null, não foi pago!
-               {
-                   FormQuitarContaReceber f = new FormQuitarContaReceber(double.Parse(linha[3].Value.ToString()),
-                                                    int.Parse(linha[0].Value.ToString()), idCaixa, int.Parse(linha[2].Value.ToString()));
-                   f.ShowDialog();
+                //activeForm();
+                DataGridViewCellCollection linha = dgv_parcelas.Rows[dgv_parcelas.CurrentRow.Index].Cells;
 
-                   if (f.alterou())
-                       btnBuscar.PerformClick();
-               }
-               else
-               {
-                   if(int.Parse(linha[1].Value.ToString()) == idCaixa)
-                   {
-                       if (MessageBox.Show("Deseja estornar a parcela selecionada?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                       {
+                /*
+                    0     parcela_id
+                    1     idCaixa
+                    2     idVenda
+                    3     Valor
+                    4     dtPagamento
+                    5     criado_em / Data venda
+                    6     nome
+                    7     cpf
+                    8     cancelada
+                    9     dtVencimento
+                */
+
+                if (linha[4].Value.ToString() == "") // é null, não foi pago!
+                {
+                    FormQuitarContaReceber f = new FormQuitarContaReceber(double.Parse(linha[3].Value.ToString()),
+                                                     int.Parse(linha[0].Value.ToString()), idCaixa, int.Parse(linha[2].Value.ToString()));
+                    f.ShowDialog();
+
+                    if (f.alterou())
+                        btnBuscar.PerformClick();
+                }
+                else
+                {
+                    if (int.Parse(linha[1].Value.ToString()) == idCaixa)
+                    {
+                        if (MessageBox.Show("Deseja estornar a parcela selecionada?", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
                             ctrlParcelasVenda controlParcelas = new ctrlParcelasVenda();
                             controlParcelas.onerarParcela(int.Parse(linha[0].Value.ToString()));
 
                             btnBuscar.PerformClick();
-                       }
-                   }
-                   else
-                   {
-                       MessageBox.Show("Parcela não quitada no caixa atual.", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                   }
-                }        
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Parcela não quitada no caixa atual.", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
             }
-       }
+        }
 
        private void mtbCpf_Click(object sender, EventArgs e)
        {
@@ -198,7 +197,6 @@ namespace sisVendas.Telas.Caixa
         private void btnGerarRelatorio_Click(object sender, EventArgs e)
         {
             DataTable dtContasReceber = controlParcelasVenda.buscarParcelasFormulario(getFiltro());
-            //select prod_nome as Nome, prod_estoque as Estoque, prod_un as Unidade, prod_valor as Valor from Produto order by Nome
             if (dtContasReceber.Rows.Count > 0) // se existir pessoas
             {
                 float[] largurasColunas = { 1.5f, 1f, 1f, 1f, 1f, 1f };

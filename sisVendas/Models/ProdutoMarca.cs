@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace sisVendas.Models
 {
     class ProdutoMarca
@@ -14,6 +9,17 @@ namespace sisVendas.Models
 
         public ProdutoMarca()
         {
+        }
+
+        public ProdutoMarca(int id)
+        {
+            this.id = id;
+        }
+
+        public ProdutoMarca(int id, string nome)
+        {
+            this.id = id;
+            this.nome = nome;
         }
 
         public int Id { get => id; set => id = value; }

@@ -323,9 +323,10 @@
             this.ClientSize = new System.Drawing.Size(666, 491);
             this.Controls.Add(this.gbFormPrincipal);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MinimizeBox = false;
             this.Name = "FormInserirParcelas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Parcelas Venda";
+            this.Text = "Automações Brasil - Lançar parcelas na venda";
             this.gbFormPrincipal.ResumeLayout(false);
             this.gbFormPrincipal.PerformLayout();
             this.groupBox2.ResumeLayout(false);

@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sisVendas.Models
 {
-    public class Caixa
+    class Caixa
     {
 
         private int id;
-        private int idFunc;
+        private Funcionario func;
         private DateTime dtAbertura;
         private Nullable<DateTime> dtfechamento;
         private double saldoAnterior;
@@ -19,11 +15,11 @@ namespace sisVendas.Models
 
         public Caixa()
         {
-
+            func = new Funcionario();
         }
 
         public int Id { get => id; set => id = value; }
-        public int IdFunc { get => idFunc; set => idFunc = value; }
+        public Funcionario Funcionario { get => func; set => func = value; }
         public DateTime DtAbertura { get => dtAbertura; set => dtAbertura = value; }
         public Nullable<DateTime> Dtfechamento { get => dtfechamento; set => dtfechamento = value; }
         public double SaldoAnterior { get => saldoAnterior; set => saldoAnterior = value; }

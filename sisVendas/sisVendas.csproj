@@ -28,6 +28,9 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -61,16 +64,34 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility" />
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
+    <Reference Include="GenCode128, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GenCode128.2.0.0\lib\netstandard2.0\GenCode128.dll</HintPath>
+    </Reference>
     <Reference Include="iTextSharp.LGPLv2.Core, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.LGPLv2.Core.1.8.0\lib\net40\iTextSharp.LGPLv2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="JetBrains.Annotations, Version=4242.42.42.42, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2022.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="NFe.Danfe.Base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Desktop\DFe.NET-master\NFe.Danfe.Base\bin\Debug\net462\NFe.Danfe.Base.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.5.0.2\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -85,10 +106,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfiguracaoApp.cs" />
     <Compile Include="Controllers\ctrlBanco.cs" />
     <Compile Include="Controllers\ctrlCaixa.cs" />
     <Compile Include="Controllers\ctrlItensPromocao.cs" />
     <Compile Include="Controllers\ctrlItensCompra.cs" />
+    <Compile Include="Controllers\ctrlMunicipio.cs" />
+    <Compile Include="Controllers\ctrlNFCe.cs" />
     <Compile Include="Controllers\ctrlParcelasCompra.cs" />
     <Compile Include="Controllers\ctrlPromocao.cs" />
     <Compile Include="Controllers\ctrlTransacaoCaixa.cs" />
@@ -105,20 +129,19 @@
     <Compile Include="Controllers\ctrlFornecedor.cs" />
     <Compile Include="Funcoes\Alerta.cs" />
     <Compile Include="Funcoes\Functions.cs" />
-    <Compile Include="dbSisDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbSisDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Funcoes\Relatorios.cs" />
     <Compile Include="Models\Caixa.cs" />
+    <Compile Include="ConfiguracaoCsc.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Compra.cs" />
+    <Compile Include="Models\ConfigImpressoraCodBarras.cs" />
+    <Compile Include="Models\NFe.cs" />
     <Compile Include="Models\Funcionario.cs" />
     <Compile Include="Models\Despesa.cs" />
     <Compile Include="Models\DespesaTipo.cs" />
     <Compile Include="Models\ItemsPromocao.cs" />
     <Compile Include="Models\ItenCompra.cs" />
+    <Compile Include="Models\Municipio.cs" />
     <Compile Include="Models\ParcelaCompra.cs" />
     <Compile Include="Models\ParcelaVenda.cs" />
     <Compile Include="Models\Produto.cs" />
@@ -136,6 +159,8 @@
     <Compile Include="Persistence\CompraDB.cs" />
     <Compile Include="Persistence\ItemsPromocaoDB.cs" />
     <Compile Include="Persistence\ItensCompraDB.cs" />
+    <Compile Include="Persistence\MunicipioDB.cs" />
+    <Compile Include="Persistence\NFeDB.cs" />
     <Compile Include="Persistence\ParcelaCompraDB.cs" />
     <Compile Include="Persistence\PromocaoDB.cs" />
     <Compile Include="Persistence\TransacaoCaixaDB.cs" />
@@ -173,11 +198,11 @@
     <Compile Include="Telas\Caixa\FormContasAReceber.Designer.cs">
       <DependentUpon>FormContasAReceber.cs</DependentUpon>
     </Compile>
-    <Compile Include="Telas\Caixa\FormAbrirFecharCaixa.cs">
+    <Compile Include="Telas\Caixa\FormControleCaixa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Telas\Caixa\FormAbrirFecharCaixa.Designer.cs">
-      <DependentUpon>FormAbrirFecharCaixa.cs</DependentUpon>
+    <Compile Include="Telas\Caixa\FormControleCaixa.Designer.cs">
+      <DependentUpon>FormControleCaixa.cs</DependentUpon>
     </Compile>
     <Compile Include="Telas\Caixa\FormLancarDespesas.cs">
       <SubType>Form</SubType>
@@ -307,6 +332,7 @@
     <Compile Include="Telas\Promocao\FormRegistrarPromocao.Designer.cs">
       <DependentUpon>FormRegistrarPromocao.cs</DependentUpon>
     </Compile>
+    <Compile Include="Telas\Sale\EmitirNFCe.cs" />
     <Compile Include="Telas\Sale\FormBobina.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -349,8 +375,16 @@
     <Compile Include="Telas\Sale\FormCalcularTroco.Designer.cs">
       <DependentUpon>FormCalcularTroco.cs</DependentUpon>
     </Compile>
+    <Compile Include="Telas\Utils\FormMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telas\Utils\FormMessageBox.Designer.cs">
+      <DependentUpon>FormMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Utils.cs" />
     <EmbeddedResource Include="Telas\Caixa\FormConsultarAnteriores.resx">
       <DependentUpon>FormConsultarAnteriores.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Caixa\FormContasAPagar.resx">
       <DependentUpon>FormContasAPagar.cs</DependentUpon>
@@ -358,8 +392,8 @@
     <EmbeddedResource Include="Telas\Caixa\FormContasAReceber.resx">
       <DependentUpon>FormContasAReceber.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Telas\Caixa\FormAbrirFecharCaixa.resx">
-      <DependentUpon>FormAbrirFecharCaixa.cs</DependentUpon>
+    <EmbeddedResource Include="Telas\Caixa\FormControleCaixa.resx">
+      <DependentUpon>FormControleCaixa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Caixa\FormLancarDespesas.resx">
       <DependentUpon>FormLancarDespesas.cs</DependentUpon>
@@ -372,6 +406,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Cliente\FormBuscarCliente.resx">
       <DependentUpon>FormBuscarCliente.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Compra\FormBuscarCompra.resx">
       <DependentUpon>FormBuscarCompra.cs</DependentUpon>
@@ -413,27 +448,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Fornecedor\FormBuscarFornecedor.resx">
       <DependentUpon>FormBuscarFornecedor.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Parameterization\FormParameterization.resx">
       <DependentUpon>FormParameterization.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Produto\FormBuscarProduto.resx">
       <DependentUpon>FormBuscarProduto.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Promocao\FormBuscarPromocao.resx">
       <DependentUpon>FormBuscarPromocao.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Promocao\FormRegistrarPromocao.resx">
       <DependentUpon>FormRegistrarPromocao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Sale\FormBobina.resx">
       <DependentUpon>FormBobina.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Sale\FormBuscarVenda.resx">
       <DependentUpon>FormBuscarVenda.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Sale\FormDesconto.resx">
       <DependentUpon>FormDesconto.cs</DependentUpon>
@@ -449,18 +490,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Telas\Sale\FormCalcularTroco.resx">
       <DependentUpon>FormCalcularTroco.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="dbSisDataSet.xsc">
-      <DependentUpon>dbSisDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="dbSisDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dbSisDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </None>
-    <None Include="dbSisDataSet.xss">
-      <DependentUpon>dbSisDataSet.xsd</DependentUpon>
-    </None>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telas\Utils\FormMessageBox.resx">
+      <DependentUpon>FormMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -471,12 +505,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="sisVendas_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
@@ -490,22 +522,48 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\AG.png" />
-    <Content Include="dbSis.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="dbSis_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>dbSis.mdf</DependentUpon>
-    </Content>
     <None Include="Resources\AGlogo.png" />
     <Content Include="Resources\cancelar.png" />
     <None Include="Resources\clientimg.png" />
     <Content Include="Resources\error.png" />
+    <None Include="Resources\icons8_info_16.png" />
     <Content Include="Resources\info.png" />
+    <None Include="Resources\info_48px.png" />
     <Content Include="Resources\success.png" />
-    <None Include="Resources\thumbnail_image1.jpg" />
     <Content Include="Resources\warning.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CertificadoDigital\CertificadoDigital.csproj">
+      <Project>{0F1E653C-B1E5-47F8-A9F4-BF4BAD8C0FB1}</Project>
+      <Name>CertificadoDigital</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
+      <Project>{9603A1E4-0F81-4A44-950B-3072A183CA37}</Project>
+      <Name>DFe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
+      <Project>{BD350ED5-A8C4-4E06-A279-D61ADD570398}</Project>
+      <Name>DFe.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
+      <Project>{FA9A8D31-BEBC-41F7-A35C-6956B6FEE35C}</Project>
+      <Name>NFe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Servicos\NFe.Servicos.csproj">
+      <Project>{7180F76F-9855-4BAD-B1F1-8D7B432DF787}</Project>
+      <Name>NFe.Servicos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
+      <Project>{8C891B5D-605B-49B8-ABB0-2F0C8792B39B}</Project>
+      <Name>NFe.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+  </Target>
 </Project>

@@ -677,10 +677,12 @@
             this.Controls.Add(this.lblFornecedor);
             this.Controls.Add(this.dgvProducts);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(6);
+            this.MaximizeBox = false;
             this.Name = "FormLancarCompra";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Cadastrar Compra";
+            this.Text = "Automações Brasil - Cadastrar compra";
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).EndInit();
             this.gbNf.ResumeLayout(false);
             this.gbNf.PerformLayout();

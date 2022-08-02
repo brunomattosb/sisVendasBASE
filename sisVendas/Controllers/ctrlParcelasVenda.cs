@@ -2,12 +2,7 @@
 using sisVendas.Models;
 using sisVendas.Persistence;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace sisVendas.Controllers
 {
@@ -16,7 +11,7 @@ namespace sisVendas.Controllers
         private Banco dataBase = new Banco();
         private ParcelaVenda parcelaSelecionada = new ParcelaVenda();
 
-        
+
         public bool SalvarParcela(int id_venda, double valor, string tipo, DateTime dataVencimento, int idCaixa)
         {
 
@@ -26,16 +21,16 @@ namespace sisVendas.Controllers
             parcelaSelecionada.DataPagamento = DateTime.Now;
             parcelaSelecionada.DataVencimento = dataVencimento;
 
-            if(tipo == "Dinheiro")
+            if (tipo == "Dinheiro")
             {
                 parcelaSelecionada.Tipo_pagamento = 'M';
             }
-            else if(tipo == "Fiado")
+            else if (tipo == "Fiado")
             {
                 parcelaSelecionada.Tipo_pagamento = 'F';
                 parcelaSelecionada.DataPagamento = null;
             }
-            else if(tipo == "Crédito")
+            else if (tipo == "Crédito")
             {
                 parcelaSelecionada.Tipo_pagamento = 'C';
             }
@@ -46,15 +41,15 @@ namespace sisVendas.Controllers
             else
             {
                 parcelaSelecionada.Tipo_pagamento = 'D';
-            }           
+            }
 
             dataBase.Conecta();
             bool result = false;
             ParcelaVendaDB parcelaVenda = new ParcelaVendaDB(dataBase);
-            
+
 
             result = parcelaVenda.Gravar(parcelaSelecionada);
-            
+
 
             dataBase.Desconecta();
 
@@ -110,7 +105,7 @@ namespace sisVendas.Controllers
         }
         public bool onerarParcela(int idParcela)
         {
-           
+
             dataBase.Conecta();
             bool result = false;
             ParcelaVendaDB parcelaVenda = new ParcelaVendaDB(dataBase);
@@ -172,8 +167,6 @@ namespace sisVendas.Controllers
                 line["valor"] = parcela.Valor;
                 line["tipo"] = parcela.Tipo_pagamento;
                 line["idCaixa"] = parcela.IdCaixa;
-
-                
                 line["data"] = parcela.DataVencimento;
 
                 dtParcelas.Rows.Add(line);
@@ -182,7 +175,7 @@ namespace sisVendas.Controllers
 
             return (dtParcelas);
         }
-        public DataTable buscarParcelasPorIdCaixa(int idCaixa)
+        public DataTable BuscarParcelasAVistaPorIdCaixa(int idCaixa)
         {
 
             DataTable dtParcelas = new DataTable();
@@ -196,15 +189,15 @@ namespace sisVendas.Controllers
 
             dataBase.Conecta();
             ParcelaVendaDB parcelaDB = new ParcelaVendaDB(dataBase);
-            foreach (ParcelaVenda parcela in parcelaDB.buscarParcelasPorIdCaixa(idCaixa))
+            foreach (ParcelaVenda parcela in parcelaDB.BuscarParcelas(String.Format("parcela_idcaixa = {0} AND parcela_dataPagamento is not null AND venda.venda_cancelada = 0 AND parcela_tipo == 'M'", idCaixa)))
             {
                 DataRow line = dtParcelas.NewRow();
-                                
+
                 line["id"] = parcela.Id;
                 line["idVenda"] = parcela.Cod_venda;
                 line["valor"] = parcela.Valor;
                 line["data"] = parcela.DataPagamento;
-                line["tipo"] = parcela.Tipo_pagamento;
+                line["tipo"] =  "Dinheiro"; ;
                 line["idCaixa"] = parcela.IdCaixa;
 
                 dtParcelas.Rows.Add(line);
@@ -239,8 +232,6 @@ namespace sisVendas.Controllers
             return res;
         }
 
-        
-    }
 
-    
+    }    
 }

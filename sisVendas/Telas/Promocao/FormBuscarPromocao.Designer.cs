@@ -295,11 +295,11 @@
             this.Controls.Add(this.dgv_produtos);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FormBuscarPromocao";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Buscar Promoção";
+            this.Text = "Automações Brasil - Buscar promoção";
             this.Load += new System.EventHandler(this.FormBuscarPromocao_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

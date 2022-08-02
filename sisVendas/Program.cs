@@ -1,5 +1,4 @@
-﻿using sisVendas.Telas;
-using sisVendas.Telas.Caixa;
+﻿using sisVendas.Models;
 using System;
 
 using System.Windows.Forms;
@@ -17,10 +16,7 @@ namespace sisVendas
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-
             FormHome f = new FormHome();
-
-            
             Application.Run(f);
         }
     }

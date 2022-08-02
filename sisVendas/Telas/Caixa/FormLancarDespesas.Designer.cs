@@ -666,9 +666,10 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbCod);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormLancarDespesas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Lançar Despesa";
+            this.Text = "Automações Brasil - Lançar despesa";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_despesa)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.gbCod.ResumeLayout(false);

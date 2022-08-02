@@ -45,8 +45,9 @@ namespace sisVendas.Telas.Promocao
         }
         private DataTable atualizarDGV()
         {
-            
-            return controlProduto.buscarParaPromocao();
+
+            //return controlProduto.buscarParaPromocao();
+            return new DataTable();
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -342,7 +343,7 @@ namespace sisVendas.Telas.Promocao
                 MessageBox.Show("Data de inicial deve ser menor que data final");
             }
 
-            if(dttProdutosPromocao.Rows.Count == 0)
+            if (dttProdutosPromocao.Rows.Count == 0)
             {
                 isOk = false;
                 MessageBox.Show("A promoção deve ter pelo menos 1 item");
@@ -355,7 +356,7 @@ namespace sisVendas.Telas.Promocao
 
             if (isOk)
             {
-                controlPromocao.SalvarPromocao(dttProdutosPromocao, tbNomePromo.Text, dtpInicio.Value.Date, DateTime.Parse(dtpFim.Value.ToString("yyyy-MM-dd") + " 23:59:59"),idFunc);
+                controlPromocao.SalvarPromocao(dttProdutosPromocao, tbNomePromo.Text, dtpInicio.Value.Date, DateTime.Parse(dtpFim.Value.ToString("yyyy-MM-dd") + " 23:59:59"), idFunc);
                 limparForm();
             }
         }
